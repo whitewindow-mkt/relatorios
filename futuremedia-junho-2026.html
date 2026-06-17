@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório Meta Ads — Futuremedia · Junho 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#080c18;
+  --surface:rgba(255,255,255,0.03);
+  --border:rgba(255,255,255,0.07);
+  --text:#f8fafc;
+  --muted:#64748b;
+  --dim:#334155;
+  --ww:#e2e8f0;
+  --fm:#3b82f6;
+  --fm-light:#60a5fa;
+  --purple:#a78bfa;
+  --green:#34d399;
+  --amber:#fbbf24;
+  --red:#f87171;
+  --teal:#2dd4bf;
+}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;min-height:100vh;padding:0;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+/* ===== PAGE WRAPPER ===== */
+.page{max-width:1100px;margin:0 auto;padding:40px 32px 80px}
+
+/* ===== DUAL BRAND HEADER ===== */
+.dual-header{display:flex;align-items:center;justify-content:space-between;padding:24px 32px;background:rgba(255,255,255,0.015);border-bottom:1px solid var(--border);margin:-40px -32px 44px;position:sticky;top:0;z-index:10;backdrop-filter:blur(20px)}
+.agency-brand{display:flex;align-items:center;gap:12px}
+.ww-mark{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#1e293b,#334155);border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:var(--ww);letter-spacing:-1px;flex-shrink:0}
+.agency-info{line-height:1.2}
+.agency-name{font-size:14px;font-weight:700;color:var(--ww)}
+.agency-role{font-size:11px;color:var(--muted)}
+.header-center{text-align:center}
+.platform-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.25);color:var(--fm-light);padding:6px 16px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.platform-badge::before{content:'f';display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;background:#1877f2;border-radius:50%;font-size:10px;font-weight:900;color:#fff;line-height:1}
+.period-note{font-size:11px;color:var(--dim);margin-top:5px}
+.client-brand{display:flex;align-items:center;gap:12px}
+.fm-mark{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#1d4ed8,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;letter-spacing:-1px;flex-shrink:0;box-shadow:0 0 20px rgba(59,130,246,0.25)}
+.client-info{line-height:1.2;text-align:right}
+.client-name{font-size:14px;font-weight:700;color:var(--fm-light)}
+.client-role{font-size:11px;color:var(--muted)}
+
+/* ===== REPORT TITLE ===== */
+.report-hero{text-align:center;margin-bottom:44px}
+.report-hero h1{font-size:36px;font-weight:900;letter-spacing:-1.5px;line-height:1.1;margin-bottom:12px}
+.report-hero h1 span.hl{background:linear-gradient(90deg,var(--purple),var(--fm-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.report-hero p{font-size:14px;color:var(--muted);max-width:480px;margin:0 auto;line-height:1.6}
+.report-hero .dates{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-size:12px;color:var(--dim);background:var(--surface);border:1px solid var(--border);padding:6px 16px;border-radius:999px}
+.report-hero .dates strong{color:#94a3b8}
+
+/* ===== KPI GRID ===== */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:32px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:22px 20px;position:relative;overflow:hidden;transition:border-color .2s,transform .2s;cursor:default}
+.kpi:hover{transform:translateY(-2px);border-color:rgba(255,255,255,0.12)}
+.kpi-glow{position:absolute;top:-1px;right:-1px;width:70px;height:70px;border-radius:0 18px 0 0;opacity:.07}
+.kpi-icon{font-size:20px;margin-bottom:10px}
+.kpi-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;margin-bottom:6px}
+.kpi-value{font-size:28px;font-weight:900;letter-spacing:-1px;line-height:1}
+.kpi-sub{font-size:11px;color:var(--muted);margin-top:5px}
+.kpi-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:3px 8px;border-radius:999px;margin-top:6px}
+.kpi.blue .kpi-value{color:var(--fm-light)}.kpi.blue .kpi-glow{background:var(--fm)}
+.kpi.green .kpi-value{color:var(--green)}.kpi.green .kpi-glow{background:#10b981}
+.kpi.purple .kpi-value{color:var(--purple)}.kpi.purple .kpi-glow{background:#7c3aed}
+.kpi.amber .kpi-value{color:var(--amber)}.kpi.amber .kpi-glow{background:#d97706}
+.badge-green{background:rgba(52,211,153,.12);color:var(--green);border:1px solid rgba(52,211,153,.2)}
+.badge-red{background:rgba(248,113,113,.12);color:var(--red);border:1px solid rgba(248,113,113,.2)}
+
+/* ===== HERO METRIC ===== */
+.hero-metric{display:flex;align-items:center;gap:24px;background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(59,130,246,.08));border:1px solid rgba(139,92,246,.3);border-radius:20px;padding:28px 32px;margin-bottom:32px;position:relative;overflow:hidden}
+.hero-metric::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(139,92,246,.15),transparent 70%);pointer-events:none}
+.hero-icon{font-size:44px;flex-shrink:0}
+.hero-body{flex:1}
+.hero-body h3{font-size:18px;font-weight:800;color:var(--text);margin-bottom:6px}
+.hero-body p{font-size:13px;color:#94a3b8;line-height:1.6;max-width:520px}
+.hero-right{text-align:right;flex-shrink:0}
+.hero-val{font-size:40px;font-weight:900;color:var(--purple);letter-spacing:-2px;line-height:1}
+.hero-val-sub{font-size:11px;color:var(--muted);margin-top:4px}
+.hero-pills{display:flex;gap:8px;justify-content:flex-end;margin-top:8px}
+.hero-pill{font-size:10px;font-weight:700;padding:3px 10px;border-radius:999px;letter-spacing:.3px}
+.hp-green{background:rgba(52,211,153,.12);color:var(--green);border:1px solid rgba(52,211,153,.2)}
+.hp-blue{background:rgba(96,165,250,.1);color:var(--fm-light);border:1px solid rgba(96,165,250,.2)}
+
+/* ===== SECTION LABEL ===== */
+.section-label{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.section-label h2{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted)}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ===== CHARTS ===== */
+.charts-row-3{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:14px;margin-bottom:32px}
+.charts-row-2{display:grid;grid-template-columns:1fr 1.6fr;gap:14px;margin-bottom:32px}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:24px}
+.panel-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:20px}
+.donut-wrap{position:relative;width:160px;height:160px;margin:0 auto 16px}
+.donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none}
+.dc-val{font-size:17px;font-weight:900;color:var(--text);line-height:1}
+.dc-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-top:2px}
+.dl-item{display:flex;align-items:center;gap:8px;font-size:11px;margin-bottom:7px}
+.dl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dl-name{flex:1;color:#94a3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dl-val{font-weight:700;color:var(--text);font-size:11px}
+.dl-pct{font-size:10px;color:var(--muted)}
+.chart-canvas-wrap{height:200px;position:relative}
+
+/* ===== CAMPAIGNS TABLE ===== */
+.camp-list{display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
+.camp-row{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px 22px;display:flex;align-items:center;gap:16px;transition:border-color .15s,background .15s}
+.camp-row:hover{border-color:rgba(96,165,250,.2);background:rgba(255,255,255,.04)}
+.status-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.dot-active{background:var(--green);box-shadow:0 0 8px rgba(52,211,153,.5)}
+.dot-paused{background:var(--muted)}
+.camp-main{flex:1}
+.camp-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px}
+.tag-row{display:flex;gap:5px;flex-wrap:wrap}
+.ctag{padding:2px 8px;border-radius:999px;font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase}
+.ctag-fundo{background:rgba(248,113,113,.1);color:var(--red);border:1px solid rgba(248,113,113,.2)}
+.ctag-topo{background:rgba(96,165,250,.1);color:var(--fm-light);border:1px solid rgba(96,165,250,.2)}
+.ctag-lead{background:rgba(167,139,250,.1);color:var(--purple);border:1px solid rgba(167,139,250,.2)}
+.ctag-eng{background:rgba(45,212,191,.1);color:var(--teal);border:1px solid rgba(45,212,191,.2)}
+.camp-stats{display:grid;grid-template-columns:repeat(5,72px);gap:8px;text-align:right}
+.cs-item .cs-val{font-size:13px;font-weight:700;color:var(--text);line-height:1}
+.cs-item .cs-lbl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+
+/* ===== ADSET TREND TABLE ===== */
+.trend-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:32px}
+.trend-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;transition:border-color .15s}
+.trend-card.up{border-left:3px solid var(--green)}
+.trend-card.down{border-left:3px solid var(--red)}
+.tc-name{font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tc-sub{font-size:10px;color:var(--muted);margin-bottom:10px}
+.tc-trend{display:flex;align-items:baseline;gap:6px}
+.tc-arrow{font-size:14px}
+.tc-pct{font-size:20px;font-weight:900;letter-spacing:-1px}
+.tc-label{font-size:10px;color:var(--muted)}
+.trend-card.up .tc-pct{color:var(--green)}
+.trend-card.up .tc-arrow{color:var(--green)}
+.trend-card.down .tc-pct{color:var(--red)}
+.trend-card.down .tc-arrow{color:var(--red)}
+.tc-metrics{display:flex;gap:12px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.tc-m{flex:1}
+.tc-m-val{font-size:12px;font-weight:700;color:var(--text)}
+.tc-m-lbl{font-size:9px;color:var(--dim)}
+
+/* ===== NEW ADS GRID ===== */
+.new-ads-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:32px}
+.ad-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;transition:border-color .15s,transform .15s;position:relative;overflow:hidden}
+.ad-card:hover{transform:translateY(-2px);border-color:rgba(167,139,250,.25)}
+.ad-card.star{border-color:rgba(251,191,36,.3);background:rgba(251,191,36,.03)}
+.ad-card.star::after{content:'🔥';position:absolute;top:10px;right:12px;font-size:14px}
+.ad-date-badge{display:inline-block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;padding:2px 8px;border-radius:999px;background:rgba(167,139,250,.1);color:var(--purple);border:1px solid rgba(167,139,250,.2);margin-bottom:8px}
+.ad-adset{font-size:10px;color:var(--muted);margin-bottom:10px;font-weight:600}
+.ad-ctr{font-size:22px;font-weight:900;letter-spacing:-1px;color:var(--text);line-height:1}
+.ad-ctr-lbl{font-size:9px;color:var(--muted);margin-bottom:8px}
+.ad-bottom{display:flex;justify-content:space-between;align-items:flex-end;padding-top:8px;border-top:1px solid var(--border)}
+.ad-spend{font-size:12px;font-weight:700;color:var(--text)}
+.ad-imp{font-size:10px;color:var(--dim)}
+.ctr-bar{height:3px;border-radius:999px;background:rgba(255,255,255,.06);margin-bottom:6px;overflow:hidden}
+.ctr-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--purple),var(--fm-light))}
+.ad-card.star .ctr-fill{background:linear-gradient(90deg,var(--amber),#f97316)}
+
+/* ===== INSIGHTS ===== */
+.insights-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:32px}
+.insight-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px}
+.ic-head{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.ic-icon{font-size:16px}
+.ic-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+.insight-card ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.insight-card li{font-size:12.5px;color:#94a3b8;line-height:1.55;padding-left:14px;position:relative}
+.insight-card li::before{content:'→';position:absolute;left:0;color:var(--purple);font-weight:700}
+.insight-card.actions li::before{color:var(--green)}
+.insight-card.warnings li::before{color:var(--amber)}
+
+/* ===== APRIL STATUS ===== */
+.status-banner{display:flex;align-items:center;gap:14px;background:rgba(71,85,105,.06);border:1px solid rgba(71,85,105,.2);border-radius:14px;padding:16px 20px;margin-bottom:32px}
+.sb-icon{font-size:18px;flex-shrink:0}
+.sb-text{font-size:12px;color:#94a3b8}
+.sb-text strong{color:var(--text)}
+
+/* ===== FOOTER ===== */
+.report-footer{border-top:1px solid var(--border);padding-top:28px;display:flex;align-items:center;justify-content:space-between}
+.footer-left p{font-size:11px;color:var(--dim);line-height:1.6}
+.footer-right{text-align:right}
+.footer-ww{font-size:12px;font-weight:700;color:#475569}
+.footer-ww span{color:#94a3b8}
+</style>
+</head>
+<body>
+
+<!-- DUAL BRAND HEADER -->
+<div class="dual-header">
+  <div class="agency-brand">
+    <div class="ww-mark">WW</div>
+    <div class="agency-info">
+      <div class="agency-name">White Window</div>
+      <div class="agency-role">Agência de Marketing Digital</div>
+    </div>
+  </div>
+  <div class="header-center">
+    <div class="platform-badge">Meta Ads · Instagram</div>
+    <div class="period-note">Relatório gerado em 17/06/2026</div>
+  </div>
+  <div class="client-brand">
+    <div class="client-info">
+      <div class="client-name">Futuremedia</div>
+      <div class="client-role">Robôs & Totens Interativos</div>
+    </div>
+    <div class="fm-mark">FM</div>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- HERO TITLE -->
+<div class="report-hero">
+  <h1>Resultados de <span class="hl">Junho 2026</span></h1>
+  <p>Performance das campanhas Meta Ads · Foco nos novos criativos e evolução das conversas no WhatsApp.</p>
+  <div class="dates">📅 <strong>Campanhas 30d:</strong> 18/mai → 16/jun · <strong>Tendências 7d:</strong> 10/jun → 16/jun</div>
+</div>
+
+<!-- KPI CARDS -->
+<div class="kpi-grid">
+  <div class="kpi blue">
+    <div class="kpi-glow"></div>
+    <div class="kpi-icon">💰</div>
+    <div class="kpi-label">Investimento 30d</div>
+    <div class="kpi-value">R$ 1.921</div>
+    <div class="kpi-sub">verba aplicada no período</div>
+  </div>
+  <div class="kpi purple">
+    <div class="kpi-glow"></div>
+    <div class="kpi-icon">💬</div>
+    <div class="kpi-label">Conversas (7d)</div>
+    <div class="kpi-value">61</div>
+    <div class="kpi-sub">contatos iniciados no WhatsApp</div>
+    <div class="kpi-badge badge-green">✓ Meta atingida</div>
+  </div>
+  <div class="kpi green">
+    <div class="kpi-glow"></div>
+    <div class="kpi-icon">👥</div>
+    <div class="kpi-label">Alcance 30d</div>
+    <div class="kpi-value">96,9k</div>
+    <div class="kpi-sub">pessoas únicas impactadas</div>
+  </div>
+  <div class="kpi amber">
+    <div class="kpi-glow"></div>
+    <div class="kpi-icon">📊</div>
+    <div class="kpi-label">Impressões 30d</div>
+    <div class="kpi-value">120k</div>
+    <div class="kpi-sub">exibições dos anúncios</div>
+  </div>
+</div>
+
+<!-- HERO METRIC -->
+<div class="hero-metric">
+  <div class="hero-icon">💬</div>
+  <div class="hero-body">
+    <h3>Custo por conversa dentro da meta</h3>
+    <p>A campanha <strong>Leads — Eventos</strong> gerou <strong>52 conversas em 7 dias</strong> a R$&nbsp;6,67 por contato. Novos criativos de Junho superando os de Abril em CTR. Os conjuntos de liderança — <strong>RJ/SP/MG (+35,7%)</strong> e <strong>Brasília (+23,2%)</strong> — estão em aceleração.</p>
+    <div class="hero-pills">
+      <div class="hero-pill hp-green">✓ CPR R$6,67 dentro do benchmark</div>
+      <div class="hero-pill hp-blue">3 conjuntos com CTR em alta</div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-val">R$6,67</div>
+    <div class="hero-val-sub">custo por conversa<br>Leads Eventos · 7 dias</div>
+  </div>
+</div>
+
+<!-- SECTION: CHARTS -->
+<div class="section-label"><h2>Distribuição de verba</h2></div>
+<div class="charts-row-2">
+
+  <!-- Donut: Investimento por campanha 30d -->
+  <div class="panel">
+    <div class="panel-title">Investimento por campanha — 30 dias</div>
+    <div class="donut-wrap">
+      <canvas id="donut-camp"></canvas>
+      <div class="donut-center">
+        <div class="dc-val">R$1.921</div>
+        <div class="dc-lbl">total</div>
+      </div>
+    </div>
+    <div id="legend-camp"></div>
+  </div>
+
+  <!-- Donut + bar: Gasto por conjunto 7d -->
+  <div class="panel">
+    <div class="panel-title">Gasto por conjunto de anúncios — últimos 7 dias</div>
+    <div class="chart-canvas-wrap"><canvas id="bar-adset"></canvas></div>
+    <div style="margin-top:12px;font-size:10px;color:var(--muted);text-align:center">Total 7d: <strong style="color:var(--text)">R$&nbsp;493,16</strong></div>
+  </div>
+
+</div>
+
+<!-- SECTION: CAMPAIGNS 30d -->
+<div class="section-label"><h2>Campanhas — últimos 30 dias</h2></div>
+<div class="camp-list">
+
+  <div class="camp-row">
+    <div class="status-dot dot-active"></div>
+    <div class="camp-main">
+      <div class="camp-name">Geração de Leads — Eventos</div>
+      <div class="tag-row">
+        <span class="ctag ctag-fundo">Fundo de Funil</span>
+        <span class="ctag ctag-lead">Leads WhatsApp</span>
+        <span class="ctag" style="background:rgba(52,211,153,.08);color:var(--green);border:1px solid rgba(52,211,153,.2)">⭐ Carro-chefe</span>
+      </div>
+    </div>
+    <div class="camp-stats">
+      <div class="cs-item"><div class="cs-val">R$1.340</div><div class="cs-lbl">Gasto</div></div>
+      <div class="cs-item"><div class="cs-val">35,9k</div><div class="cs-lbl">Alcance</div></div>
+      <div class="cs-item"><div class="cs-val">53,4k</div><div class="cs-lbl">Impressões</div></div>
+      <div class="cs-item"><div class="cs-val" style="color:var(--green)">2,32%</div><div class="cs-lbl">CTR</div></div>
+      <div class="cs-item"><div class="cs-val">R$25,08</div><div class="cs-lbl">CPM</div></div>
+    </div>
+  </div>
+
+  <div class="camp-row">
+    <div class="status-dot dot-active"></div>
+    <div class="camp-main">
+      <div class="camp-name">Geração de Leads — Marketing</div>
+      <div class="tag-row">
+        <span class="ctag ctag-fundo">Fundo de Funil</span>
+        <span class="ctag ctag-lead">Leads WhatsApp</span>
+        <span class="ctag" style="background:rgba(248,113,113,.08);color:var(--red);border:1px solid rgba(248,113,113,.2)">⚠ CPR alto 7d</span>
+      </div>
+    </div>
+    <div class="camp-stats">
+      <div class="cs-item"><div class="cs-val">R$262</div><div class="cs-lbl">Gasto</div></div>
+      <div class="cs-item"><div class="cs-val">7,3k</div><div class="cs-lbl">Alcance</div></div>
+      <div class="cs-item"><div class="cs-val">9,8k</div><div class="cs-lbl">Impressões</div></div>
+      <div class="cs-item"><div class="cs-val" style="color:var(--green)">2,72%</div><div class="cs-lbl">CTR</div></div>
+      <div class="cs-item"><div class="cs-val">R$26,79</div><div class="cs-lbl">CPM</div></div>
+    </div>
+  </div>
+
+  <div class="camp-row">
+    <div class="status-dot dot-active"></div>
+    <div class="camp-main">
+      <div class="camp-name">Remarketing — Quem já interagiu</div>
+      <div class="tag-row">
+        <span class="ctag ctag-fundo">Fundo de Funil</span>
+        <span class="ctag ctag-lead">Leads WhatsApp</span>
+      </div>
+    </div>
+    <div class="camp-stats">
+      <div class="cs-item"><div class="cs-val">R$162</div><div class="cs-lbl">Gasto</div></div>
+      <div class="cs-item"><div class="cs-val">4,5k</div><div class="cs-lbl">Alcance</div></div>
+      <div class="cs-item"><div class="cs-val">5,8k</div><div class="cs-lbl">Impressões</div></div>
+      <div class="cs-item"><div class="cs-val">1,87%</div><div class="cs-lbl">CTR</div></div>
+      <div class="cs-item"><div class="cs-val">R$27,80</div><div class="cs-lbl">CPM</div></div>
+    </div>
+  </div>
+
+  <div class="camp-row">
+    <div class="status-dot dot-active"></div>
+    <div class="camp-main">
+      <div class="camp-name">Engajamento — Perfil & Marca</div>
+      <div class="tag-row">
+        <span class="ctag ctag-topo">Topo de Funil</span>
+        <span class="ctag ctag-eng">Engajamento</span>
+      </div>
+    </div>
+    <div class="camp-stats">
+      <div class="cs-item"><div class="cs-val">R$157</div><div class="cs-lbl">Gasto</div></div>
+      <div class="cs-item"><div class="cs-val">49,3k</div><div class="cs-lbl">Alcance</div></div>
+      <div class="cs-item"><div class="cs-val">51,2k</div><div class="cs-lbl">Impressões</div></div>
+      <div class="cs-item"><div class="cs-val">0,23%</div><div class="cs-lbl">CTR</div></div>
+      <div class="cs-item"><div class="cs-val" style="color:var(--green)">R$3,07</div><div class="cs-lbl">CPM</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- SECTION: CTR TRENDS -->
+<div class="section-label"><h2>Tendência de CTR por conjunto — 7 dias</h2></div>
+<div class="trend-grid">
+
+  <div class="trend-card up">
+    <div class="tc-name">Conjunto Leads — RJ/SP/MG</div>
+    <div class="tc-sub">Líderes regionais · Carro-chefe</div>
+    <div class="tc-trend">
+      <span class="tc-arrow">↑</span>
+      <span class="tc-pct">+35,7%</span>
+      <span class="tc-label">evolução de CTR</span>
+    </div>
+    <div class="tc-metrics">
+      <div class="tc-m"><div class="tc-m-val">R$136,41</div><div class="tc-m-lbl">Gasto 7d</div></div>
+      <div class="tc-m"><div class="tc-m-val" style="color:var(--green)">R$6,67</div><div class="tc-m-lbl">CPR</div></div>
+    </div>
+  </div>
+
+  <div class="trend-card up">
+    <div class="tc-name">Conjunto Leads — Brasília</div>
+    <div class="tc-sub">Mercado capital em crescimento</div>
+    <div class="tc-trend">
+      <span class="tc-arrow">↑</span>
+      <span class="tc-pct">+23,2%</span>
+      <span class="tc-label">evolução de CTR</span>
+    </div>
+    <div class="tc-metrics">
+      <div class="tc-m"><div class="tc-m-val">R$69,97</div><div class="tc-m-lbl">Gasto 7d</div></div>
+      <div class="tc-m"><div class="tc-m-val">–</div><div class="tc-m-lbl">CPR</div></div>
+    </div>
+  </div>
+
+  <div class="trend-card up">
+    <div class="tc-name">Conjunto Leads — Cidades</div>
+    <div class="tc-sub">Expansão demográfica</div>
+    <div class="tc-trend">
+      <span class="tc-arrow">↑</span>
+      <span class="tc-pct">+5,3%</span>
+      <span class="tc-label">evolução de CTR</span>
+    </div>
+    <div class="tc-metrics">
+      <div class="tc-m"><div class="tc-m-val">R$140,45</div><div class="tc-m-lbl">Gasto 7d</div></div>
+      <div class="tc-m"><div class="tc-m-val">–</div><div class="tc-m-lbl">CPR</div></div>
+    </div>
+  </div>
+
+  <div class="trend-card down">
+    <div class="tc-name">Conjunto — Marketing (Cidades)</div>
+    <div class="tc-sub">Atenção: CTR em queda</div>
+    <div class="tc-trend">
+      <span class="tc-arrow">↓</span>
+      <span class="tc-pct">-38,4%</span>
+      <span class="tc-label">evolução de CTR</span>
+    </div>
+    <div class="tc-metrics">
+      <div class="tc-m"><div class="tc-m-val">R$63,07</div><div class="tc-m-lbl">Gasto 7d</div></div>
+      <div class="tc-m"><div class="tc-m-val" style="color:var(--red)">R$15,77</div><div class="tc-m-lbl">CPR</div></div>
+    </div>
+  </div>
+
+  <div class="trend-card down">
+    <div class="tc-name">Conjunto — Remarketing</div>
+    <div class="tc-sub">Criativo esgotado · revisar público</div>
+    <div class="tc-trend">
+      <span class="tc-arrow">↓</span>
+      <span class="tc-pct">-31,7%</span>
+      <span class="tc-label">evolução de CTR</span>
+    </div>
+    <div class="tc-metrics">
+      <div class="tc-m"><div class="tc-m-val">R$41,35</div><div class="tc-m-lbl">Gasto 7d</div></div>
+      <div class="tc-m"><div class="tc-m-val" style="color:var(--amber)">R$8,27</div><div class="tc-m-lbl">CPR</div></div>
+    </div>
+  </div>
+
+  <div class="trend-card down">
+    <div class="tc-name">Conjunto — Engajamento Posts</div>
+    <div class="tc-sub">Topo de funil · CPM baixo</div>
+    <div class="tc-trend">
+      <span class="tc-arrow">↓</span>
+      <span class="tc-pct">-32,9%</span>
+      <span class="tc-label">evolução de CTR</span>
+    </div>
+    <div class="tc-metrics">
+      <div class="tc-m"><div class="tc-m-val">R$41,91</div><div class="tc-m-lbl">Gasto 7d</div></div>
+      <div class="tc-m"><div class="tc-m-val" style="color:var(--green)">R$0,007</div><div class="tc-m-lbl">CPR Eng</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- SECTION: NOVOS ANÚNCIOS JUNHO -->
+<div class="section-label"><h2>Novos anúncios — Criativos Junho 2026</h2></div>
+<div style="font-size:12px;color:var(--muted);margin-bottom:16px;margin-top:-8px">Ativados em 10/jun · Posts 1 a 5 de Junho · Dados dos últimos 7 dias</div>
+
+<div class="new-ads-grid">
+
+  <div class="ad-card star">
+    <div class="ad-date-badge">Junho 2</div>
+    <div class="ad-adset">Conjunto — Cidades</div>
+    <div class="ctr-bar"><div class="ctr-fill" style="width:100%"></div></div>
+    <div class="ad-ctr">3,69%</div>
+    <div class="ad-ctr-lbl">CTR — melhor da conta</div>
+    <div class="ad-bottom">
+      <div class="ad-spend">R$9,34</div>
+      <div class="ad-imp">298 impressões</div>
+    </div>
+  </div>
+
+  <div class="ad-card">
+    <div class="ad-date-badge">Junho 5</div>
+    <div class="ad-adset">Conjunto — Cidades</div>
+    <div class="ctr-bar"><div class="ctr-fill" style="width:72%"></div></div>
+    <div class="ad-ctr">2,67%</div>
+    <div class="ad-ctr-lbl">CTR</div>
+    <div class="ad-bottom">
+      <div class="ad-spend">R$101,31</div>
+      <div class="ad-imp">3.258 impressões</div>
+    </div>
+  </div>
+
+  <div class="ad-card">
+    <div class="ad-date-badge">Junho 4</div>
+    <div class="ad-adset">Conjunto — RJ/SP/MG</div>
+    <div class="ctr-bar"><div class="ctr-fill" style="width:70%"></div></div>
+    <div class="ad-ctr">2,59%</div>
+    <div class="ad-ctr-lbl">CTR</div>
+    <div class="ad-bottom">
+      <div class="ad-spend">R$9,36</div>
+      <div class="ad-imp">270 impressões</div>
+    </div>
+  </div>
+
+  <div class="ad-card">
+    <div class="ad-date-badge">Junho 5</div>
+    <div class="ad-adset">Conjunto — RJ/SP/MG</div>
+    <div class="ctr-bar"><div class="ctr-fill" style="width:69%"></div></div>
+    <div class="ad-ctr">2,55%</div>
+    <div class="ad-ctr-lbl">CTR</div>
+    <div class="ad-bottom">
+      <div class="ad-spend">R$101,99</div>
+      <div class="ad-imp">3.767 impressões</div>
+    </div>
+  </div>
+
+  <div class="ad-card">
+    <div class="ad-date-badge">Junho 4</div>
+    <div class="ad-adset">Conjunto — Cidades</div>
+    <div class="ctr-bar"><div class="ctr-fill" style="width:67%"></div></div>
+    <div class="ad-ctr">2,46%</div>
+    <div class="ad-ctr-lbl">CTR</div>
+    <div class="ad-bottom">
+      <div class="ad-spend">R$13,56</div>
+      <div class="ad-imp">487 impressões</div>
+    </div>
+  </div>
+
+  <div class="ad-card">
+    <div class="ad-date-badge">Junho 5</div>
+    <div class="ad-adset">Conjunto — Marketing</div>
+    <div class="ctr-bar"><div class="ctr-fill" style="width:53%"></div></div>
+    <div class="ad-ctr">1,94%</div>
+    <div class="ad-ctr-lbl">CTR</div>
+    <div class="ad-bottom">
+      <div class="ad-spend">R$42,47</div>
+      <div class="ad-imp">1.599 impressões</div>
+    </div>
+  </div>
+
+  <div class="ad-card">
+    <div class="ad-date-badge">Junho 5</div>
+    <div class="ad-adset">Conjunto — Brasília</div>
+    <div class="ctr-bar"><div class="ctr-fill" style="width:46%"></div></div>
+    <div class="ad-ctr">1,69%</div>
+    <div class="ad-ctr-lbl">CTR</div>
+    <div class="ad-bottom">
+      <div class="ad-spend">R$47,38</div>
+      <div class="ad-imp">1.123 impressões</div>
+    </div>
+  </div>
+
+  <div class="ad-card">
+    <div class="ad-date-badge">Junho 5</div>
+    <div class="ad-adset">Conjunto — Remarketing</div>
+    <div class="ctr-bar"><div class="ctr-fill" style="width:25%"></div></div>
+    <div class="ad-ctr">0,94%</div>
+    <div class="ad-ctr-lbl">CTR — menor do lote</div>
+    <div class="ad-bottom">
+      <div class="ad-spend">R$28,67</div>
+      <div class="ad-imp">960 impressões</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- SECTION: CHARTS CTR -->
+<div class="section-label"><h2>Análise visual — CTR e distribuição</h2></div>
+<div class="charts-row-2" style="margin-bottom:32px">
+
+  <!-- Donut: distribuição por conjunto 7d -->
+  <div class="panel">
+    <div class="panel-title">Distribuição de verba por conjunto — 7 dias</div>
+    <div class="donut-wrap">
+      <canvas id="donut-adset"></canvas>
+      <div class="donut-center">
+        <div class="dc-val">R$493</div>
+        <div class="dc-lbl">total 7d</div>
+      </div>
+    </div>
+    <div id="legend-adset"></div>
+  </div>
+
+  <!-- Bar: CTR novos anúncios -->
+  <div class="panel">
+    <div class="panel-title">CTR dos novos criativos (Junho) — todos os conjuntos</div>
+    <div class="chart-canvas-wrap"><canvas id="bar-ctr"></canvas></div>
+    <div style="margin-top:8px;font-size:10px;color:var(--muted)">Benchmark bom: <strong style="color:#94a3b8">acima de 1,5%</strong> para anúncios de fundo de funil</div>
+  </div>
+
+</div>
+
+<!-- STATUS: Anúncios de Abril -->
+<div class="status-banner">
+  <div class="sb-icon">⏸️</div>
+  <div class="sb-text"><strong>Limpeza realizada:</strong> Todos os 10 anúncios de Abril foram pausados em 17/06/2026 · Criativos antigos substituídos pelos novos posts de Junho · Conta mais limpa e eficiente.</div>
+</div>
+
+<!-- INSIGHTS -->
+<div class="section-label"><h2>Análise e próximos passos</h2></div>
+<div class="insights-row">
+
+  <div class="insight-card">
+    <div class="ic-head">
+      <span class="ic-icon">✅</span>
+      <span class="ic-title" style="color:var(--green)">Destaques positivos</span>
+    </div>
+    <ul>
+      <li>Campanha <strong>Leads Eventos</strong> com CPR R$6,67 — dentro do benchmark ótimo (&lt;R$7)</li>
+      <li>Novos criativos de Junho já com CTR melhor que os de Abril em 3 conjuntos</li>
+      <li><strong>Junho 2 — Cidades</strong> com CTR de 3,69% — melhor criativo da conta</li>
+      <li>RJ/SP/MG com crescimento de CTR de <strong>+35,7%</strong> na última semana</li>
+      <li>Engajamento com CPM de R$3,07 — cobertura de topo a custo mínimo</li>
+    </ul>
+  </div>
+
+  <div class="insight-card actions">
+    <div class="ic-head">
+      <span class="ic-icon">🎯</span>
+      <span class="ic-title" style="color:var(--green)">Ações recomendadas</span>
+    </div>
+    <ul>
+      <li>Escalar orçamento no conjunto <strong>RJ/SP/MG</strong> — maior crescimento de CTR</li>
+      <li>Replicar o criativo <strong>Junho 2</strong> para outros conjuntos — 3,69% CTR comprova apelo</li>
+      <li>Revisar segmentação do conjunto <strong>Marketing</strong> — CPR R$15,77 precisa de ajuste</li>
+      <li>Aguardar pelo menos 7 dias com os novos criativos antes de pausar os piores CTRs</li>
+      <li>Considerar subir verba do Remarketing — público quente mas CTR em queda</li>
+    </ul>
+  </div>
+
+  <div class="insight-card warnings">
+    <div class="ic-head">
+      <span class="ic-icon">⚠️</span>
+      <span class="ic-title" style="color:var(--amber)">Pontos de atenção</span>
+    </div>
+    <ul>
+      <li>Conjunto <strong>Marketing</strong> com CPR R$15,77 — acima do benchmark crítico</li>
+      <li>CTR do Remarketing caiu <strong>-31,7%</strong> — avaliar novo criativo específico</li>
+      <li>Frequência baixa (1,04–1,49) — público ainda não saturado, espaço para escalar</li>
+      <li>Junho 5 Remarketing com CTR de 0,94% — avaliar após mais 3–5 dias de dados</li>
+    </ul>
+  </div>
+
+  <div class="insight-card">
+    <div class="ic-head">
+      <span class="ic-icon">📈</span>
+      <span class="ic-title">Contexto vs. Maio</span>
+    </div>
+    <ul>
+      <li>Maio: 283 conversas · R$6,21 CPR · R$1.757 investidos</li>
+      <li>Junho 30d: 61 conversas (7d snapshot) · R$6,67 CPR · R$1.921 investidos</li>
+      <li>CPR levemente acima de Maio mas dentro do range saudável</li>
+      <li>Alcance ampliado: 96,9k vs ~84k em Maio</li>
+      <li>Novos criativos aceleram CTR nos 3 conjuntos mais importantes</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="report-footer">
+  <div class="footer-left">
+    <p>Dados extraídos diretamente da API do Meta Ads em 17/06/2026<br>
+    Campanha: act_1183087855907692 · Período 30d: 18/mai → 16/jun · Período 7d: 10/jun → 16/jun</p>
+  </div>
+  <div class="footer-right">
+    <div class="footer-ww">White Window <span>— Gestão de Tráfego Pago</span></div>
+    <div style="font-size:10px;color:var(--dim);margin-top:3px">Nathan Medeiros · whitewindow.mkt360@gmail.com</div>
+  </div>
+</div>
+
+</div><!-- /page -->
+
+<script>
+// ===== CHART DEFAULTS =====
+Chart.defaults.color = '#64748b';
+Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
+
+const border = '#080c18';
+const tip = {
+  backgroundColor:'rgba(8,12,24,.97)',
+  borderColor:'rgba(255,255,255,.1)',
+  borderWidth:1,
+  padding:10,
+  titleFont:{size:12,weight:'700'},
+  bodyFont:{size:11},
+  bodyColor:'#94a3b8',
+  titleColor:'#f8fafc'
+};
+
+// ===== DONUT: CAMPANHAS 30D =====
+const campData = [
+  {label:'Leads — Eventos',  value:1339.99, color:'#a78bfa'},
+  {label:'Leads — Marketing', value:261.83,  color:'#60a5fa'},
+  {label:'Remarketing',       value:162.09,  color:'#f87171'},
+  {label:'Engajamento',       value:157.24,  color:'#2dd4bf'},
+];
+const campTotal = campData.reduce((s,d)=>s+d.value,0);
+
+new Chart(document.getElementById('donut-camp'),{
+  type:'doughnut',
+  data:{
+    labels:campData.map(d=>d.label),
+    datasets:[{data:campData.map(d=>d.value),backgroundColor:campData.map(d=>d.color),borderColor:border,borderWidth:3,hoverOffset:8}]
+  },
+  options:{cutout:'68%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` R$${ctx.raw.toLocaleString('pt-BR',{minimumFractionDigits:0})} (${(ctx.raw/campTotal*100).toFixed(0)}%)`},...tip}},animation:{duration:800}}
+});
+document.getElementById('legend-camp').innerHTML=campData.map(d=>`
+  <div class="dl-item">
+    <div class="dl-dot" style="background:${d.color}"></div>
+    <span class="dl-name">${d.label}</span>
+    <span class="dl-val">R$${Math.round(d.value).toLocaleString('pt-BR')}</span>
+    <span class="dl-pct">${(d.value/campTotal*100).toFixed(0)}%</span>
+  </div>`).join('');
+
+// ===== BAR: GASTO POR CONJUNTO 7D =====
+new Chart(document.getElementById('bar-adset'),{
+  type:'bar',
+  data:{
+    labels:['Cidades','RJ/SP/MG','Brasília','Marketing','Engajamento','Remarketing'],
+    datasets:[{
+      data:[140.45,136.41,69.97,63.07,41.91,41.35],
+      backgroundColor:['rgba(96,165,250,.7)','rgba(167,139,250,.7)','rgba(52,211,153,.7)','rgba(251,191,36,.7)','rgba(45,212,191,.7)','rgba(248,113,113,.7)'],
+      borderColor:['#60a5fa','#a78bfa','#34d399','#fbbf24','#2dd4bf','#f87171'],
+      borderWidth:1.5,borderRadius:8,borderSkipped:false
+    }]
+  },
+  options:{
+    indexAxis:'y',
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` R$${ctx.raw.toFixed(2)}`},...tip}},
+    scales:{
+      x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#475569',font:{size:10},callback:v=>'R$'+v}},
+      y:{grid:{display:false},ticks:{color:'#94a3b8',font:{size:11}}}
+    },
+    animation:{duration:700}
+  }
+});
+
+// ===== DONUT: CONJUNTOS 7D =====
+const adsetData = [
+  {label:'Cidades',     value:140.45, color:'#60a5fa'},
+  {label:'RJ/SP/MG',   value:136.41, color:'#a78bfa'},
+  {label:'Brasília',   value:69.97,  color:'#34d399'},
+  {label:'Marketing',  value:63.07,  color:'#fbbf24'},
+  {label:'Engajamento',value:41.91,  color:'#2dd4bf'},
+  {label:'Remarketing',value:41.35,  color:'#f87171'},
+];
+const adsetTotal = adsetData.reduce((s,d)=>s+d.value,0);
+
+new Chart(document.getElementById('donut-adset'),{
+  type:'doughnut',
+  data:{
+    labels:adsetData.map(d=>d.label),
+    datasets:[{data:adsetData.map(d=>d.value),backgroundColor:adsetData.map(d=>d.color),borderColor:border,borderWidth:3,hoverOffset:8}]
+  },
+  options:{cutout:'68%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` R$${ctx.raw.toFixed(2)} (${(ctx.raw/adsetTotal*100).toFixed(0)}%)`},...tip}},animation:{duration:800}}
+});
+document.getElementById('legend-adset').innerHTML=adsetData.map(d=>`
+  <div class="dl-item">
+    <div class="dl-dot" style="background:${d.color}"></div>
+    <span class="dl-name">${d.label}</span>
+    <span class="dl-val">R$${d.value.toFixed(0)}</span>
+    <span class="dl-pct">${(d.value/adsetTotal*100).toFixed(0)}%</span>
+  </div>`).join('');
+
+// ===== BAR: CTR NOVOS ANÚNCIOS =====
+const ctrAds = [
+  {label:'Jun2 Cidades',    ctr:3.69, color:'rgba(251,191,36,.8)'},
+  {label:'Jun5 Cidades',    ctr:2.67, color:'rgba(96,165,250,.75)'},
+  {label:'Jun4 RJ/SP/MG',  ctr:2.59, color:'rgba(167,139,250,.75)'},
+  {label:'Jun5 RJ/SP/MG',  ctr:2.55, color:'rgba(167,139,250,.75)'},
+  {label:'Jun4 Cidades',   ctr:2.46, color:'rgba(96,165,250,.75)'},
+  {label:'Jun5 Marketing', ctr:1.94, color:'rgba(251,191,36,.6)'},
+  {label:'Jun5 Brasília',  ctr:1.69, color:'rgba(52,211,153,.7)'},
+  {label:'Jun5 Remarketing',ctr:0.94, color:'rgba(248,113,113,.7)'},
+];
+new Chart(document.getElementById('bar-ctr'),{
+  type:'bar',
+  data:{
+    labels:ctrAds.map(d=>d.label),
+    datasets:[
+      {
+        label:'CTR %',
+        data:ctrAds.map(d=>d.ctr),
+        backgroundColor:ctrAds.map(d=>d.color),
+        borderColor:ctrAds.map(d=>d.color.replace(/[\d.]+\)$/,'1)')),
+        borderWidth:1.5,borderRadius:6,borderSkipped:false
+      },
+      {
+        label:'Benchmark (1,5%)',
+        data:Array(ctrAds.length).fill(1.5),
+        type:'line',
+        borderColor:'rgba(255,255,255,0.15)',
+        borderDash:[4,3],
+        borderWidth:1.5,
+        pointRadius:0,
+        fill:false
+      }
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:ctx=>ctx.dataset.type==='line'?` Benchmark: ${ctx.raw}%`:` CTR: ${ctx.raw}%`},...tip}
+    },
+    scales:{
+      x:{grid:{display:false},ticks:{color:'#64748b',font:{size:10},maxRotation:35}},
+      y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#475569',font:{size:10},callback:v=>v+'%'},suggestedMax:4}
+    },
+    animation:{duration:700}
+  }
+});
+</script>
+
+</body>
+</html>
