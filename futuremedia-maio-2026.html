@@ -93,6 +93,41 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-ap
 .cs-val{font-size:13px;font-weight:700;line-height:1}
 .cs-lbl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
 
+/* ADSETS */
+.adset-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:32px}
+.adset-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;transition:border-color .15s}
+.adset-card:hover{border-color:rgba(255,255,255,.1)}
+.adset-card.best{border-color:rgba(52,211,153,.2);background:rgba(52,211,153,.02)}
+.ac-name{font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ac-type{font-size:10px;color:var(--muted);margin-bottom:12px}
+.ac-metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px}
+.acm-val{font-size:14px;font-weight:800;line-height:1}
+.acm-lbl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
+.adset-card.best .acm-val.cpr{color:var(--green)}
+.ac-bar-wrap{display:flex;align-items:center;gap:8px;margin-top:4px}
+.ac-bar-track{flex:1;height:4px;background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden}
+.ac-bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--purple),var(--blue))}
+.adset-card.best .ac-bar-fill{background:linear-gradient(90deg,var(--green),var(--teal))}
+.ac-bar-lbl{font-size:9px;color:var(--muted);white-space:nowrap}
+
+/* CRIATIVOS */
+.creative-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:32px}
+.creative-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;position:relative;overflow:hidden;transition:border-color .15s}
+.creative-card:hover{border-color:rgba(167,139,250,.25)}
+.cc-rank{position:absolute;top:14px;right:14px;width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900}
+.rank-1{background:rgba(251,191,36,.15);color:var(--amber)}
+.rank-2{background:rgba(148,163,184,.1);color:#94a3b8}
+.rank-3{background:rgba(180,120,80,.1);color:#cd7f32}
+.cc-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--purple);margin-bottom:6px}
+.cc-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:14px;padding-right:32px}
+.cc-ctr-bar{height:4px;border-radius:999px;background:rgba(255,255,255,.06);margin-bottom:4px;overflow:hidden}
+.cc-ctr-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--purple),var(--blue))}
+.cc-ctr-val{font-size:10px;color:var(--muted);margin-bottom:14px}
+.cc-bottom{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;padding-top:12px;border-top:1px solid var(--border)}
+.ccb-val{font-size:13px;font-weight:800;line-height:1}
+.ccb-lbl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
+.cc-cpr{color:var(--green)}
+
 /* CHARTS */
 .charts-row{display:grid;grid-template-columns:1fr 1.5fr;gap:14px;margin-bottom:32px}
 .panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px}
@@ -259,6 +294,141 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-ap
       <div><div class="cs-val">46,9k</div><div class="cs-lbl">Impressões</div></div>
       <div><div class="cs-val" style="color:var(--teal)">25,4k</div><div class="cs-lbl">Engajamentos</div></div>
       <div><div class="cs-val" style="color:var(--green)">R$3,10</div><div class="cs-lbl">CPM</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CONJUNTOS -->
+<div class="section-label"><span>Conjuntos de anúncios — audiências</span></div>
+<div class="adset-grid">
+
+  <div class="adset-card best">
+    <div class="ac-name">RJ / SP / MG</div>
+    <div class="ac-type">Leads · público amplo sul-sudeste</div>
+    <div class="ac-metrics">
+      <div><div class="acm-val">102</div><div class="acm-lbl">Conversas</div></div>
+      <div><div class="acm-val cpr">R$4,79</div><div class="acm-lbl">CPR</div></div>
+      <div><div class="acm-val">18,5k</div><div class="acm-lbl">Alcance</div></div>
+    </div>
+    <div class="ac-bar-wrap">
+      <div class="ac-bar-track"><div class="ac-bar-fill" style="width:100%"></div></div>
+      <div class="ac-bar-lbl">R$489 · CTR 2,09%</div>
+    </div>
+  </div>
+
+  <div class="adset-card">
+    <div class="ac-name">Cidades</div>
+    <div class="ac-type">Leads · cidades selecionadas</div>
+    <div class="ac-metrics">
+      <div><div class="acm-val">93</div><div class="acm-lbl">Conversas</div></div>
+      <div><div class="acm-val">R$5,21</div><div class="acm-lbl">CPR</div></div>
+      <div><div class="acm-val">11,8k</div><div class="acm-lbl">Alcance</div></div>
+    </div>
+    <div class="ac-bar-wrap">
+      <div class="ac-bar-track"><div class="ac-bar-fill" style="width:99%"></div></div>
+      <div class="ac-bar-lbl">R$485 · CTR 2,63%</div>
+    </div>
+  </div>
+
+  <div class="adset-card">
+    <div class="ac-name">Marketing — Cidades</div>
+    <div class="ac-type">Leads · segmentação por interesse</div>
+    <div class="ac-metrics">
+      <div><div class="acm-val">44</div><div class="acm-lbl">Conversas</div></div>
+      <div><div class="acm-val">R$5,53</div><div class="acm-lbl">CPR</div></div>
+      <div><div class="acm-val">7,9k</div><div class="acm-lbl">Alcance</div></div>
+    </div>
+    <div class="ac-bar-wrap">
+      <div class="ac-bar-track"><div class="ac-bar-fill" style="width:50%"></div></div>
+      <div class="ac-bar-lbl">R$243 · CTR 2,28%</div>
+    </div>
+  </div>
+
+  <div class="adset-card">
+    <div class="ac-name">Brasília</div>
+    <div class="ac-type">Leads · capital federal</div>
+    <div class="ac-metrics">
+      <div><div class="acm-val">29</div><div class="acm-lbl">Conversas</div></div>
+      <div><div class="acm-val">R$8,55</div><div class="acm-lbl">CPR</div></div>
+      <div><div class="acm-val">6,9k</div><div class="acm-lbl">Alcance</div></div>
+    </div>
+    <div class="ac-bar-wrap">
+      <div class="ac-bar-track"><div class="ac-bar-fill" style="width:51%"></div></div>
+      <div class="ac-bar-lbl">R$248 · CTR 1,34%</div>
+    </div>
+  </div>
+
+  <div class="adset-card">
+    <div class="ac-name">Remarketing</div>
+    <div class="ac-type">Leads · quem já interagiu</div>
+    <div class="ac-metrics">
+      <div><div class="acm-val">15</div><div class="acm-lbl">Conversas</div></div>
+      <div><div class="acm-val">R$9,79</div><div class="acm-lbl">CPR</div></div>
+      <div><div class="acm-val">4,5k</div><div class="acm-lbl">Alcance</div></div>
+    </div>
+    <div class="ac-bar-wrap">
+      <div class="ac-bar-track"><div class="ac-bar-fill" style="width:30%"></div></div>
+      <div class="ac-bar-lbl">R$147 · CTR 1,81%</div>
+    </div>
+  </div>
+
+  <div class="adset-card">
+    <div class="ac-name">Engajamento — Perfil</div>
+    <div class="ac-type">Topo de funil · público amplo</div>
+    <div class="ac-metrics">
+      <div><div class="acm-val" style="color:var(--teal)">25,4k</div><div class="acm-lbl">Engajamentos</div></div>
+      <div><div class="acm-val" style="color:var(--green)">R$3,10</div><div class="acm-lbl">CPM</div></div>
+      <div><div class="acm-val">42,4k</div><div class="acm-lbl">Alcance</div></div>
+    </div>
+    <div class="ac-bar-wrap">
+      <div class="ac-bar-track"><div class="ac-bar-fill" style="width:30%;background:linear-gradient(90deg,var(--teal),#06b6d4)"></div></div>
+      <div class="ac-bar-lbl">R$145 · 46,9k imp</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CRIATIVOS CAMPEÕES -->
+<div class="section-label"><span>Criativos campeões</span></div>
+<div class="creative-grid">
+
+  <div class="creative-card">
+    <div class="cc-rank rank-1">🥇</div>
+    <div class="cc-label">Melhor CPR</div>
+    <div class="cc-name">Vídeo 1</div>
+    <div class="cc-ctr-bar"><div class="cc-ctr-fill" style="width:57%"></div></div>
+    <div class="cc-ctr-val">CTR 2,10%</div>
+    <div class="cc-bottom">
+      <div><div class="ccb-val cc-cpr">R$4,76</div><div class="ccb-lbl">CPR</div></div>
+      <div><div class="ccb-val">99</div><div class="ccb-lbl">Conversas</div></div>
+      <div><div class="ccb-val">R$471</div><div class="ccb-lbl">Gasto</div></div>
+    </div>
+  </div>
+
+  <div class="creative-card">
+    <div class="cc-rank rank-2">🥈</div>
+    <div class="cc-label">2º melhor CPR</div>
+    <div class="cc-name">Vídeo 2</div>
+    <div class="cc-ctr-bar"><div class="cc-ctr-fill" style="width:73%"></div></div>
+    <div class="cc-ctr-val">CTR 2,68%</div>
+    <div class="cc-bottom">
+      <div><div class="ccb-val cc-cpr">R$4,93</div><div class="ccb-lbl">CPR</div></div>
+      <div><div class="ccb-val">91</div><div class="ccb-lbl">Conversas</div></div>
+      <div><div class="ccb-val">R$448</div><div class="ccb-lbl">Gasto</div></div>
+    </div>
+  </div>
+
+  <div class="creative-card">
+    <div class="cc-rank rank-3">🥉</div>
+    <div class="cc-label">3º melhor CPR</div>
+    <div class="cc-name">Vídeo — Marcio</div>
+    <div class="cc-ctr-bar"><div class="cc-ctr-fill" style="width:60%"></div></div>
+    <div class="cc-ctr-val">CTR 2,22%</div>
+    <div class="cc-bottom">
+      <div><div class="ccb-val cc-cpr">R$4,98</div><div class="ccb-lbl">CPR</div></div>
+      <div><div class="ccb-val">34</div><div class="ccb-lbl">Conversas</div></div>
+      <div><div class="ccb-val">R$169</div><div class="ccb-lbl">Gasto</div></div>
     </div>
   </div>
 
