@@ -243,12 +243,35 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-ap
   </div>
 </div>
 
+<!-- CHARTS -->
+<div class="section-label"><span>Visão gráfica</span></div>
+<div class="charts-row">
+
+  <div class="panel">
+    <div class="panel-title">Investimento por campanha</div>
+    <div class="donut-wrap">
+      <canvas id="donut-camp"></canvas>
+      <div class="donut-center">
+        <div class="dc-val">R$1.757</div>
+        <div class="dc-lbl">total</div>
+      </div>
+    </div>
+    <div id="legend-camp"></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">Conversas iniciadas por campanha</div>
+    <div class="chart-canvas"><canvas id="bar-conv"></canvas></div>
+  </div>
+
+</div>
+
 <!-- FUNIL COMPLETO: campanha → conjuntos → anúncio campeão -->
 <div class="section-label"><span>Estrutura de campanhas</span></div>
 
 <!-- ── LEADS EVENTOS ── -->
-<div class="funnel-block">
-  <div class="fb-camp" style="background:rgba(167,139,250,.04)">
+<div class="funnel-block" style="border-color:rgba(167,139,250,.25);box-shadow:0 0 0 1px rgba(167,139,250,.06) inset">
+  <div class="fb-camp" style="background:rgba(167,139,250,.07);border-left:3px solid #a78bfa">
     <div class="fb-camp-dot" style="background:var(--purple)"></div>
     <div class="fb-camp-info">
       <div class="fb-camp-name">Geração de Leads — Eventos</div>
@@ -331,8 +354,8 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-ap
 </div>
 
 <!-- ── LEADS MARKETING ── -->
-<div class="funnel-block">
-  <div class="fb-camp" style="background:rgba(96,165,250,.04)">
+<div class="funnel-block" style="border-color:rgba(96,165,250,.25);box-shadow:0 0 0 1px rgba(96,165,250,.06) inset">
+  <div class="fb-camp" style="background:rgba(96,165,250,.07);border-left:3px solid #60a5fa">
     <div class="fb-camp-dot" style="background:var(--blue)"></div>
     <div class="fb-camp-info">
       <div class="fb-camp-name">Geração de Leads — Marketing</div>
@@ -389,8 +412,8 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-ap
 </div>
 
 <!-- ── REMARKETING ── -->
-<div class="funnel-block">
-  <div class="fb-camp" style="background:rgba(248,113,113,.03)">
+<div class="funnel-block" style="border-color:rgba(248,113,113,.25);box-shadow:0 0 0 1px rgba(248,113,113,.06) inset">
+  <div class="fb-camp" style="background:rgba(248,113,113,.07);border-left:3px solid #f87171">
     <div class="fb-camp-dot" style="background:var(--red)"></div>
     <div class="fb-camp-info">
       <div class="fb-camp-name">Remarketing — Quem já interagiu</div>
@@ -447,8 +470,8 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-ap
 </div>
 
 <!-- ── ENGAJAMENTO ── -->
-<div class="funnel-block">
-  <div class="fb-camp" style="background:rgba(45,212,191,.03)">
+<div class="funnel-block" style="border-color:rgba(45,212,191,.25);box-shadow:0 0 0 1px rgba(45,212,191,.06) inset">
+  <div class="fb-camp" style="background:rgba(45,212,191,.07);border-left:3px solid #2dd4bf">
     <div class="fb-camp-dot" style="background:var(--teal)"></div>
     <div class="fb-camp-info">
       <div class="fb-camp-name">Engajamento — Perfil &amp; Marca</div>
@@ -502,29 +525,6 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-ap
       </div>
     </div>
   </div>
-</div>
-
-<!-- CHARTS -->
-<div class="section-label"><span>Visão gráfica</span></div>
-<div class="charts-row">
-
-  <div class="panel">
-    <div class="panel-title">Investimento por campanha</div>
-    <div class="donut-wrap">
-      <canvas id="donut-camp"></canvas>
-      <div class="donut-center">
-        <div class="dc-val">R$1.757</div>
-        <div class="dc-lbl">total</div>
-      </div>
-    </div>
-    <div id="legend-camp"></div>
-  </div>
-
-  <div class="panel">
-    <div class="panel-title">Conversas iniciadas por campanha</div>
-    <div class="chart-canvas"><canvas id="bar-conv"></canvas></div>
-  </div>
-
 </div>
 
 <!-- FECHAMENTO DO MÊS -->
