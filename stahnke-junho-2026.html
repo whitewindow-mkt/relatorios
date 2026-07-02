@@ -105,6 +105,14 @@ html,body{overflow-x:hidden}
 .dl-val{font-weight:700;color:var(--black)}
 .dl-pct{font-size:10px;color:var(--dim)}
 .chart-canvas{height:185px;position:relative}
+.funnel-wrap{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.funnel-row{position:relative;height:46px}
+.fr-shape{position:absolute;inset:0;border-radius:4px}
+.fr-text{position:relative;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.25}
+.fr-name{font-size:9px;text-transform:uppercase;letter-spacing:.4px;opacity:.85}
+.fr-val{font-size:13px;font-weight:900}
+.fr-val small{font-size:9px;font-weight:700;opacity:.8;margin-left:4px}
+.funnel-caption{font-size:10px;color:var(--muted);line-height:1.5;padding-top:10px;border-top:1px solid var(--border)}
 
 /* CLOSING */
 .closing{background:var(--yellow);border-radius:14px;padding:24px 28px;margin-bottom:30px}
@@ -215,16 +223,39 @@ html,body{overflow-x:hidden}
 <div class="section-label"><span>Visão geral do mês</span></div>
 <div class="charts-row">
   <div class="panel">
+    <div class="panel-title">Investimento por etapa do funil</div>
+    <div class="funnel-wrap">
+      <div class="funnel-row">
+        <div class="fr-shape" style="background:#000000;clip-path:polygon(0% 0%,100% 0%,85% 100%,15% 100%)"></div>
+        <div class="fr-text" style="color:#ffffff">
+          <span class="fr-name">Topo — Reconhecimento</span>
+          <span class="fr-val">R$ 180<small>7%</small></span>
+        </div>
+      </div>
+      <div class="funnel-row">
+        <div class="fr-shape" style="background:#c94e0a;clip-path:polygon(15% 0%,85% 0%,68% 100%,32% 100%)"></div>
+        <div class="fr-text" style="color:#ffffff">
+          <span class="fr-name">Meio — Engajamento</span>
+          <span class="fr-val">R$ 180<small>7%</small></span>
+        </div>
+      </div>
+      <div class="funnel-row">
+        <div class="fr-shape" style="background:#f2620f;clip-path:polygon(32% 0%,68% 0%,42% 100%,58% 100%)"></div>
+        <div class="fr-text" style="color:#ffffff">
+          <span class="fr-name">Fundo — Conversão</span>
+          <span class="fr-val">R$ 2.063<small>85%</small></span>
+        </div>
+      </div>
+    </div>
+    <div class="funnel-caption">Alcance &amp; branding (topo+meio): <strong>R$ 360 · 15%</strong> · Vendas/conversão (fundo): <strong>R$ 2.063 · 85%</strong></div>
+  </div>
+  <div class="panel">
     <div class="panel-title">Investimento por campanha</div>
     <div class="donut-wrap">
       <canvas id="donut-camp"></canvas>
       <div class="donut-center"><div class="dc-val">R$2.422</div><div class="dc-lbl">total</div></div>
     </div>
     <div id="legend-camp"></div>
-  </div>
-  <div class="panel">
-    <div class="panel-title">Alcance &amp; conversão por campanha</div>
-    <div class="chart-canvas"><canvas id="bar-conv"></canvas></div>
   </div>
 </div>
 
@@ -361,20 +392,6 @@ new Chart(document.getElementById('donut-camp'),{
 document.getElementById('legend-camp').innerHTML = campData.map(d=>`
   <div class="dl-item"><div class="dl-dot" style="background:${d.color}"></div><span class="dl-name">${d.label}</span><span class="dl-val">R$${Math.round(d.value).toLocaleString('pt-BR')}</span><span class="dl-pct">${(d.value/total*100).toFixed(0)}%</span></div>`).join('');
 
-const campMetrics = [
-  {label:'(FUNDO) Conversão',     alcance:59041, conversao:350},
-  {label:'(TOPO) Reconhecimento', alcance:53830, conversao:53830},
-  {label:'(MEIO) Engajamento',    alcance:18944, conversao:402},
-];
-
-new Chart(document.getElementById('bar-conv'),{
-  type:'bar',
-  data:{labels:campMetrics.map(d=>d.label),datasets:[
-    {label:'Alcance',   data:campMetrics.map(d=>d.alcance),   backgroundColor:'#000000', borderRadius:6, borderSkipped:false},
-    {label:'Conversão', data:campMetrics.map(d=>d.conversao), backgroundColor:'#f2620f', borderRadius:6, borderSkipped:false}
-  ]},
-  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'top',labels:{boxWidth:10,font:{size:10},color:'#7a746c'}},tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.raw.toLocaleString('pt-BR')}`},...tip}},scales:{x:{grid:{display:false},ticks:{color:'#7a746c',font:{size:9}}},y:{type:'logarithmic',grid:{color:'#eae6df'},ticks:{color:'#a8a196',font:{size:9}}}}}
-});
 </script>
 </body>
 </html>
