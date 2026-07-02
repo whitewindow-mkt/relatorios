@@ -70,10 +70,12 @@ html,body{overflow-x:hidden}
 /* CAMPAIGN CARDS (simplified) */
 .camp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
 .camp-grid.single{grid-template-columns:1fr}
-.camp-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px}
+.camp-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.camp-card:hover{border-color:var(--orange)}
 .camp-card.best{border-color:var(--orange);box-shadow:0 0 0 1px var(--orange)}
 .camp-name{font-size:12.5px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.camp-name .star{color:var(--orange);font-size:11px}
+.camp-card.best .camp-name::before{content:'★';color:var(--orange);font-size:11px}
+.camp-hint{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;margin:-14px 0 14px;text-align:center}
 .camp-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .cm-val{font-size:16px;font-weight:900;color:var(--black);line-height:1}
 .cm-lbl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;margin-top:3px}
@@ -262,9 +264,9 @@ html,body{overflow-x:hidden}
 <!-- FUNDO DE FUNIL -->
 <div class="funnel-section">
 <div class="section-label"><span>Fundo de funil — geração de conversas</span></div>
-<div class="camp-grid" style="grid-template-columns:repeat(4,1fr)">
-  <div class="camp-card best">
-    <div class="camp-name"><span class="star">★</span>Interesses (Película)</div>
+<div class="camp-grid" id="fundo-cards" style="grid-template-columns:repeat(4,1fr)">
+  <div class="camp-card best" onclick="selectFundo(0,this)">
+    <div class="camp-name">Interesses (Película)</div>
     <div class="camp-metrics">
       <div><div class="cm-val">R$ 1.077</div><div class="cm-lbl">Investido</div></div>
       <div><div class="cm-val accent">223</div><div class="cm-lbl">Conversas</div></div>
@@ -272,7 +274,7 @@ html,body{overflow-x:hidden}
       <div><div class="cm-val">1,11%</div><div class="cm-lbl">CTR</div></div>
     </div>
   </div>
-  <div class="camp-card">
+  <div class="camp-card" onclick="selectFundo(1,this)">
     <div class="camp-name">Interesses (Geral)</div>
     <div class="camp-metrics">
       <div><div class="cm-val">R$ 615</div><div class="cm-lbl">Investido</div></div>
@@ -281,7 +283,7 @@ html,body{overflow-x:hidden}
       <div><div class="cm-val">1,21%</div><div class="cm-lbl">CTR</div></div>
     </div>
   </div>
-  <div class="camp-card">
+  <div class="camp-card" onclick="selectFundo(2,this)">
     <div class="camp-name">Interesses (Motos)</div>
     <div class="camp-metrics">
       <div><div class="cm-val">R$ 184</div><div class="cm-lbl">Investido</div></div>
@@ -290,7 +292,7 @@ html,body{overflow-x:hidden}
       <div><div class="cm-val">1,06%</div><div class="cm-lbl">CTR</div></div>
     </div>
   </div>
-  <div class="camp-card">
+  <div class="camp-card" onclick="selectFundo(3,this)">
     <div class="camp-name">Remarketing</div>
     <div class="camp-metrics">
       <div><div class="cm-val">R$ 187</div><div class="cm-lbl">Investido</div></div>
@@ -300,14 +302,15 @@ html,body{overflow-x:hidden}
     </div>
   </div>
 </div>
+<div class="camp-hint">clique num card acima pra ver o anúncio campeão daquele grupo</div>
 
-<div class="creative-card">
-  <img class="creative-thumb" src="https://scontent-iad3-2.xx.fbcdn.net/v/t15.5256-10/654626501_920642247409856_2262992620734698893_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=105&ccb=1-7&_nc_sid=031d0d&_nc_ohc=JYeMFlUmFj0Q7kNvwF0RnhR&_nc_oc=Adp-NJ9B3nn_6NiSoXQfqDOpIyQTxl4uoMk9Iob73O1V3ss83v5n6LpL-HsapEcddu8&_nc_zt=23&_nc_ht=scontent-iad3-2.xx&edm=AEZPnVgEAAAA&_nc_gid=vef3pidjjv9kFZ-rNWmmtg&_nc_tpa=Q5bMBQHnzZqdkLiC1kD4BfaYSGL-SaCLKGf6UyksN5wuxb1KG2fcJnN2pcnq9JeYX83gFd67U81hgex1yw&oh=00_AQCI7sc-EyKG_VW-08A7yIqdnGnhZ4cXTu4rNSRVNDOoaw&oe=6A4C8D41" alt="Anúncio campeão — Película Diego">
+<div class="creative-card" id="creative-fundo">
+  <img class="creative-thumb" id="creative-fundo-thumb" src="https://scontent-iad3-2.xx.fbcdn.net/v/t15.5256-10/654626501_920642247409856_2262992620734698893_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=105&ccb=1-7&_nc_sid=031d0d&_nc_ohc=JYeMFlUmFj0Q7kNvwF0RnhR&_nc_oc=Adp-NJ9B3nn_6NiSoXQfqDOpIyQTxl4uoMk9Iob73O1V3ss83v5n6LpL-HsapEcddu8&_nc_zt=23&_nc_ht=scontent-iad3-2.xx&edm=AEZPnVgEAAAA&_nc_gid=vef3pidjjv9kFZ-rNWmmtg&_nc_tpa=Q5bMBQHnzZqdkLiC1kD4BfaYSGL-SaCLKGf6UyksN5wuxb1KG2fcJnN2pcnq9JeYX83gFd67U81hgex1yw&oh=00_AQCI7sc-EyKG_VW-08A7yIqdnGnhZ4cXTu4rNSRVNDOoaw&oe=6A4C8D41" alt="Anúncio campeão — Película Diego">
   <div class="creative-info">
     <div class="creative-tag">★ Anúncio com melhor desempenho</div>
-    <div class="creative-name">Película Diego</div>
-    <div class="creative-camp">(FUNDO) Conversão · Interesses (Película)</div>
-    <div class="creative-metrics">
+    <div class="creative-name" id="creative-fundo-name">Película Diego</div>
+    <div class="creative-camp" id="creative-fundo-camp">(FUNDO) Conversão · Interesses (Película)</div>
+    <div class="creative-metrics" id="creative-fundo-metrics">
       <div><div class="cm-val">R$ 4,80</div><div class="cm-lbl">Custo/conversa</div></div>
       <div><div class="cm-val accent">218</div><div class="cm-lbl">Conversas</div></div>
       <div><div class="cm-val">R$ 1.046</div><div class="cm-lbl">Investido</div></div>
@@ -320,8 +323,8 @@ html,body{overflow-x:hidden}
 <!-- TOPO DE FUNIL -->
 <div class="funnel-section">
 <div class="section-label"><span>Topo de funil — alcance &amp; engajamento</span></div>
-<div class="camp-grid" style="grid-template-columns:repeat(2,1fr)">
-  <div class="camp-card">
+<div class="camp-grid" id="topo-cards" style="grid-template-columns:repeat(2,1fr)">
+  <div class="camp-card" onclick="selectTopo(0,this)">
     <div class="camp-name">(MEIO) Engajamento</div>
     <div class="camp-metrics" style="grid-template-columns:repeat(4,1fr)">
       <div><div class="cm-val">R$ 180</div><div class="cm-lbl">Investido</div></div>
@@ -330,7 +333,7 @@ html,body{overflow-x:hidden}
       <div><div class="cm-val">1,26%</div><div class="cm-lbl">CTR</div></div>
     </div>
   </div>
-  <div class="camp-card">
+  <div class="camp-card best" onclick="selectTopo(1,this)">
     <div class="camp-name">(TOPO) Reconhecimento</div>
     <div class="camp-metrics" style="grid-template-columns:repeat(4,1fr)">
       <div><div class="cm-val">R$ 180</div><div class="cm-lbl">Investido</div></div>
@@ -340,14 +343,15 @@ html,body{overflow-x:hidden}
     </div>
   </div>
 </div>
+<div class="camp-hint">clique num card acima pra ver o anúncio campeão daquela campanha</div>
 
-<div class="creative-card">
-  <img class="creative-thumb" src="https://scontent-iad6-1.xx.fbcdn.net/v/t15.5256-10/700800048_1723176642003177_7266013705585670348_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=100&ccb=1-7&_nc_sid=031d0d&_nc_ohc=bgJR3SN0-w0Q7kNvwEJbRqH&_nc_oc=Adqm4Z8e0YXMwKCVvG4ggyFkKzF0HSOiEhVUyVlf4dVE959wFgd2PcpW1cPwJezrKGs&_nc_zt=23&_nc_ht=scontent-iad6-1.xx&edm=AEZPnVgEAAAA&_nc_gid=vef3pidjjv9kFZ-rNWmmtg&_nc_tpa=Q5bMBQHLqu5XdqlUCuRzy5qTMO4MjfwmTdwD6ms6ZlN2ntGXnv2oELUf7C0Mn1TFHnkokq-9UmHfykBMbg&oh=00_AQBq-fWKEyW61MjPDxg7s7PzAtHMnt6pFe_Vis8OGIjNQQ&oe=6A4C74DD" alt="Anúncio campeão — Película Abril 2 - Topo">
+<div class="creative-card" id="creative-topo">
+  <img class="creative-thumb" id="creative-topo-thumb" src="https://scontent-iad6-1.xx.fbcdn.net/v/t15.5256-10/700800048_1723176642003177_7266013705585670348_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=100&ccb=1-7&_nc_sid=031d0d&_nc_ohc=bgJR3SN0-w0Q7kNvwEJbRqH&_nc_oc=Adqm4Z8e0YXMwKCVvG4ggyFkKzF0HSOiEhVUyVlf4dVE959wFgd2PcpW1cPwJezrKGs&_nc_zt=23&_nc_ht=scontent-iad6-1.xx&edm=AEZPnVgEAAAA&_nc_gid=vef3pidjjv9kFZ-rNWmmtg&_nc_tpa=Q5bMBQHLqu5XdqlUCuRzy5qTMO4MjfwmTdwD6ms6ZlN2ntGXnv2oELUf7C0Mn1TFHnkokq-9UmHfykBMbg&oh=00_AQBq-fWKEyW61MjPDxg7s7PzAtHMnt6pFe_Vis8OGIjNQQ&oe=6A4C74DD" alt="Anúncio campeão — Película Abril 2 - Topo">
   <div class="creative-info">
     <div class="creative-tag">★ Anúncio com melhor desempenho</div>
-    <div class="creative-name">Película Abril 2 - Topo</div>
-    <div class="creative-camp">(TOPO) Reconhecimento</div>
-    <div class="creative-metrics">
+    <div class="creative-name" id="creative-topo-name">Película Abril 2 - Topo</div>
+    <div class="creative-camp" id="creative-topo-camp">(TOPO) Reconhecimento</div>
+    <div class="creative-metrics" id="creative-topo-metrics">
       <div><div class="cm-val">R$ 3,11</div><div class="cm-lbl">Custo/alcance</div></div>
       <div><div class="cm-val accent">49,8k</div><div class="cm-lbl">Alcance</div></div>
       <div><div class="cm-val">R$ 155</div><div class="cm-lbl">Investido</div></div>
@@ -376,6 +380,51 @@ html,body{overflow-x:hidden}
 Chart.defaults.color = '#7a746c';
 Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
 const tip = {backgroundColor:'#000000',borderWidth:0,padding:10,titleFont:{size:12,weight:'700'},bodyFont:{size:11},bodyColor:'#d9d5cf',titleColor:'#fff'};
+
+/* ANÚNCIOS CAMPEÕES — 1 por card, trocam ao clicar */
+const fundoCreatives = [
+  {thumb:'https://scontent-iad3-2.xx.fbcdn.net/v/t15.5256-10/654626501_920642247409856_2262992620734698893_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=105&ccb=1-7&_nc_sid=031d0d&_nc_ohc=JYeMFlUmFj0Q7kNvwF0RnhR&_nc_oc=Adp-NJ9B3nn_6NiSoXQfqDOpIyQTxl4uoMk9Iob73O1V3ss83v5n6LpL-HsapEcddu8&_nc_zt=23&_nc_ht=scontent-iad3-2.xx&edm=AEZPnVgEAAAA&_nc_gid=vef3pidjjv9kFZ-rNWmmtg&_nc_tpa=Q5bMBQHnzZqdkLiC1kD4BfaYSGL-SaCLKGf6UyksN5wuxb1KG2fcJnN2pcnq9JeYX83gFd67U81hgex1yw&oh=00_AQCI7sc-EyKG_VW-08A7yIqdnGnhZ4cXTu4rNSRVNDOoaw&oe=6A4C8D41',
+   name:'Película Diego', camp:'(FUNDO) Conversão · Interesses (Película)',
+   m:[{lbl:'Custo/conversa',val:'R$ 4,80'},{lbl:'Conversas',val:'218',accent:true},{lbl:'Investido',val:'R$ 1.046'},{lbl:'CTR',val:'1,09%'}]},
+  {thumb:'https://scontent-iad6-1.xx.fbcdn.net/v/t15.5256-10/647037721_1599041864637938_4117689615561381860_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=100&ccb=1-7&_nc_sid=031d0d&_nc_ohc=ORyb5mmCdmQQ7kNvwEiOXsP&_nc_oc=AdqL5sQ0FgDwWsrzier7koauT2sEVercF_z7N4eY0OoxEt0bj4xzHLgwuo_Ts1P3aJQ&_nc_zt=23&_nc_ht=scontent-iad6-1.xx&edm=AEZPnVgEAAAA&_nc_gid=QNKWJ_KcRiYxHm_dWlP1bA&_nc_tpa=Q5bMBQFGxxJ1ic2Qf6xQBakzUrXTjE9zb3Ztji6Zrnne1FS2S379KeJXVcMfLVCybgEYCXxJrsbpWXCfQQ&oh=00_AQASm23QkxvaqLAdEMgzZC548cTGd_pymy1kxleOQKiWHg&oe=6A4CBCA4',
+   name:'Video Perfil 3', camp:'(FUNDO) Conversão · Interesses (Geral)',
+   m:[{lbl:'Custo/conversa',val:'R$ 6,63'},{lbl:'Conversas',val:'79',accent:true},{lbl:'Investido',val:'R$ 524'},{lbl:'CTR',val:'1,19%'}]},
+  {thumb:'https://scontent-iad6-1.xx.fbcdn.net/v/t15.5256-10/696450657_1642210466886520_8227445329449868299_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=109&ccb=1-7&_nc_sid=031d0d&_nc_ohc=QBSEKcNBYBYQ7kNvwHfTqmz&_nc_oc=Adpj79V9c_-Gsyn3US1N_xftgpGt9-og9COoTwHA6pkmZJfet4a8jJE2r7k-feFU4UQ&_nc_zt=23&_nc_ht=scontent-iad6-1.xx&edm=AEZPnVgEAAAA&_nc_gid=QNKWJ_KcRiYxHm_dWlP1bA&_nc_tpa=Q5bMBQF_tIAuVOAGSL1cY5VIxLS9yDGjuyfnX93cMhHkLfgak9aobc2ODAZImoj3F0ay1YvPfA8Dfta_nw&oh=00_AQBIuFE4uryEGWLeStO2HikQT6S8bvSo4p81HX7pJo0-sw&oe=6A4CCD67',
+   name:'Moto 1', camp:'(FUNDO) Conversão · Interesses (Motos)',
+   m:[{lbl:'Custo/conversa',val:'R$ 7,65'},{lbl:'Conversas',val:'24',accent:true},{lbl:'Investido',val:'R$ 184'},{lbl:'CTR',val:'1,06%'}]},
+  {thumb:'https://scontent-iad3-1.xx.fbcdn.net/v/t15.5256-10/660756155_995232240146134_8315570563918452128_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=108&ccb=1-7&_nc_sid=031d0d&_nc_ohc=Gq-6gRnnTqUQ7kNvwFRseZ3&_nc_oc=Ado3TSlbGVQWlClrn6HulRx4gjaikHmoQO565Fu0cLLBBmIttJXdgQMYQ2Z9Fh_hbE8&_nc_zt=23&_nc_ht=scontent-iad3-1.xx&edm=AEZPnVgEAAAA&_nc_gid=QNKWJ_KcRiYxHm_dWlP1bA&_nc_tpa=Q5bMBQHQii6EzMF65hBgcAJ76v1ASEFMxbTaukfjW05TBw_NwBVpvEvMcftdAUL8GaVET4qhCh4Xj1jvmQ&oh=00_AQDhM5Z7RwpDL9CdLXHXYUglyyAcUJMaSZxdtdYpEr-_SA&oe=6A4CACED',
+   name:'Película - 1 Abril - Fundo', camp:'(FUNDO) Conversão · Remarketing',
+   m:[{lbl:'Custo/conversa',val:'R$ 23,36'},{lbl:'Conversas',val:'8',accent:true},{lbl:'Investido',val:'R$ 187'},{lbl:'CTR',val:'1,00%'}]}
+];
+
+const topoCreatives = [
+  {thumb:'https://scontent-iad3-1.xx.fbcdn.net/v/t15.5256-10/700890093_830522226382990_5382334029380516536_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=101&ccb=1-7&_nc_sid=031d0d&_nc_ohc=AyaET0un364Q7kNvwEnGp8Y&_nc_oc=AdrfVFpGp9FWk08c41d3tUMRjP5M5S_riF8MkOtuhULQOmQylduBo4RAnDe5lWVSCko&_nc_zt=23&_nc_ht=scontent-iad3-1.xx&edm=AEZPnVgEAAAA&_nc_gid=BkWMM0I_E2kTQkeYRMgVAA&_nc_tpa=Q5bMBQF3LU10i41F_DmUXZt0MqoEYCjuMK10KDKLpnlU0Rvxb23njkQGNnvuoEVnUAHyL4P74DwzrbVfOQ&oh=00_AQDnKjv3VT_of6eppsfsoMCFxCzqbbtAFe9fhmF8PxCoKg&oe=6A4CA3A3',
+   name:'Película - 2 (Meio)', camp:'(MEIO) Engajamento',
+   m:[{lbl:'Custo/visita',val:'R$ 0,45'},{lbl:'Visitas',val:'313',accent:true},{lbl:'Investido',val:'R$ 141'},{lbl:'CTR',val:'1,18%'}]},
+  {thumb:'https://scontent-iad6-1.xx.fbcdn.net/v/t15.5256-10/700800048_1723176642003177_7266013705585670348_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=100&ccb=1-7&_nc_sid=031d0d&_nc_ohc=bgJR3SN0-w0Q7kNvwEJbRqH&_nc_oc=Adqm4Z8e0YXMwKCVvG4ggyFkKzF0HSOiEhVUyVlf4dVE959wFgd2PcpW1cPwJezrKGs&_nc_zt=23&_nc_ht=scontent-iad6-1.xx&edm=AEZPnVgEAAAA&_nc_gid=vef3pidjjv9kFZ-rNWmmtg&_nc_tpa=Q5bMBQHLqu5XdqlUCuRzy5qTMO4MjfwmTdwD6ms6ZlN2ntGXnv2oELUf7C0Mn1TFHnkokq-9UmHfykBMbg&oh=00_AQBq-fWKEyW61MjPDxg7s7PzAtHMnt6pFe_Vis8OGIjNQQ&oe=6A4C74DD',
+   name:'Película Abril 2 - Topo', camp:'(TOPO) Reconhecimento',
+   m:[{lbl:'Custo/alcance',val:'R$ 3,11'},{lbl:'Alcance',val:'49,8k',accent:true},{lbl:'Investido',val:'R$ 155'},{lbl:'CTR',val:'0,15%'}]}
+];
+
+function renderCreative(prefix, data){
+  const img = document.getElementById(prefix+'-thumb');
+  img.src = data.thumb;
+  img.alt = 'Anúncio campeão — '+data.name;
+  document.getElementById(prefix+'-name').textContent = data.name;
+  document.getElementById(prefix+'-camp').textContent = data.camp;
+  document.getElementById(prefix+'-metrics').innerHTML = data.m.map(x=>
+    `<div><div class="cm-val${x.accent?' accent':''}">${x.val}</div><div class="cm-lbl">${x.lbl}</div></div>`).join('');
+}
+function selectFundo(i, el){
+  renderCreative('creative-fundo', fundoCreatives[i]);
+  document.querySelectorAll('#fundo-cards .camp-card').forEach(c=>c.classList.remove('best'));
+  el.classList.add('best');
+}
+function selectTopo(i, el){
+  renderCreative('creative-topo', topoCreatives[i]);
+  document.querySelectorAll('#topo-cards .camp-card').forEach(c=>c.classList.remove('best'));
+  el.classList.add('best');
+}
 
 const campData = [
   {label:'Fundo — Conversão',    value:2062.71, color:'#f2620f'},
