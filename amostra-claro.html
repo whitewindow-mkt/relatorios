@@ -82,26 +82,6 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-ap
 /* FUNNEL SECTION WRAP */
 .funnel-section{margin-bottom:30px}
 
-/* SPLIT BAR (fundo x topo overview) */
-.split-bar{display:flex;height:30px;border-radius:8px;overflow:hidden;margin-bottom:16px}
-.split-seg{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800}
-.split-seg.fundo{background:var(--orange);color:#fff}
-.split-seg.topo{background:var(--yellow);color:#171614}
-.split-legend{display:flex;flex-direction:column;gap:10px}
-.sl-item{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--muted)}
-.sl-item strong{color:var(--text);font-weight:700}
-.sl-dot{width:9px;height:9px;border-radius:3px;flex-shrink:0}
-.sl-dot.fundo{background:var(--orange)}
-.sl-dot.topo{background:var(--yellow)}
-
-/* MINI ENGAGEMENT BAR */
-.eng-rate{margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
-.eng-rate-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px;font-weight:700}
-.ac-bar-wrap{display:flex;align-items:center;gap:8px}
-.ac-bar-track{flex:1;height:6px;background:var(--border);border-radius:999px;overflow:hidden}
-.ac-bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--yellow),var(--orange))}
-.ac-bar-lbl{font-size:11px;color:var(--text);font-weight:700;white-space:nowrap}
-
 /* CHARTS */
 .charts-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:30px}
 .panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px}
@@ -115,8 +95,7 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-ap
 .dl-name{flex:1;color:var(--muted)}
 .dl-val{font-weight:700;color:var(--black)}
 .dl-pct{font-size:10px;color:var(--dim)}
-.chart-canvas{height:160px;position:relative}
-.mini-panel{margin-top:0}
+.chart-canvas{height:185px;position:relative}
 
 /* CLOSING */
 .closing{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--orange);border-radius:8px;padding:20px 24px;margin-bottom:30px}
@@ -191,15 +170,8 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-ap
     <div id="legend-camp"></div>
   </div>
   <div class="panel">
-    <div class="panel-title">Investimento — fundo x topo de funil</div>
-    <div class="split-bar">
-      <div class="split-seg fundo" style="width:92%">92%</div>
-      <div class="split-seg topo" style="width:8%">8%</div>
-    </div>
-    <div class="split-legend">
-      <div class="sl-item"><span class="sl-dot fundo"></span>Fundo de funil (gera conversa) — <strong>R$ 1.850</strong></div>
-      <div class="sl-item"><span class="sl-dot topo"></span>Topo de funil (alcance/marca) — <strong>R$ 170</strong></div>
-    </div>
+    <div class="panel-title">Conversas por campanha</div>
+    <div class="chart-canvas"><canvas id="bar-conv"></canvas></div>
   </div>
 </div>
 
@@ -235,10 +207,6 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-ap
     </div>
   </div>
 </div>
-<div class="panel mini-panel">
-  <div class="panel-title">Conversas por campanha</div>
-  <div class="chart-canvas"><canvas id="bar-conv"></canvas></div>
-</div>
 </div>
 
 <!-- TOPO DE FUNIL -->
@@ -252,13 +220,6 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-ap
       <div><div class="cm-val">50,4k</div><div class="cm-lbl">Alcance</div></div>
       <div><div class="cm-val accent">26,8k</div><div class="cm-lbl">Engajamentos</div></div>
       <div><div class="cm-val">R$ 3,29</div><div class="cm-lbl">CPM</div></div>
-    </div>
-    <div class="eng-rate">
-      <div class="eng-rate-lbl">Taxa de engajamento sobre o alcance</div>
-      <div class="ac-bar-wrap">
-        <div class="ac-bar-track"><div class="ac-bar-fill" style="width:53%"></div></div>
-        <div class="ac-bar-lbl">53%</div>
-      </div>
     </div>
   </div>
 </div>
