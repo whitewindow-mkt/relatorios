@@ -107,13 +107,11 @@ html,body{overflow-x:hidden}
 .dl-val{font-weight:700;color:var(--black)}
 .dl-pct{font-size:10px;color:var(--dim)}
 .chart-canvas{height:185px;position:relative}
-.funnel-wrap{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
-.funnel-row{position:relative;height:46px}
-.fr-shape{position:absolute;inset:0;border-radius:4px}
-.fr-text{position:relative;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.25}
-.fr-name{font-size:9px;text-transform:uppercase;letter-spacing:.4px;opacity:.85}
-.fr-val{font-size:13px;font-weight:900}
-.fr-val small{font-size:9px;font-weight:700;opacity:.8;margin-left:4px}
+.funnel-wrap{display:flex;flex-direction:column;gap:3px;margin-bottom:14px}
+.funnel-row{position:relative;height:52px}
+.fr-shape{position:absolute;inset:0}
+.fr-text{position:relative;height:100%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900}
+#legend-funnel{margin-bottom:12px}
 .funnel-caption{font-size:10px;color:var(--muted);line-height:1.5;padding-top:10px;border-top:1px solid var(--border)}
 
 /* CLOSING */
@@ -228,31 +226,27 @@ html,body{overflow-x:hidden}
     <div class="panel-title">Investimento por etapa do funil</div>
     <div class="funnel-wrap">
       <div class="funnel-row">
-        <div class="fr-shape" style="background:#000000;clip-path:polygon(0% 0%,100% 0%,85% 100%,15% 100%)"></div>
-        <div class="fr-text" style="color:#ffffff">
-          <span class="fr-name">Topo — Reconhecimento</span>
-          <span class="fr-val">R$ 180<small>7%</small></span>
-        </div>
+        <div class="fr-shape" style="background:#000000;clip-path:polygon(0% 0%,100% 0%,82% 100%,18% 100%)"></div>
+        <div class="fr-text" style="color:#ffffff">R$ 180</div>
       </div>
       <div class="funnel-row">
-        <div class="fr-shape" style="background:#c94e0a;clip-path:polygon(15% 0%,85% 0%,68% 100%,32% 100%)"></div>
-        <div class="fr-text" style="color:#ffffff">
-          <span class="fr-name">Meio — Engajamento</span>
-          <span class="fr-val">R$ 180<small>7%</small></span>
-        </div>
+        <div class="fr-shape" style="background:#c94e0a;clip-path:polygon(18% 0%,82% 0%,58% 100%,42% 100%)"></div>
+        <div class="fr-text" style="color:#ffffff">R$ 180</div>
       </div>
       <div class="funnel-row">
-        <div class="fr-shape" style="background:#f2620f;clip-path:polygon(32% 0%,68% 0%,42% 100%,58% 100%)"></div>
-        <div class="fr-text" style="color:#ffffff">
-          <span class="fr-name">Fundo — Conversão</span>
-          <span class="fr-val">R$ 2.063<small>85%</small></span>
-        </div>
+        <div class="fr-shape" style="background:#f2620f;clip-path:polygon(42% 0%,58% 0%,46% 100%,54% 100%)"></div>
+        <div class="fr-text" style="color:#ffffff">R$ 2.063</div>
       </div>
+    </div>
+    <div id="legend-funnel">
+      <div class="dl-item"><div class="dl-dot" style="background:#000000"></div><span class="dl-name">Topo — Reconhecimento</span><span class="dl-val">R$180</span><span class="dl-pct">7%</span></div>
+      <div class="dl-item"><div class="dl-dot" style="background:#c94e0a"></div><span class="dl-name">Meio — Engajamento</span><span class="dl-val">R$180</span><span class="dl-pct">7%</span></div>
+      <div class="dl-item"><div class="dl-dot" style="background:#f2620f"></div><span class="dl-name">Fundo — Conversão</span><span class="dl-val">R$2.063</span><span class="dl-pct">85%</span></div>
     </div>
     <div class="funnel-caption">Alcance &amp; branding (topo+meio): <strong>R$ 360 · 15%</strong> · Vendas/conversão (fundo): <strong>R$ 2.063 · 85%</strong></div>
   </div>
   <div class="panel">
-    <div class="panel-title">Investimento por campanha</div>
+    <div class="panel-title">Investimento por campanha/interesse</div>
     <div class="donut-wrap">
       <canvas id="donut-camp"></canvas>
       <div class="donut-center"><div class="dc-val">R$2.422</div><div class="dc-lbl">total</div></div>
@@ -427,9 +421,12 @@ function selectTopo(i, el){
 }
 
 const campData = [
-  {label:'Fundo — Conversão',    value:2062.71, color:'#f2620f'},
-  {label:'Meio — Engajamento',   value:179.57,  color:'#c94e0a'},
-  {label:'Topo — Reconhecimento',value:179.51,  color:'#000000'},
+  {label:'Interesses (Película)', value:1077.02, color:'#f2620f'},
+  {label:'Interesses (Geral)',    value:615.25,  color:'#c94e0a'},
+  {label:'Remarketing',           value:186.88,  color:'#4a4a4a'},
+  {label:'Interesses (Motos)',    value:183.56,  color:'#f2a679'},
+  {label:'Meio — Engajamento',    value:179.57,  color:'#febe28'},
+  {label:'Topo — Reconhecimento', value:179.51,  color:'#000000'},
 ];
 const total = campData.reduce((s,d)=>s+d.value,0);
 
