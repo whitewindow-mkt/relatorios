@@ -223,7 +223,7 @@ html,body{overflow-x:hidden}
     <div id="legend-camp"></div>
   </div>
   <div class="panel">
-    <div class="panel-title">Conversas por interesse (Fundo)</div>
+    <div class="panel-title">Alcance &amp; conversão por campanha</div>
     <div class="chart-canvas"><canvas id="bar-conv"></canvas></div>
   </div>
 </div>
@@ -361,10 +361,19 @@ new Chart(document.getElementById('donut-camp'),{
 document.getElementById('legend-camp').innerHTML = campData.map(d=>`
   <div class="dl-item"><div class="dl-dot" style="background:${d.color}"></div><span class="dl-name">${d.label}</span><span class="dl-val">R$${Math.round(d.value).toLocaleString('pt-BR')}</span><span class="dl-pct">${(d.value/total*100).toFixed(0)}%</span></div>`).join('');
 
+const campMetrics = [
+  {label:'(FUNDO) Conversão',     alcance:59041, conversao:350},
+  {label:'(TOPO) Reconhecimento', alcance:53830, conversao:53830},
+  {label:'(MEIO) Engajamento',    alcance:18944, conversao:402},
+];
+
 new Chart(document.getElementById('bar-conv'),{
   type:'bar',
-  data:{labels:['Interesses (Película)','Interesses (Geral)','Interesses (Motos)','Remarketing'],datasets:[{data:[223,95,24,8],backgroundColor:['#f2620f','#c94e0a','#000000','#febe28'],borderRadius:8,borderSkipped:false}]},
-  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.raw} conversas`},...tip}},scales:{x:{grid:{display:false},ticks:{color:'#7a746c',font:{size:10}}},y:{grid:{color:'#eae6df'},ticks:{color:'#a8a196',font:{size:10}},beginAtZero:true}}}
+  data:{labels:campMetrics.map(d=>d.label),datasets:[
+    {label:'Alcance',   data:campMetrics.map(d=>d.alcance),   backgroundColor:'#000000', borderRadius:6, borderSkipped:false},
+    {label:'Conversão', data:campMetrics.map(d=>d.conversao), backgroundColor:'#f2620f', borderRadius:6, borderSkipped:false}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'top',labels:{boxWidth:10,font:{size:10},color:'#7a746c'}},tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.raw.toLocaleString('pt-BR')}`},...tip}},scales:{x:{grid:{display:false},ticks:{color:'#7a746c',font:{size:9}}},y:{type:'logarithmic',grid:{color:'#eae6df'},ticks:{color:'#a8a196',font:{size:9}}}}}
 });
 </script>
 </body>
