@@ -22,7 +22,6 @@
   --teal:#2dd4bf;
 }
 body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;min-height:100vh}
-
 .page{max-width:1060px;margin:0 auto;padding:0 32px 80px}
 
 /* HEADER */
@@ -35,6 +34,7 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-ap
 .brand-name{font-size:13px;font-weight:700}
 .brand-role{font-size:11px;color:var(--muted)}
 .brand-right .brand-name{text-align:right;color:var(--blue)}
+.brand-right .brand-role{text-align:right}
 .header-mid{text-align:center}
 .platform-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);color:var(--blue);padding:5px 14px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
 .header-date{font-size:11px;color:var(--dim);margin-top:5px}
@@ -44,10 +44,9 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-ap
 .report-hero h1{font-size:34px;font-weight:900;letter-spacing:-1.5px;margin-bottom:10px}
 .report-hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .report-hero .period{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:11px;color:var(--dim);background:var(--surface);border:1px solid var(--border);padding:5px 14px;border-radius:999px}
-.report-hero .period strong{color:#94a3b8}
 
 /* KPI CARDS */
-.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:32px}
 .kpi{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;position:relative;overflow:hidden;transition:border-color .2s}
 .kpi:hover{border-color:rgba(255,255,255,.11)}
 .kpi-glow{position:absolute;top:0;right:0;width:60px;height:60px;border-radius:0 16px 0 0;opacity:.07}
@@ -55,54 +54,26 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-ap
 .kpi-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;margin-bottom:5px}
 .kpi-val{font-size:26px;font-weight:900;letter-spacing:-1px;line-height:1}
 .kpi-sub{font-size:11px;color:var(--muted);margin-top:5px}
-.kpi-delta{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;margin-top:5px}
-.delta-up{background:rgba(52,211,153,.1);color:var(--green);border:1px solid rgba(52,211,153,.2)}
-.delta-down{background:rgba(248,113,113,.1);color:var(--red);border:1px solid rgba(248,113,113,.2)}
 .kpi.blue .kpi-val{color:var(--blue)}.kpi.blue .kpi-glow{background:#3b82f6}
 .kpi.purple .kpi-val{color:var(--purple)}.kpi.purple .kpi-glow{background:#7c3aed}
 .kpi.green .kpi-val{color:var(--green)}.kpi.green .kpi-glow{background:#10b981}
 .kpi.amber .kpi-val{color:var(--amber)}.kpi.amber .kpi-glow{background:#d97706}
-
-/* PARTIAL MONTH NOTE */
-.partial-note{text-align:center;font-size:11px;color:var(--dim);margin-bottom:32px;display:flex;align-items:center;justify-content:center;gap:6px}
-.partial-note::before,.partial-note::after{content:'';flex:1;max-width:120px;height:1px;background:var(--border)}
-
-/* COMPARATIVO */
-.comp-section{margin-bottom:32px}
-.section-label{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-.section-label span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);white-space:nowrap}
-.section-label::before,.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
-.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.comp-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px 24px}
-.comp-card.current{border-color:rgba(167,139,250,.2);background:rgba(167,139,250,.03)}
-.comp-month{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
-.comp-card.current .comp-month{color:var(--purple)}
-.comp-card:not(.current) .comp-month{color:var(--muted)}
-.comp-period{font-size:10px;color:var(--dim);margin-bottom:16px}
-.comp-metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-.cm{display:flex;flex-direction:column;gap:3px}
-.cm-val{font-size:18px;font-weight:800;letter-spacing:-.5px;color:var(--text)}
-.cm-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}
-.comp-card.current .cm-val{color:var(--purple)}
-.comp-bar{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
-.cb-item{display:flex;align-items:center;gap:8px}
-.cb-track{flex:1;height:5px;background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden}
-.cb-fill{height:100%;border-radius:999px}
-.comp-card.current .cb-fill{background:var(--purple)}
-.comp-card:not(.current) .cb-fill{background:rgba(100,116,139,.5)}
-.cb-lbl{font-size:9px;color:var(--dim);white-space:nowrap}
-.cb-val{font-size:10px;font-weight:700;color:var(--muted);white-space:nowrap}
 
 /* HIGHLIGHT */
 .highlight{display:flex;align-items:center;gap:22px;background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(59,130,246,.06));border:1px solid rgba(139,92,246,.25);border-radius:18px;padding:26px 30px;margin-bottom:32px;position:relative;overflow:hidden}
 .highlight::before{content:'';position:absolute;top:-30px;right:-30px;width:140px;height:140px;background:radial-gradient(circle,rgba(139,92,246,.12),transparent 70%);pointer-events:none}
 .hl-icon{font-size:36px;flex-shrink:0}
 .hl-body h3{font-size:16px;font-weight:800;margin-bottom:5px}
-.hl-body p{font-size:12.5px;color:#94a3b8;line-height:1.6;max-width:500px}
+.hl-body p{font-size:12.5px;color:#94a3b8;line-height:1.65;max-width:520px}
 .hl-right{text-align:right;margin-left:auto;flex-shrink:0}
 .hl-val{font-size:36px;font-weight:900;color:var(--purple);letter-spacing:-2px;line-height:1}
-.hl-sub{font-size:10px;color:var(--muted);margin-top:4px}
-.hl-tag{display:inline-block;margin-top:6px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(52,211,153,.1);color:var(--green);border:1px solid rgba(52,211,153,.2)}
+.hl-sub{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.5}
+.hl-tag{display:inline-block;margin-top:7px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(52,211,153,.1);color:var(--green);border:1px solid rgba(52,211,153,.2)}
+
+/* SECTION LABEL */
+.section-label{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.section-label span{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);white-space:nowrap}
+.section-label::before,.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
 
 /* CAMPAIGNS TABLE */
 .camp-list{display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
@@ -122,11 +93,52 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-ap
 .cs-val{font-size:13px;font-weight:700;line-height:1}
 .cs-lbl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
 
-/* CHARTS ROW */
+/* FUNNEL BLOCKS */
+.funnel-block{border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:20px}
+.funnel-block:last-child{margin-bottom:32px}
+.fb-camp{padding:18px 22px;display:flex;align-items:flex-start;gap:14px;border-bottom:1px solid var(--border)}
+.fb-camp-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.fb-camp-info{flex:1}
+.fb-camp-name{font-size:14px;font-weight:800;color:var(--text);margin-bottom:4px}
+.fb-camp-tags{display:flex;gap:5px;margin-bottom:10px}
+.fb-camp-metrics{display:flex;gap:24px}
+.fbcm{display:flex;flex-direction:column;gap:2px}
+.fbcm-val{font-size:16px;font-weight:900;letter-spacing:-.5px;line-height:1}
+.fbcm-lbl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.5px}
+.fb-section{padding:14px 22px;border-bottom:1px solid var(--border)}
+.fb-section:last-child{border-bottom:none}
+.fb-section-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:10px}
+.adset-row{display:grid;gap:8px}
+.adset-row.cols-3{grid-template-columns:repeat(3,1fr)}
+.adset-row.cols-1{grid-template-columns:1fr}
+.adset-card{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+.adset-card.best{border-color:rgba(52,211,153,.2);background:rgba(52,211,153,.02)}
+.ac-name{font-size:11px;font-weight:700;color:var(--text);margin-bottom:8px}
+.ac-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:7px}
+.acm-val{font-size:12px;font-weight:800;line-height:1}
+.acm-val.best{color:var(--green)}
+.acm-lbl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.3px;margin-top:2px}
+.ac-bar-wrap{display:flex;align-items:center;gap:6px}
+.ac-bar-track{flex:1;height:3px;background:rgba(255,255,255,.05);border-radius:999px;overflow:hidden}
+.ac-bar-fill{height:100%;border-radius:999px}
+.ac-bar-lbl{font-size:9px;color:var(--dim);white-space:nowrap}
+.champion-card{display:flex;align-items:center;gap:16px;background:rgba(251,191,36,.04);border:1px solid rgba(251,191,36,.15);border-radius:10px;padding:14px 16px}
+.champ-trophy{font-size:22px;flex-shrink:0}
+.champ-info{flex:1}
+.champ-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px}
+.champ-ctr-wrap{display:flex;align-items:center;gap:8px;margin-top:6px}
+.champ-ctr-track{width:100px;height:3px;background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden}
+.champ-ctr-fill{height:100%;background:linear-gradient(90deg,var(--amber),#f97316);border-radius:999px}
+.champ-ctr-lbl{font-size:10px;color:var(--muted)}
+.champ-metrics{display:flex;gap:20px;text-align:right}
+.chm-val{font-size:14px;font-weight:900;line-height:1}
+.chm-lbl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.3px;margin-top:2px}
+
+/* CHARTS */
 .charts-row{display:grid;grid-template-columns:1fr 1.5fr;gap:14px;margin-bottom:32px}
 .panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px}
 .panel-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:18px}
-.donut-wrap{position:relative;width:150px;height:150px;margin:0 auto 14px}
+.donut-wrap{position:relative;width:155px;height:155px;margin:0 auto 14px}
 .donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
 .dc-val{font-size:16px;font-weight:900}
 .dc-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:1px}
@@ -135,13 +147,12 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-ap
 .dl-name{flex:1;color:#94a3b8}
 .dl-val{font-weight:700}
 .dl-pct{font-size:10px;color:var(--muted)}
-.chart-canvas{height:190px;position:relative}
+.chart-canvas{height:195px;position:relative}
 
-/* CREATIVES NOTE */
-.activity-strip{background:rgba(167,139,250,.04);border:1px solid rgba(167,139,250,.15);border-radius:14px;padding:20px 24px;margin-bottom:32px}
-.as-head{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple);margin-bottom:10px}
-.as-body{font-size:13px;color:#94a3b8;line-height:1.65}
-.as-body strong{color:var(--text)}
+/* CLOSING NOTE */
+.closing{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 26px;margin-bottom:32px}
+.closing p{font-size:13px;color:#94a3b8;line-height:1.7}
+.closing p strong{color:var(--text)}
 
 /* FOOTER */
 .report-footer{border-top:1px solid var(--border);padding-top:24px;display:flex;align-items:center;justify-content:space-between}
@@ -163,13 +174,13 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-ap
   </div>
   <div class="header-mid">
     <div class="platform-badge">Meta Ads &middot; Instagram</div>
-    <div class="header-date">Relatório gerado em 17/06/2026</div>
+    <div class="header-date">Período: 01/06 → 30/06/2026</div>
   </div>
   <div class="brand" style="flex-direction:row-reverse">
     <div class="mark mark-fm">FM</div>
     <div class="brand-info brand-right">
       <div class="brand-name">Futuremedia</div>
-      <div class="brand-role" style="text-align:right">Robôs & Totens Interativos</div>
+      <div class="brand-role">Robôs &amp; Totens Interativos</div>
     </div>
   </div>
 </div>
@@ -178,165 +189,58 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-ap
 
 <!-- TITLE -->
 <div class="report-hero">
-  <h1>Performance de <em>Junho 2026</em></h1>
-  <div class="period">📅 <strong>Junho:</strong> 01/06 → 16/06 &nbsp;·&nbsp; <strong>Comparativo:</strong> Maio completo (01/05 → 31/05)</div>
+  <h1>Resultados de <em>Junho 2026</em></h1>
+  <div class="period">📅 Mês fechado · 01/06/2026 → 30/06/2026</div>
 </div>
 
-<!-- KPI CARDS — JUNHO -->
+<!-- KPI CARDS -->
 <div class="kpi-grid">
   <div class="kpi blue">
     <div class="kpi-glow"></div>
     <div class="kpi-icon">💰</div>
     <div class="kpi-lbl">Investimento</div>
-    <div class="kpi-val">R$&nbsp;1.237</div>
-    <div class="kpi-sub">nos primeiros 16 dias</div>
-    <div class="kpi-delta delta-up">no ritmo de superar Maio</div>
+    <div class="kpi-val">R$&nbsp;2.021</div>
+    <div class="kpi-sub">verba aplicada no mês</div>
   </div>
   <div class="kpi purple">
     <div class="kpi-glow"></div>
     <div class="kpi-icon">💬</div>
     <div class="kpi-lbl">Conversas WhatsApp</div>
-    <div class="kpi-val">212</div>
+    <div class="kpi-val">312</div>
     <div class="kpi-sub">contatos iniciados no mês</div>
-    <div class="kpi-delta delta-up">↑ ritmo maior que Maio</div>
   </div>
   <div class="kpi green">
     <div class="kpi-glow"></div>
     <div class="kpi-icon">✅</div>
     <div class="kpi-lbl">Custo por Conversa</div>
-    <div class="kpi-val">R$&nbsp;5,36</div>
-    <div class="kpi-sub">campanha de leads</div>
-    <div class="kpi-delta delta-up">↓ melhor que Maio (R$5,69)</div>
+    <div class="kpi-val">R$&nbsp;5,93</div>
+    <div class="kpi-sub">média geral do mês</div>
   </div>
   <div class="kpi amber">
     <div class="kpi-glow"></div>
     <div class="kpi-icon">👥</div>
     <div class="kpi-lbl">Pessoas Alcançadas</div>
-    <div class="kpi-val">62k</div>
-    <div class="kpi-sub">impactadas no período</div>
+    <div class="kpi-val">88&nbsp;mil</div>
+    <div class="kpi-sub">impactadas no mês</div>
   </div>
 </div>
 
-<div class="partial-note">Junho em andamento · dados até 16/06 · mês completo em breve</div>
-
-<!-- COMPARATIVO MAIO vs JUNHO -->
-<div class="comp-section">
-  <div class="section-label"><span>Comparativo mensal</span></div>
-  <div class="comp-grid">
-
-    <div class="comp-card current">
-      <div class="comp-month">Junho 2026</div>
-      <div class="comp-period">01/06 → 16/06 · 16 dias</div>
-      <div class="comp-metrics">
-        <div class="cm"><div class="cm-val">212</div><div class="cm-lbl">Conversas</div></div>
-        <div class="cm"><div class="cm-val">R$5,36</div><div class="cm-lbl">CPR leads</div></div>
-        <div class="cm"><div class="cm-val">2,56%</div><div class="cm-lbl">CTR médio</div></div>
-      </div>
-      <div class="comp-bar">
-        <div class="cb-item"><div class="cb-lbl">Gasto</div><div class="cb-track"><div class="cb-fill" style="width:70%"></div></div><div class="cb-val">R$1.237</div></div>
-        <div class="cb-item"><div class="cb-lbl">Impressões</div><div class="cb-track"><div class="cb-fill" style="width:67%"></div></div><div class="cb-val">75,2k</div></div>
-      </div>
-    </div>
-
-    <div class="comp-card">
-      <div class="comp-month">Maio 2026</div>
-      <div class="comp-period">01/05 → 31/05 · mês completo</div>
-      <div class="comp-metrics">
-        <div class="cm"><div class="cm-val" style="color:var(--muted)">283</div><div class="cm-lbl">Conversas</div></div>
-        <div class="cm"><div class="cm-val" style="color:var(--muted)">R$5,69</div><div class="cm-lbl">CPR leads</div></div>
-        <div class="cm"><div class="cm-val" style="color:var(--muted)">2,15%</div><div class="cm-lbl">CTR médio</div></div>
-      </div>
-      <div class="comp-bar">
-        <div class="cb-item"><div class="cb-lbl">Gasto</div><div class="cb-track"><div class="cb-fill" style="width:100%"></div></div><div class="cb-val">R$1.757</div></div>
-        <div class="cb-item"><div class="cb-lbl">Impressões</div><div class="cb-track"><div class="cb-fill" style="width:100%"></div></div><div class="cb-val">112,4k</div></div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- HIGHLIGHT CPR -->
+<!-- HIGHLIGHT -->
 <div class="highlight">
   <div class="hl-icon">💬</div>
   <div class="hl-body">
-    <h3>Conversas chegando com eficiência crescente</h3>
-    <p>Em 16 dias de Junho, já foram <strong>212 contatos iniciados no WhatsApp</strong> — mantendo o custo por conversa abaixo de Maio. A campanha <strong>Leads Eventos</strong>, carro-chefe da conta, segue como principal fonte de contatos a <strong>R$&nbsp;4,77 por conversa</strong>.</p>
-    <div class="hl-tag">✓ dentro da meta</div>
+    <h3>312 conversas em junho</h3>
+    <p>A campanha <strong>Leads — Eventos</strong> foi o motor do mês, respondendo por <strong>85% de todos os contatos</strong> gerados. Com <strong>264 conversas a R$&nbsp;5,30 por contato</strong>, ela manteve o melhor desempenho da conta. Ao todo, os anúncios alcançaram mais de <strong>115 mil exibições</strong> ao longo do mês.</p>
+    <div class="hl-tag">✓ meta atingida</div>
   </div>
   <div class="hl-right">
-    <div class="hl-val">R$4,77</div>
-    <div class="hl-sub">CPR · Leads Eventos<br>melhor campanha do mês</div>
+    <div class="hl-val">R$5,93</div>
+    <div class="hl-sub">custo médio<br>por conversa</div>
   </div>
-</div>
-
-<!-- CAMPANHAS JUNHO -->
-<div class="section-label"><span>Campanhas — Junho 2026</span></div>
-<div class="camp-list">
-
-  <div class="camp-row">
-    <div class="status-dot dot-active"></div>
-    <div class="camp-main">
-      <div class="camp-name">Geração de Leads — Eventos</div>
-      <div class="tag-row"><span class="ctag ctag-fundo">Fundo de Funil</span><span class="ctag ctag-lead">Leads WhatsApp</span></div>
-    </div>
-    <div class="camp-stats">
-      <div><div class="cs-val">R$864</div><div class="cs-lbl">Gasto</div></div>
-      <div><div class="cs-val">21,8k</div><div class="cs-lbl">Alcance</div></div>
-      <div><div class="cs-val" style="color:var(--green)">2,56%</div><div class="cs-lbl">CTR</div></div>
-      <div><div class="cs-val">181</div><div class="cs-lbl">Conversas</div></div>
-      <div><div class="cs-val" style="color:var(--green)">R$4,77</div><div class="cs-lbl">CPR</div></div>
-    </div>
-  </div>
-
-  <div class="camp-row">
-    <div class="status-dot dot-active"></div>
-    <div class="camp-main">
-      <div class="camp-name">Geração de Leads — Marketing</div>
-      <div class="tag-row"><span class="ctag ctag-fundo">Fundo de Funil</span><span class="ctag ctag-lead">Leads WhatsApp</span></div>
-    </div>
-    <div class="camp-stats">
-      <div><div class="cs-val">R$166</div><div class="cs-lbl">Gasto</div></div>
-      <div><div class="cs-val">5,0k</div><div class="cs-lbl">Alcance</div></div>
-      <div><div class="cs-val">2,47%</div><div class="cs-lbl">CTR</div></div>
-      <div><div class="cs-val">16</div><div class="cs-lbl">Conversas</div></div>
-      <div><div class="cs-val">R$10,38</div><div class="cs-lbl">CPR</div></div>
-    </div>
-  </div>
-
-  <div class="camp-row">
-    <div class="status-dot dot-active"></div>
-    <div class="camp-main">
-      <div class="camp-name">Remarketing — Quem já interagiu</div>
-      <div class="tag-row"><span class="ctag ctag-fundo">Fundo de Funil</span><span class="ctag ctag-lead">Leads WhatsApp</span></div>
-    </div>
-    <div class="camp-stats">
-      <div><div class="cs-val">R$105</div><div class="cs-lbl">Gasto</div></div>
-      <div><div class="cs-val">2,9k</div><div class="cs-lbl">Alcance</div></div>
-      <div><div class="cs-val">1,83%</div><div class="cs-lbl">CTR</div></div>
-      <div><div class="cs-val">15</div><div class="cs-lbl">Conversas</div></div>
-      <div><div class="cs-val">R$7,00</div><div class="cs-lbl">CPR</div></div>
-    </div>
-  </div>
-
-  <div class="camp-row">
-    <div class="status-dot dot-active"></div>
-    <div class="camp-main">
-      <div class="camp-name">Engajamento — Perfil & Marca</div>
-      <div class="tag-row"><span class="ctag ctag-topo">Topo de Funil</span><span class="ctag ctag-eng">Engajamento</span></div>
-    </div>
-    <div class="camp-stats">
-      <div><div class="cs-val">R$102</div><div class="cs-lbl">Gasto</div></div>
-      <div><div class="cs-val">32,0k</div><div class="cs-lbl">Alcance</div></div>
-      <div><div class="cs-val">0,21%</div><div class="cs-lbl">CTR</div></div>
-      <div><div class="cs-val" style="color:var(--teal)">17,1k</div><div class="cs-lbl">Engajamentos</div></div>
-      <div><div class="cs-val" style="color:var(--green)">R$3,08</div><div class="cs-lbl">CPM</div></div>
-    </div>
-  </div>
-
 </div>
 
 <!-- CHARTS -->
-<div class="section-label"><span>Distribuição · Junho</span></div>
+<div class="section-label"><span>Visão gráfica</span></div>
 <div class="charts-row">
 
   <div class="panel">
@@ -344,7 +248,7 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-ap
     <div class="donut-wrap">
       <canvas id="donut-camp"></canvas>
       <div class="donut-center">
-        <div class="dc-val">R$1.237</div>
+        <div class="dc-val">R$2.021</div>
         <div class="dc-lbl">total</div>
       </div>
     </div>
@@ -352,26 +256,284 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-ap
   </div>
 
   <div class="panel">
-    <div class="panel-title">Conversas WhatsApp — Junho vs Maio</div>
-    <div class="chart-canvas"><canvas id="bar-comp"></canvas></div>
+    <div class="panel-title">Conversas iniciadas por campanha</div>
+    <div class="chart-canvas"><canvas id="bar-conv"></canvas></div>
   </div>
 
 </div>
 
-<!-- ATIVIDADES DO MÊS -->
-<div class="section-label"><span>O mês em movimento</span></div>
-<div class="activity-strip">
-  <div class="as-head">Atualizações de Junho</div>
-  <div class="as-body">
-    Neste mês renovamos os criativos em circulação: os anúncios ativos agora são baseados nos <strong>posts de Junho do Instagram</strong>, mantendo a comunicação da Futuremedia alinhada com o conteúdo mais recente da marca. Os novos vídeos já estão rodando em todos os conjuntos — RJ/SP/MG, Cidades, Brasília e Remarketing — e os resultados das primeiras semanas mostram <strong>CTR acima do mês anterior</strong>, sinal de que os criativos estão ressoando bem com o público. O mês segue em andamento e o fechamento completo será apresentado no próximo relatório.
+<!-- FUNIL COMPLETO: campanha → conjuntos → anúncio campeão -->
+<div class="section-label"><span>Estrutura de campanhas</span></div>
+
+<!-- ── LEADS EVENTOS ── -->
+<div class="funnel-block" style="border-color:rgba(167,139,250,.25);box-shadow:0 0 0 1px rgba(167,139,250,.06) inset">
+  <div class="fb-camp" style="background:rgba(167,139,250,.07);border-left:3px solid #a78bfa">
+    <div class="fb-camp-dot" style="background:var(--purple)"></div>
+    <div class="fb-camp-info">
+      <div class="fb-camp-name">Geração de Leads — Eventos</div>
+      <div class="fb-camp-tags">
+        <span class="ctag ctag-fundo">Fundo de Funil</span>
+        <span class="ctag ctag-lead">Leads WhatsApp</span>
+      </div>
+      <div class="fb-camp-metrics">
+        <div class="fbcm"><div class="fbcm-val" style="color:var(--purple)">R$1.400</div><div class="fbcm-lbl">Investido</div></div>
+        <div class="fbcm"><div class="fbcm-val">48,5k</div><div class="fbcm-lbl">Impressões</div></div>
+        <div class="fbcm"><div class="fbcm-val">30,6k</div><div class="fbcm-lbl">Alcance</div></div>
+        <div class="fbcm"><div class="fbcm-val">264</div><div class="fbcm-lbl">Conversas</div></div>
+        <div class="fbcm"><div class="fbcm-val" style="color:var(--green)">R$5,30</div><div class="fbcm-lbl">CPR médio</div></div>
+        <div class="fbcm"><div class="fbcm-val">2,51%</div><div class="fbcm-lbl">CTR médio</div></div>
+      </div>
+    </div>
   </div>
+  <div class="fb-section">
+    <div class="fb-section-label">Conjuntos</div>
+    <div class="adset-row cols-3">
+      <div class="adset-card best">
+        <div class="ac-name">RJ / SP / MG</div>
+        <div class="ac-metrics">
+          <div><div class="acm-val">121</div><div class="acm-lbl">Conversas</div></div>
+          <div><div class="acm-val best">R$4,62</div><div class="acm-lbl">CPR</div></div>
+          <div><div class="acm-val">15,7k</div><div class="acm-lbl">Alcance</div></div>
+          <div><div class="acm-val">2,55%</div><div class="acm-lbl">CTR</div></div>
+        </div>
+        <div class="ac-bar-wrap">
+          <div class="ac-bar-track"><div class="ac-bar-fill" style="width:100%;background:linear-gradient(90deg,var(--green),var(--teal))"></div></div>
+          <div class="ac-bar-lbl">R$559</div>
+        </div>
+      </div>
+      <div class="adset-card">
+        <div class="ac-name">Cidades</div>
+        <div class="ac-metrics">
+          <div><div class="acm-val">113</div><div class="acm-lbl">Conversas</div></div>
+          <div><div class="acm-val">R$4,94</div><div class="acm-lbl">CPR</div></div>
+          <div><div class="acm-val">13,6k</div><div class="acm-lbl">Alcance</div></div>
+          <div><div class="acm-val">2,76%</div><div class="acm-lbl">CTR</div></div>
+        </div>
+        <div class="ac-bar-wrap">
+          <div class="ac-bar-track"><div class="ac-bar-fill" style="width:100%;background:linear-gradient(90deg,var(--purple),var(--blue))"></div></div>
+          <div class="ac-bar-lbl">R$558</div>
+        </div>
+      </div>
+      <div class="adset-card">
+        <div class="ac-name">Brasília</div>
+        <div class="ac-metrics">
+          <div><div class="acm-val">30</div><div class="acm-lbl">Conversas</div></div>
+          <div><div class="acm-val">R$9,43</div><div class="acm-lbl">CPR</div></div>
+          <div><div class="acm-val">6,2k</div><div class="acm-lbl">Alcance</div></div>
+          <div><div class="acm-val">1,75%</div><div class="acm-lbl">CTR</div></div>
+        </div>
+        <div class="ac-bar-wrap">
+          <div class="ac-bar-track"><div class="ac-bar-fill" style="width:51%;background:linear-gradient(90deg,var(--purple),var(--blue))"></div></div>
+          <div class="ac-bar-lbl">R$283</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="fb-section">
+    <div class="fb-section-label">Anúncio campeão</div>
+    <div class="champion-card">
+      <div class="champ-trophy">🏆</div>
+      <div class="champ-info">
+        <div class="champ-name">Vídeo 1 (Abril)</div>
+        <div class="champ-ctr-wrap">
+          <div class="champ-ctr-track"><div class="champ-ctr-fill" style="width:71%"></div></div>
+          <div class="champ-ctr-lbl">CTR 2,64%</div>
+        </div>
+      </div>
+      <div class="champ-metrics">
+        <div class="fbcm"><div class="chm-val" style="color:var(--green)">R$3,11</div><div class="chm-lbl">CPR</div></div>
+        <div class="fbcm"><div class="chm-val">67</div><div class="chm-lbl">Conversas</div></div>
+        <div class="fbcm"><div class="chm-val">R$208</div><div class="chm-lbl">Gasto</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── LEADS MARKETING ── -->
+<div class="funnel-block" style="border-color:rgba(96,165,250,.25);box-shadow:0 0 0 1px rgba(96,165,250,.06) inset">
+  <div class="fb-camp" style="background:rgba(96,165,250,.07);border-left:3px solid #60a5fa">
+    <div class="fb-camp-dot" style="background:var(--blue)"></div>
+    <div class="fb-camp-info">
+      <div class="fb-camp-name">Geração de Leads — Marketing</div>
+      <div class="fb-camp-tags">
+        <span class="ctag ctag-fundo">Fundo de Funil</span>
+        <span class="ctag ctag-lead">Leads WhatsApp</span>
+      </div>
+      <div class="fb-camp-metrics">
+        <div class="fbcm"><div class="fbcm-val" style="color:var(--blue)">R$281</div><div class="fbcm-lbl">Investido</div></div>
+        <div class="fbcm"><div class="fbcm-val">9,9k</div><div class="fbcm-lbl">Impressões</div></div>
+        <div class="fbcm"><div class="fbcm-val">8,1k</div><div class="fbcm-lbl">Alcance</div></div>
+        <div class="fbcm"><div class="fbcm-val">25</div><div class="fbcm-lbl">Conversas</div></div>
+        <div class="fbcm"><div class="fbcm-val" style="color:var(--green)">R$11,25</div><div class="fbcm-lbl">CPR médio</div></div>
+        <div class="fbcm"><div class="fbcm-val">2,30%</div><div class="fbcm-lbl">CTR médio</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="fb-section">
+    <div class="fb-section-label">Conjuntos</div>
+    <div class="adset-row cols-1">
+      <div class="adset-card">
+        <div class="ac-name">Marketing — Cidades</div>
+        <div class="ac-metrics">
+          <div><div class="acm-val">25</div><div class="acm-lbl">Conversas</div></div>
+          <div><div class="acm-val">R$11,25</div><div class="acm-lbl">CPR</div></div>
+          <div><div class="acm-val">8,1k</div><div class="acm-lbl">Alcance</div></div>
+          <div><div class="acm-val">2,30%</div><div class="acm-lbl">CTR</div></div>
+        </div>
+        <div class="ac-bar-wrap">
+          <div class="ac-bar-track"><div class="ac-bar-fill" style="width:100%;background:linear-gradient(90deg,var(--blue),#38bdf8)"></div></div>
+          <div class="ac-bar-lbl">R$281</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="fb-section">
+    <div class="fb-section-label">Anúncio campeão</div>
+    <div class="champion-card">
+      <div class="champ-trophy">🏆</div>
+      <div class="champ-info">
+        <div class="champ-name">Junho 5 — Cópia — Cópia</div>
+        <div class="champ-ctr-wrap">
+          <div class="champ-ctr-track"><div class="champ-ctr-fill" style="width:53%"></div></div>
+          <div class="champ-ctr-lbl">CTR 1,97%</div>
+        </div>
+      </div>
+      <div class="champ-metrics">
+        <div class="fbcm"><div class="chm-val" style="color:var(--amber)">R$11,37</div><div class="chm-lbl">CPR</div></div>
+        <div class="fbcm"><div class="chm-val">13</div><div class="chm-lbl">Conversas</div></div>
+        <div class="fbcm"><div class="chm-val">R$148</div><div class="chm-lbl">Gasto</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── REMARKETING ── -->
+<div class="funnel-block" style="border-color:rgba(248,113,113,.25);box-shadow:0 0 0 1px rgba(248,113,113,.06) inset">
+  <div class="fb-camp" style="background:rgba(248,113,113,.07);border-left:3px solid #f87171">
+    <div class="fb-camp-dot" style="background:var(--red)"></div>
+    <div class="fb-camp-info">
+      <div class="fb-camp-name">Remarketing — Quem já interagiu</div>
+      <div class="fb-camp-tags">
+        <span class="ctag ctag-fundo">Fundo de Funil</span>
+        <span class="ctag ctag-lead">Leads WhatsApp</span>
+      </div>
+      <div class="fb-camp-metrics">
+        <div class="fbcm"><div class="fbcm-val" style="color:var(--red)">R$169</div><div class="fbcm-lbl">Investido</div></div>
+        <div class="fbcm"><div class="fbcm-val">5,6k</div><div class="fbcm-lbl">Impressões</div></div>
+        <div class="fbcm"><div class="fbcm-val">4,5k</div><div class="fbcm-lbl">Alcance</div></div>
+        <div class="fbcm"><div class="fbcm-val">23</div><div class="fbcm-lbl">Conversas</div></div>
+        <div class="fbcm"><div class="fbcm-val">R$7,34</div><div class="fbcm-lbl">CPR médio</div></div>
+        <div class="fbcm"><div class="fbcm-val">2,02%</div><div class="fbcm-lbl">CTR médio</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="fb-section">
+    <div class="fb-section-label">Conjuntos</div>
+    <div class="adset-row cols-1">
+      <div class="adset-card">
+        <div class="ac-name">Conjunto Leads — Remarketing</div>
+        <div class="ac-metrics">
+          <div><div class="acm-val">23</div><div class="acm-lbl">Conversas</div></div>
+          <div><div class="acm-val">R$7,34</div><div class="acm-lbl">CPR</div></div>
+          <div><div class="acm-val">4,5k</div><div class="acm-lbl">Alcance</div></div>
+          <div><div class="acm-val">2,02%</div><div class="acm-lbl">CTR</div></div>
+        </div>
+        <div class="ac-bar-wrap">
+          <div class="ac-bar-track"><div class="ac-bar-fill" style="width:100%;background:linear-gradient(90deg,var(--red),#fb923c)"></div></div>
+          <div class="ac-bar-lbl">R$169</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="fb-section">
+    <div class="fb-section-label">Anúncio campeão</div>
+    <div class="champion-card">
+      <div class="champ-trophy">🏆</div>
+      <div class="champ-info">
+        <div class="champ-name">Ads 2 Abril</div>
+        <div class="champ-ctr-wrap">
+          <div class="champ-ctr-track"><div class="champ-ctr-fill" style="width:57%"></div></div>
+          <div class="champ-ctr-lbl">CTR 2,10%</div>
+        </div>
+      </div>
+      <div class="champ-metrics">
+        <div class="fbcm"><div class="chm-val" style="color:var(--green)">R$5,61</div><div class="chm-lbl">CPR</div></div>
+        <div class="fbcm"><div class="chm-val">12</div><div class="chm-lbl">Conversas</div></div>
+        <div class="fbcm"><div class="chm-val">R$67</div><div class="chm-lbl">Gasto</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── ENGAJAMENTO ── -->
+<div class="funnel-block" style="border-color:rgba(45,212,191,.25);box-shadow:0 0 0 1px rgba(45,212,191,.06) inset">
+  <div class="fb-camp" style="background:rgba(45,212,191,.07);border-left:3px solid #2dd4bf">
+    <div class="fb-camp-dot" style="background:var(--teal)"></div>
+    <div class="fb-camp-info">
+      <div class="fb-camp-name">Engajamento — Perfil &amp; Marca</div>
+      <div class="fb-camp-tags">
+        <span class="ctag ctag-topo">Topo de Funil</span>
+        <span class="ctag ctag-eng">Engajamento</span>
+      </div>
+      <div class="fb-camp-metrics">
+        <div class="fbcm"><div class="fbcm-val" style="color:var(--teal)">R$170</div><div class="fbcm-lbl">Investido</div></div>
+        <div class="fbcm"><div class="fbcm-val">51,8k</div><div class="fbcm-lbl">Impressões</div></div>
+        <div class="fbcm"><div class="fbcm-val">50,4k</div><div class="fbcm-lbl">Alcance</div></div>
+        <div class="fbcm"><div class="fbcm-val" style="color:var(--teal)">26,8k</div><div class="fbcm-lbl">Engajamentos</div></div>
+        <div class="fbcm"><div class="fbcm-val" style="color:var(--green)">R$3,29</div><div class="fbcm-lbl">CPM</div></div>
+        <div class="fbcm"><div class="fbcm-val">1,03</div><div class="fbcm-lbl">Frequência</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="fb-section">
+    <div class="fb-section-label">Conjuntos</div>
+    <div class="adset-row cols-1">
+      <div class="adset-card">
+        <div class="ac-name">Engajamento Posts — Público Amplo (Eventos)</div>
+        <div class="ac-metrics">
+          <div><div class="acm-val" style="color:var(--teal)">26,8k</div><div class="acm-lbl">Engajamentos</div></div>
+          <div><div class="acm-val" style="color:var(--green)">R$3,29</div><div class="acm-lbl">CPM</div></div>
+          <div><div class="acm-val">50,4k</div><div class="acm-lbl">Alcance</div></div>
+          <div><div class="acm-val">1,03</div><div class="acm-lbl">Frequência</div></div>
+        </div>
+        <div class="ac-bar-wrap">
+          <div class="ac-bar-track"><div class="ac-bar-fill" style="width:100%;background:linear-gradient(90deg,var(--teal),#06b6d4)"></div></div>
+          <div class="ac-bar-lbl">R$170</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="fb-section">
+    <div class="fb-section-label">Anúncio campeão</div>
+    <div class="champion-card">
+      <div class="champ-trophy">🏆</div>
+      <div class="champ-info">
+        <div class="champ-name">Ads 2 Abril</div>
+        <div class="champ-ctr-wrap">
+          <div class="champ-ctr-track"><div class="champ-ctr-fill" style="width:42%"></div></div>
+          <div class="champ-ctr-lbl">21,7k impressões</div>
+        </div>
+      </div>
+      <div class="champ-metrics">
+        <div class="fbcm"><div class="chm-val" style="color:var(--teal)">11,4k</div><div class="chm-lbl">Engajamentos</div></div>
+        <div class="fbcm"><div class="chm-val" style="color:var(--green)">R$0,01</div><div class="chm-lbl">Custo/eng</div></div>
+        <div class="fbcm"><div class="chm-val">R$62</div><div class="chm-lbl">Gasto</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FECHAMENTO DO MÊS -->
+<div class="section-label"><span>Junho em resumo</span></div>
+<div class="closing">
+  <p>Junho foi um mês forte para a Futuremedia no Meta, com o investimento total superando R$&nbsp;2 mil. A campanha <strong>Leads — Eventos</strong> seguiu como principal motor de geração de contatos, respondendo por <strong>85% das conversas do mês</strong> e mantendo o menor custo por resultado entre as campanhas de leads (R$5,30). A campanha de engajamento cumpriu bem seu papel de manter a presença da marca ativa, acumulando <strong>mais de 26 mil interações com o perfil</strong> a um custo residual de R$0,01 por engajamento.</p>
 </div>
 
 <!-- FOOTER -->
 <div class="report-footer">
   <div class="footer-left">
-    <p>Dados extraídos da API do Meta Ads em 17/06/2026<br>
-    Conta: act_1183087855907692 · Junho: 01–16/06/2026 · Maio: 01–31/05/2026</p>
+    <p>Dados extraídos da API do Meta Ads<br>
+    Conta: act_1183087855907692 · Período: 01/06/2026 → 30/06/2026</p>
   </div>
   <div class="footer-right">
     <div class="footer-ww">White Window — Gestão de Tráfego Pago</div>
@@ -387,47 +549,47 @@ Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
 const tip = {backgroundColor:'rgba(8,12,24,.97)',borderColor:'rgba(255,255,255,.1)',borderWidth:1,padding:10,titleFont:{size:12,weight:'700'},bodyFont:{size:11},bodyColor:'#94a3b8',titleColor:'#f8fafc'};
 const bg = '#080c18';
 
-// Donut campanhas
+// Donut
 const campData = [
-  {label:'Leads Eventos',   value:864.26,  color:'#a78bfa'},
-  {label:'Leads Marketing', value:166.06,  color:'#60a5fa'},
-  {label:'Remarketing',     value:104.93,  color:'#f87171'},
-  {label:'Engajamento',     value:102.02,  color:'#2dd4bf'},
+  {label:'Leads Eventos',   value:1400.43, color:'#a78bfa'},
+  {label:'Leads Marketing', value:281.15,  color:'#60a5fa'},
+  {label:'Remarketing',     value:168.77,  color:'#f87171'},
+  {label:'Engajamento',     value:170.28,  color:'#2dd4bf'},
 ];
-const campTotal = campData.reduce((s,d)=>s+d.value,0);
+const total = campData.reduce((s,d)=>s+d.value,0);
 
 new Chart(document.getElementById('donut-camp'),{
   type:'doughnut',
   data:{labels:campData.map(d=>d.label),datasets:[{data:campData.map(d=>d.value),backgroundColor:campData.map(d=>d.color),borderColor:bg,borderWidth:3,hoverOffset:7}]},
-  options:{cutout:'66%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` R$${ctx.raw.toLocaleString('pt-BR',{minimumFractionDigits:0})} (${(ctx.raw/campTotal*100).toFixed(0)}%)`},...tip}},animation:{duration:700}}
+  options:{cutout:'66%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` R$${ctx.raw.toLocaleString('pt-BR',{minimumFractionDigits:0})} (${(ctx.raw/total*100).toFixed(0)}%)`},...tip}},animation:{duration:700}}
 });
 document.getElementById('legend-camp').innerHTML = campData.map(d=>`
   <div class="dl-item">
     <div class="dl-dot" style="background:${d.color}"></div>
     <span class="dl-name">${d.label}</span>
     <span class="dl-val">R$${Math.round(d.value).toLocaleString('pt-BR')}</span>
-    <span class="dl-pct">${(d.value/campTotal*100).toFixed(0)}%</span>
+    <span class="dl-pct">${(d.value/total*100).toFixed(0)}%</span>
   </div>`).join('');
 
-// Bar comparativo conversas
-new Chart(document.getElementById('bar-comp'),{
+// Bar conversas
+new Chart(document.getElementById('bar-conv'),{
   type:'bar',
   data:{
     labels:['Leads Eventos','Leads Marketing','Remarketing'],
-    datasets:[
-      {label:'Junho (16 dias)',data:[181,16,15],backgroundColor:['rgba(167,139,250,.75)','rgba(167,139,250,.75)','rgba(167,139,250,.75)'],borderColor:['#a78bfa','#a78bfa','#a78bfa'],borderWidth:1.5,borderRadius:7,borderSkipped:false},
-      {label:'Maio (31 dias)', data:[224,44,15],backgroundColor:['rgba(100,116,139,.25)','rgba(100,116,139,.25)','rgba(100,116,139,.25)'],borderColor:['#64748b','#64748b','#64748b'],borderWidth:1.5,borderRadius:7,borderSkipped:false}
-    ]
+    datasets:[{
+      label:'Conversas',
+      data:[264,25,23],
+      backgroundColor:['rgba(167,139,250,.7)','rgba(96,165,250,.7)','rgba(248,113,113,.7)'],
+      borderColor:['#a78bfa','#60a5fa','#f87171'],
+      borderWidth:1.5,borderRadius:8,borderSkipped:false
+    }]
   },
   options:{
     responsive:true,maintainAspectRatio:false,
-    plugins:{
-      legend:{display:true,position:'top',labels:{color:'#64748b',font:{size:11},boxWidth:10,boxHeight:10,borderRadius:5,useBorderRadius:true,padding:16}},
-      tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.raw} conversas`},...tip}
-    },
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.raw} conversas`},...tip}},
     scales:{
       x:{grid:{display:false},ticks:{color:'#64748b',font:{size:11}}},
-      y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#475569',font:{size:10}}}
+      y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#475569',font:{size:10}},beginAtZero:true}
     },
     animation:{duration:700}
   }
