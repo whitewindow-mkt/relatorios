@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RELATORIO META ADS — QualiÓtica · Período Completo</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#ecf8f8; --surface:#ffffff; --border:#eae6df; --text:#161311; --muted:#7a746c; --dim:#a8a196;
+  --orange:#f2620f; --orange-dark:#c94e0a; --yellow:#febe28; --black:#000000;
+}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;min-height:100vh}
+.page{max-width:1000px;margin:0 auto;padding:0 32px 70px}
+html,body{overflow-x:hidden}
+.dual-header{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;background:var(--surface);border-bottom:2px solid var(--black);margin:0 0 40px 0;overflow:hidden}
+.brand{display:flex;align-items:center;gap:12px}
+.mark{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;letter-spacing:-1px;flex-shrink:0}
+.mark-ww{background:var(--black);color:#fff}
+.mark-cli{background:var(--orange);color:#fff}
+.brand-info{line-height:1.25}
+.brand-name{font-size:13px;font-weight:700}
+.brand-role{font-size:11px;color:var(--muted)}
+.brand-right .brand-name,.brand-right .brand-role{text-align:right}
+.header-mid{text-align:center}
+.platform-badge{display:inline-flex;align-items:center;gap:9px;background:var(--orange);color:#fff;padding:10px 22px;border-radius:999px;font-size:14px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;box-shadow:0 3px 10px rgba(242,98,15,.28)}
+.platform-badge .icons{display:flex;align-items:center;gap:5px}
+.platform-badge svg{width:17px;height:17px;flex-shrink:0}
+.header-date{font-size:11px;color:var(--dim);margin-top:6px}
+.report-hero{text-align:center;margin-bottom:36px}
+.report-hero h1{font-size:30px;font-weight:900;letter-spacing:-1px;margin-bottom:8px}
+.report-hero h1 em{font-style:normal;color:var(--orange)}
+.report-hero .hero-sub{font-size:12px;color:var(--muted)}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:30px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;border-top:3px solid var(--orange)}
+.kpi:nth-child(2){border-top-color:var(--black)}
+.kpi:nth-child(3){border-top-color:var(--yellow)}
+.kpi:nth-child(4){border-top-color:var(--orange-dark)}
+.kpi-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;font-weight:700;margin-bottom:6px}
+.kpi-val{font-size:24px;font-weight:900;letter-spacing:-.5px;line-height:1;color:var(--black)}
+.kpi-sub{font-size:11px;color:var(--muted);margin-top:5px}
+.highlight{display:flex;align-items:center;gap:20px;background:var(--yellow);border-radius:14px;padding:24px 28px;margin-bottom:30px;color:var(--black)}
+.hl-body h3{font-size:15px;font-weight:800;margin-bottom:6px;color:var(--black)}
+.hl-body p{font-size:12.5px;color:#3a2f00;line-height:1.65;max-width:540px}
+.hl-body p strong{color:#000}
+.hl-right{text-align:right;margin-left:auto;flex-shrink:0}
+.hl-val{font-size:32px;font-weight:900;color:var(--black);letter-spacing:-1px;line-height:1}
+.hl-sub{font-size:10px;color:#5c4e00;margin-top:4px;line-height:1.5}
+.section-label{background:var(--black);border-radius:8px;padding:10px 16px;margin-bottom:16px;margin-top:8px}
+.section-label span{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:#fff;white-space:nowrap}
+.camp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+.camp-grid.single{grid-template-columns:1fr}
+.camp-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.camp-card:hover{border-color:var(--orange)}
+.camp-card.best{border-color:var(--orange);box-shadow:0 0 0 1px var(--orange)}
+.camp-name{font-size:12.5px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.camp-card.best .camp-name::before{content:'★';color:var(--orange);font-size:11px}
+.camp-hint{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;margin:-14px 0 14px;text-align:center}
+.camp-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cm-val{font-size:15px;font-weight:900;color:var(--black);line-height:1}
+.cm-lbl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;margin-top:3px}
+.cm-val.accent{color:var(--orange)}
+.creative-card{display:flex;gap:18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;align-items:stretch;margin-top:4px}
+.creative-thumb{width:100px;height:140px;object-fit:cover;border-radius:8px;flex-shrink:0;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900}
+.creative-info{flex:1;display:flex;flex-direction:column;justify-content:center}
+.creative-tag{font-size:9px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--orange);margin-bottom:6px}
+.creative-name{font-size:14px;font-weight:800;color:var(--black);margin-bottom:2px}
+.creative-camp{font-size:11px;color:var(--muted);margin-bottom:12px}
+.creative-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.funnel-section{margin-bottom:30px}
+.charts-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:30px}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px}
+.panel-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:16px}
+.donut-wrap{position:relative;width:150px;height:150px;margin:0 auto 12px}
+.donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;background:var(--surface);width:92px;height:92px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
+.dc-val{font-size:15px;font-weight:900}
+.dc-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.dl-item{display:flex;align-items:center;gap:7px;font-size:11px;margin-bottom:6px}
+.dl-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.dl-name{flex:1;color:var(--muted)}
+.dl-val{font-weight:700;color:var(--black)}
+.dl-pct{font-size:10px;color:var(--dim)}
+.funnel-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:16px;padding-top:4px}
+.funnel-row{position:relative;height:58px;margin:0 auto}
+.fr-shape{position:absolute;inset:0;clip-path:polygon(7% 0,93% 0,100% 100%,0% 100%)}
+.fr-text{position:relative;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;line-height:1.3}
+.fr-label{font-size:10px;text-transform:uppercase;letter-spacing:.5px;opacity:.9}
+.fr-val{font-size:14px;font-weight:900;margin-top:2px}
+.funnel-caption{font-size:10px;color:var(--muted);line-height:1.5;padding-top:10px;border-top:1px solid var(--border)}
+.closing{background:var(--yellow);border-radius:14px;padding:24px 28px;margin-bottom:30px}
+.closing p{font-size:13px;color:#3a2f00;line-height:1.7}
+.closing p strong{color:#000}
+.closing p + p{margin-top:10px}
+.report-footer{border-top:1px solid var(--border);padding-top:20px;display:flex;align-items:center;justify-content:space-between}
+.footer-left p{font-size:10px;color:var(--dim);line-height:1.6}
+.footer-right{text-align:right}
+.footer-ww{font-size:12px;font-weight:700;color:var(--black)}
+@media (max-width: 680px){
+  .page{padding:0 16px 50px}
+  .dual-header{flex-wrap:wrap;row-gap:12px;padding:16px;margin:0 0 28px 0}
+  .dual-header > *:nth-child(1){order:1}
+  .dual-header > *:nth-child(3){order:2}
+  .dual-header > *:nth-child(2){order:3;width:100%;margin-top:2px}
+  .platform-badge{padding:8px 16px;font-size:12px}
+  .report-hero h1{font-size:24px}
+  .kpi-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .kpi{padding:14px}
+  .kpi-val{font-size:20px}
+  .highlight{flex-direction:column;align-items:flex-start;gap:14px;padding:20px}
+  .hl-right{margin-left:0;text-align:left}
+  .hl-body p{max-width:100%}
+  .camp-grid{grid-template-columns:1fr !important}
+  .creative-card{padding:12px;gap:14px}
+  .creative-thumb{width:80px;height:112px}
+  .creative-metrics{grid-template-columns:repeat(2,1fr) !important;gap:10px 14px}
+  .camp-metrics{grid-template-columns:repeat(2,1fr) !important}
+  .charts-row{grid-template-columns:1fr}
+  .report-footer{flex-direction:column;align-items:flex-start;gap:14px}
+  .footer-right{text-align:left}
+}
+</style>
+</head>
+<body>
+
+<div class="dual-header">
+  <div class="brand">
+    <div class="mark mark-ww">WW</div>
+    <div class="brand-info">
+      <div class="brand-name">White Window</div>
+      <div class="brand-role">Agência de Marketing Digital</div>
+    </div>
+  </div>
+  <div class="header-mid">
+    <div class="platform-badge">
+      <span class="icons">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="#fff" stroke-width="1.6"/><path d="M13.6 8.4h1.4V6.2h-1.7c-1.9 0-2.8 1-2.8 2.7v1.5H8.8v2.3h1.7V18h2.2v-5.3h1.7l.3-2.3h-2v-1.3c0-.4.1-.7.9-.7z" fill="#fff"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="0.8" fill="#fff" stroke="none"/></svg>
+      </span>
+      Meta Ads
+    </div>
+    <div class="header-date">Período: 11/02/2026 → 17/06/2026</div>
+  </div>
+  <div class="brand" style="flex-direction:row-reverse">
+    <div class="mark mark-cli">QO</div>
+    <div class="brand-info brand-right">
+      <div class="brand-name">QualiÓtica</div>
+      <div class="brand-role">Niterói &amp; São Gonçalo — 12 lojas</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+<div class="report-hero">
+  <h1>Resultados desde o <em>início da parceria</em></h1>
+  <div class="hero-sub">Relatório completo — todo o período de veiculação, do primeiro ao último gasto</div>
+</div>
+
+<div class="kpi-grid">
+  <div class="kpi"><div class="kpi-lbl">Investimento (QualiÓtica)</div><div class="kpi-val">R$ 1.800</div><div class="kpi-sub">todo o período veiculado</div></div>
+  <div class="kpi"><div class="kpi-lbl">Conversas WhatsApp</div><div class="kpi-val">100</div><div class="kpi-sub">Conversão + Remarketing</div></div>
+  <div class="kpi"><div class="kpi-lbl">Custo médio/conversa</div><div class="kpi-val">R$ 9,55</div><div class="kpi-sub">média do fundo de funil</div></div>
+  <div class="kpi"><div class="kpi-lbl">Alcance (Reconhecimento)</div><div class="kpi-val">162 mil</div><div class="kpi-sub">Niterói + São Gonçalo</div></div>
+</div>
+
+<div class="highlight">
+  <div class="hl-body">
+    <h3>Niterói converte melhor que São Gonçalo, do início ao fim</h3>
+    <p>No período completo, o grupo <strong>Niterói</strong> teve custo por conversa de <strong>R$8,98</strong> contra <strong>R$10,22</strong> de São Gonçalo — uma diferença menor do que em Zeiss, mas consistente. QualiÓtica é a única das duas marcas com camada de <strong>Engajamento</strong> ativa (tráfego/visitas de perfil), que teve o melhor custo por resultado de toda a conta (R$0,31–0,32/visita).</p>
+  </div>
+  <div class="hl-right">
+    <div class="hl-val">R$8,98</div>
+    <div class="hl-sub">melhor grupo<br>(Niterói)</div>
+  </div>
+</div>
+
+<div class="section-label"><span>Visão geral do período</span></div>
+<div class="charts-row">
+  <div class="panel">
+    <div class="panel-title">Investimento por etapa do funil (QualiÓtica, todo o período)</div>
+    <div class="funnel-wrap">
+      <div class="funnel-row" style="width:100%">
+        <div class="fr-shape" style="background:#000000"></div>
+        <div class="fr-text">
+          <span class="fr-label">Topo — Reconhecimento</span>
+          <span class="fr-val">R$ 673 · 37%</span>
+        </div>
+      </div>
+      <div class="funnel-row" style="width:76%">
+        <div class="fr-shape" style="background:#febe28"></div>
+        <div class="fr-text" style="color:#3a2f00">
+          <span class="fr-label">Meio — Engajamento</span>
+          <span class="fr-val">R$ 172 · 10%</span>
+        </div>
+      </div>
+      <div class="funnel-row" style="width:56%">
+        <div class="fr-shape" style="background:#f2620f"></div>
+        <div class="fr-text">
+          <span class="fr-label">Fundo — Conversão+Remkt</span>
+          <span class="fr-val">R$ 955 · 53%</span>
+        </div>
+      </div>
+    </div>
+    <div class="funnel-caption">Alcance &amp; branding (topo+meio): R$845 · 47%<br>Vendas/conversão (fundo): R$955 · 53%</div>
+  </div>
+  <div class="panel">
+    <div class="panel-title">Investimento por grupo (todo o período)</div>
+    <div class="donut-wrap">
+      <canvas id="donut-camp"></canvas>
+      <div class="donut-center"><div class="dc-val">R$1.800</div><div class="dc-lbl">total</div></div>
+    </div>
+    <div id="legend-camp"></div>
+  </div>
+</div>
+
+<div class="funnel-section">
+<div class="section-label"><span>Fundo de funil — geração de conversas, por grupo</span></div>
+<div class="camp-grid" id="fundo-cards">
+  <div class="camp-card best" onclick="selectCard('fundo', 0, this, fundoCreatives)">
+    <div class="camp-name">Quali Niterói</div>
+    <div class="camp-metrics">
+      <div><div class="cm-val">R$ 485</div><div class="cm-lbl">Investido</div></div>
+      <div><div class="cm-val accent">54</div><div class="cm-lbl">Conversas</div></div>
+      <div><div class="cm-val">R$ 8,98</div><div class="cm-lbl">Custo/conversa</div></div>
+      <div><div class="cm-val">1,46%</div><div class="cm-lbl">CTR</div></div>
+    </div>
+  </div>
+  <div class="camp-card" onclick="selectCard('fundo', 1, this, fundoCreatives)">
+    <div class="camp-name">Quali São Gonçalo</div>
+    <div class="camp-metrics">
+      <div><div class="cm-val">R$ 470</div><div class="cm-lbl">Investido</div></div>
+      <div><div class="cm-val accent">46</div><div class="cm-lbl">Conversas</div></div>
+      <div><div class="cm-val">R$ 10,22</div><div class="cm-lbl">Custo/conversa</div></div>
+      <div><div class="cm-val">1,51%</div><div class="cm-lbl">CTR</div></div>
+    </div>
+  </div>
+</div>
+<div class="camp-hint">clique num grupo acima pra ver o desempenho dele</div>
+
+<div class="creative-card" id="creative-fundo">
+  <div class="creative-thumb" id="creative-fundo-thumb">NT</div>
+  <div class="creative-info">
+    <div class="creative-tag">★ Grupo com melhor desempenho do período</div>
+    <div class="creative-name" id="creative-fundo-name">Quali Niterói</div>
+    <div class="creative-camp" id="creative-fundo-camp">Conversão + Remarketing — todo o período</div>
+    <div class="creative-metrics" id="creative-fundo-metrics"></div>
+  </div>
+</div>
+</div>
+
+<div class="funnel-section">
+<div class="section-label"><span>Topo &amp; meio de funil — alcance e engajamento, por grupo</span></div>
+<div class="camp-grid" id="topo-cards">
+  <div class="camp-card best" onclick="selectCard('topo', 0, this, topoCreatives)">
+    <div class="camp-name">Quali Niterói</div>
+    <div class="camp-metrics">
+      <div><div class="cm-val">R$ 233</div><div class="cm-lbl">Investido (topo+meio)</div></div>
+      <div><div class="cm-val accent">50,1k</div><div class="cm-lbl">Alcance</div></div>
+      <div><div class="cm-val">279</div><div class="cm-lbl">Visitas ao perfil</div></div>
+      <div><div class="cm-val">R$ 0,31</div><div class="cm-lbl">Custo/visita</div></div>
+    </div>
+  </div>
+  <div class="camp-card" onclick="selectCard('topo', 1, this, topoCreatives)">
+    <div class="camp-name">Quali São Gonçalo</div>
+    <div class="camp-metrics">
+      <div><div class="cm-val">R$ 612</div><div class="cm-lbl">Investido (topo+meio)</div></div>
+      <div><div class="cm-val accent">112,3k</div><div class="cm-lbl">Alcance</div></div>
+      <div><div class="cm-val">264</div><div class="cm-lbl">Visitas ao perfil</div></div>
+      <div><div class="cm-val">R$ 0,32</div><div class="cm-lbl">Custo/visita</div></div>
+    </div>
+  </div>
+</div>
+<div class="camp-hint">clique num grupo acima pra ver o desempenho dele</div>
+
+<div class="creative-card" id="creative-topo">
+  <div class="creative-thumb" id="creative-topo-thumb">NT</div>
+  <div class="creative-info">
+    <div class="creative-tag">★ Grupo com melhor custo por resultado do período</div>
+    <div class="creative-name" id="creative-topo-name">Quali Niterói</div>
+    <div class="creative-camp" id="creative-topo-camp">Reconhecimento + Engajamento — todo o período</div>
+    <div class="creative-metrics" id="creative-topo-metrics"></div>
+  </div>
+</div>
+</div>
+
+<div class="section-label"><span>Período completo em resumo</span></div>
+<div class="closing">
+  <p>Do início real das campanhas (11/02/2026) até a suspensão pedida pelo cliente (17/06/2026), a QualiÓtica investiu <strong>R$1.800</strong> e gerou <strong>100 conversas</strong> no WhatsApp, a um custo médio de <strong>R$9,55</strong>. <strong>Niterói</strong> converte melhor e mais barato que <strong>São Gonçalo</strong> nas duas pontas do funil (conversa e engajamento), mesmo com São Gonçalo recebendo mais verba de Reconhecimento.</p>
+</div>
+
+<div class="report-footer">
+  <div class="footer-left"><p>Dados extraídos da API do Meta Ads · Conta compartilhada com Zeiss Vision Center (relatório separado)<br>Conta: act_1301873374785401 · Período: 11/02/2026 → 17/06/2026</p></div>
+  <div class="footer-right">
+    <div class="footer-ww">White Window — Gestão de Tráfego Pago</div>
+    <div style="font-size:10px;color:var(--dim);margin-top:3px">whitewindow.mkt360@gmail.com</div>
+  </div>
+</div>
+
+</div>
+
+<script>
+Chart.defaults.color = '#7a746c';
+Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
+const tip = {backgroundColor:'#000000',borderWidth:0,padding:10,titleFont:{size:12,weight:'700'},bodyFont:{size:11},bodyColor:'#d9d5cf',titleColor:'#fff'};
+
+const campData = [
+  {label:'Fundo — Niterói',       value:484.89, color:'#f2620f'},
+  {label:'Fundo — São Gonçalo',   value:470.34, color:'#d9691a'},
+  {label:'Meio — Engajamento',    value:171.71, color:'#febe28'},
+  {label:'Topo — Reconhecimento', value:672.75, color:'#000000'},
+];
+const total = campData.reduce((s,d)=>s+d.value,0);
+
+new Chart(document.getElementById('donut-camp'),{
+  type:'doughnut',
+  data:{labels:campData.map(d=>d.label),datasets:[{data:campData.map(d=>d.value),backgroundColor:campData.map(d=>d.color),borderColor:'#ffffff',borderWidth:3,hoverOffset:6}]},
+  options:{cutout:'66%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` R$${ctx.raw.toLocaleString('pt-BR',{minimumFractionDigits:0})} (${(ctx.raw/total*100).toFixed(0)}%)`},...tip}}}
+});
+document.getElementById('legend-camp').innerHTML = campData.map(d=>`
+  <div class="dl-item"><div class="dl-dot" style="background:${d.color}"></div><span class="dl-name">${d.label}</span><span class="dl-val">R$${Math.round(d.value).toLocaleString('pt-BR')}</span><span class="dl-pct">${(d.value/total*100).toFixed(0)}%</span></div>`).join('');
+
+const fundoCreatives = [
+  {thumb:'NT', name:'Quali Niterói', camp:'Conversão + Remarketing — todo o período', metrics:[
+    {val:'R$ 8,98', lbl:'Custo/conversa'}, {val:'54', lbl:'Conversas', accent:true}, {val:'R$ 485', lbl:'Investido'}, {val:'1,46%', lbl:'CTR'}
+  ]},
+  {thumb:'SG', name:'Quali São Gonçalo', camp:'Conversão + Remarketing — todo o período', metrics:[
+    {val:'R$ 10,22', lbl:'Custo/conversa'}, {val:'46', lbl:'Conversas', accent:true}, {val:'R$ 470', lbl:'Investido'}, {val:'1,51%', lbl:'CTR'}
+  ]},
+];
+const topoCreatives = [
+  {thumb:'NT', name:'Quali Niterói', camp:'Reconhecimento + Engajamento — todo o período', metrics:[
+    {val:'R$ 0,31', lbl:'Custo/visita'}, {val:'279', lbl:'Visitas ao perfil', accent:true}, {val:'R$ 233', lbl:'Investido'}, {val:'50,1k', lbl:'Alcance'}
+  ]},
+  {thumb:'SG', name:'Quali São Gonçalo', camp:'Reconhecimento + Engajamento — todo o período', metrics:[
+    {val:'R$ 0,32', lbl:'Custo/visita'}, {val:'264', lbl:'Visitas ao perfil', accent:true}, {val:'R$ 612', lbl:'Investido'}, {val:'112,3k', lbl:'Alcance'}
+  ]},
+];
+
+function renderCreative(prefix, data){
+  document.getElementById(`creative-${prefix}-thumb`).textContent = data.thumb;
+  document.getElementById(`creative-${prefix}-name`).textContent = data.name;
+  document.getElementById(`creative-${prefix}-camp`).textContent = data.camp;
+  document.getElementById(`creative-${prefix}-metrics`).innerHTML = data.metrics.map(m=>
+    `<div><div class="cm-val${m.accent?' accent':''}">${m.val}</div><div class="cm-lbl">${m.lbl}</div></div>`).join('');
+}
+function selectCard(prefix, i, el, dataset){
+  document.querySelectorAll(`#${prefix}-cards .camp-card`).forEach(c=>c.classList.remove('best'));
+  el.classList.add('best');
+  renderCreative(prefix, dataset[i]);
+}
+renderCreative('fundo', fundoCreatives[0]);
+renderCreative('topo', topoCreatives[0]);
+</script>
+</body>
+</html>
