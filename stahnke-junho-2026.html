@@ -67,8 +67,9 @@ html,body{overflow-x:hidden}
 .section-label{background:var(--black);border-radius:8px;padding:10px 16px;margin-bottom:16px;margin-top:8px}
 .section-label span{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:#fff;white-space:nowrap}
 
-/* CAMPAIGN CARDS (simplified) */
-.camp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+/* CAMPAIGN CARDS */
+.camp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.camp-grid.cols-2{grid-template-columns:repeat(2,1fr)}
 .camp-grid.single{grid-template-columns:1fr}
 .camp-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
 .camp-card:hover{border-color:var(--orange)}
@@ -211,8 +212,8 @@ html,body{overflow-x:hidden}
 
 <div class="highlight">
   <div class="hl-body">
-    <h3>350 conversas em Junho</h3>
-    <p>A campanha <strong>(FUNDO) Conversão</strong> foi o motor do mês: <strong>85% do investimento total</strong> gerou as 350 conversas via WhatsApp, a <strong>R$ 5,89 por conversa</strong>. Dentro dela, o público de interesse em <strong>Película</strong> foi o mais eficiente, a R$4,83/conversa. As campanhas de topo mantiveram a marca em alta, alcançando <strong>110 mil pessoas</strong> no mês.</p>
+    <h3>350 conversas no WhatsApp em junho</h3>
+    <p>O conjunto <strong>Interesses (Película)</strong> puxou o resultado do mês: <strong>223 conversas a R$ 4,83 cada</strong> — o melhor custo da conta, bem dentro da faixa ideal pra negócio local. O ponto de atenção fica com a <strong>frequência do fundo em 3,56</strong>, sinal de criativo cansado: renovar os vídeos de conversão é a prioridade de julho.</p>
   </div>
   <div class="hl-right">
     <div class="hl-val">R$5,89</div>
@@ -220,7 +221,7 @@ html,body{overflow-x:hidden}
   </div>
 </div>
 
-<!-- VISÃO GERAL — antes de subdividir o funil -->
+<!-- VISÃO GERAL -->
 <div class="section-label"><span>Visão geral do mês</span></div>
 <div class="charts-row">
   <div class="panel">
@@ -248,10 +249,10 @@ html,body{overflow-x:hidden}
         </div>
       </div>
     </div>
-    <div class="funnel-caption">Alcance &amp; branding (topo+meio): <strong>R$ 360 · 15%</strong> · Vendas/conversão (fundo): <strong>R$ 2.063 · 85%</strong></div>
+    <div class="funnel-caption">Alcance &amp; branding (topo+meio): R$359 · 15%<br>Vendas/conversão (fundo): R$2.063 · 85%</div>
   </div>
   <div class="panel">
-    <div class="panel-title">Investimento por campanha/interesse</div>
+    <div class="panel-title">Investimento por campanha</div>
     <div class="donut-wrap">
       <canvas id="donut-camp"></canvas>
       <div class="donut-center"><div class="dc-val">R$2.422</div><div class="dc-lbl">total</div></div>
@@ -263,8 +264,8 @@ html,body{overflow-x:hidden}
 <!-- FUNDO DE FUNIL -->
 <div class="funnel-section">
 <div class="section-label"><span>Fundo de funil — geração de conversas</span></div>
-<div class="camp-grid" id="fundo-cards" style="grid-template-columns:repeat(4,1fr)">
-  <div class="camp-card best" onclick="selectFundo(0,this)">
+<div class="camp-grid" id="fundo-cards">
+  <div class="camp-card best" onclick="selectCard('fundo', 0, this, fundoCreatives)">
     <div class="camp-name">Interesses (Película)</div>
     <div class="camp-metrics">
       <div><div class="cm-val">R$ 1.077</div><div class="cm-lbl">Investido</div></div>
@@ -273,7 +274,7 @@ html,body{overflow-x:hidden}
       <div><div class="cm-val">1,11%</div><div class="cm-lbl">CTR</div></div>
     </div>
   </div>
-  <div class="camp-card" onclick="selectFundo(1,this)">
+  <div class="camp-card" onclick="selectCard('fundo', 1, this, fundoCreatives)">
     <div class="camp-name">Interesses (Geral)</div>
     <div class="camp-metrics">
       <div><div class="cm-val">R$ 615</div><div class="cm-lbl">Investido</div></div>
@@ -282,7 +283,7 @@ html,body{overflow-x:hidden}
       <div><div class="cm-val">1,21%</div><div class="cm-lbl">CTR</div></div>
     </div>
   </div>
-  <div class="camp-card" onclick="selectFundo(2,this)">
+  <div class="camp-card" onclick="selectCard('fundo', 2, this, fundoCreatives)">
     <div class="camp-name">Interesses (Motos)</div>
     <div class="camp-metrics">
       <div><div class="cm-val">R$ 184</div><div class="cm-lbl">Investido</div></div>
@@ -291,7 +292,7 @@ html,body{overflow-x:hidden}
       <div><div class="cm-val">1,06%</div><div class="cm-lbl">CTR</div></div>
     </div>
   </div>
-  <div class="camp-card" onclick="selectFundo(3,this)">
+  <div class="camp-card" onclick="selectCard('fundo', 3, this, fundoCreatives)">
     <div class="camp-name">Remarketing</div>
     <div class="camp-metrics">
       <div><div class="cm-val">R$ 187</div><div class="cm-lbl">Investido</div></div>
@@ -304,11 +305,11 @@ html,body{overflow-x:hidden}
 <div class="camp-hint">clique num card acima pra ver o anúncio campeão daquele grupo</div>
 
 <div class="creative-card" id="creative-fundo">
-  <img class="creative-thumb" id="creative-fundo-thumb" src="https://scontent-iad3-2.xx.fbcdn.net/v/t15.5256-10/654626501_920642247409856_2262992620734698893_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=105&ccb=1-7&_nc_sid=031d0d&_nc_ohc=JYeMFlUmFj0Q7kNvwF0RnhR&_nc_oc=Adp-NJ9B3nn_6NiSoXQfqDOpIyQTxl4uoMk9Iob73O1V3ss83v5n6LpL-HsapEcddu8&_nc_zt=23&_nc_ht=scontent-iad3-2.xx&edm=AEZPnVgEAAAA&_nc_gid=vef3pidjjv9kFZ-rNWmmtg&_nc_tpa=Q5bMBQHnzZqdkLiC1kD4BfaYSGL-SaCLKGf6UyksN5wuxb1KG2fcJnN2pcnq9JeYX83gFd67U81hgex1yw&oh=00_AQCI7sc-EyKG_VW-08A7yIqdnGnhZ4cXTu4rNSRVNDOoaw&oe=6A4C8D41" alt="Anúncio campeão — Película Diego">
+  <img class="creative-thumb" id="creative-fundo-thumb" src="https://scontent-sea5-1.xx.fbcdn.net/v/t15.5256-10/654626501_920642247409856_2262992620734698893_n.jpg?stp=dst-jpg_p160x160_tt6&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=031d0d&amp;_nc_ohc=JYeMFlUmFj0Q7kNvwFdw3oD&amp;_nc_oc=AdrMRKU5BfCoruBzRtby0fqoMBVvEh8bw9zoRW8LyIrWdIVYAvJMxA-8H1RehsjDebw&amp;_nc_zt=23&amp;_nc_ht=scontent-sea5-1.xx&amp;edm=AEZPnVgEAAAA&amp;_nc_gid=GsZpxrgHxb3M1Ad1_BJt1A&amp;_nc_tpa=Q5bMBQGiW_WHuxjrpV2_OByqai1DF0S4PHYzehF3BgNX9iyz0uQuq5XA6V_zdPu7VmOUCccE6Y5C5IfLow&amp;oh=00_AQD4BN9oZWWZzRzIeS1jXDR7J6We5JDGlGRwiptn70MBqw&amp;oe=6A4DDEC1" alt="Anúncio campeão — Película Diego">
   <div class="creative-info">
     <div class="creative-tag">★ Anúncio com melhor desempenho</div>
     <div class="creative-name" id="creative-fundo-name">Película Diego</div>
-    <div class="creative-camp" id="creative-fundo-camp">(FUNDO) Conversão · Interesses (Película)</div>
+    <div class="creative-camp" id="creative-fundo-camp">Interesses (Película)</div>
     <div class="creative-metrics" id="creative-fundo-metrics">
       <div><div class="cm-val">R$ 4,80</div><div class="cm-lbl">Custo/conversa</div></div>
       <div><div class="cm-val accent">218</div><div class="cm-lbl">Conversas</div></div>
@@ -322,39 +323,39 @@ html,body{overflow-x:hidden}
 <!-- TOPO DE FUNIL -->
 <div class="funnel-section">
 <div class="section-label"><span>Topo de funil — alcance &amp; engajamento</span></div>
-<div class="camp-grid" id="topo-cards" style="grid-template-columns:repeat(2,1fr)">
-  <div class="camp-card" onclick="selectTopo(0,this)">
-    <div class="camp-name">(MEIO) Engajamento</div>
-    <div class="camp-metrics" style="grid-template-columns:repeat(4,1fr)">
+<div class="camp-grid cols-2" id="topo-cards">
+  <div class="camp-card best" onclick="selectCard('topo', 0, this, topoCreatives)">
+    <div class="camp-name">Reconhecimento — Público Ambos</div>
+    <div class="camp-metrics">
+      <div><div class="cm-val">R$ 180</div><div class="cm-lbl">Investido</div></div>
+      <div><div class="cm-val accent">53,8k</div><div class="cm-lbl">Alcance</div></div>
+      <div><div class="cm-val">R$ 1,58</div><div class="cm-lbl">CPM</div></div>
+      <div><div class="cm-val">113,3k</div><div class="cm-lbl">Impressões</div></div>
+    </div>
+  </div>
+  <div class="camp-card" onclick="selectCard('topo', 1, this, topoCreatives)">
+    <div class="camp-name">Engajamento — Visitas ao Perfil</div>
+    <div class="camp-metrics">
       <div><div class="cm-val">R$ 180</div><div class="cm-lbl">Investido</div></div>
       <div><div class="cm-val accent">402</div><div class="cm-lbl">Visitas ao perfil</div></div>
       <div><div class="cm-val">R$ 0,45</div><div class="cm-lbl">Custo/visita</div></div>
       <div><div class="cm-val">1,26%</div><div class="cm-lbl">CTR</div></div>
     </div>
   </div>
-  <div class="camp-card best" onclick="selectTopo(1,this)">
-    <div class="camp-name">(TOPO) Reconhecimento</div>
-    <div class="camp-metrics" style="grid-template-columns:repeat(4,1fr)">
-      <div><div class="cm-val">R$ 180</div><div class="cm-lbl">Investido</div></div>
-      <div><div class="cm-val accent">53,8k</div><div class="cm-lbl">Alcance</div></div>
-      <div><div class="cm-val">R$ 3,33</div><div class="cm-lbl">Custo/alcance</div></div>
-      <div><div class="cm-val">R$ 1,58</div><div class="cm-lbl">CPM</div></div>
-    </div>
-  </div>
 </div>
-<div class="camp-hint">clique num card acima pra ver o anúncio campeão daquela campanha</div>
+<div class="camp-hint">clique num card acima pra ver o anúncio campeão daquele grupo</div>
 
 <div class="creative-card" id="creative-topo">
-  <img class="creative-thumb" id="creative-topo-thumb" src="https://scontent-iad6-1.xx.fbcdn.net/v/t15.5256-10/700800048_1723176642003177_7266013705585670348_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=100&ccb=1-7&_nc_sid=031d0d&_nc_ohc=bgJR3SN0-w0Q7kNvwEJbRqH&_nc_oc=Adqm4Z8e0YXMwKCVvG4ggyFkKzF0HSOiEhVUyVlf4dVE959wFgd2PcpW1cPwJezrKGs&_nc_zt=23&_nc_ht=scontent-iad6-1.xx&edm=AEZPnVgEAAAA&_nc_gid=vef3pidjjv9kFZ-rNWmmtg&_nc_tpa=Q5bMBQHLqu5XdqlUCuRzy5qTMO4MjfwmTdwD6ms6ZlN2ntGXnv2oELUf7C0Mn1TFHnkokq-9UmHfykBMbg&oh=00_AQBq-fWKEyW61MjPDxg7s7PzAtHMnt6pFe_Vis8OGIjNQQ&oe=6A4C74DD" alt="Anúncio campeão — Película Abril 2 - Topo">
+  <img class="creative-thumb" id="creative-topo-thumb" src="https://scontent-sea1-1.xx.fbcdn.net/v/t15.5256-10/700800048_1723176642003177_7266013705585670348_n.jpg?stp=dst-jpg_p160x160_tt6&amp;_nc_cat=100&amp;ccb=1-7&amp;_nc_sid=031d0d&amp;_nc_ohc=bgJR3SN0-w0Q7kNvwHVC_Qh&amp;_nc_oc=Adrb_sxuN_aX4EAfnOKOJmMq47roV34JW48uxn91Te3orSSaDQ15T8fuwjtzUfXrFtc&amp;_nc_zt=23&amp;_nc_ht=scontent-sea1-1.xx&amp;edm=AEZPnVgEAAAA&amp;_nc_gid=GsZpxrgHxb3M1Ad1_BJt1A&amp;_nc_tpa=Q5bMBQFUnD6-FFLhiGLBkb05qqpoIW2_hT56txb0SJPimaWKD23Mv37AlJTmUzm9rLE-Yen0i4x4IwMNUg&amp;oh=00_AQDYixWW4zvolZwzoC3r0ilqJJEg-GUDcJex53t2T5bXIA&amp;oe=6A4DC65D" alt="Anúncio campeão — Película Abril 2">
   <div class="creative-info">
     <div class="creative-tag">★ Anúncio com melhor desempenho</div>
-    <div class="creative-name" id="creative-topo-name">Película Abril 2 - Topo</div>
-    <div class="creative-camp" id="creative-topo-camp">(TOPO) Reconhecimento</div>
+    <div class="creative-name" id="creative-topo-name">Película Abril 2</div>
+    <div class="creative-camp" id="creative-topo-camp">Reconhecimento — Público Ambos</div>
     <div class="creative-metrics" id="creative-topo-metrics">
-      <div><div class="cm-val">R$ 3,11</div><div class="cm-lbl">Custo/alcance</div></div>
       <div><div class="cm-val accent">49,8k</div><div class="cm-lbl">Alcance</div></div>
       <div><div class="cm-val">R$ 155</div><div class="cm-lbl">Investido</div></div>
-      <div><div class="cm-val">0,15%</div><div class="cm-lbl">CTR</div></div>
+      <div><div class="cm-val">R$ 1,57</div><div class="cm-lbl">CPM</div></div>
+      <div><div class="cm-val">98,8k</div><div class="cm-lbl">Impressões</div></div>
     </div>
   </div>
 </div>
@@ -362,7 +363,7 @@ html,body{overflow-x:hidden}
 
 <div class="section-label"><span>Junho em resumo</span></div>
 <div class="closing">
-  <p>Junho foi um mês consistente para a Stahnke no Meta, com investimento total de <strong>R$ 2.421,79</strong>. A campanha <strong>(FUNDO) Conversão</strong> seguiu como principal motor, gerando <strong>350 conversas via WhatsApp</strong> a um custo médio de R$5,89 — com destaque para o público de interesse em Película, o mais eficiente do mês. As campanhas de topo (Reconhecimento e Engajamento) cumpriram seu papel de manter a marca presente, somando <strong>110 mil pessoas alcançadas</strong>.</p>
+  <p>Junho fechou com <strong>R$ 2.422 investidos</strong> e <strong>350 conversas no WhatsApp a R$ 5,89 cada</strong> — custo dentro da faixa ideal pra negócio local. O conjunto <strong>Interesses (Película)</strong> segue como carro-chefe da conta (223 conversas a R$ 4,83), enquanto topo e meio mantiveram a marca presente pra <strong>110 mil pessoas</strong> com verba enxuta. Pra julho, o foco é renovar os criativos do fundo (frequência em 3,56 indica desgaste) e reestruturar o Remarketing, que fechou o mês com custo por conversa acima do aceitável (R$ 23,36).</p>
 </div>
 
 <div class="report-footer">
@@ -380,58 +381,14 @@ Chart.defaults.color = '#7a746c';
 Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
 const tip = {backgroundColor:'#000000',borderWidth:0,padding:10,titleFont:{size:12,weight:'700'},bodyFont:{size:11},bodyColor:'#d9d5cf',titleColor:'#fff'};
 
-/* ANÚNCIOS CAMPEÕES — 1 por card, trocam ao clicar */
-const fundoCreatives = [
-  {thumb:'https://scontent-iad3-2.xx.fbcdn.net/v/t15.5256-10/654626501_920642247409856_2262992620734698893_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=105&ccb=1-7&_nc_sid=031d0d&_nc_ohc=JYeMFlUmFj0Q7kNvwF0RnhR&_nc_oc=Adp-NJ9B3nn_6NiSoXQfqDOpIyQTxl4uoMk9Iob73O1V3ss83v5n6LpL-HsapEcddu8&_nc_zt=23&_nc_ht=scontent-iad3-2.xx&edm=AEZPnVgEAAAA&_nc_gid=vef3pidjjv9kFZ-rNWmmtg&_nc_tpa=Q5bMBQHnzZqdkLiC1kD4BfaYSGL-SaCLKGf6UyksN5wuxb1KG2fcJnN2pcnq9JeYX83gFd67U81hgex1yw&oh=00_AQCI7sc-EyKG_VW-08A7yIqdnGnhZ4cXTu4rNSRVNDOoaw&oe=6A4C8D41',
-   name:'Película Diego', camp:'(FUNDO) Conversão · Interesses (Película)',
-   m:[{lbl:'Custo/conversa',val:'R$ 4,80'},{lbl:'Conversas',val:'218',accent:true},{lbl:'Investido',val:'R$ 1.046'},{lbl:'CTR',val:'1,09%'}]},
-  {thumb:'https://scontent-iad6-1.xx.fbcdn.net/v/t15.5256-10/647037721_1599041864637938_4117689615561381860_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=100&ccb=1-7&_nc_sid=031d0d&_nc_ohc=ORyb5mmCdmQQ7kNvwEiOXsP&_nc_oc=AdqL5sQ0FgDwWsrzier7koauT2sEVercF_z7N4eY0OoxEt0bj4xzHLgwuo_Ts1P3aJQ&_nc_zt=23&_nc_ht=scontent-iad6-1.xx&edm=AEZPnVgEAAAA&_nc_gid=QNKWJ_KcRiYxHm_dWlP1bA&_nc_tpa=Q5bMBQFGxxJ1ic2Qf6xQBakzUrXTjE9zb3Ztji6Zrnne1FS2S379KeJXVcMfLVCybgEYCXxJrsbpWXCfQQ&oh=00_AQASm23QkxvaqLAdEMgzZC548cTGd_pymy1kxleOQKiWHg&oe=6A4CBCA4',
-   name:'Video Perfil 3', camp:'(FUNDO) Conversão · Interesses (Geral)',
-   m:[{lbl:'Custo/conversa',val:'R$ 6,63'},{lbl:'Conversas',val:'79',accent:true},{lbl:'Investido',val:'R$ 524'},{lbl:'CTR',val:'1,19%'}]},
-  {thumb:'https://scontent-iad6-1.xx.fbcdn.net/v/t15.5256-10/696450657_1642210466886520_8227445329449868299_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=109&ccb=1-7&_nc_sid=031d0d&_nc_ohc=QBSEKcNBYBYQ7kNvwHfTqmz&_nc_oc=Adpj79V9c_-Gsyn3US1N_xftgpGt9-og9COoTwHA6pkmZJfet4a8jJE2r7k-feFU4UQ&_nc_zt=23&_nc_ht=scontent-iad6-1.xx&edm=AEZPnVgEAAAA&_nc_gid=QNKWJ_KcRiYxHm_dWlP1bA&_nc_tpa=Q5bMBQF_tIAuVOAGSL1cY5VIxLS9yDGjuyfnX93cMhHkLfgak9aobc2ODAZImoj3F0ay1YvPfA8Dfta_nw&oh=00_AQBIuFE4uryEGWLeStO2HikQT6S8bvSo4p81HX7pJo0-sw&oe=6A4CCD67',
-   name:'Moto 1', camp:'(FUNDO) Conversão · Interesses (Motos)',
-   m:[{lbl:'Custo/conversa',val:'R$ 7,65'},{lbl:'Conversas',val:'24',accent:true},{lbl:'Investido',val:'R$ 184'},{lbl:'CTR',val:'1,06%'}]},
-  {thumb:'https://scontent-iad3-1.xx.fbcdn.net/v/t15.5256-10/660756155_995232240146134_8315570563918452128_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=108&ccb=1-7&_nc_sid=031d0d&_nc_ohc=Gq-6gRnnTqUQ7kNvwFRseZ3&_nc_oc=Ado3TSlbGVQWlClrn6HulRx4gjaikHmoQO565Fu0cLLBBmIttJXdgQMYQ2Z9Fh_hbE8&_nc_zt=23&_nc_ht=scontent-iad3-1.xx&edm=AEZPnVgEAAAA&_nc_gid=QNKWJ_KcRiYxHm_dWlP1bA&_nc_tpa=Q5bMBQHQii6EzMF65hBgcAJ76v1ASEFMxbTaukfjW05TBw_NwBVpvEvMcftdAUL8GaVET4qhCh4Xj1jvmQ&oh=00_AQDhM5Z7RwpDL9CdLXHXYUglyyAcUJMaSZxdtdYpEr-_SA&oe=6A4CACED',
-   name:'Película - 1 Abril - Fundo', camp:'(FUNDO) Conversão · Remarketing',
-   m:[{lbl:'Custo/conversa',val:'R$ 23,36'},{lbl:'Conversas',val:'8',accent:true},{lbl:'Investido',val:'R$ 187'},{lbl:'CTR',val:'1,00%'}]}
-];
-
-const topoCreatives = [
-  {thumb:'https://scontent-iad3-1.xx.fbcdn.net/v/t15.5256-10/700890093_830522226382990_5382334029380516536_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=101&ccb=1-7&_nc_sid=031d0d&_nc_ohc=AyaET0un364Q7kNvwEnGp8Y&_nc_oc=AdrfVFpGp9FWk08c41d3tUMRjP5M5S_riF8MkOtuhULQOmQylduBo4RAnDe5lWVSCko&_nc_zt=23&_nc_ht=scontent-iad3-1.xx&edm=AEZPnVgEAAAA&_nc_gid=BkWMM0I_E2kTQkeYRMgVAA&_nc_tpa=Q5bMBQF3LU10i41F_DmUXZt0MqoEYCjuMK10KDKLpnlU0Rvxb23njkQGNnvuoEVnUAHyL4P74DwzrbVfOQ&oh=00_AQDnKjv3VT_of6eppsfsoMCFxCzqbbtAFe9fhmF8PxCoKg&oe=6A4CA3A3',
-   name:'Película - 2 (Meio)', camp:'(MEIO) Engajamento',
-   m:[{lbl:'Custo/visita',val:'R$ 0,45'},{lbl:'Visitas',val:'313',accent:true},{lbl:'Investido',val:'R$ 141'},{lbl:'CTR',val:'1,18%'}]},
-  {thumb:'https://scontent-iad6-1.xx.fbcdn.net/v/t15.5256-10/700800048_1723176642003177_7266013705585670348_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=100&ccb=1-7&_nc_sid=031d0d&_nc_ohc=bgJR3SN0-w0Q7kNvwEJbRqH&_nc_oc=Adqm4Z8e0YXMwKCVvG4ggyFkKzF0HSOiEhVUyVlf4dVE959wFgd2PcpW1cPwJezrKGs&_nc_zt=23&_nc_ht=scontent-iad6-1.xx&edm=AEZPnVgEAAAA&_nc_gid=vef3pidjjv9kFZ-rNWmmtg&_nc_tpa=Q5bMBQHLqu5XdqlUCuRzy5qTMO4MjfwmTdwD6ms6ZlN2ntGXnv2oELUf7C0Mn1TFHnkokq-9UmHfykBMbg&oh=00_AQBq-fWKEyW61MjPDxg7s7PzAtHMnt6pFe_Vis8OGIjNQQ&oe=6A4C74DD',
-   name:'Película Abril 2 - Topo', camp:'(TOPO) Reconhecimento',
-   m:[{lbl:'Custo/alcance',val:'R$ 3,11'},{lbl:'Alcance',val:'49,8k',accent:true},{lbl:'Investido',val:'R$ 155'},{lbl:'CTR',val:'0,15%'}]}
-];
-
-function renderCreative(prefix, data){
-  const img = document.getElementById(prefix+'-thumb');
-  img.src = data.thumb;
-  img.alt = 'Anúncio campeão — '+data.name;
-  document.getElementById(prefix+'-name').textContent = data.name;
-  document.getElementById(prefix+'-camp').textContent = data.camp;
-  document.getElementById(prefix+'-metrics').innerHTML = data.m.map(x=>
-    `<div><div class="cm-val${x.accent?' accent':''}">${x.val}</div><div class="cm-lbl">${x.lbl}</div></div>`).join('');
-}
-function selectFundo(i, el){
-  renderCreative('creative-fundo', fundoCreatives[i]);
-  document.querySelectorAll('#fundo-cards .camp-card').forEach(c=>c.classList.remove('best'));
-  el.classList.add('best');
-}
-function selectTopo(i, el){
-  renderCreative('creative-topo', topoCreatives[i]);
-  document.querySelectorAll('#topo-cards .camp-card').forEach(c=>c.classList.remove('best'));
-  el.classList.add('best');
-}
-
+// Donut — 1 fatia por campanha/adset. Cores agrupadas por etapa: fundo laranjas, meio amarelo, topo preto.
 const campData = [
   {label:'Interesses (Película)', value:1077.02, color:'#f2620f'},
   {label:'Interesses (Geral)',    value:615.25,  color:'#d9691a'},
-  {label:'Remarketing',           value:186.88,  color:'#e8894d'},
-  {label:'Interesses (Motos)',    value:183.56,  color:'#f2a679'},
-  {label:'Meio — Engajamento',    value:179.57,  color:'#febe28'},
-  {label:'Topo — Reconhecimento', value:179.51,  color:'#000000'},
+  {label:'Remarketing',           value:186.88,  color:'#f2a679'},
+  {label:'Interesses (Motos)',    value:183.56,  color:'#f8c9a8'},
+  {label:'Engajamento (meio)',    value:179.57,  color:'#febe28'},
+  {label:'Reconhecimento (topo)', value:179.51,  color:'#000000'},
 ];
 const total = campData.reduce((s,d)=>s+d.value,0);
 
@@ -443,6 +400,43 @@ new Chart(document.getElementById('donut-camp'),{
 document.getElementById('legend-camp').innerHTML = campData.map(d=>`
   <div class="dl-item"><div class="dl-dot" style="background:${d.color}"></div><span class="dl-name">${d.label}</span><span class="dl-val">R$${Math.round(d.value).toLocaleString('pt-BR')}</span><span class="dl-pct">${(d.value/total*100).toFixed(0)}%</span></div>`).join('');
 
+// --- Cards clicáveis (Fundo e Topo) ---
+const fundoCreatives = [
+  {thumb:'https://scontent-sea5-1.xx.fbcdn.net/v/t15.5256-10/654626501_920642247409856_2262992620734698893_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=105&ccb=1-7&_nc_sid=031d0d&_nc_ohc=JYeMFlUmFj0Q7kNvwFdw3oD&_nc_oc=AdrMRKU5BfCoruBzRtby0fqoMBVvEh8bw9zoRW8LyIrWdIVYAvJMxA-8H1RehsjDebw&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&edm=AEZPnVgEAAAA&_nc_gid=GsZpxrgHxb3M1Ad1_BJt1A&_nc_tpa=Q5bMBQGiW_WHuxjrpV2_OByqai1DF0S4PHYzehF3BgNX9iyz0uQuq5XA6V_zdPu7VmOUCccE6Y5C5IfLow&oh=00_AQD4BN9oZWWZzRzIeS1jXDR7J6We5JDGlGRwiptn70MBqw&oe=6A4DDEC1', name:'Película Diego', camp:'Interesses (Película)', metrics:[
+    {val:'R$ 4,80', lbl:'Custo/conversa'}, {val:'218', lbl:'Conversas', accent:true}, {val:'R$ 1.046', lbl:'Investido'}, {val:'1,09%', lbl:'CTR'}
+  ]},
+  {thumb:'https://scontent-sea1-1.xx.fbcdn.net/v/t15.5256-10/647037721_1599041864637938_4117689615561381860_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=100&ccb=1-7&_nc_sid=031d0d&_nc_ohc=ORyb5mmCdmQQ7kNvwGG34RV&_nc_oc=Adq5QMgMW12malAQZwMe81wOTu3DK4KN0pHIrsujXHchTOaauL5u8GUEieGR5KQExsE&_nc_zt=23&_nc_ht=scontent-sea1-1.xx&edm=AEZPnVgEAAAA&_nc_gid=GsZpxrgHxb3M1Ad1_BJt1A&_nc_tpa=Q5bMBQGrK8mMmLycHg_VF3zusW93uJsJX2J5kaOCRIWY15xf5_VoJlpULzNAj5lXZ0VJLqWqutVKeVzrig&oh=00_AQAT3CDHXoRzW7l2dpawpqGN1_htF19otO-xzXc4vem0gQ&oe=6A4DD5E4', name:'Video Perfil 3', camp:'Interesses (Geral)', metrics:[
+    {val:'R$ 6,63', lbl:'Custo/conversa'}, {val:'79', lbl:'Conversas', accent:true}, {val:'R$ 524', lbl:'Investido'}, {val:'1,19%', lbl:'CTR'}
+  ]},
+  {thumb:'https://scontent-sea5-1.xx.fbcdn.net/v/t15.5256-10/696450657_1642210466886520_8227445329449868299_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=109&ccb=1-7&_nc_sid=031d0d&_nc_ohc=QBSEKcNBYBYQ7kNvwEReRnv&_nc_oc=AdoPQ-Ab_g04_xi05KeXDpQxBUhfsXRWG1OswQiSJ6qom9FGUCHppVxShwqMJ2MMk7s&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&edm=AEZPnVgEAAAA&_nc_gid=GsZpxrgHxb3M1Ad1_BJt1A&_nc_tpa=Q5bMBQGPs6DgzsrWxmclb68J71oQ4PWOpT3CzbsUkHpQWQbSDf4G908559MH2WboKAvNt71iMTTSrHOUeA&oh=00_AQCA6G0Ak_jxDFiQibDvJBM6lmjD5YXG1OV3uewmRIK9YQ&oe=6A4DAE67', name:'Moto 1', camp:'Interesses (Motos)', metrics:[
+    {val:'R$ 7,65', lbl:'Custo/conversa'}, {val:'24', lbl:'Conversas', accent:true}, {val:'R$ 184', lbl:'Investido'}, {val:'1,06%', lbl:'CTR'}
+  ]},
+  {thumb:'https://scontent-sea5-1.xx.fbcdn.net/v/t15.5256-10/660756155_995232240146134_8315570563918452128_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=108&ccb=1-7&_nc_sid=031d0d&_nc_ohc=Gq-6gRnnTqUQ7kNvwGTZkNj&_nc_oc=AdrakBS_e1Z61WiagZMKvvVhklLSQbi5TPtDYZhizQb94dybnC8yB7lrGeJEEzU5-zs&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&edm=AEZPnVgEAAAA&_nc_gid=GsZpxrgHxb3M1Ad1_BJt1A&_nc_tpa=Q5bMBQG2RlxlxGTuvFCvvm4JNPjslsam7szYhomOG_afjR0HyiUOZNsJpoB9kFpIHqniYqNpsor3PJf59A&oh=00_AQBRfsd_ae3tBuATQgmbQ7olN0kpcsVUj0swHwqdur0-Xg&oe=6A4DC62D', name:'Película - 1 Abril', camp:'Remarketing', metrics:[
+    {val:'R$ 23,36', lbl:'Custo/conversa'}, {val:'8', lbl:'Conversas', accent:true}, {val:'R$ 187', lbl:'Investido'}, {val:'1,00%', lbl:'CTR'}
+  ]},
+];
+const topoCreatives = [
+  {thumb:'https://scontent-sea1-1.xx.fbcdn.net/v/t15.5256-10/700800048_1723176642003177_7266013705585670348_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=100&ccb=1-7&_nc_sid=031d0d&_nc_ohc=bgJR3SN0-w0Q7kNvwHVC_Qh&_nc_oc=Adrb_sxuN_aX4EAfnOKOJmMq47roV34JW48uxn91Te3orSSaDQ15T8fuwjtzUfXrFtc&_nc_zt=23&_nc_ht=scontent-sea1-1.xx&edm=AEZPnVgEAAAA&_nc_gid=GsZpxrgHxb3M1Ad1_BJt1A&_nc_tpa=Q5bMBQFUnD6-FFLhiGLBkb05qqpoIW2_hT56txb0SJPimaWKD23Mv37AlJTmUzm9rLE-Yen0i4x4IwMNUg&oh=00_AQDYixWW4zvolZwzoC3r0ilqJJEg-GUDcJex53t2T5bXIA&oe=6A4DC65D', name:'Película Abril 2', camp:'Reconhecimento — Público Ambos', metrics:[
+    {val:'49,8k', lbl:'Alcance', accent:true}, {val:'R$ 155', lbl:'Investido'}, {val:'R$ 1,57', lbl:'CPM'}, {val:'98,8k', lbl:'Impressões'}
+  ]},
+  {thumb:'https://scontent-sea1-1.xx.fbcdn.net/v/t15.5256-10/700890093_830522226382990_5382334029380516536_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=101&ccb=1-7&_nc_sid=031d0d&_nc_ohc=AyaET0un364Q7kNvwGtSq-P&_nc_oc=AdoGNbFjdVFzOVEIVUb6NY8YE7rKiAljkqxYcEw894QLpg7Cz8Dw93lh_0m7l2m479s&_nc_zt=23&_nc_ht=scontent-sea1-1.xx&edm=AEZPnVgEAAAA&_nc_gid=pM342Sz7JrAOvaM3xQoCgg&_nc_tpa=Q5bMBQH-36aELQjfNWhKLoZ82Z_yebaAsjD97hGPBKV8il2gg9pNyE7PO8Yx8PxwsMszMST8MrxYuG0GUQ&oh=00_AQBe-rxavjIftLY5iT5RcwoGFpamsx-XEdpwRTr2FN4UIg&oe=6A4DBCE3', name:'Película - 2 (meio)', camp:'Engajamento — Visitas ao Perfil', metrics:[
+    {val:'313', lbl:'Visitas ao perfil', accent:true}, {val:'R$ 0,45', lbl:'Custo/visita'}, {val:'R$ 141', lbl:'Investido'}, {val:'1,18%', lbl:'CTR'}
+  ]},
+];
+
+function renderCreative(prefix, data){
+  document.getElementById(`creative-${prefix}-thumb`).src = data.thumb;
+  document.getElementById(`creative-${prefix}-name`).textContent = data.name;
+  document.getElementById(`creative-${prefix}-camp`).textContent = data.camp;
+  document.getElementById(`creative-${prefix}-metrics`).innerHTML = data.metrics.map(m=>
+    `<div><div class="cm-val${m.accent?' accent':''}">${m.val}</div><div class="cm-lbl">${m.lbl}</div></div>`).join('');
+}
+
+function selectCard(prefix, i, el, dataset){
+  document.querySelectorAll(`#${prefix}-cards .camp-card`).forEach(c=>c.classList.remove('best'));
+  el.classList.add('best');
+  renderCreative(prefix, dataset[i]);
+}
 </script>
 </body>
 </html>
