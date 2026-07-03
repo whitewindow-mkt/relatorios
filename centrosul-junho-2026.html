@@ -67,19 +67,22 @@ html,body{overflow-x:hidden}
 .section-label{background:var(--black);border-radius:8px;padding:10px 16px;margin-bottom:16px;margin-top:8px}
 .section-label span{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:#fff;white-space:nowrap}
 
-/* CAMPAIGN CARDS (simplified) */
+/* CAMPAIGN CARDS */
 .camp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.camp-grid.two{grid-template-columns:repeat(2,1fr)}
 .camp-grid.single{grid-template-columns:1fr}
-.camp-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px}
+.camp-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.camp-card:hover{border-color:var(--orange)}
 .camp-card.best{border-color:var(--orange);box-shadow:0 0 0 1px var(--orange)}
 .camp-name{font-size:12.5px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.camp-name .star{color:var(--orange);font-size:11px}
+.camp-card.best .camp-name::before{content:'★';color:var(--orange);font-size:11px}
+.camp-hint{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;margin:-14px 0 14px;text-align:center}
 .camp-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .cm-val{font-size:16px;font-weight:900;color:var(--black);line-height:1}
 .cm-lbl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;margin-top:3px}
 .cm-val.accent{color:var(--orange)}
 
-/* CREATIVE CARD — anúncio campeão com miniatura */
+/* CREATIVE CARD */
 .creative-card{display:flex;gap:18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;align-items:stretch;margin-top:4px}
 .creative-thumb{width:100px;height:140px;object-fit:cover;border-radius:8px;flex-shrink:0;background:var(--border)}
 .creative-info{flex:1;display:flex;flex-direction:column;justify-content:center}
@@ -96,7 +99,7 @@ html,body{overflow-x:hidden}
 .panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px}
 .panel-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:16px}
 .donut-wrap{position:relative;width:150px;height:150px;margin:0 auto 12px}
-.donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;background:var(--surface);width:92px;height:92px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
 .dc-val{font-size:15px;font-weight:900}
 .dc-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
 .dl-item{display:flex;align-items:center;gap:7px;font-size:11px;margin-bottom:6px}
@@ -105,6 +108,13 @@ html,body{overflow-x:hidden}
 .dl-val{font-weight:700;color:var(--black)}
 .dl-pct{font-size:10px;color:var(--dim)}
 .chart-canvas{height:185px;position:relative}
+.funnel-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:16px;padding-top:4px}
+.funnel-row{position:relative;height:58px;margin:0 auto}
+.fr-shape{position:absolute;inset:0;clip-path:polygon(7% 0,93% 0,100% 100%,0% 100%)}
+.fr-text{position:relative;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;line-height:1.3}
+.fr-label{font-size:10px;text-transform:uppercase;letter-spacing:.5px;opacity:.9}
+.fr-val{font-size:14px;font-weight:900;margin-top:2px}
+.funnel-caption{font-size:10px;color:var(--muted);line-height:1.5;padding-top:10px;border-top:1px solid var(--border)}
 
 /* CLOSING */
 .closing{background:var(--yellow);border-radius:14px;padding:24px 28px;margin-bottom:30px}
@@ -182,7 +192,7 @@ html,body{overflow-x:hidden}
     <div class="mark mark-cli">CS</div>
     <div class="brand-info brand-right">
       <div class="brand-name">Centrosul Transportes</div>
-      <div class="brand-role">Logística e Transporte</div>
+      <div class="brand-role">Transporte &amp; Logística</div>
     </div>
   </div>
 </div>
@@ -194,16 +204,16 @@ html,body{overflow-x:hidden}
 </div>
 
 <div class="kpi-grid">
-  <div class="kpi"><div class="kpi-lbl">Investimento</div><div class="kpi-val">R$ 635,99</div><div class="kpi-sub">verba aplicada no mês</div></div>
+  <div class="kpi"><div class="kpi-lbl">Investimento</div><div class="kpi-val">R$ 636</div><div class="kpi-sub">verba aplicada no mês</div></div>
   <div class="kpi"><div class="kpi-lbl">Conversas WhatsApp</div><div class="kpi-val">114</div><div class="kpi-sub">contatos iniciados</div></div>
   <div class="kpi"><div class="kpi-lbl">Custo por conversa</div><div class="kpi-val">R$ 4,00</div><div class="kpi-sub">média geral do mês</div></div>
-  <div class="kpi"><div class="kpi-lbl">Pessoas alcançadas</div><div class="kpi-val">69 mil</div><div class="kpi-sub">impactadas no mês</div></div>
+  <div class="kpi"><div class="kpi-lbl">Pessoas alcançadas</div><div class="kpi-val">69,3 mil</div><div class="kpi-sub">impactadas no mês</div></div>
 </div>
 
 <div class="highlight">
   <div class="hl-body">
-    <h3>114 conversas iniciadas em junho</h3>
-    <p>A campanha <strong>Engajamento — WhatsApp</strong> foi o motor do mês: o público <strong>Indústrias/Empresário</strong> respondeu por <strong>89% de todas as conversas</strong>, a <strong>R$ 4,03 por contato</strong>. Os anúncios de topo mantiveram a marca ativa, alcançando <strong>49 mil pessoas</strong> com <strong>33,8 mil interações</strong> a custo residual.</p>
+    <h3>114 conversas a R$ 4,00 — bem abaixo da meta</h3>
+    <p>Junho entregou <strong>114 conversas no WhatsApp a R$ 4,00 cada</strong> — custo bem abaixo do teto de R$ 7 que consideramos ótimo para o segmento. O público de <strong>Indústrias &amp; Empresários</strong> puxou o volume (102 conversas) e o <strong>Remarketing</strong> trouxe o contato mais barato da conta (R$ 3,76). No topo, <strong>33,8 mil engajamentos</strong> mantiveram a marca ativa a custo quase zero.</p>
   </div>
   <div class="hl-right">
     <div class="hl-val">R$4,00</div>
@@ -211,9 +221,29 @@ html,body{overflow-x:hidden}
   </div>
 </div>
 
-<!-- VISÃO GERAL — antes de subdividir o funil -->
+<!-- VISÃO GERAL -->
 <div class="section-label"><span>Visão geral do mês</span></div>
 <div class="charts-row">
+  <div class="panel">
+    <div class="panel-title">Investimento por etapa do funil</div>
+    <div class="funnel-wrap">
+      <div class="funnel-row" style="width:100%">
+        <div class="fr-shape" style="background:#000000"></div>
+        <div class="fr-text">
+          <span class="fr-label">Topo — Alcance &amp; Engajamento</span>
+          <span class="fr-val">R$ 180 · 28%</span>
+        </div>
+      </div>
+      <div class="funnel-row" style="width:56%">
+        <div class="fr-shape" style="background:#f2620f"></div>
+        <div class="fr-text">
+          <span class="fr-label">Fundo — Conversão</span>
+          <span class="fr-val">R$ 456 · 72%</span>
+        </div>
+      </div>
+    </div>
+    <div class="funnel-caption">Alcance &amp; branding (topo): R$180 · 28%<br>Vendas/conversão (fundo): R$456 · 72%</div>
+  </div>
   <div class="panel">
     <div class="panel-title">Investimento por campanha</div>
     <div class="donut-wrap">
@@ -222,46 +252,43 @@ html,body{overflow-x:hidden}
     </div>
     <div id="legend-camp"></div>
   </div>
-  <div class="panel">
-    <div class="panel-title">Conversas por público (fundo de funil)</div>
-    <div class="chart-canvas"><canvas id="bar-conv"></canvas></div>
-  </div>
 </div>
 
 <!-- FUNDO DE FUNIL -->
 <div class="funnel-section">
 <div class="section-label"><span>Fundo de funil — geração de conversas</span></div>
-<div class="camp-grid" style="grid-template-columns:repeat(2,1fr)">
-  <div class="camp-card best">
-    <div class="camp-name"><span class="star">★</span>Indústrias / Empresário</div>
+<div class="camp-grid two" id="fundo-cards">
+  <div class="camp-card best" onclick="selectCard('fundo', 0, this, fundoCreatives)">
+    <div class="camp-name">Indústrias &amp; Empresários</div>
     <div class="camp-metrics">
-      <div><div class="cm-val">R$ 411,38</div><div class="cm-lbl">Investido</div></div>
+      <div><div class="cm-val">R$ 411</div><div class="cm-lbl">Investido</div></div>
       <div><div class="cm-val accent">102</div><div class="cm-lbl">Conversas</div></div>
       <div><div class="cm-val">R$ 4,03</div><div class="cm-lbl">Custo/conversa</div></div>
       <div><div class="cm-val">1,98%</div><div class="cm-lbl">CTR</div></div>
     </div>
   </div>
-  <div class="camp-card">
+  <div class="camp-card" onclick="selectCard('fundo', 1, this, fundoCreatives)">
     <div class="camp-name">Remarketing</div>
     <div class="camp-metrics">
-      <div><div class="cm-val">R$ 45,10</div><div class="cm-lbl">Investido</div></div>
-      <div><div class="cm-val">12</div><div class="cm-lbl">Conversas</div></div>
+      <div><div class="cm-val">R$ 45</div><div class="cm-lbl">Investido</div></div>
+      <div><div class="cm-val accent">12</div><div class="cm-lbl">Conversas</div></div>
       <div><div class="cm-val">R$ 3,76</div><div class="cm-lbl">Custo/conversa</div></div>
       <div><div class="cm-val">2,72%</div><div class="cm-lbl">CTR</div></div>
     </div>
   </div>
 </div>
+<div class="camp-hint">clique num card acima pra ver o anúncio campeão daquele grupo</div>
 
-<div class="creative-card">
-  <img class="creative-thumb" src="https://scontent-iad6-1.xx.fbcdn.net/v/t15.5256-10/715910236_2802975036746570_4862031360637017672_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=106&ccb=1-7&_nc_sid=031d0d&_nc_ohc=9EKUk9dhVfMQ7kNvwGI7gYM&_nc_oc=Adp5vngDGel55WGp74ZwFBdCHXpuEtxU12IrzWtjxCyHmP0Cz2GOttEbNahfYmQczDg&_nc_zt=23&_nc_ht=scontent-iad6-1.xx&edm=AEZPnVgEAAAA&_nc_gid=003sECY5L3--QMHlCyeSmg&_nc_tpa=Q5bMBQFu3uNW9cIxYn86RrBA3OiojIGqSRTWXyn4AiBr5Z-86Ka3pDUQOHR9trbvCVV287ByUkdduE1H5g&oh=00_AQCNqNDAM_7q7kqlDovcLuqq2qFaKz-HwL_P8PYTPSDolg&oe=6A4C95CE" alt="Anúncio campeão — Video 2 (Junho)">
+<div class="creative-card" id="creative-fundo">
+  <img class="creative-thumb" id="creative-fundo-thumb" src="https://scontent-sea1-1.xx.fbcdn.net/v/t15.5256-10/715910236_2802975036746570_4862031360637017672_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=106&ccb=1-7&_nc_sid=031d0d&_nc_ohc=9EKUk9dhVfMQ7kNvwGI7gYM&_nc_oc=Adp5vngDGel55WGp74ZwFBdCHXpuEtxU12IrzWtjxCyHmP0Cz2GOttEbNahfYmQczDg&_nc_zt=23&_nc_ht=scontent-sea1-1.xx&edm=AEZPnVgEAAAA&_nc_gid=M0pVHXZ5sbEYlAgZnJOhGQ&_nc_tpa=Q5bMBQEbts2OuQfVGXToTOodNG04iVV5aksp8PUpUBoWuo8OFAtH6rGi-6A-5aAOBPj6YLPnQI8wiEE0yA&oh=00_AQBiRDoPpswxb1tPuUeBP0y2YT6kV1n4ejhc4EKeqxoXaQ&oe=6A4DAF0E" alt="Anúncio campeão — Video 2 (Junho)">
   <div class="creative-info">
     <div class="creative-tag">★ Anúncio com melhor desempenho</div>
-    <div class="creative-name">Video 2 (Junho)</div>
-    <div class="creative-camp">Engajamento — WhatsApp · Indústrias/Empresário</div>
-    <div class="creative-metrics">
+    <div class="creative-name" id="creative-fundo-name">Video 2 (Junho)</div>
+    <div class="creative-camp" id="creative-fundo-camp">Indústrias &amp; Empresários</div>
+    <div class="creative-metrics" id="creative-fundo-metrics">
       <div><div class="cm-val">R$ 3,56</div><div class="cm-lbl">Custo/conversa</div></div>
       <div><div class="cm-val accent">75</div><div class="cm-lbl">Conversas</div></div>
-      <div><div class="cm-val">R$ 267,06</div><div class="cm-lbl">Investido</div></div>
+      <div><div class="cm-val">R$ 267</div><div class="cm-lbl">Investido</div></div>
       <div><div class="cm-val">1,89%</div><div class="cm-lbl">CTR</div></div>
     </div>
   </div>
@@ -271,11 +298,11 @@ html,body{overflow-x:hidden}
 <!-- TOPO DE FUNIL -->
 <div class="funnel-section">
 <div class="section-label"><span>Topo de funil — alcance &amp; engajamento</span></div>
-<div class="camp-grid single">
-  <div class="camp-card">
-    <div class="camp-name">Posts — Engajamento Publicação</div>
+<div class="camp-grid single" id="topo-cards">
+  <div class="camp-card best">
+    <div class="camp-name">Engajamento — Posts</div>
     <div class="camp-metrics" style="grid-template-columns:repeat(4,1fr)">
-      <div><div class="cm-val">R$ 179,51</div><div class="cm-lbl">Investido</div></div>
+      <div><div class="cm-val">R$ 180</div><div class="cm-lbl">Investido</div></div>
       <div><div class="cm-val">49,4k</div><div class="cm-lbl">Alcance</div></div>
       <div><div class="cm-val accent">33,8k</div><div class="cm-lbl">Engajamentos</div></div>
       <div><div class="cm-val">R$ 3,36</div><div class="cm-lbl">CPM</div></div>
@@ -283,16 +310,16 @@ html,body{overflow-x:hidden}
   </div>
 </div>
 
-<div class="creative-card">
-  <img class="creative-thumb" src="https://scontent-iad6-1.xx.fbcdn.net/v/t15.5256-10/718098896_2000626040824600_5927788203661688251_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=106&ccb=1-7&_nc_sid=031d0d&_nc_ohc=B9EToLlgfsoQ7kNvwE5o3lw&_nc_oc=AdpeWygm6dUn_qyBz40Q0moERvrDdNVybRQhy8chQjY8MLJPrkKKRJNXL3Wtf3K8q3M&_nc_zt=23&_nc_ht=scontent-iad6-1.xx&edm=AEZPnVgEAAAA&_nc_gid=003sECY5L3--QMHlCyeSmg&_nc_tpa=Q5bMBQE2vqMizqtzVR9CvqXE3B1LCtrenmxZBwE9TD5ZYOYuG6i8AGEgWC-pyd5nIw167QSCYKaQOhXczw&oh=00_AQAjqAhoFDKBlNUT0MdrBERaazd2Fx4ZndekZwvatd4lKA&oe=6A4C7544" alt="Anúncio campeão — Video 2 (Junho)">
+<div class="creative-card" id="creative-topo">
+  <img class="creative-thumb" id="creative-topo-thumb" src="https://scontent-sea1-1.xx.fbcdn.net/v/t15.5256-10/718098896_2000626040824600_5927788203661688251_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=106&ccb=1-7&_nc_sid=031d0d&_nc_ohc=B9EToLlgfsoQ7kNvwE5o3lw&_nc_oc=AdpeWygm6dUn_qyBz40Q0moERvrDdNVybRQhy8chQjY8MLJPrkKKRJNXL3Wtf3K8q3M&_nc_zt=23&_nc_ht=scontent-sea1-1.xx&edm=AEZPnVgEAAAA&_nc_gid=M0pVHXZ5sbEYlAgZnJOhGQ&_nc_tpa=Q5bMBQEDv26YVjwgIV_DAUPM1lHwlPReIBYeKIMIImCRLoufff1oSXw9sUAmpUKyTKfapofRh7E2JuJHVg&oh=00_AQA0rC8XfNxD7G0UJxM7p7axWC2mto5O4D-i2PWMZDrDQQ&oe=6A4DC6C4" alt="Anúncio campeão — Video 2 (Junho)">
   <div class="creative-info">
     <div class="creative-tag">★ Anúncio com melhor desempenho</div>
-    <div class="creative-name">Video 2 (Junho)</div>
-    <div class="creative-camp">Posts — Engajamento Publicação</div>
-    <div class="creative-metrics">
-      <div><div class="cm-val">R$ 0,00</div><div class="cm-lbl">Custo/engajamento</div></div>
+    <div class="creative-name" id="creative-topo-name">Video 2 (Junho)</div>
+    <div class="creative-camp" id="creative-topo-camp">Engajamento — Posts</div>
+    <div class="creative-metrics" id="creative-topo-metrics">
+      <div><div class="cm-val">&lt; R$ 0,01</div><div class="cm-lbl">Custo/engajamento</div></div>
       <div><div class="cm-val accent">25,6k</div><div class="cm-lbl">Engajamentos</div></div>
-      <div><div class="cm-val">R$ 123,39</div><div class="cm-lbl">Investido</div></div>
+      <div><div class="cm-val">R$ 123</div><div class="cm-lbl">Investido</div></div>
       <div><div class="cm-val">38,5k</div><div class="cm-lbl">Impressões</div></div>
     </div>
   </div>
@@ -301,7 +328,7 @@ html,body{overflow-x:hidden}
 
 <div class="section-label"><span>Junho em resumo</span></div>
 <div class="closing">
-  <p>Junho foi um mês consistente para a Centrosul Transportes no Meta, com investimento total de <strong>R$ 635,99</strong>. A campanha <strong>Engajamento — WhatsApp</strong> seguiu como principal motor, gerando <strong>114 conversas</strong> — <strong>89% delas vindas do público Indústrias/Empresário</strong>, a um custo médio de <strong>R$ 4,00 por contato</strong>. A campanha de topo, focada em engajamento de posts, alcançou <strong>49 mil pessoas</strong> e somou <strong>33,8 mil interações</strong> a custo praticamente residual, mantendo a marca ativa no feed do público.</p>
+  <p>Junho foi um mês eficiente para a Centrosul no Meta, com investimento total de <strong>R$ 636</strong> e <strong>114 conversas iniciadas no WhatsApp a R$ 4,00 cada</strong> — custo dentro da faixa que consideramos ótima. O público de <strong>Indústrias &amp; Empresários</strong> respondeu por <strong>89% das conversas</strong>, e o <strong>Remarketing</strong> confirmou seu papel de fechar contatos mais baratos (R$ 3,76). A campanha de topo manteve a marca presente para <strong>49 mil pessoas</strong>, gerando <strong>33,8 mil engajamentos</strong> a custo quase zero. Para julho, seguimos com a mesma estrutura, renovando os criativos para sustentar o custo por conversa.</p>
 </div>
 
 <div class="report-footer">
@@ -320,8 +347,9 @@ Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
 const tip = {backgroundColor:'#000000',borderWidth:0,padding:10,titleFont:{size:12,weight:'700'},bodyFont:{size:11},bodyColor:'#d9d5cf',titleColor:'#fff'};
 
 const campData = [
-  {label:'Engajamento — WhatsApp', value:456.48, color:'#f2620f'},
-  {label:'Engajamento — Posts',    value:179.51, color:'#000000'},
+  {label:'Indústrias & Empresários', value:411.38, color:'#f2620f'},
+  {label:'Remarketing',              value:45.10,  color:'#f2a679'},
+  {label:'Engajamento — Posts',      value:179.51, color:'#000000'},
 ];
 const total = campData.reduce((s,d)=>s+d.value,0);
 
@@ -333,11 +361,28 @@ new Chart(document.getElementById('donut-camp'),{
 document.getElementById('legend-camp').innerHTML = campData.map(d=>`
   <div class="dl-item"><div class="dl-dot" style="background:${d.color}"></div><span class="dl-name">${d.label}</span><span class="dl-val">R$${Math.round(d.value).toLocaleString('pt-BR')}</span><span class="dl-pct">${(d.value/total*100).toFixed(0)}%</span></div>`).join('');
 
-new Chart(document.getElementById('bar-conv'),{
-  type:'bar',
-  data:{labels:['Indústrias/Empresário','Remarketing'],datasets:[{data:[102,12],backgroundColor:['#f2620f','#c94e0a'],borderRadius:8,borderSkipped:false}]},
-  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.raw} conversas`},...tip}},scales:{x:{grid:{display:false},ticks:{color:'#7a746c',font:{size:11}}},y:{grid:{color:'#eae6df'},ticks:{color:'#a8a196',font:{size:10}},beginAtZero:true}}}
-});
+const fundoCreatives = [
+  {thumb:'https://scontent-sea1-1.xx.fbcdn.net/v/t15.5256-10/715910236_2802975036746570_4862031360637017672_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=106&ccb=1-7&_nc_sid=031d0d&_nc_ohc=9EKUk9dhVfMQ7kNvwGI7gYM&_nc_oc=Adp5vngDGel55WGp74ZwFBdCHXpuEtxU12IrzWtjxCyHmP0Cz2GOttEbNahfYmQczDg&_nc_zt=23&_nc_ht=scontent-sea1-1.xx&edm=AEZPnVgEAAAA&_nc_gid=M0pVHXZ5sbEYlAgZnJOhGQ&_nc_tpa=Q5bMBQEbts2OuQfVGXToTOodNG04iVV5aksp8PUpUBoWuo8OFAtH6rGi-6A-5aAOBPj6YLPnQI8wiEE0yA&oh=00_AQBiRDoPpswxb1tPuUeBP0y2YT6kV1n4ejhc4EKeqxoXaQ&oe=6A4DAF0E', name:'Video 2 (Junho)', camp:'Indústrias & Empresários', metrics:[
+    {val:'R$ 3,56', lbl:'Custo/conversa'}, {val:'75', lbl:'Conversas', accent:true}, {val:'R$ 267', lbl:'Investido'}, {val:'1,89%', lbl:'CTR'}
+  ]},
+  {thumb:'https://scontent-sea5-1.xx.fbcdn.net/v/t15.5256-10/721082559_1878533616176312_1426043514532157172_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=105&ccb=1-7&_nc_sid=031d0d&_nc_ohc=dWThnjAu9EQQ7kNvwEWGfeY&_nc_oc=AdohLff5yrp-mcLYPMJUIKin-r--EYAiYydmxHPw_aUgFk-WwDxEcHLB4xdsNQ_SXBc&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&edm=AEZPnVgEAAAA&_nc_gid=M0pVHXZ5sbEYlAgZnJOhGQ&_nc_tpa=Q5bMBQE5PMcfUO2PzPRkj-CvQkDX5_vY7VpheoERvd5_xtoBDlODViJhtj_okqu2X5vEUpfwMAFMKjQ7Ww&oh=00_AQDUDsr2L6TVqSw0Y9cWz4coY8pXw_hGI8ZALPCf6QXXeQ&oe=6A4DB0AF', name:'Video 2 (Junho)', camp:'Remarketing', metrics:[
+    {val:'R$ 2,87', lbl:'Custo/conversa'}, {val:'9', lbl:'Conversas', accent:true}, {val:'R$ 26', lbl:'Investido'}, {val:'3,01%', lbl:'CTR'}
+  ]},
+];
+
+function renderCreative(prefix, data){
+  document.getElementById(`creative-${prefix}-thumb`).src = data.thumb;
+  document.getElementById(`creative-${prefix}-name`).textContent = data.name;
+  document.getElementById(`creative-${prefix}-camp`).textContent = data.camp;
+  document.getElementById(`creative-${prefix}-metrics`).innerHTML = data.metrics.map(m=>
+    `<div><div class="cm-val${m.accent?' accent':''}">${m.val}</div><div class="cm-lbl">${m.lbl}</div></div>`).join('');
+}
+
+function selectCard(prefix, i, el, dataset){
+  document.querySelectorAll(`#${prefix}-cards .camp-card`).forEach(c=>c.classList.remove('best'));
+  el.classList.add('best');
+  renderCreative(prefix, dataset[i]);
+}
 </script>
 </body>
 </html>
