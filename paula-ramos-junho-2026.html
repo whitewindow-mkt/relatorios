@@ -67,19 +67,21 @@ html,body{overflow-x:hidden}
 .section-label{background:var(--black);border-radius:8px;padding:10px 16px;margin-bottom:16px;margin-top:8px}
 .section-label span{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:#fff;white-space:nowrap}
 
-/* CAMPAIGN CARDS (simplified) */
+/* CAMPAIGN CARDS */
 .camp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
 .camp-grid.single{grid-template-columns:1fr}
-.camp-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px}
+.camp-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.camp-card:hover{border-color:var(--orange)}
 .camp-card.best{border-color:var(--orange);box-shadow:0 0 0 1px var(--orange)}
 .camp-name{font-size:12.5px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.camp-name .star{color:var(--orange);font-size:11px}
+.camp-card.best .camp-name::before{content:'★';color:var(--orange);font-size:11px}
+.camp-hint{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;margin:-14px 0 14px;text-align:center}
 .camp-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .cm-val{font-size:16px;font-weight:900;color:var(--black);line-height:1}
 .cm-lbl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;margin-top:3px}
 .cm-val.accent{color:var(--orange)}
 
-/* CREATIVE CARD — anúncio campeão com miniatura */
+/* CREATIVE CARD */
 .creative-card{display:flex;gap:18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;align-items:stretch;margin-top:4px}
 .creative-thumb{width:100px;height:140px;object-fit:cover;border-radius:8px;flex-shrink:0;background:var(--border)}
 .creative-info{flex:1;display:flex;flex-direction:column;justify-content:center}
@@ -96,7 +98,7 @@ html,body{overflow-x:hidden}
 .panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px}
 .panel-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:16px}
 .donut-wrap{position:relative;width:150px;height:150px;margin:0 auto 12px}
-.donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;background:var(--surface);width:92px;height:92px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
 .dc-val{font-size:15px;font-weight:900}
 .dc-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
 .dl-item{display:flex;align-items:center;gap:7px;font-size:11px;margin-bottom:6px}
@@ -105,6 +107,13 @@ html,body{overflow-x:hidden}
 .dl-val{font-weight:700;color:var(--black)}
 .dl-pct{font-size:10px;color:var(--dim)}
 .chart-canvas{height:185px;position:relative}
+.funnel-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:16px;padding-top:4px}
+.funnel-row{position:relative;height:58px;margin:0 auto}
+.fr-shape{position:absolute;inset:0;clip-path:polygon(7% 0,93% 0,100% 100%,0% 100%)}
+.fr-text{position:relative;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;line-height:1.3}
+.fr-label{font-size:10px;text-transform:uppercase;letter-spacing:.5px;opacity:.9}
+.fr-val{font-size:14px;font-weight:900;margin-top:2px}
+.funnel-caption{font-size:10px;color:var(--muted);line-height:1.5;padding-top:10px;border-top:1px solid var(--border)}
 
 /* CLOSING */
 .closing{background:var(--yellow);border-radius:14px;padding:24px 28px;margin-bottom:30px}
@@ -197,13 +206,13 @@ html,body{overflow-x:hidden}
   <div class="kpi"><div class="kpi-lbl">Investimento</div><div class="kpi-val">R$ 716</div><div class="kpi-sub">verba aplicada no mês</div></div>
   <div class="kpi"><div class="kpi-lbl">Conversas WhatsApp</div><div class="kpi-val">50</div><div class="kpi-sub">contatos iniciados</div></div>
   <div class="kpi"><div class="kpi-lbl">Custo por conversa</div><div class="kpi-val">R$ 11,02</div><div class="kpi-sub">média da campanha Vendas</div></div>
-  <div class="kpi"><div class="kpi-lbl">Pessoas alcançadas</div><div class="kpi-val">57 mil</div><div class="kpi-sub">impactadas no mês</div></div>
+  <div class="kpi"><div class="kpi-lbl">Pessoas alcançadas</div><div class="kpi-val">56,7 mil</div><div class="kpi-sub">impactadas no mês</div></div>
 </div>
 
 <div class="highlight">
   <div class="hl-body">
-    <h3>50 conversas em junho, a R$11,02 cada</h3>
-    <p>A campanha <strong>Vendas</strong> gerou <strong>50 conversas de WhatsApp</strong> a um custo de <strong>R$11,02</strong> — dentro da faixa saudável pra negócio local. A campanha <strong>Engajamento</strong> reforçou a presença da marca no Instagram, somando <strong>582 visitas ao perfil</strong> a R$0,28 cada, com CPM de apenas R$3,65 e alcance de 35 mil pessoas.</p>
+    <h3>50 conversas no WhatsApp em junho</h3>
+    <p>A campanha de <strong>Vendas</strong> gerou <strong>50 conversas no WhatsApp</strong> a <strong>R$ 11,02 cada</strong> — dentro da faixa saudável para o segmento. O destaque de eficiência foi a campanha de <strong>Engajamento</strong>: <strong>582 visitas ao perfil</strong> a apenas <strong>R$ 0,28 cada</strong>, alcançando 35 mil pessoas e mantendo o ateliê presente para futuras noivas.</p>
   </div>
   <div class="hl-right">
     <div class="hl-val">R$11,02</div>
@@ -211,9 +220,29 @@ html,body{overflow-x:hidden}
   </div>
 </div>
 
-<!-- VISÃO GERAL — antes de subdividir o funil -->
+<!-- VISÃO GERAL -->
 <div class="section-label"><span>Visão geral do mês</span></div>
 <div class="charts-row">
+  <div class="panel">
+    <div class="panel-title">Investimento por etapa do funil</div>
+    <div class="funnel-wrap">
+      <div class="funnel-row" style="width:100%">
+        <div class="fr-shape" style="background:#000000"></div>
+        <div class="fr-text">
+          <span class="fr-label">Topo — Alcance &amp; Engajamento</span>
+          <span class="fr-val">R$ 165 · 23%</span>
+        </div>
+      </div>
+      <div class="funnel-row" style="width:56%">
+        <div class="fr-shape" style="background:#f2620f"></div>
+        <div class="fr-text">
+          <span class="fr-label">Fundo — Conversão</span>
+          <span class="fr-val">R$ 551 · 77%</span>
+        </div>
+      </div>
+    </div>
+    <div class="funnel-caption">Alcance &amp; branding (topo): R$165 · 23%<br>Vendas/conversão (fundo): R$551 · 77%</div>
+  </div>
   <div class="panel">
     <div class="panel-title">Investimento por campanha</div>
     <div class="donut-wrap">
@@ -222,18 +251,14 @@ html,body{overflow-x:hidden}
     </div>
     <div id="legend-camp"></div>
   </div>
-  <div class="panel">
-    <div class="panel-title">Resultados por campanha</div>
-    <div class="chart-canvas"><canvas id="bar-conv"></canvas></div>
-  </div>
 </div>
 
 <!-- FUNDO DE FUNIL -->
 <div class="funnel-section">
 <div class="section-label"><span>Fundo de funil — geração de conversas</span></div>
-<div class="camp-grid single">
+<div class="camp-grid single" id="fundo-cards">
   <div class="camp-card best">
-    <div class="camp-name"><span class="star">★</span>Vendas</div>
+    <div class="camp-name">Vendas — WhatsApp (Conversão)</div>
     <div class="camp-metrics" style="grid-template-columns:repeat(4,1fr)">
       <div><div class="cm-val">R$ 551</div><div class="cm-lbl">Investido</div></div>
       <div><div class="cm-val accent">50</div><div class="cm-lbl">Conversas</div></div>
@@ -243,13 +268,13 @@ html,body{overflow-x:hidden}
   </div>
 </div>
 
-<div class="creative-card">
-  <img class="creative-thumb" src="https://scontent-iad3-1.xx.fbcdn.net/v/t15.5256-10/706759267_27662726046663847_4894986425703339329_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=108&ccb=1-7&_nc_sid=031d0d&_nc_ohc=9uy1eOm_5OUQ7kNvwGp5WC0&_nc_oc=Ado5MXeyg6H3UUcE62dLReYwv-l8ee0QvV757D8mtgGErxDtGhFu4FK-QCUw7SuL9nc&_nc_zt=23&_nc_ht=scontent-iad3-1.xx&edm=AEZPnVgEAAAA&_nc_gid=8YuZW-6TxOPFsA98faKJfg&_nc_tpa=Q5bMBQFaxix93AJw7xumWZA-brE7F5Yv20HKTIhwI9dspg5SapLmKgLtupiOvsJfMELNcdnBQm0PCnk4gA&oh=00_AQCkvau8dCX_RPOrcto1J7lHDdeRJ6bzmLEBhvJ3YOin_w&oe=6A4CADF3" alt="Anúncio campeão — Video 2 (Vendas)">
+<div class="creative-card" id="creative-fundo">
+  <img class="creative-thumb" id="creative-fundo-thumb" src="https://scontent-sea5-1.xx.fbcdn.net/v/t15.5256-10/706759267_27662726046663847_4894986425703339329_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=108&ccb=1-7&_nc_sid=031d0d&_nc_ohc=9uy1eOm_5OUQ7kNvwEYdi4j&_nc_oc=AdonUPxz3W-iMUfQG_--SvaT0tHPHblAsnvMlIAHMJ77F7eCLkRoWrLXi1gQyDcfHok&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&edm=AEZPnVgEAAAA&_nc_gid=e_-hSCPLUu3lmOC_k6wXGw&_nc_tpa=Q5bMBQE6dHPN4uuUjYyHmiYzZTJiOjLOaXeldwrNbYytKNOJt_gpp4wAPKVGxW-hrHpfbdjdFBfe0tPcig&oh=00_AQCOVYmTqKwE0m-58fYWOCf4Q5F5LFOl7FarsHvifx7eOg&oe=6A4DC733" alt="Anúncio campeão — Video 2 (Vendas)">
   <div class="creative-info">
     <div class="creative-tag">★ Anúncio com melhor desempenho</div>
-    <div class="creative-name">Video 2 (Vendas)</div>
-    <div class="creative-camp">Vendas</div>
-    <div class="creative-metrics">
+    <div class="creative-name" id="creative-fundo-name">Video 2 (Vendas)</div>
+    <div class="creative-camp" id="creative-fundo-camp">Vendas — WhatsApp (Conversão)</div>
+    <div class="creative-metrics" id="creative-fundo-metrics">
       <div><div class="cm-val">R$ 11,66</div><div class="cm-lbl">Custo/conversa</div></div>
       <div><div class="cm-val accent">33</div><div class="cm-lbl">Conversas</div></div>
       <div><div class="cm-val">R$ 385</div><div class="cm-lbl">Investido</div></div>
@@ -262,9 +287,9 @@ html,body{overflow-x:hidden}
 <!-- TOPO DE FUNIL -->
 <div class="funnel-section">
 <div class="section-label"><span>Topo de funil — alcance &amp; engajamento</span></div>
-<div class="camp-grid single">
-  <div class="camp-card">
-    <div class="camp-name">Engajamento</div>
+<div class="camp-grid single" id="topo-cards">
+  <div class="camp-card best">
+    <div class="camp-name">Engajamento — Posts &amp; Perfil</div>
     <div class="camp-metrics" style="grid-template-columns:repeat(4,1fr)">
       <div><div class="cm-val">R$ 165</div><div class="cm-lbl">Investido</div></div>
       <div><div class="cm-val">35,5k</div><div class="cm-lbl">Alcance</div></div>
@@ -274,17 +299,17 @@ html,body{overflow-x:hidden}
   </div>
 </div>
 
-<div class="creative-card">
-  <img class="creative-thumb" src="https://scontent-iad6-1.xx.fbcdn.net/v/t15.5256-10/707022793_976474688711526_2234760276123755957_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=100&ccb=1-7&_nc_sid=031d0d&_nc_ohc=y0FDeCUe0LsQ7kNvwH7-4EX&_nc_oc=AdqrRRSnIN6GomWwgKTVaN0JkkMSXphlOm9owg3AeBp3Z5JARqegpE17j3zfYohBeAU&_nc_zt=23&_nc_ht=scontent-iad6-1.xx&edm=AEZPnVgEAAAA&_nc_gid=8YuZW-6TxOPFsA98faKJfg&_nc_tpa=Q5bMBQEYWuRCYlb78paHkUyVs-95OQrnbcRPSzyEVtJ5n2gBVfsRhxQLqoPmWKP1vYfV0UB-ZWaXolMPrw&oh=00_AQDXsAwqOQ0BssD8QsgwpZpgV9Ex5LXlJKw6fngn7wmJxQ&oe=6A4CB08D" alt="Anúncio campeão — Video 2 (engajamento)">
+<div class="creative-card" id="creative-topo">
+  <img class="creative-thumb" id="creative-topo-thumb" src="https://scontent-sea1-1.xx.fbcdn.net/v/t15.5256-10/707022793_976474688711526_2234760276123755957_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=100&ccb=1-7&_nc_sid=031d0d&_nc_ohc=y0FDeCUe0LsQ7kNvwEV2DDu&_nc_oc=AdqYbthHWCjU4h1dzIruD0om4KMuMBsV5v9OmGGu6oXFnUrEc1yEe3CJIZTiI8n9eSw&_nc_zt=23&_nc_ht=scontent-sea1-1.xx&edm=AEZPnVgEAAAA&_nc_gid=e_-hSCPLUu3lmOC_k6wXGw&_nc_tpa=Q5bMBQG0sRra30wzEe7-wqyC6UAeSO_Ko_mW9DX9Gtw17xYWsODLraZOW1wKpino1EBJ4B5KOlLlZuVkiA&oh=00_AQBWuYJzPhA-pPIrHCmSV65PkT2Y7ojJv0RzFAMVQw5u4g&oe=6A4DC9CD" alt="Anúncio campeão — Video 2 (engajamento)">
   <div class="creative-info">
     <div class="creative-tag">★ Anúncio com melhor desempenho</div>
-    <div class="creative-name">Video 2 (engajamento)</div>
-    <div class="creative-camp">Engajamento</div>
-    <div class="creative-metrics">
+    <div class="creative-name" id="creative-topo-name">Video 2 (engajamento)</div>
+    <div class="creative-camp" id="creative-topo-camp">Engajamento — Posts &amp; Perfil</div>
+    <div class="creative-metrics" id="creative-topo-metrics">
       <div><div class="cm-val">R$ 0,24</div><div class="cm-lbl">Custo/visita</div></div>
       <div><div class="cm-val accent">503</div><div class="cm-lbl">Visitas ao perfil</div></div>
       <div><div class="cm-val">R$ 121</div><div class="cm-lbl">Investido</div></div>
-      <div><div class="cm-val">40,3k</div><div class="cm-lbl">Impressões</div></div>
+      <div><div class="cm-val">31,5k</div><div class="cm-lbl">Alcance</div></div>
     </div>
   </div>
 </div>
@@ -292,7 +317,7 @@ html,body{overflow-x:hidden}
 
 <div class="section-label"><span>Junho em resumo</span></div>
 <div class="closing">
-  <p>Junho fechou com investimento total de <strong>R$ 715,75</strong> nas duas frentes ativas do Ateliê Paula Ramos. A campanha <strong>Vendas</strong> foi o motor comercial do mês, com <strong>50 conversas de WhatsApp</strong> a <strong>R$11,02</strong> cada — custo dentro da faixa saudável, com frequência controlada (2,31) e sem sinal de fadiga de criativo. A campanha <strong>Engajamento</strong> trabalhou a marca no Instagram, alcançando <strong>35 mil pessoas</strong> com CPM baixo (R$3,65) e CTR de 1,43%, acima da média do setor.</p>
+  <p>Junho fechou com <strong>R$ 716 investidos</strong> e <strong>50 conversas iniciadas no WhatsApp</strong> a R$ 11,02 cada — custo dentro da faixa saudável para o segmento. O anúncio <strong>Video 2</strong> foi o campeão nas duas frentes: gerou 33 das 50 conversas no fundo e mais de 500 visitas ao perfil no topo. A conta alcançou <strong>56,7 mil pessoas</strong> no mês com frequência controlada (1,67), o que mantém espaço para os criativos continuarem performando em julho.</p>
 </div>
 
 <div class="report-footer">
@@ -310,9 +335,10 @@ Chart.defaults.color = '#7a746c';
 Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
 const tip = {backgroundColor:'#000000',borderWidth:0,padding:10,titleFont:{size:12,weight:'700'},bodyFont:{size:11},bodyColor:'#d9d5cf',titleColor:'#fff'};
 
+// Donut — 1 fatia por campanha. Cores por etapa: fundo laranja, topo preto.
 const campData = [
-  {label:'Vendas',       value:550.95, color:'#f2620f'},
-  {label:'Engajamento',  value:164.80, color:'#febe28'},
+  {label:'Vendas (WhatsApp)', value:550.95, color:'#f2620f'},
+  {label:'Engajamento',       value:164.80, color:'#000000'},
 ];
 const total = campData.reduce((s,d)=>s+d.value,0);
 
@@ -323,12 +349,6 @@ new Chart(document.getElementById('donut-camp'),{
 });
 document.getElementById('legend-camp').innerHTML = campData.map(d=>`
   <div class="dl-item"><div class="dl-dot" style="background:${d.color}"></div><span class="dl-name">${d.label}</span><span class="dl-val">R$${Math.round(d.value).toLocaleString('pt-BR')}</span><span class="dl-pct">${(d.value/total*100).toFixed(0)}%</span></div>`).join('');
-
-new Chart(document.getElementById('bar-conv'),{
-  type:'bar',
-  data:{labels:['Vendas (conversas)','Engajamento (visitas perfil)'],datasets:[{data:[50,582],backgroundColor:['#f2620f','#febe28'],borderRadius:8,borderSkipped:false}]},
-  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.raw} resultados`},...tip}},scales:{x:{grid:{display:false},ticks:{color:'#7a746c',font:{size:11}}},y:{grid:{color:'#eae6df'},ticks:{color:'#a8a196',font:{size:10}},beginAtZero:true}}}
-});
 </script>
 </body>
 </html>
