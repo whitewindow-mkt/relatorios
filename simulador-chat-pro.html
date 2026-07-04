@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>ChatSim Pro — Simulador de Conversas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f5f5f7;
+    --panel:#ffffff;
+    --panel-2:#f5f5f7;
+    --border:rgba(0,0,0,.08);
+    --border-soft:rgba(0,0,0,.05);
+    --text:#1d1d1f;
+    --text-dim:#6e6e73;
+    --text-mute:#86868b;
+    --accent:#0071e3;
+    --accent-2:#147ce5;
+    --accent-soft:rgba(0,113,227,.08);
+    --danger:#ff3b30;
+    --radius:12px;
+    --radius-sm:8px;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;margin:0;overflow:hidden;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Inter','Segoe UI',Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    font-size:13px;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::-webkit-scrollbar{width:8px;height:8px;}
+  ::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:8px;}
+  ::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25);}
+
+  .app{height:100vh;display:flex;flex-direction:column;}
+
+  /* ===== TOPBAR ===== */
+  .topbar{
+    height:52px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 20px;
+    border-bottom:1px solid var(--border);
+    background:rgba(255,255,255,.86);
+    backdrop-filter:saturate(180%) blur(14px);
+    -webkit-backdrop-filter:saturate(180%) blur(14px);
+  }
+  .brand{display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px;letter-spacing:-.01em;color:var(--text);}
+  .brand .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);}
+  .brand .pro{
+    font-size:9px;font-weight:600;color:var(--accent);
+    background:var(--accent-soft);
+    padding:2px 7px;border-radius:5px;letter-spacing:.04em;
+  }
+  .topbar-hint{font-size:11.5px;color:var(--text-mute);}
+
+  /* ===== COLUMNS ===== */
+  .columns{flex:1;display:grid;grid-template-columns:248px 292px 292px 1fr;min-height:0;}
+  .col{
+    border-right:1px solid var(--border);
+    padding:18px 16px 24px;
+    overflow-y:auto;
+    min-height:0;
+    background:#fff;
+  }
+  .col.preview{
+    border-right:none;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--bg);
+    padding:20px;
+  }
+  .col-title{
+    font-size:11px;text-transform:uppercase;letter-spacing:.07em;
+    color:var(--text-mute);font-weight:600;margin:0 0 14px;
+    display:flex;align-items:center;gap:6px;
+  }
+  .n{
+    box-sizing:border-box;width:16px;height:16px;min-width:16px;border-radius:4px;background:var(--accent-soft);color:var(--accent);
+    display:inline-flex;align-items:center;justify-content:center;font-size:9.5px;line-height:1;font-weight:700;
+    letter-spacing:normal;text-transform:none;flex-shrink:0;
+  }
+  .block{margin-bottom:22px;}
+  .block-label{
+    font-size:10.5px;color:var(--text-mute);font-weight:600;
+    text-transform:uppercase;letter-spacing:.05em;margin:0 0 8px;
+  }
+
+  /* ===== FORM ELEMENTS ===== */
+  label.field-label{display:block;font-size:11.5px;font-weight:500;color:var(--text-dim);margin:10px 0 5px;}
+  label.field-label:first-child{margin-top:0;}
+  input[type=text], textarea, input[type=file], select{
+    width:100%;
+    background:var(--panel-2);
+    border:1px solid var(--border);
+    color:var(--text);
+    border-radius:var(--radius-sm);
+    padding:8px 10px;
+    font-size:12.5px;
+    font-family:inherit;
+  }
+  input[type=text]:focus, textarea:focus, select:focus{
+    outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);
+  }
+  textarea{resize:vertical;min-height:56px;line-height:1.4;}
+  input[type=file]{font-size:11px;padding:6px 8px;color:var(--text-dim);}
+  input[type=file]::file-selector-button{
+    background:#fff;border:1px solid var(--border);color:var(--text);
+    border-radius:6px;padding:4px 8px;font-size:11px;margin-right:8px;cursor:pointer;
+  }
+  .checkbox-row{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text-dim);margin-top:10px;}
+  .checkbox-row input{width:auto;accent-color:var(--accent);}
+
+  /* segmented control (estilo iOS/macOS) */
+  .segmented{display:flex;gap:2px;background:var(--panel-2);border:1px solid var(--border-soft);border-radius:9px;padding:2px;}
+  .seg-btn{
+    flex:1;border:none;background:transparent;color:var(--text-dim);
+    font-size:11.5px;font-weight:500;padding:7px 4px;border-radius:7px;cursor:pointer;
+    transition:background .15s, color .15s, box-shadow .15s;
+  }
+  .seg-btn.active{background:#fff;color:var(--text);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.12);}
+  .seg-btn:not(.active):hover{color:var(--text);}
+
+  /* platform dropdown select */
+  .platform-select{position:relative;}
+  .platform-select-trigger{
+    width:100%;display:flex;align-items:center;gap:10px;
+    background:#fff;border:1px solid var(--border);border-radius:10px;
+    padding:10px 11px;cursor:pointer;color:var(--text);
+    transition:border-color .15s;
+  }
+  .platform-select-trigger:hover{border-color:rgba(0,113,227,.4);}
+  .platform-select.open .platform-select-trigger{border-color:var(--accent);}
+  .ps-icon svg{width:20px;height:20px;display:block;flex-shrink:0;}
+  .ps-label{flex:1;text-align:left;font-size:12.5px;font-weight:600;}
+  .ps-chevron svg{width:14px;height:14px;color:var(--text-mute);transition:transform .15s;flex-shrink:0;}
+  .platform-select.open .ps-chevron svg{transform:rotate(180deg);}
+  .platform-select-menu{
+    position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:30;
+    background:#fff;border:1px solid var(--border);border-radius:10px;
+    padding:5px;box-shadow:0 12px 32px rgba(0,0,0,.14);
+    display:none;flex-direction:column;gap:1px;
+  }
+  .platform-select.open .platform-select-menu{display:flex;}
+  .ps-option{
+    display:flex;align-items:center;gap:10px;padding:8px 8px;border-radius:7px;
+    background:transparent;border:none;color:var(--text-dim);cursor:pointer;text-align:left;width:100%;
+  }
+  .ps-option svg{width:18px;height:18px;flex-shrink:0;}
+  .ps-option span:not(.check){font-size:12px;font-weight:600;flex:1;}
+  .ps-option:hover{background:var(--panel-2);color:var(--text);}
+  .ps-option.active{background:var(--accent-soft);color:var(--text);}
+  .ps-option .check{width:14px;height:14px;color:var(--accent);flex-shrink:0;display:flex;}
+  .ps-option .check svg{width:14px;height:14px;}
+
+  /* content type tabs */
+  .type-tabs{display:flex;gap:2px;background:var(--panel-2);border:1px solid var(--border-soft);border-radius:9px;padding:2px;margin-bottom:14px;}
+  .type-tab{
+    flex:1;border:none;background:transparent;color:var(--text-dim);
+    display:flex;flex-direction:column;align-items:center;gap:3px;
+    font-size:10px;font-weight:600;padding:7px 2px;border-radius:7px;cursor:pointer;
+    transition:background .15s, color .15s, box-shadow .15s;
+  }
+  .type-tab svg{width:15px;height:15px;}
+  .type-tab.active{background:#fff;color:var(--accent);box-shadow:0 1px 3px rgba(0,0,0,.12);}
+  .type-tab:not(.active):hover{color:var(--text);}
+
+  .subtabs{display:flex;gap:14px;margin-bottom:10px;border-bottom:1px solid var(--border);}
+  .subtab-btn{
+    background:none;border:none;color:var(--text-mute);font-size:11.5px;font-weight:600;
+    padding:0 0 8px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;
+  }
+  .subtab-btn.active{color:var(--accent);border-color:var(--accent);}
+
+  .record-box{
+    display:flex;align-items:center;gap:10px;
+    background:var(--panel-2);border:1px solid var(--border);border-radius:var(--radius-sm);
+    padding:10px;
+  }
+  .record-btn{
+    width:38px;height:38px;border-radius:50%;background:var(--danger);border:none;
+    color:#fff;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .record-btn.recording{animation:pulse 1.2s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,59,48,.35);}70%{box-shadow:0 0 0 9px rgba(255,59,48,0);}100%{box-shadow:0 0 0 0 rgba(255,59,48,0);}}
+  #recordTimer{font-size:13px;font-variant-numeric:tabular-nums;color:var(--text-dim);}
+
+  .btn{
+    cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;
+    border-radius:var(--radius-sm);border:1px solid var(--border);
+    background:#fff;color:var(--text);padding:9px 12px;
+    transition:background .15s, border-color .15s;
+  }
+  .btn:hover{background:var(--panel-2);}
+  .btn-block{width:100%;}
+  .btn-primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .btn-primary:hover{background:#0077ed;}
+  .btn-ghost{background:transparent;border-color:transparent;color:var(--accent);}
+  .btn-ghost:hover{background:var(--accent-soft);}
+  .btn-row{display:flex;gap:8px;}
+  .btn-row .btn{flex:1;}
+
+  .play-btn{
+    width:100%;padding:13px;border-radius:11px;border:none;
+    background:var(--accent);
+    color:#fff;font-size:14px;font-weight:600;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    box-shadow:0 1px 2px rgba(0,0,0,.12);
+    letter-spacing:-.01em;
+    transition:background .15s;
+  }
+  .play-btn:hover{background:#0077ed;}
+  .play-btn:disabled{opacity:.45;cursor:default;box-shadow:none;}
+  .play-btn svg{width:14px;height:14px;}
+
+  /* flow list */
+  .flow-item{
+    display:flex;align-items:center;gap:8px;
+    background:#fff;border:1px solid var(--border);border-radius:9px;
+    padding:8px 8px;margin-bottom:6px;
+  }
+  .flow-item .badge{
+    width:22px;height:22px;border-radius:6px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--panel-2);color:var(--text-dim);
+  }
+  .flow-item .badge svg{width:12px;height:12px;}
+  .flow-item .badge.me{background:var(--accent-soft);color:var(--accent);}
+  .flow-item .preview{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11.5px;color:var(--text-dim);}
+  .flow-item .who{font-size:9px;font-weight:700;text-transform:uppercase;color:var(--text-mute);letter-spacing:.04em;display:block;margin-bottom:1px;}
+  .flow-item .mini-actions{display:flex;gap:1px;flex-shrink:0;}
+  .flow-item .mini-actions button{
+    border:none;background:none;color:var(--text-mute);font-size:12px;padding:3px 5px;cursor:pointer;border-radius:5px;
+  }
+  .flow-item .mini-actions button:hover{color:var(--text);background:var(--panel-2);}
+  .empty-hint{font-size:11.5px;color:var(--text-mute);text-align:center;padding:20px 6px;line-height:1.5;}
+
+  hr.sep{border:none;border-top:1px solid var(--border);margin:16px 0;}
+
+  /* ===== PHONE PREVIEW ===== */
+  .phone{
+    width:272px;height:560px;background:#000;border-radius:36px;padding:9px;
+    box-shadow:0 24px 70px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.04);
+    display:flex;flex-direction:column;position:relative;
+  }
+  .phone[data-device="plain"]{border-radius:14px;padding:2px;}
+  .phone-screen{
+    flex:1;background:#fff;border-radius:27px;overflow:hidden;
+    display:flex;flex-direction:column;position:relative;
+  }
+  .phone[data-device="plain"] .phone-screen{border-radius:10px;}
+  .notch{
+    position:absolute;top:0;left:50%;transform:translateX(-50%);
+    width:88px;height:16px;background:#000;border-radius:0 0 11px 11px;z-index:6;display:none;
+  }
+  .phone[data-device="iphone"] .notch{display:block;}
+  .punch-hole{
+    position:absolute;top:7px;left:50%;transform:translateX(-50%);
+    width:7px;height:7px;background:#000;border-radius:50%;z-index:6;display:none;
+  }
+  .phone[data-device="android"] .punch-hole{display:block;}
+
+  .statusbar{
+    height:26px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;
+    padding:0 20px;font-size:11px;font-weight:600;background:transparent;color:#fff;
+    position:relative;z-index:3;
+  }
+  .phone[data-device="plain"] .statusbar{display:none;}
+  .phone-screen[data-platform="instagram"] .statusbar,
+  .phone-screen[data-platform="messenger"] .statusbar,
+  .phone-screen[data-platform="chat"] .statusbar{color:#111;}
+  .phone-screen[data-platform="snapchat"] .statusbar{color:#111;}
+  .phone-screen[data-mode="dark"] .statusbar{color:#fff;}
+
+  .wa-header{
+    display:flex;align-items:center;gap:9px;padding:6px 10px 10px;flex-shrink:0;
+  }
+  .wa-header .back svg{width:17px;height:17px;}
+  .wa-avatar{
+    width:34px;height:34px;border-radius:50%;background:#c9ced2;
+    display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#666;
+    overflow:hidden;flex-shrink:0;
+  }
+  .wa-avatar img{width:100%;height:100%;object-fit:cover;}
+  .wa-header .info{flex:1;min-width:0;}
+  .wa-header .name{font-size:14px;font-weight:600;line-height:1.2;display:flex;align-items:center;gap:4px;}
+  .wa-header .name .verified{width:13px;height:13px;flex-shrink:0;}
+  .wa-header .status{font-size:11px;opacity:.75;line-height:1.2;}
+  .wa-header .icons{display:flex;gap:14px;flex-shrink:0;}
+  .wa-header .icons svg{width:16px;height:16px;}
+
+  .chat-area{
+    flex:1;overflow-y:auto;padding:8px 9px;display:flex;flex-direction:column;gap:2px;
+  }
+  .bubble-wrap{display:flex;margin:3px 0;opacity:0;transform:translateY(8px);animation:pop .28s ease forwards;}
+  @keyframes pop{to{opacity:1;transform:translateY(0);}}
+  .bubble-wrap.them{justify-content:flex-start;}
+  .bubble-wrap.me{justify-content:flex-end;}
+  .bubble{max-width:76%;padding:6px 8px;font-size:13px;line-height:1.35;box-shadow:0 1px 1px rgba(0,0,0,.06);position:relative;}
+  .bubble .txt{white-space:pre-wrap;word-break:break-word;padding-right:42px;}
+  .bubble .time{font-size:9.5px;color:rgba(0,0,0,.38);position:absolute;bottom:4px;right:8px;display:flex;align-items:center;gap:3px;}
+  .bubble .time svg{width:12px;height:12px;}
+  .bubble img.media-img{display:block;max-width:100%;border-radius:8px;margin-bottom:2px;}
+  .bubble video.media-video{display:block;max-width:100%;border-radius:8px;margin-bottom:2px;}
+  .bubble.has-media{padding:4px;}
+  .bubble.has-media .caption{padding:5px 5px 14px;}
+
+  .video-thumb{position:relative;border-radius:8px;overflow:hidden;background:#000;}
+  .video-thumb video{display:block;width:100%;max-height:220px;object-fit:cover;}
+  .video-thumb .play-overlay{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    background:rgba(0,0,0,.18);
+  }
+  .video-thumb .play-overlay .circle{
+    width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.45);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .video-thumb .play-overlay svg{width:18px;height:18px;color:#fff;}
+  .video-thumb .dur-badge{
+    position:absolute;bottom:6px;right:6px;background:rgba(0,0,0,.55);color:#fff;
+    font-size:10px;padding:2px 6px;border-radius:5px;
+  }
+
+  .voice-msg{display:flex;align-items:center;gap:8px;padding:2px 28px 12px 2px;min-width:180px;}
+  .voice-msg .play-ic{
+    width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.15);color:inherit;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .voice-msg .play-ic svg{width:12px;height:12px;}
+  .voice-msg .wave{flex:1;height:20px;display:flex;align-items:center;gap:2px;overflow:hidden;}
+  .voice-msg .wave span{width:2.5px;background:currentColor;opacity:.45;border-radius:2px;flex-shrink:0;}
+  .voice-msg.playing .wave span{opacity:.9;}
+  .voice-msg .dur{font-size:10px;opacity:.65;flex-shrink:0;}
+
+  .typing-wrap{display:flex;margin:3px 0;}
+  .typing-bubble{border-radius:16px;border-top-left-radius:4px;padding:9px 12px;display:flex;gap:3px;box-shadow:0 1px 1px rgba(0,0,0,.06);}
+  .typing-bubble span{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.4;animation:blink 1.1s infinite ease-in-out;}
+  .typing-bubble span:nth-child(2){animation-delay:.15s;}
+  .typing-bubble span:nth-child(3){animation-delay:.3s;}
+  @keyframes blink{0%,60%,100%{opacity:.3;transform:scale(.8);}30%{opacity:1;transform:scale(1);}}
+
+  .input-bar{flex-shrink:0;padding:8px 10px;display:flex;align-items:center;gap:8px;}
+  .input-bar .fake-input{flex:1;background:rgba(0,0,0,.06);border-radius:20px;padding:9px 14px;font-size:12.5px;color:rgba(0,0,0,.38);}
+  .input-bar .mic{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;}
+  .input-bar .mic svg{width:15px;height:15px;}
+
+  /* ===== PLATFORM THEMES ===== */
+  .phone-screen[data-platform="whatsapp"] .wa-header{background:#075E54;color:#fff;}
+  .phone-screen[data-platform="whatsapp"] .chat-area{
+    background-color:#e5ddd5;
+    background-image:repeating-linear-gradient(45deg, rgba(0,0,0,.015) 0 2px, transparent 2px 40px);
+  }
+  .phone-screen[data-platform="whatsapp"] .bubble.them{background:#fff;color:#111;border-radius:8px;border-top-left-radius:2px;}
+  .phone-screen[data-platform="whatsapp"] .bubble.me{background:#d9fdd3;color:#111;border-radius:8px;border-top-right-radius:2px;}
+  .phone-screen[data-platform="whatsapp"] .input-bar{background:#f0f0f0;}
+  .phone-screen[data-platform="whatsapp"] .mic{background:#075E54;}
+  .phone-screen[data-platform="whatsapp"] .typing-bubble{background:#fff;color:#111;}
+
+  .phone-screen[data-platform="instagram"] .wa-header{background:#fff;color:#111;border-bottom:1px solid #efefef;}
+  .phone-screen[data-platform="instagram"] .chat-area{background:#fff;}
+  .phone-screen[data-platform="instagram"] .bubble.them{background:#efefef;color:#111;border-radius:18px;}
+  .phone-screen[data-platform="instagram"] .bubble.me{background:linear-gradient(135deg,#4f5bd5,#962fbf 45%,#d62976 70%,#fa7e1e);color:#fff;border-radius:18px;}
+  .phone-screen[data-platform="instagram"] .bubble.me .time{color:rgba(255,255,255,.75);}
+  .phone-screen[data-platform="instagram"] .input-bar{background:#fff;border-top:1px solid #efefef;}
+  .phone-screen[data-platform="instagram"] .input-bar .fake-input{background:#fafafa;border:1px solid #efefef;}
+  .phone-screen[data-platform="instagram"] .mic{background:#111;}
+  .phone-screen[data-platform="instagram"] .typing-bubble{background:#efefef;color:#111;}
+
+  .phone-screen[data-platform="messenger"] .wa-header{background:#fff;color:#111;border-bottom:1px solid #efefef;}
+  .phone-screen[data-platform="messenger"] .chat-area{background:#fff;}
+  .phone-screen[data-platform="messenger"] .bubble.them{background:#f0f0f0;color:#111;border-radius:18px;}
+  .phone-screen[data-platform="messenger"] .bubble.me{background:linear-gradient(135deg,#00c6ff,#0068ff);color:#fff;border-radius:18px;}
+  .phone-screen[data-platform="messenger"] .bubble.me .time{color:rgba(255,255,255,.75);}
+  .phone-screen[data-platform="messenger"] .input-bar{background:#fff;border-top:1px solid #efefef;}
+  .phone-screen[data-platform="messenger"] .input-bar .fake-input{background:#fafafa;border:1px solid #efefef;}
+  .phone-screen[data-platform="messenger"] .mic{background:#0084FF;}
+  .phone-screen[data-platform="messenger"] .typing-bubble{background:#f0f0f0;color:#111;}
+
+  .phone-screen[data-platform="snapchat"] .wa-header{background:#FFFC00;color:#111;}
+  .phone-screen[data-platform="snapchat"] .chat-area{background:#fff;}
+  .phone-screen[data-platform="snapchat"] .bubble.them{background:#f0f0f0;color:#111;border-radius:18px;}
+  .phone-screen[data-platform="snapchat"] .bubble.me{background:#0ab4ff;color:#fff;border-radius:18px;}
+  .phone-screen[data-platform="snapchat"] .bubble.me .time{color:rgba(255,255,255,.75);}
+  .phone-screen[data-platform="snapchat"] .input-bar{background:#fff;border-top:1px solid #efefef;}
+  .phone-screen[data-platform="snapchat"] .input-bar .fake-input{background:#fafafa;border:1px solid #efefef;}
+  .phone-screen[data-platform="snapchat"] .mic{background:#111;}
+  .phone-screen[data-platform="snapchat"] .typing-bubble{background:#f0f0f0;color:#111;}
+
+  .phone-screen[data-platform="chat"] .wa-header{background:#f7f7f8;color:#111;border-bottom:1px solid #eee;}
+  .phone-screen[data-platform="chat"] .chat-area{background:#fff;}
+  .phone-screen[data-platform="chat"] .bubble.them{background:#e5e5ea;color:#111;border-radius:18px;}
+  .phone-screen[data-platform="chat"] .bubble.me{background:#0b93f6;color:#fff;border-radius:18px;}
+  .phone-screen[data-platform="chat"] .bubble.me .time{color:rgba(255,255,255,.75);}
+  .phone-screen[data-platform="chat"] .input-bar{background:#fff;border-top:1px solid #efefef;}
+  .phone-screen[data-platform="chat"] .input-bar .fake-input{background:#fafafa;border:1px solid #efefef;}
+  .phone-screen[data-platform="chat"] .mic{background:#0b93f6;}
+  .phone-screen[data-platform="chat"] .typing-bubble{background:#e5e5ea;color:#111;}
+
+  /* dark mode overrides (generic) */
+  .phone-screen[data-mode="dark"] .chat-area{background-color:#0b0f11 !important;background-image:none !important;}
+  .phone-screen[data-mode="dark"] .bubble.them{background:#1f2c34 !important;color:#e9edef !important;}
+  .phone-screen[data-mode="dark"] .bubble.them .time{color:rgba(233,237,239,.5) !important;}
+  .phone-screen[data-mode="dark"] .typing-bubble{background:#1f2c34 !important;color:#e9edef !important;}
+  .phone-screen[data-mode="dark"][data-platform="whatsapp"] .bubble.me{background:#025c4b !important;color:#e9edef !important;}
+  .phone-screen[data-mode="dark"][data-platform="whatsapp"] .bubble.me .time{color:rgba(233,237,239,.55) !important;}
+  .phone-screen[data-mode="dark"] .wa-header{filter:brightness(.88);}
+  .phone-screen[data-mode="dark"] .input-bar{background:#111 !important;border-color:#222 !important;}
+  .phone-screen[data-mode="dark"] .input-bar .fake-input{background:#1b1b1b !important;color:#777 !important;border-color:#222 !important;}
+
+  /* ===== WATERMARK ===== */
+  .watermark{
+    position:absolute;bottom:66px;left:50%;transform:translateX(-50%);
+    background:rgba(0,0,0,.45);color:#fff;font-size:9.5px;font-weight:600;
+    padding:4px 11px;border-radius:20px;letter-spacing:.02em;z-index:8;
+    pointer-events:none;white-space:nowrap;
+  }
+  .watermark.hidden{display:none;}
+
+  /* ===== EXPORT / MONETIZAÇÃO (coluna 3) ===== */
+  .price-note{font-size:10px;color:var(--text-mute);margin-top:8px;line-height:1.5;}
+  .unlock-links{display:flex;justify-content:center;gap:10px;margin-top:6px;}
+  .unlock-links button{
+    flex:1;background:none;border:none;color:var(--text-mute);font-size:9.5px;
+    cursor:pointer;padding:2px;
+  }
+  .unlock-links button:hover{color:var(--accent);}
+
+  /* ===== AD MODAL (placeholder de anúncio) ===== */
+  .ad-modal{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:999;display:none;align-items:center;justify-content:center;}
+  .ad-modal-box{
+    background:#fff;border:1px solid var(--border);border-radius:14px;
+    padding:28px;width:270px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.2);
+  }
+  .ad-modal-title{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--text-mute);font-weight:700;margin-bottom:12px;}
+  .ad-modal-body{font-size:11.5px;color:var(--text-dim);line-height:1.5;margin-bottom:20px;}
+  .ad-modal-timer{
+    width:56px;height:56px;border-radius:50%;background:var(--accent-soft);color:var(--accent);
+    display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:19px;font-weight:700;
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="topbar">
+    <div class="brand"><span class="dot"></span>ChatSim <span class="pro">PRO</span></div>
+    <div class="topbar-hint">Monte a conversa → organize o fluxo → aperte Play</div>
+  </div>
+
+  <div class="columns">
+
+    <!-- COLUNA 1 — PLATAFORMA / DISPOSITIVO / CONTATO -->
+    <section class="col">
+      <div class="col-title"><span class="n">1</span>Plataforma & Contato</div>
+
+      <div class="block">
+        <div class="block-label">App</div>
+        <div class="platform-select" id="platformSelect">
+          <button type="button" class="platform-select-trigger" onclick="togglePlatformMenu()">
+            <span class="ps-icon" id="psIcon"></span>
+            <span class="ps-label" id="psLabel">WhatsApp</span>
+            <span class="ps-chevron" id="psChevron"></span>
+          </button>
+          <div class="platform-select-menu" id="platformMenu">
+            <button type="button" class="ps-option active" data-platform="whatsapp" onclick="selectPlatform('whatsapp')"></button>
+            <button type="button" class="ps-option" data-platform="instagram" onclick="selectPlatform('instagram')"></button>
+            <button type="button" class="ps-option" data-platform="messenger" onclick="selectPlatform('messenger')"></button>
+            <button type="button" class="ps-option" data-platform="snapchat" onclick="selectPlatform('snapchat')"></button>
+            <button type="button" class="ps-option" data-platform="chat" onclick="selectPlatform('chat')"></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-label">Dispositivo</div>
+        <div class="segmented">
+          <button class="seg-btn active" data-device="iphone" onclick="setDevice('iphone')">iPhone</button>
+          <button class="seg-btn" data-device="android" onclick="setDevice('android')">Android</button>
+          <button class="seg-btn" data-device="plain" onclick="setDevice('plain')">Minimal</button>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-label">Aparência</div>
+        <div class="segmented">
+          <button class="seg-btn active" data-mode="light" onclick="setMode('light')">Claro</button>
+          <button class="seg-btn" data-mode="dark" onclick="setMode('dark')">Escuro</button>
+        </div>
+      </div>
+
+      <hr class="sep">
+
+      <div class="block">
+        <div class="block-label">Contato</div>
+        <label class="field-label">Nome</label>
+        <input type="text" id="contactName" value="Maria Silva" oninput="updateHeader()">
+        <label class="field-label">Status / subtítulo</label>
+        <input type="text" id="contactSubtitle" placeholder="padrão da plataforma" oninput="updateHeader()">
+        <label class="checkbox-row"><input type="checkbox" id="contactVerified" onchange="updateHeader()"> Selo verificado</label>
+        <label class="field-label">Foto do contato</label>
+        <input type="file" id="contactAvatar" accept="image/*" onchange="setAvatar(event)">
+      </div>
+    </section>
+
+    <!-- COLUNA 2 — CONTEÚDO -->
+    <section class="col">
+      <div class="col-title"><span class="n">2</span>Conteúdo</div>
+
+      <div class="block">
+        <div class="block-label">Quem envia</div>
+        <div class="segmented">
+          <button class="seg-btn active" id="btnThem" onclick="setSender('them')">Recebida</button>
+          <button class="seg-btn" id="btnMe" onclick="setSender('me')">Enviada</button>
+        </div>
+      </div>
+
+      <div class="type-tabs" id="typeTabs">
+        <button class="type-tab active" data-type="text" onclick="setContentType('text')"></button>
+        <button class="type-tab" data-type="image" onclick="setContentType('image')"></button>
+        <button class="type-tab" data-type="audio" onclick="setContentType('audio')"></button>
+        <button class="type-tab" data-type="video" onclick="setContentType('video')"></button>
+      </div>
+
+      <div id="panel-text" class="type-panel">
+        <label class="field-label">Texto</label>
+        <textarea id="textContent" placeholder="Digite a mensagem..."></textarea>
+      </div>
+
+      <div id="panel-image" class="type-panel" style="display:none;">
+        <label class="field-label">Imagem</label>
+        <input type="file" id="imageFile" accept="image/*">
+        <label class="field-label">Legenda (opcional)</label>
+        <input type="text" id="imageCaption" placeholder="Legenda da foto...">
+      </div>
+
+      <div id="panel-audio" class="type-panel" style="display:none;">
+        <div class="subtabs">
+          <button class="subtab-btn active" id="subtabUpload" onclick="setAudioMode('upload')">Enviar arquivo</button>
+          <button class="subtab-btn" id="subtabRecord" onclick="setAudioMode('record')">Gravar agora</button>
+        </div>
+        <div id="audioUploadPane">
+          <label class="field-label">Arquivo de áudio</label>
+          <input type="file" id="audioFile" accept="audio/*">
+          <label class="field-label">Duração exibida (ex: 0:07)</label>
+          <input type="text" id="audioDuration" value="0:07">
+        </div>
+        <div id="audioRecordPane" style="display:none;">
+          <div class="record-box">
+            <button class="record-btn" id="recordBtn" onclick="toggleRecording()">●</button>
+            <span id="recordTimer">00:00</span>
+          </div>
+          <audio id="recordPreview" controls style="display:none;width:100%;margin-top:8px;"></audio>
+        </div>
+      </div>
+
+      <div id="panel-video" class="type-panel" style="display:none;">
+        <label class="field-label">Vídeo</label>
+        <input type="file" id="videoFile" accept="video/*">
+        <label class="field-label">Legenda (opcional)</label>
+        <input type="text" id="videoCaption" placeholder="Legenda do vídeo...">
+        <label class="field-label">Durante a reprodução</label>
+        <div class="segmented" id="videoModeToggle">
+          <button class="seg-btn active" data-mode="play" onclick="setVideoMode('play')">Reproduzir</button>
+          <button class="seg-btn" data-mode="thumb" onclick="setVideoMode('thumb')">Só a capa</button>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-block" style="margin-top:16px;" onclick="addMessage()">+ Adicionar ao fluxo</button>
+
+      <hr class="sep">
+
+      <div class="block-label">Mensagens (<span id="flowCount">0</span>)</div>
+      <div id="flowList"><div class="empty-hint" id="emptyHint">Nenhuma mensagem ainda.<br>Adicione acima ou clique em "Exemplo".</div></div>
+    </section>
+
+    <!-- COLUNA 3 — REPRODUÇÃO / EXPORTAÇÃO -->
+    <section class="col">
+      <div class="col-title"><span class="n">3</span>Reprodução</div>
+
+      <button class="play-btn" id="playBtn" onclick="playConversation()"></button>
+
+      <div class="block" style="margin-top:12px;">
+        <div class="block-label">Velocidade</div>
+        <select id="speed">
+          <option value="1.6">Lenta</option>
+          <option value="1" selected>Normal</option>
+          <option value="0.55">Rápida</option>
+          <option value="0.25">Muito rápida</option>
+        </select>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="loadDemo()">Exemplo</button>
+        <button class="btn btn-ghost" onclick="clearMessages()">Limpar</button>
+      </div>
+
+      <hr class="sep">
+
+      <div class="block" style="text-align:center;">
+        <div class="block-label" style="display:flex;align-items:center;justify-content:center;gap:6px;"><span class="n">4</span>Exportar vídeo</div>
+
+        <button class="btn btn-primary btn-block" id="freeDownloadBtn" onclick="startFreeDownload()">Baixar grátis</button>
+        <div class="price-note" id="freeNote">com anúncio e marca d'água</div>
+
+        <button class="btn btn-primary btn-block" id="subscribeBtn" style="margin-top:12px;" onclick="goCheckout()">Assinar R$9,90 por 30 dias</button>
+        <div class="price-note" id="subscribeNote">Sem anúncio e marca d'água</div>
+
+        <button class="btn btn-primary btn-block" id="paidDownloadBtn" style="display:none;" onclick="recordAndDownload()">Baixar vídeo</button>
+        <div class="price-note" id="activeNote" style="display:none;">Assinatura ativa — sem anúncio e marca d'água</div>
+
+        <div class="unlock-links">
+          <button id="unlockLink" onclick="unlockManually()">Já paguei</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLUNA 4 — PREVIEW -->
+    <section class="col preview">
+      <div class="phone" id="phone" data-device="iphone">
+        <div class="notch"></div>
+        <div class="punch-hole"></div>
+        <div class="phone-screen" id="phoneScreen" data-platform="whatsapp" data-mode="light">
+          <div class="statusbar">
+            <span id="clock">9:41</span>
+            <span>●●●●</span>
+          </div>
+          <div class="wa-header">
+            <span class="back" id="headerIcons-back"></span>
+            <div class="wa-avatar" id="headerAvatar">M</div>
+            <div class="info">
+              <div class="name" id="headerName">Maria Silva</div>
+              <div class="status" id="headerStatus">online</div>
+            </div>
+            <div class="icons" id="headerIconsRight"></div>
+          </div>
+          <div class="chat-area" id="chatArea"></div>
+          <div class="watermark" id="watermarkTag">ChatSim Pro</div>
+          <div class="input-bar">
+            <div class="fake-input">Mensagem</div>
+            <div class="mic" id="micIcon"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<div class="ad-modal" id="adModal">
+  <div class="ad-modal-box">
+    <div class="ad-modal-title">Anúncio</div>
+    <div class="ad-modal-body">Espaço de anúncio (placeholder) — quando publicar o app online, troque por uma tag real de anúncio recompensado.</div>
+    <div class="ad-modal-timer" id="adTimer">5</div>
+  </div>
+</div>
+
+<script>
+/* ============ ICON LIBRARY (inline minimal SVG, currentColor) ============ */
+const ICONS = {
+  back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5 8 12l7 7"/></svg>',
+  chevronDown: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>',
+  phone: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.7 21 3 13.3 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.2 1L6.6 10.8z"/></svg>',
+  video: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="6.5" width="12" height="11" rx="2"/><path d="M15 10l6-3.3v10.6L15 14z" fill="currentColor" stroke="none"/></svg>',
+  info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16" stroke-linecap="round"/><circle cx="12" cy="7.6" r="1" fill="currentColor" stroke="none"/></svg>',
+  dots: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="19" r="1.7"/></svg>',
+  mic: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2.5" width="6" height="11" rx="3" fill="currentColor" stroke="none"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0"/><line x1="12" y1="17.5" x2="12" y2="21"/></svg>',
+  send: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 11.5 21 3l-8.5 18-2-8-7.5-1.5z"/></svg>',
+  checkD: '<svg viewBox="0 0 24 24" fill="none" stroke="#53bdeb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12.5l4 4L13 8.5"/><path d="M8 12.5l4 4L20.5 8"/></svg>',
+  checkS: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l4 4L20 6"/></svg>',
+  play: '<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 20,12 6,20"/></svg>',
+  playOutline: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6,4 20,12 6,20"/></svg>',
+  textType: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 4h16v12H8l-4 4V4z"/></svg>',
+  imageType: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" stroke="none"/><path d="M21 15.5l-5-5-4.5 4.5-2.5-2.5-6 6"/></svg>',
+  audioType: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2.5" width="6" height="11" rx="3" fill="currentColor" stroke="none"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0"/><line x1="12" y1="17.5" x2="12" y2="21"/></svg>',
+  videoType: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="6.5" width="12" height="11" rx="2"/><path d="M15 10l6-3.3v10.6L15 14z" fill="currentColor" stroke="none"/></svg>',
+  verified: '<svg viewBox="0 0 24 24" fill="#3897f0"><path d="M12 2l2.4 1.3 2.7-.3 1.3 2.4 2.4 1.3-.3 2.7 1.3 2.4L20.5 14l.3 2.7-2.4 1.3-1.3 2.4-2.7-.3L12 22l-2.4-1.3-2.7.3-1.3-2.4-2.4-1.3.3-2.7L2.2 12l1.3-2.4-.3-2.7 2.4-1.3L6.9 3l2.7.3z"/><path d="M8.5 12l2.3 2.3L16 9" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+};
+
+const PLATFORM_LOGO = {
+  whatsapp: '<svg viewBox="0 0 24 24" fill="#25D366"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.3c1.4.8 3.1 1.3 4.8 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-5-4.3-5.1-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.2 1-2.5c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.2.1.4 0 .6-.1.2-.2.3-.3.5-.2.2-.3.4-.1.7.2.3.9 1.5 1.9 2.4 1.3 1.2 2.4 1.5 2.7 1.7.3.2.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.5.7 1.8.9.3.1.4.2.5.3.1.2.1.9-.2 1.6z"/></svg>',
+  instagram: '<svg viewBox="0 0 24 24"><defs><linearGradient id="igg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#feda75"/><stop offset=".3" stop-color="#d62976"/><stop offset=".6" stop-color="#962fbf"/><stop offset="1" stop-color="#4f5bd5"/></linearGradient></defs><rect x="2" y="2" width="20" height="20" rx="6" fill="url(#igg)"/><rect x="7" y="7" width="10" height="10" rx="3" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="17.3" cy="6.7" r="1.1" fill="#fff"/></svg>',
+  messenger: '<svg viewBox="0 0 24 24"><defs><linearGradient id="msg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#00c6ff"/><stop offset="1" stop-color="#0068ff"/></linearGradient></defs><circle cx="12" cy="12" r="10" fill="url(#msg)"/><path d="M6 13.5 10.5 9l3 3 4.5-4.5-4.9 8-3-3-4.5 4.5z" fill="#fff"/></svg>',
+  snapchat: '<svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="6" fill="#FFFC00"/><path d="M12 5.5c2 0 3.4 1.6 3.4 3.8 0 .8-.1 1.6.2 1.9.3.3 1 .2 1.3.6.2.3-.1.6-.5.8-.3.1-.6.2-.6.4 0 .3.6.9 1.5 1.1.3.1.3.4.1.6-.3.3-.9.4-1.4.5-.2 0-.3.1-.4.4-.1.4-.2.7-.7.7-.4 0-.9-.2-1.6-.2-.7 0-1.1.9-2.3.9s-1.6-.9-2.3-.9c-.7 0-1.2.2-1.6.2-.5 0-.6-.3-.7-.7-.1-.3-.2-.4-.4-.4-.5-.1-1.1-.2-1.4-.5-.2-.2-.2-.5.1-.6.9-.2 1.5-.8 1.5-1.1 0-.2-.3-.3-.6-.4-.4-.2-.7-.5-.5-.8.3-.4 1-.3 1.3-.6.3-.3.2-1.1.2-1.9 0-2.2 1.4-3.8 3.4-3.8z" fill="#111"/></svg>',
+  chat: '<svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="6" fill="#0b93f6"/><path d="M6 8h12v6.5H10l-3 2.5v-2.5H6z" fill="#fff"/></svg>'
+};
+
+const PLATFORM_LABEL = {whatsapp:'WhatsApp', instagram:'Instagram', messenger:'Messenger', snapchat:'Snapchat', chat:'Chat'};
+const PLATFORM_SUBTITLE = {whatsapp:'online', instagram:'Ativo agora', messenger:'Ativo agora', snapchat:'', chat:''};
+
+/* ============ STATE ============ */
+let state = { platform:'whatsapp', device:'iphone', mode:'light' };
+let messages = [];
+let idCounter = 1;
+let currentSender = 'them';
+let currentType = 'text';
+let audioMode = 'upload';
+let pendingVideoMode = 'play';
+let avatarUrl = null;
+
+let mediaRecorder = null, recordedChunks = [], recordTimerInterval = null;
+let pendingRecordingUrl = null, pendingRecordingSeconds = 0;
+
+/* ============ INIT: build icon-based buttons ============ */
+function initIcons(){
+  document.getElementById('psChevron').innerHTML = ICONS.chevronDown;
+  document.querySelectorAll('#platformMenu .ps-option').forEach(btn => {
+    const p = btn.dataset.platform;
+    btn.innerHTML = PLATFORM_LOGO[p] + '<span>' + PLATFORM_LABEL[p] + '</span><span class="check"></span>';
+  });
+  renderPlatformSelect();
+  const typeTabs = document.querySelectorAll('#typeTabs .type-tab');
+  const typeIcons = {text: [ICONS.textType,'Texto'], image:[ICONS.imageType,'Foto'], audio:[ICONS.audioType,'Áudio'], video:[ICONS.videoType,'Vídeo']};
+  typeTabs.forEach(btn => {
+    const t = btn.dataset.type;
+    btn.innerHTML = typeIcons[t][0] + '<span>' + typeIcons[t][1] + '</span>';
+  });
+  document.getElementById('playBtn').innerHTML = ICONS.play + ' Play';
+  document.getElementById('headerIcons-back').innerHTML = ICONS.back;
+  renderHeaderIconsRight();
+  document.getElementById('micIcon').innerHTML = ICONS.mic;
+  document.getElementById('recordBtn').innerHTML = '&#9679;';
+}
+
+function renderHeaderIconsRight(){
+  document.getElementById('headerIconsRight').innerHTML = ICONS.phone + ICONS.video + (state.platform==='snapchat'||state.platform==='whatsapp' ? ICONS.dots : ICONS.info);
+}
+
+/* ============ COLUMN 1: platform / device / mode / contact ============ */
+function setPlatform(p){
+  state.platform = p;
+  document.getElementById('phoneScreen').setAttribute('data-platform', p);
+  renderHeaderIconsRight();
+  updateHeader();
+  renderPlatformSelect();
+}
+
+function renderPlatformSelect(){
+  const p = state.platform;
+  document.getElementById('psIcon').innerHTML = PLATFORM_LOGO[p];
+  document.getElementById('psLabel').textContent = PLATFORM_LABEL[p];
+  document.querySelectorAll('#platformMenu .ps-option').forEach(btn => {
+    const active = btn.dataset.platform === p;
+    btn.classList.toggle('active', active);
+    const chk = btn.querySelector('.check');
+    if(chk) chk.innerHTML = active ? ICONS.checkS : '';
+  });
+}
+
+function togglePlatformMenu(forceState){
+  const el = document.getElementById('platformSelect');
+  if(typeof forceState === 'boolean'){ el.classList.toggle('open', forceState); }
+  else { el.classList.toggle('open'); }
+}
+
+function selectPlatform(p){
+  setPlatform(p);
+  togglePlatformMenu(false);
+}
+
+document.addEventListener('click', function(e){
+  const el = document.getElementById('platformSelect');
+  if(el && el.classList.contains('open') && !el.contains(e.target)){
+    el.classList.remove('open');
+  }
+});
+
+function setDevice(d){
+  state.device = d;
+  document.getElementById('phone').setAttribute('data-device', d);
+  document.querySelectorAll('[data-device].seg-btn').forEach(b => b.classList.toggle('active', b.dataset.device === d));
+}
+
+function setMode(m){
+  state.mode = m;
+  document.getElementById('phoneScreen').setAttribute('data-mode', m);
+  document.querySelectorAll('[data-mode].seg-btn').forEach(b => { if(b.dataset.mode==='light'||b.dataset.mode==='dark') b.classList.toggle('active', b.dataset.mode === m); });
+}
+
+function setAvatar(e){
+  const f = e.target.files[0];
+  if(!f) return;
+  avatarUrl = URL.createObjectURL(f);
+  updateHeader();
+}
+
+function currentBaseSubtitle(){
+  const custom = document.getElementById('contactSubtitle').value.trim();
+  return custom || PLATFORM_SUBTITLE[state.platform] || '';
+}
+
+function updateHeader(){
+  const name = document.getElementById('contactName').value.trim() || 'Contato';
+  const verified = document.getElementById('contactVerified').checked;
+  document.getElementById('headerName').innerHTML = escapeHtml(name) + (verified ? '<span class="verified">'+ICONS.verified+'</span>' : '');
+  const av = document.getElementById('headerAvatar');
+  if(avatarUrl){ av.innerHTML = '<img src="'+avatarUrl+'">'; }
+  else { av.textContent = name.trim().charAt(0).toUpperCase() || '?'; }
+  document.getElementById('headerStatus').textContent = currentBaseSubtitle();
+}
+
+/* ============ COLUMN 2: content composer ============ */
+function setSender(s){
+  currentSender = s;
+  document.getElementById('btnThem').classList.toggle('active', s === 'them');
+  document.getElementById('btnMe').classList.toggle('active', s === 'me');
+}
+
+function setContentType(t){
+  currentType = t;
+  document.querySelectorAll('#typeTabs .type-tab').forEach(b => b.classList.toggle('active', b.dataset.type === t));
+  ['text','image','audio','video'].forEach(x => {
+    document.getElementById('panel-' + x).style.display = (x === t) ? 'block' : 'none';
+  });
+}
+
+function setAudioMode(m){
+  audioMode = m;
+  document.getElementById('subtabUpload').classList.toggle('active', m === 'upload');
+  document.getElementById('subtabRecord').classList.toggle('active', m === 'record');
+  document.getElementById('audioUploadPane').style.display = (m === 'upload') ? 'block' : 'none';
+  document.getElementById('audioRecordPane').style.display = (m === 'record') ? 'block' : 'none';
+}
+
+function setVideoMode(m){
+  pendingVideoMode = m;
+  document.querySelectorAll('#videoModeToggle .seg-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
+}
+
+function formatDuration(sec){
+  const m = Math.floor(sec / 60), s = sec % 60;
+  return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+}
+
+async function toggleRecording(){
+  const btn = document.getElementById('recordBtn');
+  if(!mediaRecorder || mediaRecorder.state === 'inactive'){
+    try{
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      recordedChunks = [];
+      mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.ondataavailable = e => { if(e.data.size > 0) recordedChunks.push(e.data); };
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(recordedChunks, { type: 'audio/webm' });
+        pendingRecordingUrl = URL.createObjectURL(blob);
+        const preview = document.getElementById('recordPreview');
+        preview.src = pendingRecordingUrl;
+        preview.style.display = 'block';
+        stream.getTracks().forEach(t => t.stop());
+      };
+      mediaRecorder.start();
+      const startTime = Date.now();
+      pendingRecordingSeconds = 0;
+      recordTimerInterval = setInterval(() => {
+        pendingRecordingSeconds = Math.floor((Date.now() - startTime) / 1000);
+        document.getElementById('recordTimer').textContent = formatDuration(pendingRecordingSeconds);
+      }, 250);
+      btn.classList.add('recording');
+      btn.innerHTML = '&#9632;';
+    } catch(err){
+      alert('Não foi possível acessar o microfone. Verifique a permissão do navegador ou use "Enviar arquivo".');
+    }
+  } else {
+    mediaRecorder.stop();
+    clearInterval(recordTimerInterval);
+    btn.classList.remove('recording');
+    btn.innerHTML = '&#9679;';
+  }
+}
+
+function addMessage(){
+  const msg = { id: idCounter++, sender: currentSender, type: currentType, time: nowLabel() };
+
+  if(currentType === 'text'){
+    const txt = document.getElementById('textContent').value.trim();
+    if(!txt){ alert('Digite um texto.'); return; }
+    msg.text = txt;
+    document.getElementById('textContent').value = '';
+
+  } else if(currentType === 'image'){
+    const f = document.getElementById('imageFile').files[0];
+    if(!f){ alert('Selecione uma imagem.'); return; }
+    msg.mediaUrl = URL.createObjectURL(f);
+    msg.caption = document.getElementById('imageCaption').value.trim();
+    document.getElementById('imageFile').value = '';
+    document.getElementById('imageCaption').value = '';
+
+  } else if(currentType === 'audio'){
+    if(audioMode === 'upload'){
+      const f = document.getElementById('audioFile').files[0];
+      if(!f){ alert('Selecione um arquivo de áudio.'); return; }
+      msg.mediaUrl = URL.createObjectURL(f);
+      msg.duration = document.getElementById('audioDuration').value.trim() || '0:05';
+      document.getElementById('audioFile').value = '';
+    } else {
+      if(!pendingRecordingUrl){ alert('Grave um áudio antes de adicionar.'); return; }
+      msg.mediaUrl = pendingRecordingUrl;
+      msg.duration = formatDuration(pendingRecordingSeconds);
+      pendingRecordingUrl = null;
+      pendingRecordingSeconds = 0;
+      document.getElementById('recordTimer').textContent = '00:00';
+      document.getElementById('recordPreview').style.display = 'none';
+    }
+
+  } else if(currentType === 'video'){
+    const f = document.getElementById('videoFile').files[0];
+    if(!f){ alert('Selecione um vídeo.'); return; }
+    msg.mediaUrl = URL.createObjectURL(f);
+    msg.caption = document.getElementById('videoCaption').value.trim();
+    msg.videoMode = pendingVideoMode;
+    document.getElementById('videoFile').value = '';
+    document.getElementById('videoCaption').value = '';
+    pendingVideoMode = 'play';
+    document.querySelectorAll('#videoModeToggle .seg-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === 'play'));
+  }
+
+  messages.push(msg);
+  renderFlow();
+}
+
+/* ============ COLUMN 3: flow ============ */
+function nowLabel(){
+  const d = new Date();
+  let h = d.getHours(), m = d.getMinutes();
+  return (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m;
+}
+
+function typeLabel(m){
+  if(m.type === 'text') return m.text;
+  if(m.type === 'image') return 'Imagem' + (m.caption ? ' — ' + m.caption : '');
+  if(m.type === 'audio') return 'Áudio (' + (m.duration || '') + ')';
+  if(m.type === 'video') return 'Vídeo' + (m.videoMode === 'thumb' ? ' (só capa)' : '') + (m.caption ? ' — ' + m.caption : '');
+  return '';
+}
+
+function typeIconFor(m){
+  if(m.type === 'text') return ICONS.textType;
+  if(m.type === 'image') return ICONS.imageType;
+  if(m.type === 'audio') return ICONS.audioType;
+  if(m.type === 'video') return ICONS.videoType;
+  return '';
+}
+
+function renderFlow(){
+  const list = document.getElementById('flowList');
+  document.getElementById('flowCount').textContent = messages.length;
+  if(messages.length === 0){
+    list.innerHTML = '<div class="empty-hint">Nenhuma mensagem ainda.<br>Adicione acima ou clique em "Exemplo".</div>';
+    return;
+  }
+  list.innerHTML = '';
+  messages.forEach(m => {
+    const el = document.createElement('div');
+    el.className = 'flow-item';
+    el.innerHTML =
+      '<span class="badge ' + m.sender + '">' + typeIconFor(m) + '</span>' +
+      '<span class="preview"><span class="who">' + (m.sender === 'me' ? 'Eu' : 'Ele(a)') + '</span>' + escapeHtml(typeLabel(m)) + '</span>' +
+      '<span class="mini-actions">' +
+        '<button title="Subir" onclick="moveMessage(' + m.id + ',-1)">' + ICONS.back.replace('M15 5 8 12l7 7','M6 15l6-6 6 6') + '</button>' +
+        '<button title="Descer" onclick="moveMessage(' + m.id + ',1)">' + ICONS.back.replace('M15 5 8 12l7 7','M6 9l6 6 6-6') + '</button>' +
+        '<button title="Remover" onclick="removeMessage(' + m.id + ')">✕</button>' +
+      '</span>';
+    list.appendChild(el);
+  });
+}
+
+function moveMessage(id, dir){
+  const i = messages.findIndex(m => m.id === id);
+  const j = i + dir;
+  if(j < 0 || j >= messages.length) return;
+  [messages[i], messages[j]] = [messages[j], messages[i]];
+  renderFlow();
+}
+
+function removeMessage(id){
+  messages = messages.filter(m => m.id !== id);
+  renderFlow();
+}
+
+function clearMessages(){
+  if(messages.length && !confirm('Limpar todas as mensagens da conversa?')) return;
+  messages = [];
+  renderFlow();
+  document.getElementById('chatArea').innerHTML = '';
+}
+
+function escapeHtml(s){
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+/* ============ COLUMN 4: preview / playback ============ */
+function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
+
+function scrollChatToBottom(){
+  const area = document.getElementById('chatArea');
+  area.scrollTop = area.scrollHeight;
+}
+
+function timeMarkup(m){
+  let check = '';
+  if(m.sender === 'me'){
+    if(state.platform === 'whatsapp') check = ICONS.checkD;
+    else if(state.platform === 'chat') check = ICONS.checkS;
+  }
+  return '<div class="time">' + m.time + ' ' + check + '</div>';
+}
+
+function buildBubble(m){
+  const wrap = document.createElement('div');
+  wrap.className = 'bubble-wrap ' + m.sender;
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble ' + m.sender;
+
+  if(m.type === 'text'){
+    bubble.innerHTML = '<div class="txt">' + escapeHtml(m.text) + '</div>' + timeMarkup(m);
+
+  } else if(m.type === 'image'){
+    bubble.classList.add('has-media');
+    bubble.innerHTML =
+      '<img class="media-img" src="' + m.mediaUrl + '">' +
+      (m.caption ? '<div class="caption">' + escapeHtml(m.caption) + '</div>' : '') +
+      timeMarkup(m);
+
+  } else if(m.type === 'video'){
+    bubble.classList.add('has-media');
+    if(m.videoMode === 'thumb'){
+      bubble.innerHTML =
+        '<div class="video-thumb">' +
+          '<video src="' + m.mediaUrl + '" preload="metadata" muted playsinline></video>' +
+          '<div class="play-overlay"><div class="circle">' + ICONS.play.replace('currentColor','#fff') + '</div></div>' +
+        '</div>' +
+        (m.caption ? '<div class="caption">' + escapeHtml(m.caption) + '</div>' : '') +
+        timeMarkup(m);
+    } else {
+      bubble.innerHTML =
+        '<video class="media-video" src="' + m.mediaUrl + '" controls autoplay playsinline></video>' +
+        (m.caption ? '<div class="caption">' + escapeHtml(m.caption) + '</div>' : '') +
+        timeMarkup(m);
+    }
+
+  } else if(m.type === 'audio'){
+    const bars = Array.from({ length: 24 }, () => 4 + Math.round(Math.random() * 15));
+    bubble.innerHTML =
+      '<div class="voice-msg" id="voice-' + m.id + '">' +
+        '<div class="play-ic">' + ICONS.playOutline + '</div>' +
+        '<div class="wave">' + bars.map(h => '<span style="height:' + h + 'px"></span>').join('') + '</div>' +
+        '<div class="dur">' + (m.duration || '') + '</div>' +
+      '</div>' +
+      timeMarkup(m) +
+      '<audio id="audio-' + m.id + '" src="' + m.mediaUrl + '" style="display:none;"></audio>';
+  }
+
+  wrap.appendChild(bubble);
+  return wrap;
+}
+
+function estimateDelay(m, speed){
+  let base;
+  if(m.type === 'text') base = Math.min(2600, 700 + (m.text.length * 28));
+  else if(m.type === 'audio') base = 1800;
+  else if(m.type === 'video') base = (m.videoMode === 'thumb') ? 1400 : 2200;
+  else base = 1500;
+  return base * speed;
+}
+
+function typingDelay(speed){
+  return (900 + Math.random() * 700) * speed;
+}
+
+async function playConversation(){
+  if(messages.length === 0){ alert('Adicione ao menos uma mensagem antes de dar play.'); return; }
+  const playBtn = document.getElementById('playBtn');
+  playBtn.disabled = true;
+  playBtn.innerHTML = ICONS.play + ' Reproduzindo...';
+
+  const speed = parseFloat(document.getElementById('speed').value);
+  const chatArea = document.getElementById('chatArea');
+  chatArea.innerHTML = '';
+  const statusEl = document.getElementById('headerStatus');
+  statusEl.textContent = currentBaseSubtitle();
+
+  for(const m of messages){
+    if(m.sender === 'them'){
+      statusEl.textContent = 'digitando...';
+      const typingWrap = document.createElement('div');
+      typingWrap.className = 'typing-wrap';
+      typingWrap.innerHTML = '<div class="typing-bubble"><span></span><span></span><span></span></div>';
+      chatArea.appendChild(typingWrap);
+      scrollChatToBottom();
+      await sleep(typingDelay(speed));
+      typingWrap.remove();
+      statusEl.textContent = currentBaseSubtitle();
+    } else {
+      await sleep(250 * speed);
+    }
+
+    const bubbleEl = buildBubble(m);
+    chatArea.appendChild(bubbleEl);
+    scrollChatToBottom();
+
+    if(m.type === 'audio'){
+      const audioEl = document.getElementById('audio-' + m.id);
+      const voiceEl = document.getElementById('voice-' + m.id);
+      if(audioEl){
+        audioEl.play().catch(() => {});
+        voiceEl.classList.add('playing');
+        audioEl.addEventListener('ended', () => voiceEl.classList.remove('playing'));
+      }
+    }
+    if(m.type === 'video' && m.videoMode !== 'thumb'){
+      const videoEl = bubbleEl.querySelector('video');
+      if(videoEl){ videoEl.play().catch(() => {}); }
+    }
+    if(m.type === 'video' && m.videoMode === 'thumb'){
+      const videoEl = bubbleEl.querySelector('video');
+      if(videoEl){
+        videoEl.addEventListener('loadedmetadata', () => { try{ videoEl.currentTime = Math.min(0.15, videoEl.duration || 0.1); }catch(e){} });
+      }
+    }
+
+    await sleep(estimateDelay(m, speed));
+  }
+
+  playBtn.disabled = false;
+  playBtn.innerHTML = ICONS.play + ' Play';
+}
+
+function loadDemo(){
+  if(messages.length && !confirm('Isso substitui as mensagens atuais pelo exemplo. Continuar?')) return;
+  messages = [];
+  idCounter = 1;
+  const add = (sender, type, extra) => messages.push(Object.assign({ id: idCounter++, sender, type, time: nowLabel() }, extra));
+  add('them', 'text', { text: 'Oi! Vi o anúncio de vocês, ainda tem vaga disponível?' });
+  add('me', 'text', { text: 'Oi! Tudo bem? Sim, temos sim 😊 Me conta rapidinho o que você precisa' });
+  add('them', 'text', { text: 'Preciso de um site novo pra minha loja, o atual tá bem antigo' });
+  add('me', 'text', { text: 'Perfeito, consigo te ajudar. Já te mando os detalhes por aqui' });
+  renderFlow();
+  alert('Exemplo carregado (só texto — áudio/imagem/vídeo dependem dos seus arquivos). Aperte Play.');
+}
+
+/* live clock in status bar */
+function updateClock(){
+  document.getElementById('clock').textContent = nowLabel();
+}
+setInterval(updateClock, 15000);
+
+/* ============ EXPORTAR VÍDEO / MONETIZAÇÃO ============
+   Isso é um app estático (sem servidor), então o "desbloqueio" abaixo é
+   feito só no navegador (localStorage) — não valida pagamento de verdade.
+   Pra virar cobrança real: hospede o arquivo (ex: GitHub Pages) e configure
+   o link de pagamento pra redirecionar de volta com ?unlock=monthly na
+   URL de sucesso (Mercado Pago/Kiwify/Hotmart permitem isso). O botão
+   "Já paguei" abaixo é um atalho manual pra usar enquanto isso não
+   estiver configurado.
+*/
+const PAYMENT_LINKS = {
+  monthly: 'https://mpago.la/SEU-LINK-MENSAL' // TODO: troque pelo link real (assinatura R$9,90 / 30 dias)
+};
+
+let memStore = {};
+const storage = {
+  get(key){ try{ return localStorage.getItem(key); }catch(e){ return memStore[key] || null; } },
+  set(key, val){ try{ localStorage.setItem(key, val); }catch(e){ memStore[key] = val; } }
+};
+
+let adWatchedThisSession = false;
+
+function getUnlockInfo(){
+  try{
+    const raw = storage.get('chatsim_unlock');
+    if(!raw) return { active:false };
+    const data = JSON.parse(raw);
+    return { active: data.plan === 'monthly' };
+  }catch(e){ return { active:false }; }
+}
+
+function refreshExportUI(){
+  const u = getUnlockInfo();
+  const watermarkEl = document.getElementById('watermarkTag');
+  const freeBtn = document.getElementById('freeDownloadBtn');
+  const freeNote = document.getElementById('freeNote');
+  const subBtn = document.getElementById('subscribeBtn');
+  const subNote = document.getElementById('subscribeNote');
+  const paidBtn = document.getElementById('paidDownloadBtn');
+  const activeNote = document.getElementById('activeNote');
+  const unlockLink = document.getElementById('unlockLink');
+
+  if(u.active){
+    watermarkEl.classList.add('hidden');
+    freeBtn.style.display = 'none';
+    freeNote.style.display = 'none';
+    subBtn.style.display = 'none';
+    subNote.style.display = 'none';
+    unlockLink.style.display = 'none';
+    paidBtn.style.display = 'block';
+    activeNote.style.display = 'block';
+  } else {
+    watermarkEl.classList.remove('hidden');
+    freeBtn.style.display = 'block';
+    freeNote.style.display = 'block';
+    subBtn.style.display = 'block';
+    subNote.style.display = 'block';
+    unlockLink.style.display = 'block';
+    paidBtn.style.display = 'none';
+    activeNote.style.display = 'none';
+  }
+}
+
+function startFreeDownload(){
+  if(messages.length === 0){ alert('Adicione ao menos uma mensagem antes de baixar.'); return; }
+  if(getUnlockInfo().active || adWatchedThisSession){
+    recordAndDownload();
+    return;
+  }
+  const modal = document.getElementById('adModal');
+  const timerEl = document.getElementById('adTimer');
+  modal.style.display = 'flex';
+  let t = 5;
+  timerEl.textContent = t;
+  const iv = setInterval(() => {
+    t -= 1;
+    if(t > 0){
+      timerEl.textContent = t;
+    } else {
+      timerEl.textContent = '✓';
+      clearInterval(iv);
+      setTimeout(() => {
+        modal.style.display = 'none';
+        adWatchedThisSession = true;
+        recordAndDownload();
+      }, 500);
+    }
+  }, 1000);
+}
+
+async function recordAndDownload(){
+  if(messages.length === 0){ alert('Adicione ao menos uma mensagem antes de gravar.'); return; }
+  try{
+    const stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
+    const chunks = [];
+    const mimeType = (window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported('video/webm;codecs=vp9,opus'))
+      ? 'video/webm;codecs=vp9,opus' : 'video/webm';
+    const recorder = new MediaRecorder(stream, { mimeType });
+    recorder.ondataavailable = e => { if(e.data.size > 0) chunks.push(e.data); };
+    recorder.onstop = () => {
+      const blob = new Blob(chunks, { type: 'video/webm' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'conversa-chatsim' + (getUnlockInfo().active ? '' : '-marca-dagua') + '.webm';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      stream.getTracks().forEach(t => t.stop());
+    };
+    recorder.start();
+    await playConversation();
+    await sleep(700);
+    recorder.stop();
+  } catch(err){
+    alert('Não foi possível gravar a tela. Quando o navegador pedir, escolha "Esta guia/aba" e marque "Compartilhar áudio da guia".');
+  }
+}
+
+function goCheckout(){
+  window.open(PAYMENT_LINKS.monthly, '_blank');
+}
+
+function unlockManually(){
+  storage.set('chatsim_unlock', JSON.stringify({ plan: 'monthly' }));
+  refreshExportUI();
+}
+
+function checkUrlUnlock(){
+  try{
+    const params = new URLSearchParams(window.location.search);
+    const unlock = params.get('unlock');
+    if(unlock === 'monthly'){
+      storage.set('chatsim_unlock', JSON.stringify({ plan: 'monthly' }));
+      history.replaceState({}, '', window.location.pathname);
+    }
+  }catch(e){}
+}
+
+/* ============ BOOT ============ */
+initIcons();
+updateClock();
+updateHeader();
+checkUrlUnlock();
+refreshExportUI();
+</script>
+</body>
+</html>
