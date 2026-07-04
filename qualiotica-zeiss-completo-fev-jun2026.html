@@ -138,17 +138,19 @@ html,body{overflow-x:hidden}
 .footer-ww{font-size:12px;font-weight:700;color:var(--black)}
 @media (max-width: 680px){
   .page{padding:0 16px 50px}
-  .dual-header{flex-wrap:wrap;row-gap:12px;padding:16px;margin:0 0 28px 0}
+  .dual-header{flex-wrap:wrap;row-gap:10px;padding:14px 16px;margin:0 0 28px 0}
   .dual-header > *:nth-child(1){order:1}
   .dual-header > *:nth-child(3){order:2}
-  .dual-header > *:nth-child(2){order:3;width:100%;margin-top:2px}
+  .dual-header > *:nth-child(2){order:3;width:100%;margin-top:6px;display:flex;justify-content:center}
   .dual-header .brand{gap:8px}
   .dual-header .mark{width:32px;height:32px;font-size:11px;border-radius:8px}
   .dual-header .brand-name{font-size:12px}
   .dual-header .brand-role{font-size:9.5px}
   .dual-header .brand-right .brand-name,.dual-header .brand-right .brand-role{text-align:right}
-  .platform-badge{padding:8px 16px;font-size:12px}
-  .platform-badge svg{width:15px;height:15px}
+  .platform-badge{flex-direction:column;gap:4px;padding:7px 16px;font-size:10.5px;border-radius:14px;max-width:100%}
+  .platform-badge .icons{gap:6px}
+  .platform-badge svg{width:14px;height:14px}
+  .header-date{margin-top:4px}
   .report-hero h1{font-size:24px}
   .kpi-grid{grid-template-columns:repeat(2,1fr);gap:10px}
   .kpi{padding:14px}
