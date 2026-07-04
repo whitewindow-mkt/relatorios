@@ -250,6 +250,13 @@
     flex:1;background:#fff;border-radius:27px;overflow:hidden;
     display:flex;flex-direction:column;position:relative;
   }
+  .video-fullscreen{
+    position:absolute;inset:0;background:#000;z-index:20;
+    display:flex;align-items:center;justify-content:center;
+    opacity:0;pointer-events:none;transition:opacity .28s ease;
+  }
+  .video-fullscreen.active{opacity:1;pointer-events:auto;}
+  .video-fullscreen video{width:100%;height:100%;object-fit:contain;background:#000;}
   .phone[data-device="plain"] .phone-screen{border-radius:10px;}
   .notch{
     position:absolute;top:0;left:50%;transform:translateX(-50%);
@@ -641,6 +648,9 @@
             <div class="fake-input">Mensagem</div>
             <div class="mic" id="micIcon"></div>
           </div>
+          <div class="video-fullscreen" id="videoFullscreen">
+            <video id="fullscreenVideoEl" playsinline></video>
+          </div>
         </div>
       </div>
     </section>
@@ -1026,20 +1036,13 @@ function buildBubble(m){
 
   } else if(m.type === 'video'){
     bubble.classList.add('has-media');
-    if(m.videoMode === 'thumb'){
-      bubble.innerHTML =
-        '<div class="video-thumb">' +
-          '<video src="' + m.mediaUrl + '" preload="metadata" muted playsinline></video>' +
-          '<div class="play-overlay"><div class="circle">' + ICONS.play.replace('currentColor','#fff') + '</div></div>' +
-        '</div>' +
-        (m.caption ? '<div class="caption">' + escapeHtml(m.caption) + '</div>' : '') +
-        timeMarkup(m);
-    } else {
-      bubble.innerHTML =
-        '<video class="media-video" src="' + m.mediaUrl + '" controls autoplay playsinline></video>' +
-        (m.caption ? '<div class="caption">' + escapeHtml(m.caption) + '</div>' : '') +
-        timeMarkup(m);
-    }
+    bubble.innerHTML =
+      '<div class="video-thumb" data-msg-id="' + m.id + '">' +
+        '<video src="' + m.mediaUrl + '" preload="metadata" muted playsinline></video>' +
+        '<div class="play-overlay"><div class="circle">' + ICONS.play.replace('currentColor','#fff') + '</div></div>' +
+      '</div>' +
+      (m.caption ? '<div class="caption">' + escapeHtml(m.caption) + '</div>' : '') +
+      timeMarkup(m);
 
   } else if(m.type === 'audio'){
     const bars = Array.from({ length: 24 }, () => 4 + Math.round(Math.random() * 15));
@@ -1068,6 +1071,32 @@ function estimateDelay(m, speed){
 
 function typingDelay(speed){
   return (900 + Math.random() * 700) * speed;
+}
+
+/* abre o vídeo ocupando a tela inteira do celular (mockup), toca e minimiza ao terminar */
+function playVideoFullscreen(url){
+  return new Promise((resolve) => {
+    const overlay = document.getElementById('videoFullscreen');
+    const vid = document.getElementById('fullscreenVideoEl');
+    let done = false;
+    const finish = () => {
+      if(done) return;
+      done = true;
+      overlay.classList.remove('active');
+      vid.pause();
+      vid.removeAttribute('src');
+      vid.load();
+      resolve();
+    };
+    vid.src = url;
+    vid.currentTime = 0;
+    overlay.classList.add('active');
+    vid.onended = finish;
+    vid.onerror = finish;
+    vid.play().catch(finish);
+    // segurança: se por algum motivo o vídeo nunca disparar 'ended', destrava depois de 20s
+    setTimeout(finish, 20000);
+  });
 }
 
 async function playConversation(){
@@ -1110,18 +1139,21 @@ async function playConversation(){
         audioEl.addEventListener('ended', () => voiceEl.classList.remove('playing'));
       }
     }
-    if(m.type === 'video' && m.videoMode !== 'thumb'){
-      const videoEl = bubbleEl.querySelector('video');
-      if(videoEl){ videoEl.play().catch(() => {}); }
-    }
-    if(m.type === 'video' && m.videoMode === 'thumb'){
+    if(m.type === 'video'){
       const videoEl = bubbleEl.querySelector('video');
       if(videoEl){
         videoEl.addEventListener('loadedmetadata', () => { try{ videoEl.currentTime = Math.min(0.15, videoEl.duration || 0.1); }catch(e){} });
       }
     }
 
-    await sleep(estimateDelay(m, speed));
+    if(m.type === 'video' && m.videoMode !== 'thumb'){
+      // simula o toque na miniatura, abre em tela cheia no celular e só segue quando o vídeo acabar
+      await sleep(600 * speed);
+      await playVideoFullscreen(m.mediaUrl);
+      await sleep(350);
+    } else {
+      await sleep(estimateDelay(m, speed));
+    }
   }
 
   playBtn.disabled = false;
@@ -1239,7 +1271,25 @@ function startFreeDownload(){
 async function recordAndDownload(){
   if(messages.length === 0){ alert('Adicione ao menos uma mensagem antes de gravar.'); return; }
   try{
-    const stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
+    // preferCurrentTab (Chrome/Edge): pede pra compartilhar já a própria guia, sem
+    // o usuário ter que escolher manualmente na lista de janelas/telas.
+    const stream = await navigator.mediaDevices.getDisplayMedia({
+      video: true,
+      audio: true,
+      preferCurrentTab: true
+    });
+
+    // Region Capture: recorta o vídeo gravado só na área do mockup do celular,
+    // igual ao que aparece na coluna de preview — não a guia/tela inteira.
+    const videoTrack = stream.getVideoTracks()[0];
+    const phoneEl = document.getElementById('phone');
+    if(videoTrack && phoneEl && typeof CropTarget !== 'undefined' && videoTrack.cropTo){
+      try{
+        const cropTarget = await CropTarget.fromElement(phoneEl);
+        await videoTrack.cropTo(cropTarget);
+      }catch(cropErr){ /* navegador não suportou o recorte — grava a guia inteira mesmo */ }
+    }
+
     const chunks = [];
     const mimeType = (window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported('video/webm;codecs=vp9,opus'))
       ? 'video/webm;codecs=vp9,opus' : 'video/webm';
@@ -1261,7 +1311,7 @@ async function recordAndDownload(){
     await sleep(700);
     recorder.stop();
   } catch(err){
-    alert('Não foi possível gravar a tela. Quando o navegador pedir, escolha "Esta guia/aba" e marque "Compartilhar áudio da guia".');
+    alert('Não foi possível gravar. Quando o navegador pedir, confirme o compartilhamento desta guia e marque "Compartilhar áudio da guia".');
   }
 }
 
@@ -1284,6 +1334,14 @@ function checkUrlUnlock(){
     }
   }catch(e){}
 }
+
+/* clique manual numa miniatura de vídeo também abre em tela cheia */
+document.getElementById('chatArea').addEventListener('click', (e) => {
+  const thumb = e.target.closest('.video-thumb');
+  if(!thumb) return;
+  const vid = thumb.querySelector('video');
+  if(vid && vid.src) playVideoFullscreen(vid.src);
+});
 
 /* ============ BOOT ============ */
 initIcons();
