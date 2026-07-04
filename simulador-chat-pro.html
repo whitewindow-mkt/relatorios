@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
   :root{
     --bg:#f5f5f7;
@@ -1091,6 +1092,7 @@ function playVideoFullscreen(url){
     vid.src = url;
     vid.currentTime = 0;
     overlay.classList.add('active');
+    connectForRecording(vid);
     vid.onended = finish;
     vid.onerror = finish;
     vid.play().catch(finish);
@@ -1134,6 +1136,7 @@ async function playConversation(){
       const audioEl = document.getElementById('audio-' + m.id);
       const voiceEl = document.getElementById('voice-' + m.id);
       if(audioEl){
+        connectForRecording(audioEl);
         audioEl.play().catch(() => {});
         voiceEl.classList.add('playing');
         audioEl.addEventListener('ended', () => voiceEl.classList.remove('playing'));
@@ -1268,50 +1271,115 @@ function startFreeDownload(){
   }, 1000);
 }
 
+/* ============ GRAVAÇÃO EM CANVAS (sem pedir tela/aba) ============
+   Em vez de screen-share (getDisplayMedia), desenhamos só o retângulo do
+   celular num <canvas> interno (via html2canvas pra tudo que é DOM estático,
+   e drawImage direto do <video> nos trechos de vídeo em tela cheia), e
+   capturamos áudio via Web Audio API. O MediaRecorder grava só esse canvas
+   — exatamente a área do celular, sem prompt de compartilhar aba/tela. */
+let audioCtx = null;
+let recordDest = null;
+let isRecording = false;
+let recordFrameHandle = null;
+let recordSnapping = false;
+
+function connectForRecording(el){
+  if(!isRecording || !audioCtx || !recordDest) return;
+  try{
+    if(!el._audioSrcNode){
+      el._audioSrcNode = audioCtx.createMediaElementSource(el);
+      el._audioSrcNode.connect(audioCtx.destination);
+    }
+    if(el._connectedDest !== recordDest){
+      el._audioSrcNode.connect(recordDest);
+      el._connectedDest = recordDest;
+    }
+  }catch(e){ /* já conectado por outra via, ou navegador sem suporte — segue sem travar */ }
+}
+
+function startRecordRender(canvas, ctx, phoneScreen){
+  const overlay = document.getElementById('videoFullscreen');
+  const fsVideo = document.getElementById('fullscreenVideoEl');
+  let lastSnap = 0;
+
+  function tick(ts){
+    if(!isRecording) return;
+    if(overlay.classList.contains('active')){
+      try{ ctx.drawImage(fsVideo, 0, 0, canvas.width, canvas.height); }catch(e){}
+      recordFrameHandle = requestAnimationFrame(tick);
+    } else {
+      if(!recordSnapping && (!lastSnap || ts - lastSnap > 100)){
+        lastSnap = ts;
+        recordSnapping = true;
+        html2canvas(phoneScreen, { backgroundColor: null, scale: 2, logging: false })
+          .then(snap => { if(isRecording) ctx.drawImage(snap, 0, 0, canvas.width, canvas.height); })
+          .catch(() => {})
+          .finally(() => { recordSnapping = false; });
+      }
+      recordFrameHandle = requestAnimationFrame(tick);
+    }
+  }
+  recordFrameHandle = requestAnimationFrame(tick);
+}
+
+function stopRecordRender(){
+  isRecording = false;
+  if(recordFrameHandle) cancelAnimationFrame(recordFrameHandle);
+}
+
 async function recordAndDownload(){
   if(messages.length === 0){ alert('Adicione ao menos uma mensagem antes de gravar.'); return; }
-  try{
-    // preferCurrentTab (Chrome/Edge): pede pra compartilhar já a própria guia, sem
-    // o usuário ter que escolher manualmente na lista de janelas/telas.
-    const stream = await navigator.mediaDevices.getDisplayMedia({
-      video: true,
-      audio: true,
-      preferCurrentTab: true
-    });
+  if(typeof html2canvas === 'undefined'){
+    alert('Não foi possível carregar o gravador (verifique sua conexão) — tente de novo.');
+    return;
+  }
+  const phoneScreen = document.getElementById('phoneScreen');
+  const rect = phoneScreen.getBoundingClientRect();
+  const scale = 2;
+  const canvas = document.createElement('canvas');
+  canvas.width = Math.round(rect.width * scale);
+  canvas.height = Math.round(rect.height * scale);
+  const ctx = canvas.getContext('2d');
 
-    // Region Capture: recorta o vídeo gravado só na área do mockup do celular,
-    // igual ao que aparece na coluna de preview — não a guia/tela inteira.
-    const videoTrack = stream.getVideoTracks()[0];
-    const phoneEl = document.getElementById('phone');
-    if(videoTrack && phoneEl && typeof CropTarget !== 'undefined' && videoTrack.cropTo){
-      try{
-        const cropTarget = await CropTarget.fromElement(phoneEl);
-        await videoTrack.cropTo(cropTarget);
-      }catch(cropErr){ /* navegador não suportou o recorte — grava a guia inteira mesmo */ }
-    }
+  try{
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    if(audioCtx.state === 'suspended') await audioCtx.resume();
+    recordDest = audioCtx.createMediaStreamDestination();
+
+    const videoTrack = canvas.captureStream(30).getVideoTracks()[0];
+    const combined = new MediaStream([videoTrack, ...recordDest.stream.getAudioTracks()]);
 
     const chunks = [];
     const mimeType = (window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported('video/webm;codecs=vp9,opus'))
       ? 'video/webm;codecs=vp9,opus' : 'video/webm';
-    const recorder = new MediaRecorder(stream, { mimeType });
+    const recorder = new MediaRecorder(combined, { mimeType });
     recorder.ondataavailable = e => { if(e.data.size > 0) chunks.push(e.data); };
-    recorder.onstop = () => {
-      const blob = new Blob(chunks, { type: 'video/webm' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'conversa-chatsim' + (getUnlockInfo().active ? '' : '-marca-dagua') + '.webm';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      stream.getTracks().forEach(t => t.stop());
-    };
-    recorder.start();
+    const stopped = new Promise(resolve => {
+      recorder.onstop = () => {
+        const blob = new Blob(chunks, { type: 'video/webm' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'conversa-chatsim' + (getUnlockInfo().active ? '' : '-marca-dagua') + '.webm';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        resolve();
+      };
+    });
+
+    isRecording = true;
+    recorder.start(250);
+    startRecordRender(canvas, ctx, phoneScreen);
     await playConversation();
-    await sleep(700);
+    stopRecordRender();
+    await sleep(300);
     recorder.stop();
+    await stopped;
   } catch(err){
-    alert('Não foi possível gravar. Quando o navegador pedir, confirme o compartilhamento desta guia e marque "Compartilhar áudio da guia".');
+    alert('Não foi possível gerar o vídeo neste navegador. Tente usar uma versão recente do Chrome ou Edge.');
+  } finally {
+    isRecording = false;
   }
 }
 
