@@ -62,7 +62,8 @@ html,body{overflow-x:hidden}
 .cm-lbl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;margin-top:3px}
 .cm-val.accent{color:var(--orange)}
 .creative-card{display:flex;gap:18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;align-items:stretch;margin-top:4px}
-.creative-thumb{width:100px;height:140px;object-fit:cover;border-radius:8px;flex-shrink:0;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900}
+.creative-thumb{width:100px;height:140px;object-fit:cover;border-radius:8px;flex-shrink:0;background:var(--bg);border:1px solid var(--border)}
+.creative-cta{display:inline-block;font-size:9px;font-weight:700;color:var(--orange);background:rgba(242,98,15,.1);padding:3px 8px;border-radius:999px;margin-top:8px;text-transform:uppercase;letter-spacing:.4px}
 .creative-info{flex:1;display:flex;flex-direction:column;justify-content:center}
 .creative-tag{font-size:9px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--orange);margin-bottom:6px}
 .creative-name{font-size:14px;font-weight:800;color:var(--black);margin-bottom:2px}
@@ -239,12 +240,13 @@ html,body{overflow-x:hidden}
 <div class="camp-hint">clique num grupo acima pra ver o desempenho dele</div>
 
 <div class="creative-card" id="creative-fundo">
-  <div class="creative-thumb" id="creative-fundo-thumb">NT</div>
+  <img class="creative-thumb" id="creative-fundo-thumb" src="" alt="Criativo do anúncio campeão">
   <div class="creative-info">
-    <div class="creative-tag">★ Grupo com melhor desempenho do período</div>
-    <div class="creative-name" id="creative-fundo-name">Quali Niterói</div>
+    <div class="creative-tag" id="creative-fundo-tag">★ Anúncio campeão — Quali Niterói</div>
+    <div class="creative-name" id="creative-fundo-name"></div>
     <div class="creative-camp" id="creative-fundo-camp">Conversão + Remarketing — todo o período</div>
     <div class="creative-metrics" id="creative-fundo-metrics"></div>
+    <span class="creative-cta" id="creative-fundo-cta"></span>
   </div>
 </div>
 </div>
@@ -274,12 +276,13 @@ html,body{overflow-x:hidden}
 <div class="camp-hint">clique num grupo acima pra ver o desempenho dele</div>
 
 <div class="creative-card" id="creative-topo">
-  <div class="creative-thumb" id="creative-topo-thumb">NT</div>
+  <img class="creative-thumb" id="creative-topo-thumb" src="" alt="Criativo do anúncio campeão">
   <div class="creative-info">
-    <div class="creative-tag">★ Grupo com melhor custo por resultado do período</div>
-    <div class="creative-name" id="creative-topo-name">Quali Niterói</div>
+    <div class="creative-tag" id="creative-topo-tag">★ Anúncio campeão — Quali Niterói</div>
+    <div class="creative-name" id="creative-topo-name"></div>
     <div class="creative-camp" id="creative-topo-camp">Reconhecimento + Engajamento — todo o período</div>
     <div class="creative-metrics" id="creative-topo-metrics"></div>
+    <span class="creative-cta" id="creative-topo-cta"></span>
   </div>
 </div>
 </div>
@@ -321,26 +324,28 @@ document.getElementById('legend-camp').innerHTML = campData.map(d=>`
   <div class="dl-item"><div class="dl-dot" style="background:${d.color}"></div><span class="dl-name">${d.label}</span><span class="dl-val">R$${Math.round(d.value).toLocaleString('pt-BR')}</span><span class="dl-pct">${(d.value/total*100).toFixed(0)}%</span></div>`).join('');
 
 const fundoCreatives = [
-  {thumb:'NT', name:'Quali Niterói', camp:'Conversão + Remarketing — todo o período', metrics:[
+  {loja:'Quali Niterói', ad:'👓 PROMOÇÃO QUALIÓTICA: COMPRE 1 LEVE 2 PARES DE LENTES ZEISS!', cta:'Fale no WhatsApp', thumb:'https://scontent-sea5-1.xx.fbcdn.net/v/t15.5256-10/667698982_3416530855171392_2280209865751954797_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=102&ccb=1-7&_nc_sid=1701c7&_nc_ohc=MFqjyOvYKpwQ7kNvwG_k59I&_nc_oc=AdpZIsBZNnPF5KgDjTOPt7sztjR4USMHva-kuJfpKDEotMhPLTomWzq08m9VSEl-P0A&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&edm=AEZPnVgEAAAA&_nc_gid=FuhOE3AijCJJoqfXEWAliw&_nc_tpa=Q5bMBQEsd-a5zZni6RtAEEpYw8JY-WltWjSbIE6HMjhQV-_4l4quOzZ50y6zFHICEXbI_IhrhdFl9C-m2Q&oh=00_AQDgOQKmhmP9lekDIeJGQ9a2jTien-J9pUGXxCicl2uGDw&oe=6A4E276E', camp:'Conversão + Remarketing — todo o período', metrics:[
     {val:'R$ 8,98', lbl:'Custo/conversa'}, {val:'54', lbl:'Conversas', accent:true}, {val:'R$ 485', lbl:'Investido'}, {val:'1,46%', lbl:'CTR'}
   ]},
-  {thumb:'SG', name:'Quali São Gonçalo', camp:'Conversão + Remarketing — todo o período', metrics:[
+  {loja:'Quali São Gonçalo', ad:'COMPRE 1 LEVE 2 PARES DE LENTES ZEISS! 👓', cta:'Fale no WhatsApp', thumb:'https://scontent-sea5-1.xx.fbcdn.net/v/t15.5256-10/667698982_3416530855171392_2280209865751954797_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=102&ccb=1-7&_nc_sid=1701c7&_nc_ohc=MFqjyOvYKpwQ7kNvwG_k59I&_nc_oc=AdpZIsBZNnPF5KgDjTOPt7sztjR4USMHva-kuJfpKDEotMhPLTomWzq08m9VSEl-P0A&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&edm=AEZPnVgEAAAA&_nc_gid=FuhOE3AijCJJoqfXEWAliw&_nc_tpa=Q5bMBQGWHhztiqpMOodSDYClxdJHt7xHg8Geapp8WGW24iBHgo8oXjzK6bb020dUnTYnTNa52ocmERl2IA&oh=00_AQDXxbrEPMS3H3xw_wAXjJklYBdV28oaZVeZaoVq2px42A&oe=6A4E276E', camp:'Conversão + Remarketing — todo o período', metrics:[
     {val:'R$ 10,22', lbl:'Custo/conversa'}, {val:'46', lbl:'Conversas', accent:true}, {val:'R$ 470', lbl:'Investido'}, {val:'1,51%', lbl:'CTR'}
   ]},
 ];
 const topoCreatives = [
-  {thumb:'NT', name:'Quali Niterói', camp:'Reconhecimento + Engajamento — todo o período', metrics:[
+  {loja:'Quali Niterói', ad:'Dia das Mães — coleção Prada (Reconhecimento/Engajamento)', cta:'Ver perfil no Instagram', thumb:'https://scontent-sea1-1.xx.fbcdn.net/v/t15.5256-10/690923609_2004346873808632_2330593623135444281_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=106&ccb=1-7&_nc_sid=031d0d&_nc_ohc=lr99VHCejFoQ7kNvwE6Ki3Q&_nc_oc=Adpy6eISQSroPAtlI8ENUKw5Zle7-e-HYWJbowSR0h_Ru4THa1wgp2z7Ywa90dbTvHE&_nc_zt=23&_nc_ht=scontent-sea1-1.xx&edm=AEZPnVgEAAAA&_nc_gid=FuhOE3AijCJJoqfXEWAliw&_nc_tpa=Q5bMBQEqekQCJFzaxQNeBQY5wHdPgYDwLpjxz3KKrgFHhgdkjAQA1JEgZjs_x_2D8yF-zdOcqBx3rT09WA&oh=00_AQAWfvFLhSnAwX2Fsk7Tzh-NPQIEsesQIdsnHwIn-mii8Q&oe=6A4E0529', camp:'Reconhecimento + Engajamento — todo o período', metrics:[
     {val:'R$ 0,31', lbl:'Custo/visita'}, {val:'279', lbl:'Visitas ao perfil', accent:true}, {val:'R$ 233', lbl:'Investido'}, {val:'50,1k', lbl:'Alcance'}
   ]},
-  {thumb:'SG', name:'Quali São Gonçalo', camp:'Reconhecimento + Engajamento — todo o período', metrics:[
+  {loja:'Quali São Gonçalo', ad:'Dia das mães — coleção Prada (Reconhecimento/Engajamento)', cta:'Ver perfil no Instagram', thumb:'https://scontent-sea1-1.xx.fbcdn.net/v/t15.5256-10/693536899_1009251024870128_114261834009813128_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=100&ccb=1-7&_nc_sid=031d0d&_nc_ohc=gjY82eRmCDEQ7kNvwHapY-A&_nc_oc=AdqKUXWh5qa6jB1F3nckjVOq8erYY_9APrzkqL-Ik7LpSNRMD9lXMUWVxQSOPWMH1X0&_nc_zt=23&_nc_ht=scontent-sea1-1.xx&edm=AEZPnVgEAAAA&_nc_gid=FuhOE3AijCJJoqfXEWAliw&_nc_tpa=Q5bMBQGY3AbzMFbuLpaZi_GGk9zNyZ9rsR9NIck5aoYjYEHt0uH4mKCApUQv5hzZhDRVLgJEu0yNKDWSPw&oh=00_AQBd5IJxBGMNUZmi3_oyncF_dHCL4JoSJYXvSdxaLY4TXw&oe=6A4DFB27', camp:'Reconhecimento + Engajamento — todo o período', metrics:[
     {val:'R$ 0,32', lbl:'Custo/visita'}, {val:'264', lbl:'Visitas ao perfil', accent:true}, {val:'R$ 612', lbl:'Investido'}, {val:'112,3k', lbl:'Alcance'}
   ]},
 ];
 
 function renderCreative(prefix, data){
-  document.getElementById(`creative-${prefix}-thumb`).textContent = data.thumb;
-  document.getElementById(`creative-${prefix}-name`).textContent = data.name;
+  document.getElementById(`creative-${prefix}-thumb`).src = data.thumb;
+  document.getElementById(`creative-${prefix}-tag`).textContent = `★ Anúncio campeão — ${data.loja}`;
+  document.getElementById(`creative-${prefix}-name`).textContent = data.ad;
   document.getElementById(`creative-${prefix}-camp`).textContent = data.camp;
+  document.getElementById(`creative-${prefix}-cta`).textContent = data.cta;
   document.getElementById(`creative-${prefix}-metrics`).innerHTML = data.metrics.map(m=>
     `<div><div class="cm-val${m.accent?' accent':''}">${m.val}</div><div class="cm-lbl">${m.lbl}</div></div>`).join('');
 }

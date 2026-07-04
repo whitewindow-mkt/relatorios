@@ -62,7 +62,8 @@ html,body{overflow-x:hidden}
 .cm-lbl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;margin-top:3px}
 .cm-val.accent{color:var(--orange)}
 .creative-card{display:flex;gap:18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;align-items:stretch;margin-top:4px}
-.creative-thumb{width:100px;height:140px;object-fit:cover;border-radius:8px;flex-shrink:0;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900}
+.creative-thumb{width:100px;height:140px;object-fit:cover;border-radius:8px;flex-shrink:0;background:var(--bg);border:1px solid var(--border)}
+.creative-cta{display:inline-block;font-size:9px;font-weight:700;color:var(--orange);background:rgba(242,98,15,.1);padding:3px 8px;border-radius:999px;margin-top:8px;text-transform:uppercase;letter-spacing:.4px}
 .creative-info{flex:1;display:flex;flex-direction:column;justify-content:center}
 .creative-tag{font-size:9px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--orange);margin-bottom:6px}
 .creative-name{font-size:14px;font-weight:800;color:var(--black);margin-bottom:2px}
@@ -250,12 +251,13 @@ html,body{overflow-x:hidden}
 <div class="camp-hint">clique numa loja acima pra ver o desempenho e o resultado do grupo de anúncios dela</div>
 
 <div class="creative-card" id="creative-fundo">
-  <div class="creative-thumb" id="creative-fundo-thumb">LM</div>
+  <img class="creative-thumb" id="creative-fundo-thumb" src="" alt="Criativo do anúncio campeão">
   <div class="creative-info">
-    <div class="creative-tag">★ Loja com melhor desempenho do período</div>
-    <div class="creative-name" id="creative-fundo-name">Zeiss LM</div>
+    <div class="creative-tag" id="creative-fundo-tag">★ Anúncio campeão — Zeiss LM</div>
+    <div class="creative-name" id="creative-fundo-name"></div>
     <div class="creative-camp" id="creative-fundo-camp">Conversão + Remarketing — todo o período</div>
     <div class="creative-metrics" id="creative-fundo-metrics"></div>
+    <span class="creative-cta" id="creative-fundo-cta"></span>
   </div>
 </div>
 </div>
@@ -295,12 +297,13 @@ html,body{overflow-x:hidden}
 <div class="camp-hint">clique numa loja acima pra ver o custo por alcance do grupo dela</div>
 
 <div class="creative-card" id="creative-topo">
-  <div class="creative-thumb" id="creative-topo-thumb">LM</div>
+  <img class="creative-thumb" id="creative-topo-thumb" src="" alt="Criativo do anúncio campeão">
   <div class="creative-info">
-    <div class="creative-tag">★ Loja com melhor custo de alcance do período</div>
-    <div class="creative-name" id="creative-topo-name">Zeiss LM</div>
+    <div class="creative-tag" id="creative-topo-tag">★ Anúncio campeão — Zeiss LM</div>
+    <div class="creative-name" id="creative-topo-name"></div>
     <div class="creative-camp" id="creative-topo-camp">Reconhecimento — todo o período</div>
     <div class="creative-metrics" id="creative-topo-metrics"></div>
+    <span class="creative-cta" id="creative-topo-cta"></span>
   </div>
 </div>
 </div>
@@ -343,38 +346,40 @@ document.getElementById('legend-camp').innerHTML = campData.map(d=>`
   <div class="dl-item"><div class="dl-dot" style="background:${d.color}"></div><span class="dl-name">${d.label}</span><span class="dl-val">R$${Math.round(d.value).toLocaleString('pt-BR')}</span><span class="dl-pct">${(d.value/total*100).toFixed(0)}%</span></div>`).join('');
 
 const fundoCreatives = [
-  {thumb:'LM', name:'Zeiss LM', camp:'Conversão + Remarketing — todo o período', metrics:[
+  {loja:'Zeiss LM', ad:'PROMOÇÃO: COMPRE 1 PAR E LEVE 3 PARES DE LENTES ZEISS! 👓', cta:'Fale no WhatsApp', thumb:'https://scontent-sea1-1.xx.fbcdn.net/v/t15.5256-10/658884329_956553066831738_7584417747515547017_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=106&ccb=1-7&_nc_sid=1701c7&_nc_ohc=JNZwjr81bzEQ7kNvwExDPmy&_nc_oc=AdrwxMzCGWjdypbWNf4zsWKfGJo0KNvCHNq8rV0f8GoCir6TxRt_yAS1niW83bDU3Ag&_nc_zt=23&_nc_ht=scontent-sea1-1.xx&edm=AEZPnVgEAAAA&_nc_gid=FuhOE3AijCJJoqfXEWAliw&_nc_tpa=Q5bMBQEZIpfVhHgfs2qRk8qkmwhekSpA-urJMshHawHsMd_MNzRmEn2MdtTutWoujaCrQ05WpsawJQfKMA&oh=00_AQC7iU6nGa_X4sTMPRMRSFbaPMILVmOaDtln54nR9uI34w&oe=6A4DFB3D', camp:'Conversão + Remarketing — todo o período', metrics:[
     {val:'R$ 7,17', lbl:'Custo/conversa'}, {val:'146', lbl:'Conversas', accent:true}, {val:'R$ 1.046', lbl:'Investido'}, {val:'2,65%', lbl:'CTR'}
   ]},
-  {thumb:'IC', name:'Zeiss Icaraí', camp:'Conversão + Remarketing — todo o período', metrics:[
+  {loja:'Zeiss Icaraí', ad:'COMPRE 1 E LEVE 3 PARES DE LENTES ZEISS!', cta:'Fale no WhatsApp', thumb:'https://scontent-sea1-1.xx.fbcdn.net/v/t15.5256-10/658884329_956553066831738_7584417747515547017_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=106&ccb=1-7&_nc_sid=1701c7&_nc_ohc=JNZwjr81bzEQ7kNvwExDPmy&_nc_oc=AdrwxMzCGWjdypbWNf4zsWKfGJo0KNvCHNq8rV0f8GoCir6TxRt_yAS1niW83bDU3Ag&_nc_zt=23&_nc_ht=scontent-sea1-1.xx&edm=AEZPnVgEAAAA&_nc_gid=FuhOE3AijCJJoqfXEWAliw&_nc_tpa=Q5bMBQHk_BeBZTnxyZKbvk2_HsmmXyDSYCk5HL6rDQ5o2EVZxvnhFaGdgmjUfk9EFu-ny9gc0PWiCifIIQ&oh=00_AQD9tOIBE42KkNFVeBanmAZw591XiMs5CuHzWwSD0kYtZQ&oe=6A4DFB3D', camp:'Conversão + Remarketing — todo o período', metrics:[
     {val:'R$ 8,77', lbl:'Custo/conversa'}, {val:'119', lbl:'Conversas', accent:true}, {val:'R$ 1.043', lbl:'Investido'}, {val:'2,02%', lbl:'CTR'}
   ]},
-  {thumb:'GA', name:'Zeiss Gávea', camp:'Conversão + Remarketing — todo o período', metrics:[
+  {loja:'Zeiss Gávea', ad:'PROMOÇÃO: COMPRE 1 PAR E LEVE 3 PARES DE LENTES ZEISS! 👓', cta:'Fale no WhatsApp', thumb:'https://scontent-sea1-1.xx.fbcdn.net/v/t15.5256-10/658884329_956553066831738_7584417747515547017_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=106&ccb=1-7&_nc_sid=1701c7&_nc_ohc=JNZwjr81bzEQ7kNvwExDPmy&_nc_oc=AdrwxMzCGWjdypbWNf4zsWKfGJo0KNvCHNq8rV0f8GoCir6TxRt_yAS1niW83bDU3Ag&_nc_zt=23&_nc_ht=scontent-sea1-1.xx&edm=AEZPnVgEAAAA&_nc_gid=FuhOE3AijCJJoqfXEWAliw&_nc_tpa=Q5bMBQGS8wtcnGCbxXVgwxsNicy0lXQdK4fafDTHGK8ld0DaIZdROfPemZxrk5H9El-IphV1i64xbnGOsg&oh=00_AQAGXX2ejLutbsEPqO_4knH3g7zgZDc_zj7fEZNQYAZVDg&oe=6A4DFB3D', camp:'Conversão + Remarketing — todo o período', metrics:[
     {val:'R$ 10,19', lbl:'Custo/conversa'}, {val:'102', lbl:'Conversas', accent:true}, {val:'R$ 1.039', lbl:'Investido'}, {val:'1,53%', lbl:'CTR'}
   ]},
-  {thumb:'RS', name:'Zeiss Rio Sul', camp:'Conversão + Remarketing — todo o período', metrics:[
+  {loja:'Zeiss Rio Sul', ad:'PROMOÇÃO COMPRE 1 E LEVE 3 PARES DE LENTES ZEISS! 👓', cta:'Fale no WhatsApp', thumb:'https://scontent-sea1-1.xx.fbcdn.net/v/t15.5256-10/658884329_956553066831738_7584417747515547017_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=106&ccb=1-7&_nc_sid=1701c7&_nc_ohc=JNZwjr81bzEQ7kNvwExDPmy&_nc_oc=AdrwxMzCGWjdypbWNf4zsWKfGJo0KNvCHNq8rV0f8GoCir6TxRt_yAS1niW83bDU3Ag&_nc_zt=23&_nc_ht=scontent-sea1-1.xx&edm=AEZPnVgEAAAA&_nc_gid=FuhOE3AijCJJoqfXEWAliw&_nc_tpa=Q5bMBQFCvqic4M2Tk1CEzhjDtwVzB4fIuKqDqISEjcVW1uVUuBz2Pv83gR6g2dkyIZPmkZnAzqfmXgCb-A&oh=00_AQBihCGVsTCRoObn7b2kcOVaITmkNCJOZnZ9G3uoHgLWYQ&oe=6A4DFB3D', camp:'Conversão + Remarketing — todo o período', metrics:[
     {val:'R$ 11,98', lbl:'Custo/conversa'}, {val:'86', lbl:'Conversas', accent:true}, {val:'R$ 1.030', lbl:'Investido'}, {val:'2,07%', lbl:'CTR'}
   ]},
 ];
 const topoCreatives = [
-  {thumb:'LM', name:'Zeiss LM', camp:'Reconhecimento — todo o período', metrics:[
+  {loja:'Zeiss LM', ad:'PROMOÇÃO: COMPRE 1 PAR E LEVE 2 PARES DE LENTES ZEISS! 👓', cta:'Fale no WhatsApp', thumb:'https://scontent-sea1-1.xx.fbcdn.net/v/t15.5256-10/659650083_3798007767046544_5124847569032489081_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=106&ccb=1-7&_nc_sid=1701c7&_nc_ohc=iRpdy1Jd6TsQ7kNvwHze3Xm&_nc_oc=AdqDqTHm3ZSr1G-b6EZuQqJ8AwUfL2gWVc0o_H9mDFemSsLykj8ErBNEkkGqri0iKpk&_nc_zt=23&_nc_ht=scontent-sea1-1.xx&edm=AEZPnVgEAAAA&_nc_gid=FuhOE3AijCJJoqfXEWAliw&_nc_tpa=Q5bMBQEbeP2oCMTDwBXakAFU30L9sNl34wMY-Ujnu8LRR6LXqAiEnctgc4wx9RBA3PWayk9K94_mhwQMqg&oh=00_AQCBExq0JEjQRj5iM1fHiXTHGKlOAjfpzADCe5y3uXMclg&oe=6A4E14A1', camp:'Reconhecimento — todo o período', metrics:[
     {val:'R$ 2,54', lbl:'Custo/alcance (mil)'}, {val:'266,9k', lbl:'Alcance', accent:true}, {val:'R$ 678', lbl:'Investido'}, {val:'0,0999%', lbl:'CTR'}
   ]},
-  {thumb:'GA', name:'Zeiss Gávea', camp:'Reconhecimento — todo o período', metrics:[
+  {loja:'Zeiss Gávea', ad:'COMPRE 1 E LEVE 2 PARES DE LENTES ZEISS! 👓', cta:'Fale no WhatsApp', thumb:'https://scontent-sea1-1.xx.fbcdn.net/v/t15.5256-10/659650083_3798007767046544_5124847569032489081_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=106&ccb=1-7&_nc_sid=1701c7&_nc_ohc=iRpdy1Jd6TsQ7kNvwHze3Xm&_nc_oc=AdqDqTHm3ZSr1G-b6EZuQqJ8AwUfL2gWVc0o_H9mDFemSsLykj8ErBNEkkGqri0iKpk&_nc_zt=23&_nc_ht=scontent-sea1-1.xx&edm=AEZPnVgEAAAA&_nc_gid=FuhOE3AijCJJoqfXEWAliw&_nc_tpa=Q5bMBQFDE8pzhRVLeSQf92-xK-zLgd3ieMIGpABZu2KBydwdWhFhQ0YcanKsHinX9fm4ZhNauFsUNzIpyA&oh=00_AQBVco0G-jULj0ahsSa_JhCxnWCWLMuMnMlkedNzXdRuCQ&oe=6A4E14A1', camp:'Reconhecimento — todo o período', metrics:[
     {val:'R$ 3,58', lbl:'Custo/alcance (mil)'}, {val:'189,6k', lbl:'Alcance', accent:true}, {val:'R$ 678', lbl:'Investido'}, {val:'0,0732%', lbl:'CTR'}
   ]},
-  {thumb:'IC', name:'Zeiss Icaraí', camp:'Reconhecimento — todo o período', metrics:[
+  {loja:'Zeiss Icaraí', ad:'PROMOÇÃO: COMPRE 1 E LEVE 2 PARES DE LENTES ZEISS!', cta:'Fale no WhatsApp', thumb:'https://scontent-sea1-1.xx.fbcdn.net/v/t15.5256-10/659650083_3798007767046544_5124847569032489081_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=106&ccb=1-7&_nc_sid=1701c7&_nc_ohc=iRpdy1Jd6TsQ7kNvwHze3Xm&_nc_oc=AdqDqTHm3ZSr1G-b6EZuQqJ8AwUfL2gWVc0o_H9mDFemSsLykj8ErBNEkkGqri0iKpk&_nc_zt=23&_nc_ht=scontent-sea1-1.xx&edm=AEZPnVgEAAAA&_nc_gid=FuhOE3AijCJJoqfXEWAliw&_nc_tpa=Q5bMBQFjs3Cohx9esoSAPTM9c5CgW_doOPxPWDtH7CJRVeQn2z2Q4uGNu0JdK1gXeEvSD__BegUC6Z7haQ&oh=00_AQA-aGwmqbR8ClowcG6v0ikMjplJdUZa-JJ8bB6jWIkacA&oe=6A4E14A1', camp:'Reconhecimento — todo o período', metrics:[
     {val:'R$ 4,21', lbl:'Custo/alcance (mil)'}, {val:'161,0k', lbl:'Alcance', accent:true}, {val:'R$ 677', lbl:'Investido'}, {val:'0,0866%', lbl:'CTR'}
   ]},
-  {thumb:'RS', name:'Zeiss Rio Sul', camp:'Reconhecimento — todo o período', metrics:[
+  {loja:'Zeiss Rio Sul', ad:'PROMOÇÃO: COMPRE 1 E LEVE 2 PARES DE LENTES ZEISS! 👓', cta:'Fale no WhatsApp', thumb:'https://scontent-sea1-1.xx.fbcdn.net/v/t15.5256-10/659650083_3798007767046544_5124847569032489081_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=106&ccb=1-7&_nc_sid=1701c7&_nc_ohc=iRpdy1Jd6TsQ7kNvwHze3Xm&_nc_oc=AdqDqTHm3ZSr1G-b6EZuQqJ8AwUfL2gWVc0o_H9mDFemSsLykj8ErBNEkkGqri0iKpk&_nc_zt=23&_nc_ht=scontent-sea1-1.xx&edm=AEZPnVgEAAAA&_nc_gid=FuhOE3AijCJJoqfXEWAliw&_nc_tpa=Q5bMBQG8CCXS2asahBmpK0RCZTMWmjsTFPXqIFA9TNvRw7IvYNL22rbC7J_QZWovIuMN3CeEhcIKJL2DEA&oh=00_AQCBPDZXkF2Oz2JYQsiuP_gegbyecYOhSbzyL34TCdW0kw&oe=6A4E14A1', camp:'Reconhecimento — todo o período', metrics:[
     {val:'R$ 6,17', lbl:'Custo/alcance (mil)'}, {val:'109,5k', lbl:'Alcance', accent:true}, {val:'R$ 676', lbl:'Investido'}, {val:'0,0813%', lbl:'CTR'}
   ]},
 ];
 
 function renderCreative(prefix, data){
-  document.getElementById(`creative-${prefix}-thumb`).textContent = data.thumb;
-  document.getElementById(`creative-${prefix}-name`).textContent = data.name;
+  document.getElementById(`creative-${prefix}-thumb`).src = data.thumb;
+  document.getElementById(`creative-${prefix}-tag`).textContent = `★ Anúncio campeão — ${data.loja}`;
+  document.getElementById(`creative-${prefix}-name`).textContent = data.ad;
   document.getElementById(`creative-${prefix}-camp`).textContent = data.camp;
+  document.getElementById(`creative-${prefix}-cta`).textContent = data.cta;
   document.getElementById(`creative-${prefix}-metrics`).innerHTML = data.metrics.map(m=>
     `<div><div class="cm-val${m.accent?' accent':''}">${m.val}</div><div class="cm-lbl">${m.lbl}</div></div>`).join('');
 }
