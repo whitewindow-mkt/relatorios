@@ -23,6 +23,7 @@
       --quali-orange: #f2620f;
       --success-green: #10b981;
       --warning-yellow: #febe28;
+      --danger-red: #ef4444;
       --radius-lg: 12px;
       --radius-md: 8px;
     }
@@ -205,6 +206,51 @@
       line-height: 1.35;
     }
 
+    /* Crossed Out State (LP Inativa no Evento) */
+    .node-card.crossed-out {
+      opacity: 0.3;
+      border-color: var(--danger-red);
+    }
+
+    .node-card.crossed-out::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(to top right, transparent 48%, var(--danger-red) 49%, var(--danger-red) 51%, transparent 52%),
+        linear-gradient(to bottom right, transparent 48%, var(--danger-red) 49%, var(--danger-red) 51%, transparent 52%);
+      pointer-events: none;
+      border-radius: var(--radius-lg);
+    }
+
+    .node-card.crossed-out .badge-inactive {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: var(--danger-red);
+      color: white;
+      font-size: 8px;
+      font-weight: 800;
+      padding: 1px 4px;
+      border-radius: 3px;
+      z-index: 3;
+    }
+
+    /* VISITE LOJA (Glow and highlight) */
+    .node-card.visite-loja {
+      border: 2px solid var(--success-green);
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+      width: 250px;
+    }
+
+    .node-card.visite-loja:hover {
+      border-color: var(--success-green);
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+    }
+
     /* --- FASE 1 LAYOUT (RADIAL FLOW) --- */
     .f1-grid {
       display: grid;
@@ -223,7 +269,7 @@
     .f1-obrigado { grid-column: 3; grid-row: 5; }
     .f1-crm { grid-column: 5; grid-row: 3; }
 
-    /* SVG Lines & Connectors for Phase 1 */
+    /* SVG Lines & Connectors */
     .f1-svg-layer {
       position: absolute;
       top: 0;
@@ -234,8 +280,27 @@
       z-index: 1;
     }
 
-    /* --- FASE 2 LAYOUT (IA FLOW) --- */
+    /* --- FASE 2 LAYOUT (CROSSED-OUT LP & DIRECT TO STORE) --- */
     .f2-grid {
+      display: grid;
+      grid-template-columns: 240px 60px 240px 60px 240px;
+      grid-template-rows: 100px 70px 100px 70px 140px;
+      justify-items: center;
+      align-items: center;
+      width: 840px;
+      height: 480px;
+    }
+
+    .f2-email { grid-column: 1; grid-row: 1; }
+    .f2-meta { grid-column: 3; grid-row: 1; }
+    .f2-whats { grid-column: 5; grid-row: 1; }
+    .f2-captura { grid-column: 3; grid-row: 3; }
+    .f2-obrigado { grid-column: 3; grid-row: 5; }
+    .f2-crm { grid-column: 5; grid-row: 3; }
+    .f2-visite-loja { grid-column: 1 / span 5; grid-row: 5; align-self: flex-end; }
+
+    /* --- FASE 3 LAYOUT (IA FLOW) --- */
+    .f3-grid {
       display: grid;
       grid-template-columns: 220px 80px 220px 80px 220px;
       grid-template-rows: 110px 40px 110px 40px 110px;
@@ -245,27 +310,12 @@
       height: 410px;
     }
 
-    .f2-crm { grid-column: 1; grid-row: 1; }
-    .f2-ia-ativadora { grid-column: 3; grid-row: 1; }
-    .f2-ia-consultora { grid-column: 3; grid-row: 3; }
-    .f2-status-receita { grid-column: 5; grid-row: 1; }
-    .f2-agendamento { grid-column: 5; grid-row: 3; }
-    .f2-exame { grid-column: 5; grid-row: 5; }
-
-    /* --- FASE 3 LAYOUT (EVENTO active) --- */
-    .f3-grid {
-      display: grid;
-      grid-template-columns: 220px 120px 220px;
-      grid-template-rows: 100px 80px 100px;
-      justify-items: center;
-      align-items: center;
-      width: 560px;
-      height: 280px;
-    }
-
-    .f3-ad-alcance { grid-column: 1; grid-row: 1; }
-    .f3-whats-massa { grid-column: 1; grid-row: 3; }
-    .f3-loja { grid-column: 3; grid-row: 2; }
+    .f3-crm { grid-column: 1; grid-row: 1; }
+    .f3-ia-ativadora { grid-column: 3; grid-row: 1; }
+    .f3-ia-consultora { grid-column: 3; grid-row: 3; }
+    .f3-status-receita { grid-column: 5; grid-row: 1; }
+    .f3-agendamento { grid-column: 5; grid-row: 3; }
+    .f3-exame { grid-column: 5; grid-row: 5; }
 
     /* SIDE DRAWER (DETAIL PANEL) */
     .drawer {
@@ -686,8 +736,8 @@
     <!-- SWITCHER -->
     <div class="phase-switcher">
       <button class="phase-btn active" id="btn-fase1" onclick="switchPhase(1)">Fase 1: Captação</button>
-      <button class="phase-btn" id="btn-fase2" onclick="switchPhase(2)">Fase 2: Automação IA</button>
-      <button class="phase-btn" id="btn-fase3" onclick="switchPhase(3)">Fase 3: Evento & Venda</button>
+      <button class="phase-btn" id="btn-fase2" onclick="switchPhase(2)">Fase 2: Semana Zeiss</button>
+      <button class="phase-btn" id="btn-fase3" onclick="switchPhase(3)">Fluxo IA & CRM</button>
     </div>
   </div>
 
@@ -763,47 +813,118 @@
         </div>
       </div>
 
-      <!-- FASE 2: AUTOMAÇÃO IA & TRIAGEM -->
+      <!-- FASE 2: SEMANA ZEISS - active (CROSSED-OUT LP & DIRECT TO STORE) -->
       <div class="canvas-view" id="view-fase2">
         <div class="f2-grid">
           
-          <div class="node-card f2-crm" id="node-crm-hsales-f2" onclick="selectNode('crm-hsales-f2')">
+          <!-- Nodes -->
+          <div class="node-card f2-email" id="node-disp-email-f2" onclick="selectNode('disp-email-f2')">
+            <div class="node-tag">E-mail</div>
+            <h3>E-mail Abertura</h3>
+            <p>Disparo informando que a Semana Zeiss está ativa e válida.</p>
+          </div>
+
+          <div class="node-card f2-meta active" id="node-ad-alcance" onclick="selectNode('ad-alcance')">
+            <div class="node-tag">Meta Ads</div>
+            <h3>Alcance / Remarketing</h3>
+            <p>Anúncios locais reforçando urgência e validade nas lojas.</p>
+          </div>
+
+          <div class="node-card f2-whats" id="node-disp-abertura" onclick="selectNode('disp-abertura')">
+            <div class="node-tag">Whats Massa</div>
+            <h3>Disparo 2 (Abertura)</h3>
+            <p>Whats direto com convite para a loja e lembrete do cupom.</p>
+          </div>
+
+          <!-- Crossed Out LP Nodes from Sketch -->
+          <div class="node-card f2-captura crossed-out" id="node-lp-captura-f2" onclick="selectNode('lp-captura-f2')">
+            <div class="badge-inactive">DESATIVADA</div>
+            <div class="node-tag quali">Landing Page</div>
+            <h3>Página de Captura</h3>
+            <p>Não há captação. O foco muda para visita física direta.</p>
+          </div>
+
+          <div class="node-card f2-obrigado crossed-out" id="node-lp-obrigado-f2" onclick="selectNode('lp-obrigado-f2')">
+            <div class="badge-inactive">DESATIVADA</div>
+            <div class="node-tag quali">Revelação</div>
+            <h3>Página Obrigado</h3>
+            <p>Inativa. Comunicação é direta e sem formulários.</p>
+          </div>
+
+          <div class="node-card f2-crm" id="node-crm-hsales-f2-view" onclick="selectNode('crm-hsales-f2-view')">
+            <div class="node-tag quali">CRM</div>
+            <h3>Dados / Lista</h3>
+            <p>Base construída na Fase 1 é nutrida ativamente pela IA.</p>
+          </div>
+
+          <!-- Visite Loja Final Node -->
+          <div class="node-card f2-visite-loja visite-loja" id="node-loja-fisica" onclick="selectNode('loja-fisica')">
+            <div class="node-tag quali" style="color: var(--success-green);">Destino Final</div>
+            <h3 style="font-size: 16px;">VISITE A LOJA</h3>
+            <p style="color: #e5e7eb; font-weight: 500;">O cliente vai direto até uma das 6 lojas físicas com seu cupom ativado e receita médica.</p>
+          </div>
+
+          <!-- SVG Arrows connecting nodes in Fase 2 -->
+          <svg class="f1-svg-layer">
+            <!-- Email -> Visite Loja -->
+            <path d="M 120 100 L 120 330 L 300 370" fill="none" stroke="#3a4556" stroke-width="2" marker-end="url(#arrow)" />
+            
+            <!-- Meta -> Visite Loja -->
+            <line x1="420" y1="100" x2="420" y2="350" stroke="#00d2ff" stroke-width="2" marker-end="url(#arrow-active)" />
+            
+            <!-- Whats -> Visite Loja -->
+            <path d="M 720 100 L 720 330 L 540 370" fill="none" stroke="#3a4556" stroke-width="2" marker-end="url(#arrow)" />
+
+            <!-- Dashed lines showing crossed-out LP bypass -->
+            <line x1="120" y1="100" x2="260" y2="185" stroke="#ef4444" stroke-dasharray="4" stroke-width="1.5" />
+            <line x1="420" y1="100" x2="420" y2="175" stroke="#ef4444" stroke-dasharray="4" stroke-width="1.5" />
+            <line x1="720" y1="100" x2="580" y2="185" stroke="#ef4444" stroke-dasharray="4" stroke-width="1.5" />
+          </svg>
+
+        </div>
+      </div>
+
+      <!-- FASE 3: AUTOMAÇÃO IA & TRIAGEM -->
+      <div class="canvas-view" id="view-fase3">
+        <div class="f3-grid">
+          
+          <div class="node-card f3-crm" id="node-crm-hsales-f3" onclick="selectNode('crm-hsales-f3')">
             <div class="node-tag quali">CRM</div>
             <h3>Dados / Lista</h3>
             <p>Leads alimentados na base de contatos do HSales.</p>
           </div>
 
-          <div class="node-card f2-ia-ativadora" id="node-ia-ativadora" onclick="selectNode('ia-ativadora')">
+          <div class="node-card f3-ia-ativadora" id="node-ia-ativadora" onclick="selectNode('ia-ativadora')">
             <div class="node-tag">IA WhatsApp</div>
             <h3>Agente 1: Ativação</h3>
             <p>Dispara pós-cadastro. Triagem de receitas e horários.</p>
           </div>
 
-          <div class="node-card f2-ia-consultora" id="node-ia-consultora" onclick="selectNode('ia-consultora')">
+          <div class="node-card f3-ia-consultora" id="node-ia-consultora" onclick="selectNode('ia-consultora')">
             <div class="node-tag">IA WhatsApp</div>
             <h3>Agente 2: Consultor</h3>
             <p>Responde dúvidas técnicas e regras da promoção Zeiss.</p>
           </div>
 
-          <div class="node-card f2-status-receita" id="node-status-receita" onclick="selectNode('status-receita')">
+          <div class="node-card f3-status-receita" id="node-status-receita" onclick="selectNode('status-receita')">
             <div class="node-tag">Triagem</div>
             <h3>Verificação Receita</h3>
             <p>IA identifica se o cliente tem receita atualizada.</p>
           </div>
 
-          <div class="node-card f2-agendamento" id="node-agendamento" onclick="selectNode('agendamento')">
+          <div class="node-card f3-agendamento" id="node-agendamento" onclick="selectNode('agendamento')">
             <div class="node-tag quali">VIP</div>
             <h3>Agendamento Loja</h3>
             <p>Agendamento VIP direto na loja física escolhida.</p>
           </div>
 
-          <div class="node-card f2-exame" id="node-exame" onclick="selectNode('exame')">
+          <div class="node-card f3-exame" id="node-exame" onclick="selectNode('exame')">
             <div class="node-tag quali">Exame</div>
             <h3>Consulta Exame</h3>
             <p>Direcionado para consulta/exame em parceiro local.</p>
           </div>
 
-          <!-- SVG Arrows connecting nodes in Fase 2 -->
+          <!-- SVG Arrows connecting nodes in Fase 3 -->
           <svg class="f1-svg-layer">
             <!-- CRM -> IA Ativadora -->
             <line x1="220" y1="55" x2="290" y2="55" stroke="#3a4556" stroke-width="2" marker-end="url(#arrow)" />
@@ -816,39 +937,6 @@
             <line x1="700" y1="110" x2="700" y2="155" stroke="#3a4556" stroke-width="2" marker-end="url(#arrow)" />
             <!-- Triagem Receita -> Exame (Não tem Receita) -->
             <path d="M 700 110 L 700 130 L 780 130 L 780 325" fill="none" stroke="#3a4556" stroke-width="2" marker-end="url(#arrow)" />
-          </svg>
-
-        </div>
-      </div>
-
-      <!-- FASE 3: SEMANA ZEISS (EVENTO) -->
-      <div class="canvas-view" id="view-fase3">
-        <div class="f3-grid">
-          
-          <div class="node-card f3-ad-alcance" id="node-ad-alcance" onclick="selectNode('ad-alcance')">
-            <div class="node-tag">Meta Ads</div>
-            <h3>Alcance Local</h3>
-            <p>Anúncios no raio de 3km chamando público para ir à loja.</p>
-          </div>
-
-          <div class="node-card f3-whats-massa" id="node-disp-abertura" onclick="selectNode('disp-abertura')">
-            <div class="node-tag">WhatsApp</div>
-            <h3>Disparo 2 (Abertura)</h3>
-            <p>Convite oficial e roteiro de rota enviado a toda a base.</p>
-          </div>
-
-          <div class="node-card f3-loja" id="node-loja-fisica" onclick="selectNode('loja-fisica')">
-            <div class="node-tag quali">Lojas</div>
-            <h3>Fechamento Físico</h3>
-            <p>Visita presencial com receita e cupom ativado (50% Lente).</p>
-          </div>
-
-          <!-- SVG Arrows connecting nodes in Fase 3 -->
-          <svg class="f1-svg-layer">
-            <!-- Ad Alcance -> Loja -->
-            <line x1="220" y1="50" x2="330" y2="130" stroke="#3a4556" stroke-width="2" marker-end="url(#arrow)" />
-            <!-- Whats Massa -> Loja -->
-            <line x1="220" y1="230" x2="330" y2="150" stroke="#3a4556" stroke-width="2" marker-end="url(#arrow)" />
           </svg>
 
         </div>
@@ -884,6 +972,19 @@
         boxTitle: 'Modelo de E-mail (HTML)',
         boxContent: 'Assunto: [Acesso VIP] Você foi selecionado para 50% de desconto em Lentes Zeiss\n\nOlá, [Nome].\n\nComo cliente especial da QualiÓtica, estamos te dando a oportunidade de participar da pré-reserva da Semana Zeiss.\n\nPela primeira vez, teremos 50% de desconto nas lentes mais renomadas do mundo. O lote de cupons é estritamente limitado por CPF.\n\nGaranta seu cupom de desconto antes que a promoção seja aberta ao público geral:\n\n[QUERO MEU CUPOM DE 50% OFF]'
       },
+      'disp-email-f2': {
+        tag: 'E-MAIL MARKETING (EVENTO)',
+        title: 'E-mail Abertura',
+        description: 'Envio de e-mail marketing na segunda-feira pela manhã avisando que a Semana Zeiss começou de fato e o desconto de 50% está ativo nas lojas.',
+        points: [
+          'Assunto impactante com gatilho de urgência',
+          'Lista: Leads cadastrados + base de clientes antigos geral',
+          'Conteúdo indica diretamente o endereço das lojas físicas (sem Landing Page)'
+        ],
+        previewType: 'text',
+        boxTitle: 'Modelo de E-mail Abertura',
+        boxContent: 'Assunto: 🚨 Começou! Sua receita vale 50% de desconto na Semana Zeiss\n\nOlá, [Nome]!\n\nChegou a hora. A Semana Zeiss está oficialmente ativa em nossas lojas em Niterói, São Gonçalo e Rio.\n\nO seu cupom exclusivo de 50% OFF nas lentes Zeiss está ativo e reservado para uso até sábado.\n\nComo participar:\n1. Separe sua receita médica de vista\n2. Vá até a nossa loja de sua preferência\n3. Apresente este e-mail ou o cupom digital para garantir a metade do preço\n\n[VER ENDEREÇOS NO MAPA]'
+      },
       'ad-fase1': {
         tag: 'META ADS (CURIOSIDADE)',
         title: 'Anúncios Curiosidade',
@@ -898,7 +999,7 @@
           brand: 'Optometria & Saúde Visual',
           sub: 'Patrocinado',
           avatar: 'OS',
-          text: 'Vem aí a semana mais esperada do ano nas nossas lojas... 🕶️✨<br><br>Conseguimos uma condition inédita com a maior fabricante de tecnologia de lentes do mundo. **São 50% de desconto** nas lentes mais desejadas do mercado!<br><br>Os cupons são limitados. Garanta o seu antes que libere para o público geral!',
+          text: 'Vem aí a semana mais esperada do ano nas nossas lojas... 🕶️✨<br><br>Conseguimos uma condição inédita com a maior fabricante de tecnologia de lentes do mundo. **São 50% de desconto** nas lentes mais desejadas do mercado!<br><br>Os cupons são limitados. Garanta o seu antes que libere para o público geral!',
           title: '50% OFF na Semana Especial',
           subtext: 'GARANTACUPOM.COM.BR',
           mediaTitle: '50% OFF',
@@ -931,6 +1032,19 @@
         wfTitle: 'Esboço da Landing Page',
         wfLabels: ['Nome Completo', 'WhatsApp', 'E-mail', 'Selecione a Loja']
       },
+      'lp-captura-f2': {
+        tag: 'LANDING PAGE (EVENTO)',
+        title: 'LP Desativada no Evento',
+        description: 'Na segunda fase (Semana Zeiss ativa), desativamos a captação de leads. Todo o tráfego de mídia paga e contatos é focado em levar o cliente diretamente às lojas físicas.',
+        points: [
+          'Sem formulários nesta fase',
+          'O cliente não precisa mais se cadastrar na LP',
+          'Reduz barreira de entrada e fricção na conversão'
+        ],
+        previewType: 'text',
+        boxTitle: 'Decisão Estratégica WW',
+        boxContent: 'Durante a Semana Zeiss, todo e qualquer criativo e mensagem de disparo passa a direcionar para o tráfego físico local. A Landing Page é temporariamente arquivada ou substituta por uma página informativa simples que diz: "A promoção começou! Vá até a loja mais próxima e garanta o seu desconto".'
+      },
       'lp-obrigado': {
         tag: 'PÁGINA DE OBRIGADO (REVELAÇÃO)',
         title: 'Obrigado & Voucher',
@@ -943,6 +1057,18 @@
         previewType: 'text',
         boxTitle: 'Instruções da Página de Obrigado',
         boxContent: '"Parabéns! Seu cupom de 50% de desconto na SEMANA ZEISS foi gerado com sucesso. Guarde o seu código exclusivo e traga seu exame de vista a uma de nossas lojas participantes de [Data] a [Data]. Nossa assistente virtual entrará em contato em instantes no seu WhatsApp para agendar seu horário VIP."'
+      },
+      'lp-obrigado-f2': {
+        tag: 'PÁGINA OBRIGADO (EVENTO)',
+        title: 'Obrigado Desativado',
+        description: 'Assim como a LP de captura, a página de obrigado está inativa nesta fase de vendas por não haver cadastramento digital prévio.',
+        points: [
+          'Sem redirecionamentos',
+          'Voucher é validado diretamente na loja pelo CPF cadastrado na fase anterior'
+        ],
+        previewType: 'text',
+        boxTitle: 'Nota de Operação',
+        boxContent: 'Foco total no cupom via banco de dados. Qualquer cliente que comparecer dizendo ter visto a campanha Meta Ads ganha o benefício diretamente na loja pelo CPF ou receita.'
       },
       'crm-hsales': {
         tag: 'INTEGRAÇÃO CRM (HSALES)',
@@ -962,7 +1088,25 @@
           tagClass: ''
         }
       },
-      'crm-hsales-f2': {
+      'crm-hsales-f2-view': {
+        tag: 'INTEGRAÇÃO CRM (HSALES)',
+        title: 'Dados / Lista de Leads',
+        description: 'Ficha do CRM com informações de cadastro do lead coletados na fase 1. Os dados da lista são fundamentais para os remarketings e disparos de Whats.',
+        points: [
+          'Lista contendo Nome, WhatsApp, e Loja de Preferência',
+          'Segmentação de leads quentes para o WhatsApp Disparo 2',
+          'Atribuição de venda no CRM com base no comparecimento físico'
+        ],
+        previewType: 'crm',
+        crm: {
+          name: 'Nathan Silva',
+          store: 'QualiÓtica Niterói',
+          prescription: 'Triado (Tem Receita)',
+          status: 'VISITA AGENDADA',
+          tagClass: 'active'
+        }
+      },
+      'crm-hsales-f3': {
         tag: 'INTEGRAÇÃO CRM (HSALES)',
         title: 'HSales para Óticas',
         description: 'Ficha do CRM com informações de cadastro do lead. Inicia o processo automático de atendimento de IA pós-captação.',
@@ -983,7 +1127,7 @@
       'ia-ativadora': {
         tag: 'AUTOMAÇÃO & IA (WHATSAPP)',
         title: 'Agente 1: Ativação',
-        description: 'Assistente virtual focado em iniciar o contato com o lead em 2 minutos após o cadastro. Realiza a triagem crucial sobre a receita oftálmica e agenda a data da visita.',
+        description: 'Assistente virtual focado em iniciar o contato com o lead em 2 minutes após o cadastro. Realiza a triagem crucial sobre a receita oftálmica e agenda a data da visita.',
         points: [
           'Gatilho: Cadastro na Landing Page',
           'Ação principal: Identificar se o cliente tem receita atualizada',
@@ -1063,25 +1207,25 @@
       },
       'disp-abertura': {
         tag: 'DISPARO WHATSAPP (EVENTO)',
-        title: 'Abertura da Semana',
-        description: 'Mensagem de impacto disparada na segunda-feira pela manhã anunciando o início oficial da Semana Zeiss.',
+        title: 'Disparo 2 (Whats)',
+        description: 'Mensagem em massa enviada para toda a lista de novos leads capturados e clientes antigos, anunciando a abertura oficial das lojas com a Semana Zeiss.',
         points: [
-          'Público: Todos os leads cadastrados + base completa de clientes antigos',
-          'Objetivo: Chamar o cliente para a loja imediatamente',
-          'Contém CTA direta para rotas de mapa ou suporte da IA'
+          'Não há links de Landing Page - foca em direcionar à loja física',
+          'Mensagem de urgência: "Sua receita vale 50% de desconto nas lentes Zeiss"',
+          'Gatilho: Segunda-feira da semana de promoção ativa'
         ],
         previewType: 'text',
         boxTitle: 'Modelo de Mensagem (WhatsApp)',
-        boxContent: '"Nathan, a Semana Zeiss começou oficialmente! 🚨 O seu cupom de 50% OFF está ativo e reservado para uso na unidade Niterói. Estaremos com atendimento VIP especial. Traga sua receita de óculos hoje mesmo. Ficamos na [Endereço]. Clique abaixo para traçar sua rota ou falar com um consultor!"'
+        boxContent: '"Nathan, a Semana Zeiss começou oficialmente! 🚨 O seu cupom de 50% OFF está ativo e reservado para uso na unidade Niterói. Estaremos com atendimento VIP especial. Traga sua receita de óculos hoje mesmo. Ficamos na Rua [Endereço da Loja]. Clique abaixo para traçar sua rota ou falar com um consultor!"'
       },
       'ad-alcance': {
-        tag: 'META ADS (DURANTE EVENTO)',
-        title: 'Anúncios Alcance Local',
-        description: 'Durante a semana ativa da promoção, a campanha do Meta Ads muda o foco de captação de leads para alcance bruto regional, reforçando a urgência da campanha.',
+        tag: 'META ADS (REMARKETING & ALCANCE)',
+        title: 'Campanhas de Alcance',
+        description: 'Na segunda fase (Semana Zeiss ativa), os anúncios focam no remarketing massivo dos leads capturados e no alcance de público local em um raio de 3km. Sem redirecionamento para Landing Page.',
         points: [
-          'Objetivo da campanha: Alcance e Reconhecimento',
-          'Foco geográfico: Raio de 3km ao redor de cada loja física',
-          'Público secundário: Remarketing de alta frequência para quem gerou lead na LP'
+          'Objetivo: Reconhecimento e Alcance Local',
+          'CTA: Direto para a loja física ("Como chegar")',
+          'Visual foca nas fachadas reais das lojas para fácil identificação física'
         ],
         previewType: 'ad',
         ad: {
@@ -1096,7 +1240,7 @@
         }
       },
       'loja-fisica': {
-        tag: 'CONVERSÃO OFFLINE',
+        tag: 'CONVERSÃO OFFLINE (LOJA)',
         title: 'Fechamento Físico',
         description: 'A etapa final do funil. O lead de tráfego pago ou da base de clientes antigos entra na loja com seu cupom digital e receita, realizando a compra das lentes Zeiss.',
         points: [
@@ -1125,9 +1269,9 @@
       if (phaseNum === 1) {
         selectNode('ad-fase1');
       } else if (phaseNum === 2) {
-        selectNode('crm-hsales-f2');
-      } else if (phaseNum === 3) {
         selectNode('ad-alcance');
+      } else if (phaseNum === 3) {
+        selectNode('crm-hsales-f3');
       }
     }
 
@@ -1135,7 +1279,7 @@
       // Remove active class from all node cards
       document.querySelectorAll('.node-card').forEach(card => card.classList.remove('active'));
       
-      // Add active class to corresponding cards (handle f2 duplicate ID mapping)
+      // Add active class to corresponding cards
       const element = document.getElementById('node-' + id);
       if (element) {
         element.classList.add('active');
@@ -1187,7 +1331,7 @@
                   <div style="font-size: 8px; color: var(--text-muted);">${node.ad.subtext}</div>
                   <strong>${node.ad.title}</strong>
                 </div>
-                <button class="ad-p-btn">Cadastrar</button>
+                <button class="ad-p-btn">Como Chegar</button>
               </div>
             </div>
           </div>
