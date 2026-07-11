@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apresentação Estratégica — Semana Zeiss 2026</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- CSS Styles -->
+  <style>
+    :root {
+      --bg-dark: #07090e;
+      --panel-dark: #0f131c;
+      --border-dark: rgba(255, 255, 255, 0.08);
+      --text-light: #f3f4f6;
+      --text-muted: #9ca3af;
+      --zeiss-blue: #002d9c;
+      --zeiss-light-blue: #0056f9;
+      --zeiss-neon: #00d2ff;
+      --quali-orange: #f2620f;
+      --quali-orange-dark: #c94e0a;
+      --success-green: #10b981;
+      --warning-yellow: #febe28;
+      --glass-bg: rgba(15, 19, 28, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.05);
+      --radius-lg: 16px;
+      --radius-md: 10px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-dark);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--zeiss-light-blue);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--zeiss-neon);
+    }
+
+    /* HEADER */
+    header {
+      background: rgba(7, 9, 14, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-dark);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 15px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .badge-zeiss {
+      background: var(--zeiss-light-blue);
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    .badge-quali {
+      background: var(--quali-orange);
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+
+    .logo-ww {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--zeiss-neon);
+    }
+
+    /* HERO SECTION */
+    .hero {
+      position: relative;
+      padding: 100px 5% 60px;
+      text-align: center;
+      background: radial-gradient(circle at top, rgba(0, 86, 249, 0.15) 0%, transparent 60%);
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    .hero-tag {
+      display: inline-block;
+      border: 1px solid var(--zeiss-neon);
+      color: var(--zeiss-neon);
+      border-radius: 50px;
+      padding: 6px 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      box-shadow: 0 0 15px rgba(0, 210, 255, 0.1);
+    }
+
+    .hero h1 {
+      font-size: 52px;
+      line-height: 1.1;
+      max-width: 900px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, #fff 30%, #a5b4fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 18px;
+      max-width: 650px;
+      margin: 0 auto 30px;
+    }
+
+    .badge-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .metric-badge {
+      background: var(--panel-dark);
+      border: 1px solid var(--border-dark);
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 13px;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .metric-badge strong {
+      color: var(--zeiss-neon);
+    }
+
+    /* SECTION BASICS */
+    .section {
+      padding: 80px 5%;
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      font-size: 36px;
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    .section-title p {
+      color: var(--text-muted);
+      font-size: 16px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* FUNNEL GRAPHIC */
+    .funnel-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .funnel-stage {
+      width: 100%;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      transition: transform 0.3s, border-color 0.3s;
+      cursor: pointer;
+    }
+
+    .funnel-stage:hover {
+      transform: translateY(-3px);
+      border-color: var(--zeiss-neon);
+    }
+
+    .funnel-stage-num {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--zeiss-light-blue), var(--zeiss-neon));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      color: white;
+      flex-shrink: 0;
+      box-shadow: 0 4px 15px rgba(0, 86, 249, 0.4);
+    }
+
+    .funnel-stage:nth-child(2) .funnel-stage-num {
+      background: linear-gradient(135deg, var(--zeiss-light-blue), var(--quali-orange));
+    }
+    .funnel-stage:nth-child(3) .funnel-stage-num {
+      background: linear-gradient(135deg, var(--quali-orange), var(--warning-yellow));
+    }
+    .funnel-stage:nth-child(4) .funnel-stage-num {
+      background: linear-gradient(135deg, var(--warning-yellow), var(--success-green));
+    }
+
+    .funnel-stage-content {
+      flex: 1;
+    }
+
+    .funnel-stage-content h3 {
+      font-size: 18px;
+      margin-bottom: 6px;
+      color: white;
+    }
+
+    .funnel-stage-content p {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .funnel-stage-badge {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-dark);
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .funnel-stage:hover .funnel-stage-badge {
+      color: var(--zeiss-neon);
+      border-color: rgba(0, 212, 255, 0.3);
+      background: rgba(0, 212, 255, 0.05);
+    }
+
+    /* MOCKUP CREATIVES (ADS) */
+    .creatives-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .ad-card {
+      background: var(--panel-dark);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ad-header {
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    .ad-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--zeiss-light-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: white;
+      font-size: 12px;
+    }
+
+    .ad-avatar.quali {
+      background: var(--quali-orange);
+    }
+
+    .ad-meta {
+      line-height: 1.3;
+    }
+
+    .ad-brand-name {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .ad-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .ad-body {
+      padding: 15px;
+      font-size: 13px;
+      color: #e5e7eb;
+      line-height: 1.5;
+    }
+
+    .ad-body p {
+      margin-bottom: 10px;
+    }
+
+    .ad-body p strong {
+      color: var(--zeiss-neon);
+    }
+
+    .ad-image-mock {
+      height: 240px;
+      background: linear-gradient(135deg, #1b263b 0%, #0d1b2a 100%);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    .ad-image-overlay {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--warning-yellow);
+      border: 1px solid rgba(254, 190, 40, 0.4);
+    }
+
+    .ad-mock-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 26px;
+      font-weight: 900;
+      line-height: 1.1;
+      color: white;
+      margin-bottom: 8px;
+    }
+
+    .ad-mock-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 250px;
+    }
+
+    .ad-mock-brand-watermark {
+      position: absolute;
+      bottom: 15px;
+      font-size: 22px;
+      font-weight: 800;
+      opacity: 0.15;
+      color: white;
+      letter-spacing: 1px;
+    }
+
+    .ad-footer {
+      padding: 12px 15px;
+      background: rgba(255, 255, 255, 0.02);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ad-footer-info {
+      line-height: 1.3;
+    }
+
+    .ad-footer-domain {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .ad-footer-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .ad-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border-dark);
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .ad-btn:hover {
+      background: var(--zeiss-light-blue);
+      border-color: var(--zeiss-light-blue);
+    }
+
+    /* INTERACTIVE WHATSAPP SIMULATOR */
+    .simulator-container {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: stretch;
+    }
+
+    /* WhatsApp Window Layout */
+    .whatsapp-window {
+      background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+      background-color: #0b141a;
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-lg);
+      height: 580px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.5);
+    }
+
+    .wa-header {
+      background: #202c33;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .wa-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--zeiss-light-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .wa-status-dot {
+      width: 10px;
+      height: 10px;
+      background-color: var(--success-green);
+      border: 2px solid #202c33;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 1px;
+      right: 1px;
+    }
+
+    .wa-title-container {
+      flex: 1;
+    }
+
+    .wa-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #e9edef;
+    }
+
+    .wa-status {
+      font-size: 11.5px;
+      color: #8696a0;
+    }
+
+    .wa-body {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .wa-bubble {
+      max-width: 75%;
+      padding: 9px 14px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      position: relative;
+      line-height: 1.45;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .wa-bubble.incoming {
+      background: #202c33;
+      color: #e9edef;
+      align-self: flex-start;
+      border-top-left-radius: 0;
+    }
+
+    .wa-bubble.outgoing {
+      background: #005c4b;
+      color: #e9edef;
+      align-self: flex-end;
+      border-top-right-radius: 0;
+    }
+
+    .wa-time {
+      font-size: 9.5px;
+      color: #8696a0;
+      text-align: right;
+      margin-top: 4px;
+      display: block;
+    }
+
+    .wa-bubble.outgoing .wa-time {
+      color: #86f9e5;
+    }
+
+    .wa-footer {
+      background: #202c33;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .wa-input-placeholder {
+      flex: 1;
+      background: #2a3942;
+      border-radius: 8px;
+      padding: 10px 15px;
+      color: #8696a0;
+      font-size: 14px;
+      user-select: none;
+    }
+
+    .wa-send-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--zeiss-light-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* Simulator Panel Controls */
+    .sim-panel {
+      background: var(--panel-dark);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .sim-crm-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-md);
+      padding: 15px;
+    }
+
+    .crm-header {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      border-bottom: 1px solid var(--border-dark);
+      padding-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .crm-badge-active {
+      background: rgba(0, 86, 249, 0.15);
+      border: 1px solid var(--zeiss-light-blue);
+      color: var(--zeiss-neon);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    .crm-field {
+      margin-bottom: 8px;
+      font-size: 12.5px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .crm-field-lbl {
+      color: var(--text-muted);
+    }
+
+    .crm-field-val {
+      font-weight: 600;
+      color: white;
+    }
+
+    .crm-status-tag {
+      background: var(--warning-yellow);
+      color: black;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .crm-status-tag.active {
+      background: var(--zeiss-light-blue);
+      color: white;
+    }
+
+    .crm-status-tag.success {
+      background: var(--success-green);
+      color: white;
+    }
+
+    .sim-actions-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    .sim-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .sim-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-dark);
+      color: var(--text-light);
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.3s, border-color 0.3s;
+      font-family: inherit;
+    }
+
+    .sim-btn:hover {
+      background: rgba(0, 86, 249, 0.1);
+      border-color: var(--zeiss-light-blue);
+    }
+
+    .sim-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      border-color: var(--border-dark);
+    }
+
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 15px;
+      background: #202c33;
+      border-radius: 8px;
+      width: 70px;
+      align-self: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .typing-dot {
+      width: 6px;
+      height: 6px;
+      background: #8696a0;
+      border-radius: 50%;
+      animation: bounce 1.3s infinite;
+    }
+
+    .typing-dot:nth-child(2) { animation-delay: 0.15s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes bounce {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-5px); }
+    }
+
+    /* MASS BROADCAST TIMELINE */
+    .timeline {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      background: var(--border-dark);
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -1px;
+    }
+
+    .timeline-item {
+      padding: 10px 40px;
+      position: relative;
+      background-color: inherit;
+      width: 50%;
+      margin-bottom: 25px;
+    }
+
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      right: -8px;
+      background-color: var(--bg-dark);
+      border: 4px solid var(--zeiss-light-blue);
+      top: 15px;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .left {
+      left: 0;
+    }
+
+    .right {
+      left: 50%;
+    }
+
+    .right::after {
+      left: -8px;
+    }
+
+    .timeline-content {
+      padding: 20px 24px;
+      background: var(--panel-dark);
+      border: 1px solid var(--border-dark);
+      position: relative;
+      border-radius: var(--radius-lg);
+    }
+
+    .timeline-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--zeiss-neon);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .timeline-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: white;
+    }
+
+    .timeline-desc {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .timeline-box-msg {
+      background: rgba(255,255,255,0.02);
+      border-left: 3px solid var(--zeiss-light-blue);
+      padding: 10px 14px;
+      font-size: 12.5px;
+      color: #d1d5db;
+      font-style: italic;
+      border-radius: 0 4px 4px 0;
+    }
+
+    /* MEDIA BUDGET ALLOCATION & CHART */
+    .budget-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .budget-card {
+      background: var(--panel-dark);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+    }
+
+    .budget-bar-container {
+      display: flex;
+      height: 40px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+
+    .budget-segment {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      height: 100%;
+    }
+
+    .segment-captura {
+      background: var(--zeiss-light-blue);
+      width: 70%;
+    }
+
+    .segment-evento {
+      background: var(--quali-orange);
+      width: 30%;
+    }
+
+    .budget-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .legend-color {
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .legend-text {
+      flex: 1;
+      color: var(--text-muted);
+    }
+
+    .legend-val {
+      font-weight: 700;
+      color: white;
+    }
+
+    /* PRESENTATION STEPS FOR CLIENT MEETING */
+    .agenda-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .agenda-card {
+      background: var(--panel-dark);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      position: relative;
+    }
+
+    .agenda-card-num {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 44px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      color: rgba(255,255,255,0.03);
+      line-height: 1;
+    }
+
+    .agenda-card h3 {
+      font-size: 18px;
+      color: white;
+      margin-bottom: 8px;
+      border-left: 3px solid var(--zeiss-neon);
+      padding-left: 10px;
+    }
+
+    .agenda-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* FOOTER */
+    footer {
+      background: #000;
+      border-top: 1px solid var(--border-dark);
+      padding: 40px 5%;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    footer p {
+      margin-bottom: 10px;
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 36px;
+      }
+      .funnel-stage {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+      }
+      .simulator-container {
+        grid-template-columns: 1fr;
+      }
+      .timeline::after {
+        left: 31px;
+      }
+      .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+      }
+      .timeline-item::after {
+        left: 23px;
+      }
+      .right {
+        left: 0%;
+      }
+      .budget-section {
+        grid-template-columns: 1fr;
+      }
+      header {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo-container">
+      <div class="badge-zeiss">ZEISS</div>
+      <div class="badge-quali">QualiÓtica</div>
+      <div class="logo-ww">White Window</div>
+    </div>
+    <nav>
+      <a href="#funil">O Funil</a>
+      <a href="#anuncios">Anúncios</a>
+      <a href="#simulador">Simulador IA</a>
+      <a href="#disparos">Cronograma</a>
+      <a href="#investimento">Investimentos</a>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION -->
+  <div class="hero">
+    <div class="hero-tag">Campanha Exclusiva</div>
+    <h1>Operação Semana Zeiss 2026</h1>
+    <p>Planejamento completo de tráfego, captação, CRM e inteligência artificial para o grupo do franqueado Emerson.</p>
+    <div class="badge-container">
+      <div class="metric-badge">Conta de Anúncios: <strong>act_1301873374785401</strong></div>
+      <div class="metric-badge">Período Previsto: <strong>Agosto / 2026</strong></div>
+      <div class="metric-badge">KPI Principal: <strong>Fluxo de Conversão & Comparecimento</strong></div>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 1: O FUNIL -->
+  <div id="funil" class="section">
+    <div class="section-title">
+      <h2>O Funil de Vendas Integrado</h2>
+      <p>A jornada completa do cliente, desde a visualização de um anúncio de curiosidade até a compra final na loja.</p>
+    </div>
+
+    <div class="funnel-container">
+      <!-- Etapa 1 -->
+      <div class="funnel-stage">
+        <div class="funnel-stage-num">1</div>
+        <div class="funnel-stage-content">
+          <h3>Atração e Curiosidade (Meta Ads)</h3>
+          <p>Anúncios em Meta Ads despertam a curiosidade sobre um desconto inédito de 50% em lentes premium, sem revelar a marca antes do clique.</p>
+        </div>
+        <div class="funnel-stage-badge">Curiosidade Blindada</div>
+      </div>
+      <!-- Etapa 2 -->
+      <div class="funnel-stage">
+        <div class="funnel-stage-num">2</div>
+        <div class="funnel-stage-content">
+          <h3>Página de Captura (Landing Page)</h3>
+          <p>O cliente insere Nome, E-mail, WhatsApp e seleciona a Loja Física de sua preferência para garantir o seu cupom exclusivo de desconto.</p>
+        </div>
+        <div class="funnel-stage-badge">Captação de Lead</div>
+      </div>
+      <!-- Etapa 3 -->
+      <div class="funnel-stage">
+        <div class="funnel-stage-num">3</div>
+        <div class="funnel-stage-content">
+          <h3>Ativação Automatizada (WhatsApp IA + HSales CRM)</h3>
+          <p>Em 2 minutos, o primeiro Agente de IA entra em contato via WhatsApp para confirmar o cupom, fazer a triagem da receita e agendar a visita.</p>
+        </div>
+        <div class="funnel-stage-badge">Triagem & Agendamento</div>
+      </div>
+      <!-- Etapa 4 -->
+      <div class="funnel-stage">
+        <div class="funnel-stage-num">4</div>
+        <div class="funnel-stage-content">
+          <h3>Conversão Física (Na Loja)</h3>
+          <p>O cliente comparece na data agendada com o voucher e receita médica. O vendedor fecha a venda da lente Zeiss com 50% de desconto.</p>
+        </div>
+        <div class="funnel-stage-badge">Fechamento na Loja</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 2: ANÚNCIOS -->
+  <div id="anuncios" class="section">
+    <div class="section-title">
+      <h2>Peças Publicitárias (Curiosidade & Urgência)</h2>
+      <p>Modelos visuais dos criativos que utilizaremos no Meta Ads para as duas fases da campanha.</p>
+    </div>
+
+    <div class="creatives-grid">
+      <!-- Anúncio Fase 1 -->
+      <div class="ad-card">
+        <div class="ad-header">
+          <div class="ad-avatar">WW</div>
+          <div class="ad-meta">
+            <div class="ad-brand-name">Optometria & Estilo</div>
+            <div class="ad-sub">Patrocinado</div>
+          </div>
+        </div>
+        <div class="ad-body">
+          <p>Vem aí a semana mais esperada do ano nas nossas lojas... 🕶️✨</p>
+          <p>Conseguimos uma condição inédita com a maior fabricante de tecnologia de lentes do mundo. **São 50% de desconto** nas lentes mais desejadas do mercado!</p>
+          <p>Os cupons são limitados e serão válidos por apenas 7 dias nas unidades de Niterói, São Gonçalo e Rio de Janeiro. Garanta o seu antes que acabe!</p>
+        </div>
+        <div class="ad-image-mock">
+          <div class="ad-image-overlay">EXPECTATIVA</div>
+          <div class="ad-mock-title">50% OFF</div>
+          <div class="ad-mock-subtitle">Na Semana Mais Esperada do Ano. Clique e Resgate.</div>
+          <div class="ad-mock-brand-watermark">CURIOSIDADE</div>
+        </div>
+        <div class="ad-footer">
+          <div class="ad-footer-info">
+            <div class="ad-footer-domain">GARANTACUPOM.COM</div>
+            <div class="ad-footer-title">Resgate Seu Cupom de 50% OFF</div>
+          </div>
+          <button class="ad-btn">Quero Cupom</button>
+        </div>
+      </div>
+
+      <!-- Anúncio Fase 2 -->
+      <div class="ad-card">
+        <div class="ad-header">
+          <div class="ad-avatar quali">QO</div>
+          <div class="ad-meta">
+            <div class="ad-brand-name">QualiÓtica / Zeiss Center</div>
+            <div class="ad-sub">Patrocinado</div>
+          </div>
+        </div>
+        <div class="ad-body">
+          <p>🚨 **COMEÇOU A SEMANA ZEISS!** 🚨</p>
+          <p>É a sua chance de ter a melhor qualidade de visão do mundo pela **metade do preço**. Lentes Monofocais e Multifocais Zeiss com 50% de desconto real!</p>
+          <p>Não perca tempo: pegue a sua receita oftálmica e venha direto para uma de nossas lojas participantes hoje mesmo. Restam poucos dias!</p>
+        </div>
+        <div class="ad-image-mock" style="background: linear-gradient(135deg, #001233 0%, #002d9c 100%);">
+          <div class="ad-image-overlay" style="border-color: var(--zeiss-neon); color: var(--zeiss-neon);">AO VIVO</div>
+          <div class="ad-mock-title" style="font-size:32px;">SEMANA ZEISS</div>
+          <div class="ad-mock-subtitle" style="color:white; font-weight:700;">50% DE DESCONTO EM LENTES</div>
+          <div class="ad-mock-brand-watermark" style="opacity:0.25;">ZEISS</div>
+        </div>
+        <div class="ad-footer">
+          <div class="ad-footer-info">
+            <div class="ad-footer-domain">ZEISS VISION CENTER</div>
+            <div class="ad-footer-title">Encontre a Loja Mais Próxima</div>
+          </div>
+          <button class="ad-btn" style="background: var(--zeiss-light-blue);">Ver Endereços</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 3: SIMULADOR DE CHAT DA IA -->
+  <div id="simulador" class="section">
+    <div class="section-title">
+      <h2>Simulador de Atendimento da IA</h2>
+      <p>Interaja com o simulador abaixo para ver como os 2 Agentes de IA respondem aos clientes e gerenciam o CRM em tempo real.</p>
+    </div>
+
+    <div class="simulator-container">
+      <!-- WhatsApp Simulation -->
+      <div class="whatsapp-window">
+        <div class="wa-header">
+          <div class="wa-avatar">
+            IA
+            <div class="wa-status-dot"></div>
+          </div>
+          <div class="wa-title-container">
+            <div class="wa-name">Sophia (IA Ativadora)</div>
+            <div class="wa-status">Online (White Window)</div>
+          </div>
+        </div>
+
+        <div class="wa-body" id="chat-messages">
+          <div class="wa-bubble incoming">
+            Olá, Nathan! Aqui é a inteligência artificial da Zeiss & QualiÓtica da unidade Niterói.
+            <br><br>
+            Vi que você acabou de resgatar o seu cupom de 50% de desconto para a nossa exclusiva **Semana Zeiss**! Parabéns por garantir essa oportunidade! 🎉
+            <br><br>
+            Para agilizarmos a fabricação das suas lentes personalizadas, você já possui uma **receita de vista atualizada** (feita nos últimos 6 meses)?
+            <span class="wa-time">10:02</span>
+          </div>
+        </div>
+
+        <div class="wa-footer">
+          <div class="wa-input-placeholder">Selecione uma resposta abaixo...</div>
+          <button class="wa-send-btn">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Controls & CRM -->
+      <div class="sim-panel">
+        <div>
+          <h3 class="sim-actions-title">Ações do Usuário (Nathan)</h3>
+          <div class="sim-options">
+            <button class="sim-btn" onclick="userAnswer('sim', 'Sim, tenho receita atualizada.')" id="btn-sim">"Sim, tenho receita atualizada."</button>
+            <button class="sim-btn" onclick="userAnswer('nao', 'Não tenho receita / está vencida.')" id="btn-nao">"Não tenho receita / está vencida."</button>
+            <button class="sim-btn" onclick="userAnswer('lentes', 'Quais lentes estão na promoção de 50%?')" id="btn-lentes">"Quais lentes entram na promoção?"</button>
+            <button class="sim-btn" onclick="resetSimulator()" style="background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.4); margin-top: 15px;">Reiniciar Simulação</button>
+          </div>
+        </div>
+
+        <div class="sim-crm-card">
+          <div class="crm-header">
+            <span>HSales CRM (Óticas)</span>
+            <div class="crm-badge-active">CONECTADO</div>
+          </div>
+          <div class="crm-field">
+            <span class="crm-field-lbl">Nome do Lead:</span>
+            <span class="crm-field-val">Nathan Silva</span>
+          </div>
+          <div class="crm-field">
+            <span class="crm-field-lbl">Unidade Selecionada:</span>
+            <span class="crm-field-val" style="color: var(--zeiss-neon);">QualiÓtica Niterói</span>
+          </div>
+          <div class="crm-field">
+            <span class="crm-field-lbl">Status da Receita:</span>
+            <span class="crm-field-val" id="crm-receita">Aguardando Triagem</span>
+          </div>
+          <div class="crm-field" style="margin-top: 15px; border-top: 1px solid var(--border-dark); padding-top: 10px;">
+            <span class="crm-field-lbl">Status do Lead:</span>
+            <span class="crm-status-tag" id="crm-status">LEAD CAPTURADO</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 4: CRONOGRAMA DE DISPAROS -->
+  <div id="disparos" class="section">
+    <div class="section-title">
+      <h2>Cronograma de Disparos em Massa</h2>
+      <p>Como vamos engajar a base histórica e as novas capturas por canais de alta conversão.</p>
+    </div>
+
+    <div class="timeline">
+      <!-- Item 1 -->
+      <div class="timeline-item left">
+        <div class="timeline-content">
+          <div class="timeline-tag">PRÉ-CAMPANHA (Fase de Captação)</div>
+          <h3 class="timeline-title">Disparo 1: Base de Clientes Antigos</h3>
+          <p class="timeline-desc">Focado na ativação de clientes antigos, oferecendo acesso VIP e prioritário para resgate de cupons antes da liberação ao grande público.</p>
+          <div class="timeline-box-msg">
+            "Olá! Como cliente vip, viemos te dar acesso antecipado à nossa maior campanha. 50% de desconto em lentes Zeiss. O lote de cupons é limitado. Clique no botão e resgate."
+          </div>
+        </div>
+      </div>
+      <!-- Item 2 -->
+      <div class="timeline-item right">
+        <div class="timeline-content">
+          <div class="timeline-tag">DURANTE O EVENTO (Dia de Abertura)</div>
+          <h3 class="timeline-title">Disparo 2: Ativação Geral (Base Antiga + Nova)</h3>
+          <p class="timeline-desc">Disparado na segunda-feira em que a Semana Zeiss é aberta. Direciona os leads registrados e a base antiga a comparecerem nas respectivas lojas.</p>
+          <div class="timeline-box-msg">
+            "Chegou o momento! A Semana Zeiss começou. Seu cupom de 50% de desconto está ativado e reservado para uso na unidade [Loja]. Traga sua receita médica hoje mesmo."
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 5: DISTRIBUIÇÃO DE INVESTIMENTO -->
+  <div id="investimento" class="section">
+    <div class="section-title">
+      <h2>Alocação de Investimentos no Meta Ads</h2>
+      <p>Planejamento estratégico de verba entre a fase de captação e a realização do evento.</p>
+    </div>
+
+    <div class="budget-section">
+      <!-- Grafico Box -->
+      <div class="budget-card">
+        <h3>Divisão de Verba da Campanha</h3>
+        <p style="color: var(--text-muted); font-size: 13.5px; margin-bottom: 20px;">Recomendação de distribuição para otimização do Custo Por Lead (CPL) e alcance de vizinhança física.</p>
+        <div class="budget-bar-container">
+          <div class="budget-segment segment-captura">70%</div>
+          <div class="budget-segment segment-evento">30%</div>
+        </div>
+        <div class="budget-legend">
+          <div class="legend-item">
+            <div class="legend-color" style="background: var(--zeiss-light-blue);"></div>
+            <div class="legend-text">Fase 1: Captação de Leads (Meta Ads Conversão)</div>
+            <div class="legend-val">70% da Verba</div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: var(--quali-orange);"></div>
+            <div class="legend-text">Fase 2: Semana Zeiss (Meta Ads Alcance/Reconhecimento)</div>
+            <div class="legend-val">30% da Verba</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estrategia Box -->
+      <div class="budget-card">
+        <h3>Detalhes da Estratégia de Mídia</h3>
+        <ul style="font-size: 14px; color: var(--text-muted); display: flex; flex-direction: column; gap: 15px; list-style-type: none;">
+          <li>🔹 <strong>Foco Público 45+:</strong> Baseado no histórico de alta performance da conta blendada, priorizaremos o público de faixa etária mais alta em campanhas de conversão de lente.</li>
+          <li>🔹 <strong>Segmentação Geográfica:</strong> Raio de até 5km ao redor de cada uma das lojas participantes para maximizar a conversão offline.</li>
+          <li>🔹 <strong>Remarketing Crítico:</strong> Disparo contínuo de anúncios de alta frequência para quem gerou o cupom na Landing Page durante a semana active.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 6: CRONOGRAMA DE APRESENTAÇÃO -->
+  <div class="section" style="background: rgba(255,255,255,0.01);">
+    <div class="section-title">
+      <h2>Pauta de Apresentação ao Cliente (Emerson)</h2>
+      <p>Estrutura sugerida do deck de slides para apresentar este projeto de forma impactante.</p>
+    </div>
+
+    <div class="agenda-grid">
+      <div class="agenda-card">
+        <div class="agenda-card-num">01</div>
+        <h3>O Contexto</h3>
+        <p>Mostrar a importância comercial de rodar a Semana Zeiss com tecnologia omnichannel em vez do tráfego direto comum.</p>
+      </div>
+      <div class="agenda-card">
+        <div class="agenda-card-num">02</div>
+        <h3>O Novo Funil</h3>
+        <p>Apresentar o fluxo que retém o lead desde o primeiro anúncio blindado até a geração do cupom na Landing Page.</p>
+      </div>
+      <div class="agenda-card">
+        <div class="agenda-card-num">03</div>
+        <h3>HSales CRM + IA</h3>
+        <p>Demonstrar ao vivo (usando este simulador) como a IA economiza tempo das lojas e agiliza as triagens de exames.</p>
+      </div>
+      <div class="agenda-card">
+        <div class="agenda-card-num">04</div>
+        <h3>Próximos Passos</h3>
+        <p>Cronograma de criação de páginas, upload das listas antigas e integração de telefones na API.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 White Window. Todos os direitos reservados.</p>
+    <p>Agência de Tráfego Pago & Automação Inteligente. Gestão da Conta act_1301873374785401.</p>
+  </footer>
+
+  <!-- JS Interactions -->
+  <script>
+    const chatContainer = document.getElementById('chat-messages');
+    const crmReceita = document.getElementById('crm-receita');
+    const crmStatus = document.getElementById('crm-status');
+    const btnSim = document.getElementById('btn-sim');
+    const btnNao = document.getElementById('btn-nao');
+    const btnLentes = document.getElementById('btn-lentes');
+
+    function resetSimulator() {
+      chatContainer.innerHTML = `
+        <div class="wa-bubble incoming">
+          Olá, Nathan! Aqui é a inteligência artificial da Zeiss & QualiÓtica da unidade Niterói.
+          <br><br>
+          Vi que você acabou de resgatar o seu cupom de 50% de desconto para a nossa exclusiva **Semana Zeiss**! Parabéns por garantir essa oportunidade! 🎉
+          <br><br>
+          Para agilizarmos a fabricação das suas lentes personalizadas, você já possui uma **receita de vista atualizada** (feita nos últimos 6 meses)?
+          <span class="wa-time">10:02</span>
+        </div>
+      `;
+      crmReceita.innerText = "Aguardando Triagem";
+      crmStatus.innerText = "LEAD CAPTURADO";
+      crmStatus.className = "crm-status-tag";
+      btnSim.disabled = false;
+      btnNao.disabled = false;
+      btnLentes.disabled = false;
+    }
+
+    function showTyping() {
+      const typingDiv = document.createElement('div');
+      typingDiv.className = 'typing-indicator';
+      typingDiv.id = 'typing-indicator';
+      typingDiv.innerHTML = `
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+      `;
+      chatContainer.appendChild(typingDiv);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    function removeTyping() {
+      const typingDiv = document.getElementById('typing-indicator');
+      if (typingDiv) {
+        typingDiv.remove();
+      }
+    }
+
+    function appendMessage(text, type, time) {
+      const msg = document.createElement('div');
+      msg.className = `wa-bubble ${type}`;
+      msg.innerHTML = `${text}<span class="wa-time">${time}</span>`;
+      chatContainer.appendChild(msg);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    function userAnswer(key, label) {
+      // Disable buttons
+      btnSim.disabled = true;
+      btnNao.disabled = true;
+      
+      // Append Outgoing Message
+      appendMessage(label, 'outgoing', '10:03');
+      
+      // Start typing simulation for IA reply
+      setTimeout(() => {
+        showTyping();
+        
+        setTimeout(() => {
+          removeTyping();
+          
+          if (key === 'sim') {
+            appendMessage(
+              "Excelente! Com a sua receita em mãos, o processo de produção das lentes Zeiss é muito mais rápido.<br><br>Gostaria de agendar o seu atendimento personalizado na unidade Niterói para garantir que seja atendido sem filas? Nós temos horários VIP disponíveis de segunda a quarta-feira da semana de promoção.", 
+              'incoming', 
+              '10:04'
+            );
+            crmReceita.innerText = "Sim (Tem Receita Válida)";
+            crmStatus.innerText = "AGENDAMENTO EM CURSO";
+            crmStatus.className = "crm-status-tag active";
+          } else if (key === 'nao') {
+            appendMessage(
+              "Perfeito, Nathan. Entendi! A nossa campanha exige a receita oftálmica no momento do pedido. Mas não se preocupe: a QualiÓtica possui parceria com excelentes consultórios ao lado da nossa loja para te ajudar a realizar seu exame rapidamente e com desconto especial.<br><br>Gostaria de que eu agendasse uma consulta de triagem de vista para você antes de ir à loja?", 
+              'incoming', 
+              '10:04'
+            );
+            crmReceita.innerText = "Não (Precisa de Exame)";
+            crmStatus.innerText = "DIRECIONADO P/ EXAME";
+            crmStatus.className = "crm-status-tag active";
+          } else if (key === 'lentes') {
+            appendMessage(
+              "A promoção de **50% de desconto** contempla as lentes oftálmicas premium da Zeiss. Isso inclui lentes monofocais, multifocais, lentes que escurecem no sol com a nova tecnologia *PhotoFusion X*, e lentes de direção de alta definição *DriveSafe*.<br><br>Qual seria o seu tipo principal de uso (óculos para leitura, longe ou multifocal)?", 
+              'incoming', 
+              '10:04'
+            );
+            crmReceita.innerText = "Consultando Detalhes Lentes";
+            crmStatus.innerText = "SUPORTE TÉCNICO IA";
+            crmStatus.className = "crm-status-tag";
+          }
+          
+        }, 1500);
+      }, 500);
+    }
+  </script>
+</body>
+</html>
