@@ -54,8 +54,8 @@
 
     /* TOP BAR */
     .topbar {
-      height: 60px;
-      background: rgba(17, 21, 32, 0.8);
+      height: 70px;
+      background: rgba(17, 21, 32, 0.85);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border-color);
       display: flex;
@@ -94,16 +94,40 @@
       color: white;
     }
 
-    .topbar-hint {
-      font-size: 11px;
-      color: var(--text-muted);
-      background: rgba(255,255,255,0.03);
-      padding: 4px 12px;
-      border-radius: 50px;
+    /* PHASE SWITCHER (TABS) */
+    .phase-switcher {
+      display: flex;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 4px;
+      border-radius: 30px;
       border: 1px solid var(--border-color);
     }
 
-    /* CANVAS WORKSPACE */
+    .phase-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .phase-btn.active {
+      background: var(--zeiss-light-blue);
+      color: white;
+      box-shadow: 0 4px 12px rgba(0, 86, 249, 0.2);
+    }
+
+    .phase-btn:hover:not(.active) {
+      color: white;
+      background: rgba(255,255,255,0.03);
+    }
+
+    /* WORKSPACE */
     .workspace {
       flex: 1;
       display: flex;
@@ -111,42 +135,24 @@
       overflow: hidden;
     }
 
-    .canvas {
+    .canvas-container {
       flex: 1;
       overflow: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       padding: 40px;
-      display: flex;
+    }
+
+    .canvas-view {
+      display: none;
       flex-direction: column;
-      gap: 50px;
-      min-width: 1200px;
-      align-self: center;
-    }
-
-    /* SWIMLANES */
-    .swimlane {
-      display: flex;
       align-items: center;
-      gap: 30px;
       position: relative;
     }
 
-    .swimlane-title {
-      width: 140px;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      border-right: 2px solid var(--border-color);
-      padding-right: 15px;
-      flex-shrink: 0;
-    }
-
-    .nodes-row {
+    .canvas-view.active {
       display: flex;
-      align-items: center;
-      gap: 40px;
-      position: relative;
     }
 
     /* NODE CARDS */
@@ -154,11 +160,12 @@
       background: var(--panel-bg);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
-      width: 230px;
+      width: 220px;
       padding: 16px;
       cursor: pointer;
       position: relative;
       transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      z-index: 2;
     }
 
     .node-card:hover {
@@ -179,9 +186,6 @@
       text-transform: uppercase;
       color: var(--zeiss-neon);
       margin-bottom: 6px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
     }
 
     .node-tag.quali {
@@ -189,36 +193,79 @@
     }
 
     .node-card h3 {
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 700;
       color: white;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .node-card p {
-      font-size: 11.5px;
+      font-size: 11px;
       color: var(--text-muted);
-      line-height: 1.4;
+      line-height: 1.35;
     }
 
-    /* CONNECTOR LINES */
-    .connector-arrow {
-      color: var(--border-color);
-      display: flex;
+    /* --- FASE 1 LAYOUT (RADIAL FLOW) --- */
+    .f1-grid {
+      display: grid;
+      grid-template-columns: 240px 60px 240px 60px 240px;
+      grid-template-rows: 100px 70px 100px 70px 100px;
+      justify-items: center;
       align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+      width: 840px;
+      height: 440px;
     }
 
-    .connector-arrow svg {
-      width: 20px;
-      height: 20px;
-      fill: currentColor;
+    .f1-email { grid-column: 1; grid-row: 1; }
+    .f1-meta { grid-column: 3; grid-row: 1; }
+    .f1-whats { grid-column: 5; grid-row: 1; }
+    .f1-captura { grid-column: 3; grid-row: 3; }
+    .f1-obrigado { grid-column: 3; grid-row: 5; }
+    .f1-crm { grid-column: 5; grid-row: 3; }
+
+    /* SVG Lines & Connectors for Phase 1 */
+    .f1-svg-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
     }
 
-    .node-card.active ~ .connector-arrow {
-      color: var(--zeiss-neon);
+    /* --- FASE 2 LAYOUT (IA FLOW) --- */
+    .f2-grid {
+      display: grid;
+      grid-template-columns: 220px 80px 220px 80px 220px;
+      grid-template-rows: 110px 40px 110px 40px 110px;
+      justify-items: center;
+      align-items: center;
+      width: 820px;
+      height: 410px;
     }
+
+    .f2-crm { grid-column: 1; grid-row: 1; }
+    .f2-ia-ativadora { grid-column: 3; grid-row: 1; }
+    .f2-ia-consultora { grid-column: 3; grid-row: 3; }
+    .f2-status-receita { grid-column: 5; grid-row: 1; }
+    .f2-agendamento { grid-column: 5; grid-row: 3; }
+    .f2-exame { grid-column: 5; grid-row: 5; }
+
+    /* --- FASE 3 LAYOUT (EVENTO active) --- */
+    .f3-grid {
+      display: grid;
+      grid-template-columns: 220px 120px 220px;
+      grid-template-rows: 100px 80px 100px;
+      justify-items: center;
+      align-items: center;
+      width: 560px;
+      height: 280px;
+    }
+
+    .f3-ad-alcance { grid-column: 1; grid-row: 1; }
+    .f3-whats-massa { grid-column: 1; grid-row: 3; }
+    .f3-loja { grid-column: 3; grid-row: 2; }
 
     /* SIDE DRAWER (DETAIL PANEL) */
     .drawer {
@@ -229,7 +276,6 @@
       flex-direction: column;
       z-index: 5;
       flex-shrink: 0;
-      transition: transform 0.3s ease;
       box-shadow: -10px 0 30px rgba(0,0,0,0.5);
     }
 
@@ -293,7 +339,7 @@
       left: 0;
     }
 
-    /* DYNAMIC CONTENT LAYOUTS */
+    /* MOCKUPS */
     .preview-box {
       border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
@@ -301,7 +347,7 @@
       padding: 15px;
     }
 
-    /* Ad Mockup inside Drawer */
+    /* Ad Mockup */
     .ad-preview {
       display: flex;
       flex-direction: column;
@@ -341,7 +387,7 @@
     }
 
     .ad-p-media {
-      height: 160px;
+      height: 150px;
       background: linear-gradient(135deg, #16222f 0%, #080f18 100%);
       display: flex;
       flex-direction: column;
@@ -364,10 +410,6 @@
       color: var(--text-muted);
     }
 
-    .ad-p-media p strong {
-      color: var(--zeiss-neon);
-    }
-
     .ad-p-footer {
       padding: 10px;
       display: flex;
@@ -387,13 +429,13 @@
       font-size: 10.5px;
     }
 
-    /* WhatsApp Simulator Inside Drawer */
+    /* WhatsApp Simulator */
     .wa-preview {
       background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
       background-color: #0b141a;
       border: 1px solid var(--border-color);
       border-radius: 8px;
-      height: 380px;
+      height: 340px;
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -500,7 +542,7 @@
       cursor: not-allowed;
     }
 
-    /* CRM Badge custom inside Drawer */
+    /* CRM Badge */
     .crm-mini-card {
       background: rgba(255,255,255,0.02);
       border: 1px solid var(--border-color);
@@ -533,7 +575,7 @@
       border-radius: 4px;
     }
 
-    /* Page Wireframe Mock */
+    /* Wireframe */
     .wireframe {
       border: 1px solid var(--border-color);
       border-radius: 6px;
@@ -585,7 +627,7 @@
       grid-column: span 2;
     }
 
-    /* Typing Animation */
+    /* Typing */
     .wa-p-typing {
       display: flex;
       gap: 3px;
@@ -618,9 +660,10 @@
         flex-direction: column;
         overflow-y: auto;
       }
-      .canvas {
-        min-width: 100%;
+      .canvas-container {
+        padding: 20px;
         overflow-x: auto;
+        justify-content: flex-start;
       }
       .drawer {
         width: 100%;
@@ -638,141 +681,175 @@
     <div class="brand-group">
       <div class="brand-pill">ZEISS</div>
       <div class="brand-pill quali">QualiÓtica</div>
-      <span class="topbar-title">Mapa de Ações da Campanha</span>
+      <span class="topbar-title" id="main-flow-title">Semana Zeiss 2026 — Fluxo de Ações</span>
     </div>
-    <div class="topbar-hint">Clique em qualquer nó para abrir o detalhamento da ação</div>
+    <!-- SWITCHER -->
+    <div class="phase-switcher">
+      <button class="phase-btn active" id="btn-fase1" onclick="switchPhase(1)">Fase 1: Captação</button>
+      <button class="phase-btn" id="btn-fase2" onclick="switchPhase(2)">Fase 2: Automação IA</button>
+      <button class="phase-btn" id="btn-fase3" onclick="switchPhase(3)">Fase 3: Evento & Venda</button>
+    </div>
   </div>
 
   <!-- WORKSPACE -->
   <div class="workspace">
-    <!-- CANVAS -->
-    <div class="canvas">
+    <!-- CANVAS CONTAINER -->
+    <div class="canvas-container">
       
-      <!-- LANE 1: ATRAÇÃO & CAPTURA -->
-      <div class="swimlane">
-        <div class="swimlane-title">1. Atração & Captura</div>
-        <div class="nodes-row">
+      <!-- FASE 1: CAPTAÇÃO DE LEADS (RADIAL SYSTEM) -->
+      <div class="canvas-view active" id="view-fase1">
+        <div class="f1-grid">
           
-          <!-- Node 1 -->
-          <div class="node-card active" id="node-ad-fase1" onclick="selectNode('ad-fase1')">
+          <!-- Nodes -->
+          <div class="node-card f1-email" id="node-disp-email" onclick="selectNode('disp-email')">
+            <div class="node-tag">E-mail</div>
+            <h3>E-mail Marketing</h3>
+            <p>Disparo antecipado para a base antiga de clientes.</p>
+          </div>
+
+          <div class="node-card f1-meta active" id="node-ad-fase1" onclick="selectNode('ad-fase1')">
             <div class="node-tag">Meta Ads</div>
-            <h3>Anúncios Curiosidade</h3>
-            <p>Anúncios chamando pelo desconto de 50% sem citar a marca Zeiss.</p>
-          </div>
-          
-          <!-- Arrow -->
-          <div class="connector-arrow">
-            <svg viewBox="0 0 24 24"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42L16.86 11H5v2z"/></svg>
+            <h3>Expectativa</h3>
+            <p>Anúncios de curiosidade sem revelar a marca parceira.</p>
           </div>
 
-          <!-- Node 2 -->
-          <div class="node-card" id="node-disp-base" onclick="selectNode('disp-base')">
-            <div class="node-tag">Whats Base</div>
-            <h3>VIP Base Antiga</h3>
-            <p>Acesso antecipado para ex-clientes garantirem cupom antes do público.</p>
+          <div class="node-card f1-whats" id="node-disp-base" onclick="selectNode('disp-base')">
+            <div class="node-tag">WhatsApp VIP</div>
+            <h3>Disparo 1 (Whats)</h3>
+            <p>Campanha para ex-clientes garantirem o cupom inicial.</p>
           </div>
 
-          <!-- Arrow -->
-          <div class="connector-arrow">
-            <svg viewBox="0 0 24 24"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42L16.86 11H5v2z"/></svg>
-          </div>
-
-          <!-- Node 3 -->
-          <div class="node-card" id="node-lp-captura" onclick="selectNode('lp-captura')">
-            <div class="node-tag">Landing Page</div>
+          <div class="node-card f1-captura" id="node-lp-captura" onclick="selectNode('lp-captura')">
+            <div class="node-tag quali">Landing Page</div>
             <h3>Página de Captura</h3>
-            <p>Formulário limpo de 4 campos. Coleta dados e preferência de loja.</p>
+            <p>Formulário de 4 campos. Escolha da loja preferencial.</p>
           </div>
 
-          <!-- Arrow -->
-          <div class="connector-arrow">
-            <svg viewBox="0 0 24 24"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42L16.86 11H5v2z"/></svg>
+          <div class="node-card f1-obrigado" id="node-lp-obrigado" onclick="selectNode('lp-obrigado')">
+            <div class="node-tag quali">Revelação</div>
+            <h3>Página Obrigado</h3>
+            <p>Entrega do cupom e anúncio da Semana Zeiss.</p>
           </div>
 
-          <!-- Node 4 -->
-          <div class="node-card" id="node-lp-obrigado" onclick="selectNode('lp-obrigado')">
-            <div class="node-tag">Página Obrigado</div>
-            <h3>Voucher & Revelação</h3>
-            <p>Entrega do cupom e revelação da parceria oficial da Zeiss.</p>
+          <div class="node-card f1-crm" id="node-crm-hsales" onclick="selectNode('crm-hsales')">
+            <div class="node-tag quali">CRM</div>
+            <h3>Dados / Lista</h3>
+            <p>Leads alimentados na base de contatos do HSales.</p>
           </div>
+
+          <!-- SVG Arrows connecting nodes in Fase 1 -->
+          <svg class="f1-svg-layer">
+            <defs>
+              <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#3a4556" />
+              </marker>
+              <marker id="arrow-active" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#00d2ff" />
+              </marker>
+            </defs>
+            <!-- Email -> Capture Page -->
+            <line x1="120" y1="100" x2="260" y2="185" stroke="#3a4556" stroke-width="2" marker-end="url(#arrow)" />
+            <!-- Meta -> Capture Page -->
+            <line x1="420" y1="100" x2="420" y2="175" stroke="#00d2ff" stroke-width="2" marker-end="url(#arrow-active)" />
+            <!-- Whats -> Capture Page -->
+            <line x1="720" y1="100" x2="580" y2="185" stroke="#3a4556" stroke-width="2" marker-end="url(#arrow)" />
+            
+            <!-- Capture Page -> Obrigado Page -->
+            <line x1="420" y1="280" x2="420" y2="330" stroke="#3a4556" stroke-width="2" marker-end="url(#arrow)" />
+            <!-- Capture Page -> CRM (Dados Lista) -->
+            <line x1="530" y1="230" x2="610" y2="230" stroke="#3a4556" stroke-width="2" marker-end="url(#arrow)" />
+          </svg>
 
         </div>
       </div>
 
-      <!-- LANE 2: AUTOMAÇÃO & IA -->
-      <div class="swimlane">
-        <div class="swimlane-title">2. Automação & CRM</div>
-        <div class="nodes-row">
+      <!-- FASE 2: AUTOMAÇÃO IA & TRIAGEM -->
+      <div class="canvas-view" id="view-fase2">
+        <div class="f2-grid">
           
-          <!-- Node 5 -->
-          <div class="node-card" id="node-crm-hsales" onclick="selectNode('crm-hsales')">
-            <div class="node-tag quali">HSales CRM</div>
-            <h3>Integração Óticas</h3>
-            <p>Cadastro automático do lead com loja de escolha e status da receita.</p>
+          <div class="node-card f2-crm" id="node-crm-hsales-f2" onclick="selectNode('crm-hsales-f2')">
+            <div class="node-tag quali">CRM</div>
+            <h3>Dados / Lista</h3>
+            <p>Leads alimentados na base de contatos do HSales.</p>
           </div>
 
-          <!-- Arrow -->
-          <div class="connector-arrow">
-            <svg viewBox="0 0 24 24"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42L16.86 11H5v2z"/></svg>
-          </div>
-
-          <!-- Node 6 -->
-          <div class="node-card" id="node-ia-ativadora" onclick="selectNode('ia-ativadora')">
+          <div class="node-card f2-ia-ativadora" id="node-ia-ativadora" onclick="selectNode('ia-ativadora')">
             <div class="node-tag">IA WhatsApp</div>
             <h3>Agente 1: Ativação</h3>
-            <p>Triagem automática no WhatsApp: detecta exame/receita e agenda visita.</p>
+            <p>Dispara pós-cadastro. Triagem de receitas e horários.</p>
           </div>
 
-          <!-- Arrow -->
-          <div class="connector-arrow">
-            <svg viewBox="0 0 24 24"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42L16.86 11H5v2z"/></svg>
-          </div>
-
-          <!-- Node 7 -->
-          <div class="node-card" id="node-ia-consultora" onclick="selectNode('ia-consultora')">
+          <div class="node-card f2-ia-consultora" id="node-ia-consultora" onclick="selectNode('ia-consultora')">
             <div class="node-tag">IA WhatsApp</div>
             <h3>Agente 2: Consultor</h3>
-            <p>FAQ técnico sobre lentes Zeiss (PhotoFusion X, DriveSafe, etc).</p>
+            <p>Responde dúvidas técnicas e regras da promoção Zeiss.</p>
           </div>
+
+          <div class="node-card f2-status-receita" id="node-status-receita" onclick="selectNode('status-receita')">
+            <div class="node-tag">Triagem</div>
+            <h3>Verificação Receita</h3>
+            <p>IA identifica se o cliente tem receita atualizada.</p>
+          </div>
+
+          <div class="node-card f2-agendamento" id="node-agendamento" onclick="selectNode('agendamento')">
+            <div class="node-tag quali">VIP</div>
+            <h3>Agendamento Loja</h3>
+            <p>Agendamento VIP direto na loja física escolhida.</p>
+          </div>
+
+          <div class="node-card f2-exame" id="node-exame" onclick="selectNode('exame')">
+            <div class="node-tag quali">Exame</div>
+            <h3>Consulta Exame</h3>
+            <p>Direcionado para consulta/exame em parceiro local.</p>
+          </div>
+
+          <!-- SVG Arrows connecting nodes in Fase 2 -->
+          <svg class="f1-svg-layer">
+            <!-- CRM -> IA Ativadora -->
+            <line x1="220" y1="55" x2="290" y2="55" stroke="#3a4556" stroke-width="2" marker-end="url(#arrow)" />
+            <!-- IA Ativadora -> Triagem Receita -->
+            <line x1="510" y1="55" x2="590" y2="55" stroke="#3a4556" stroke-width="2" marker-end="url(#arrow)" />
+            <!-- IA Ativadora -> IA Consultora -->
+            <line x1="400" y1="110" x2="400" y2="155" stroke="#3a4556" stroke-width="2" marker-end="url(#arrow)" />
+            
+            <!-- Triagem Receita -> Agendamento (Tem Receita) -->
+            <line x1="700" y1="110" x2="700" y2="155" stroke="#3a4556" stroke-width="2" marker-end="url(#arrow)" />
+            <!-- Triagem Receita -> Exame (Não tem Receita) -->
+            <path d="M 700 110 L 700 130 L 780 130 L 780 325" fill="none" stroke="#3a4556" stroke-width="2" marker-end="url(#arrow)" />
+          </svg>
 
         </div>
       </div>
 
-      <!-- LANE 3: EVENTO & LOJA -->
-      <div class="swimlane">
-        <div class="swimlane-title">3. Evento & Venda</div>
-        <div class="nodes-row">
+      <!-- FASE 3: SEMANA ZEISS (EVENTO) -->
+      <div class="canvas-view" id="view-fase3">
+        <div class="f3-grid">
           
-          <!-- Node 8 -->
-          <div class="node-card" id="node-disp-abertura" onclick="selectNode('disp-abertura')">
-            <div class="node-tag">Whats Massa</div>
-            <h3>Abertura da Semana</h3>
-            <p>Mensagem direta a toda a base no dia em que as vendas iniciam.</p>
-          </div>
-
-          <!-- Arrow -->
-          <div class="connector-arrow">
-            <svg viewBox="0 0 24 24"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42L16.86 11H5v2z"/></svg>
-          </div>
-
-          <!-- Node 9 -->
-          <div class="node-card" id="node-ad-alcance" onclick="selectNode('ad-alcance')">
+          <div class="node-card f3-ad-alcance" id="node-ad-alcance" onclick="selectNode('ad-alcance')">
             <div class="node-tag">Meta Ads</div>
             <h3>Alcance Local</h3>
-            <p>Campanhas com raio de 3km ao redor das lojas reforçando urgência.</p>
+            <p>Anúncios no raio de 3km chamando público para ir à loja.</p>
           </div>
 
-          <!-- Arrow -->
-          <div class="connector-arrow">
-            <svg viewBox="0 0 24 24"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42L16.86 11H5v2z"/></svg>
+          <div class="node-card f3-whats-massa" id="node-disp-abertura" onclick="selectNode('disp-abertura')">
+            <div class="node-tag">WhatsApp</div>
+            <h3>Disparo 2 (Abertura)</h3>
+            <p>Convite oficial e roteiro de rota enviado a toda a base.</p>
           </div>
 
-          <!-- Node 10 -->
-          <div class="node-card" id="node-loja-fisica" onclick="selectNode('loja-fisica')">
-            <div class="node-tag quali">Conversão</div>
+          <div class="node-card f3-loja" id="node-loja-fisica" onclick="selectNode('loja-fisica')">
+            <div class="node-tag quali">Lojas</div>
             <h3>Fechamento Físico</h3>
-            <p>Cliente leva receita e cupom para fechar compra em uma das 6 lojas.</p>
+            <p>Visita presencial com receita e cupom ativado (50% Lente).</p>
           </div>
+
+          <!-- SVG Arrows connecting nodes in Fase 3 -->
+          <svg class="f1-svg-layer">
+            <!-- Ad Alcance -> Loja -->
+            <line x1="220" y1="50" x2="330" y2="130" stroke="#3a4556" stroke-width="2" marker-end="url(#arrow)" />
+            <!-- Whats Massa -> Loja -->
+            <line x1="220" y1="230" x2="330" y2="150" stroke="#3a4556" stroke-width="2" marker-end="url(#arrow)" />
+          </svg>
 
         </div>
       </div>
@@ -794,6 +871,19 @@
   <!-- Javascript Logic -->
   <script>
     const data = {
+      'disp-email': {
+        tag: 'E-MAIL MARKETING',
+        title: 'E-mail Base Antiga',
+        description: 'Envio de e-mail marketing estruturado para a base de clientes inativos e antigos da Zeiss e QualiÓtica.',
+        points: [
+          'Disparo simultâneo ao WhatsApp VIP no início da captação',
+          'Copy focada em privilégio e acesso restrito antes do público geral',
+          'Link direcionando direto para o formulário da Landing Page'
+        ],
+        previewType: 'text',
+        boxTitle: 'Modelo de E-mail (HTML)',
+        boxContent: 'Assunto: [Acesso VIP] Você foi selecionado para 50% de desconto em Lentes Zeiss\n\nOlá, [Nome].\n\nComo cliente especial da QualiÓtica, estamos te dando a oportunidade de participar da pré-reserva da Semana Zeiss.\n\nPela primeira vez, teremos 50% de desconto nas lentes mais renomadas do mundo. O lote de cupons é estritamente limitado por CPF.\n\nGaranta seu cupom de desconto antes que a promoção seja aberta ao público geral:\n\n[QUERO MEU CUPOM DE 50% OFF]'
+      },
       'ad-fase1': {
         tag: 'META ADS (CURIOSIDADE)',
         title: 'Anúncios Curiosidade',
@@ -872,6 +962,24 @@
           tagClass: ''
         }
       },
+      'crm-hsales-f2': {
+        tag: 'INTEGRAÇÃO CRM (HSALES)',
+        title: 'HSales para Óticas',
+        description: 'Ficha do CRM com informações de cadastro do lead. Inicia o processo automático de atendimento de IA pós-captação.',
+        points: [
+          'Alimenta o pipeline automaticamente no Kanban',
+          'Registra loja escolhida no formulário',
+          'Notifica a inteligência artificial para iniciar o contato'
+        ],
+        previewType: 'crm',
+        crm: {
+          name: 'Nathan Silva',
+          store: 'QualiÓtica Niterói',
+          prescription: 'Aguardando Triagem',
+          status: 'LEAD CAPTURADO',
+          tagClass: ''
+        }
+      },
       'ia-ativadora': {
         tag: 'AUTOMAÇÃO & IA (WHATSAPP)',
         title: 'Agente 1: Ativação',
@@ -913,6 +1021,45 @@
           lentes: { prescription: 'Consultou Produtos', status: 'SUPORTE TÉCNICO IA', tagClass: '' },
           regras: { prescription: 'Consultou Regras', status: 'SUPORTE TÉCNICO IA', tagClass: '' }
         }
+      },
+      'status-receita': {
+        tag: 'TRIAGEM DE ATENDIMENTO',
+        title: 'Verificação Receita',
+        description: 'Processo lógico executado pela IA para validar as condições médicas do lead necessárias para fechar a venda de grau.',
+        points: [
+          'Verificação de validade temporal (últimos 6 meses)',
+          'Identificação da necessidade de óculos de perto, longe ou multifocal',
+          'Ajuste de agendamento: receita pronta ➔ loja; receita pendente ➔ consulta'
+        ],
+        previewType: 'text',
+        boxTitle: 'Perguntas Críticas de Triagem',
+        boxContent: '1. "Você já passou por consulta com oftalmologista recentemente?"\n2. "Tem a receita guardada em papel ou digitalizada?"\n3. "Sua receita tem data menor que 6 meses a partir de hoje?"'
+      },
+      'agendamento': {
+        tag: 'AGENDAMENTO (SUCCESS PATH)',
+        title: 'Agendamento Loja',
+        description: 'Lead que concluiu a triagem com receita apta é agendado diretamente em horários selecionados da loja, criando um atendimento personalizado e sem filas.',
+        points: [
+          'Envia dados de horário do lead diretamente para a equipe física',
+          'Notifica o cliente via WhatsApp 24 horas antes do agendamento',
+          'Salva dados de cupom e CPF atrelados no HSales CRM'
+        ],
+        previewType: 'text',
+        boxTitle: 'Estrutura do Convite / Confirmação',
+        boxContent: '"Nathan, seu atendimento VIP está confirmado!\n\n📅 Data: Quarta-feira, 12 de Agosto\n🕒 Horário: 14h30\n📍 Unidade: QualiÓtica Niterói\n\nNossos consultores estarão te aguardando com o laboratório pronto para aferição. Traga sua receita!"'
+      },
+      'exame': {
+        tag: 'DIRECIONAMENTO EXAME',
+        title: 'Consulta / Exame',
+        description: 'Lead que não possui receita válida é redirecionado para agendar um exame de vista rápido na rede parceira credenciada da QualiÓtica/Zeiss.',
+        points: [
+          'Indicação de consultórios parceiros vizinhos à loja física',
+          'IA ajuda no agendamento do exame com tarifa especial de parceria',
+          'Garante que o lead consiga a receita antes de expirar a Semana Zeiss'
+        ],
+        previewType: 'text',
+        boxTitle: 'Mensagem de Encaminhamento a Oftalmo',
+        boxContent: '"Sem problemas! Podemos te ajudar a realizar seu exame. Nós temos parceria com a Clínica [Nome], localizada ao lado de nossa loja de Niterói. O exame de vista lá sai por R$ 50 para nossos clientes da promoção. Gostaria de agendar para amanhã na parte da manhã?"'
       },
       'disp-abertura': {
         tag: 'DISPARO WHATSAPP (EVENTO)',
@@ -965,17 +1112,43 @@
 
     let activeNodeId = 'ad-fase1';
 
+    function switchPhase(phaseNum) {
+      // Toggle active button
+      document.querySelectorAll('.phase-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('btn-fase' + phaseNum).classList.add('active');
+
+      // Toggle active view
+      document.querySelectorAll('.canvas-view').forEach(view => view.classList.remove('active'));
+      document.getElementById('view-fase' + phaseNum).classList.add('active');
+
+      // Reset active node for new view
+      if (phaseNum === 1) {
+        selectNode('ad-fase1');
+      } else if (phaseNum === 2) {
+        selectNode('crm-hsales-f2');
+      } else if (phaseNum === 3) {
+        selectNode('ad-alcance');
+      }
+    }
+
     function selectNode(id) {
-      // Remove active class from all nodes
+      // Remove active class from all node cards
       document.querySelectorAll('.node-card').forEach(card => card.classList.remove('active'));
-      // Add active class to clicked node
-      document.getElementById('node-' + id).classList.add('active');
+      
+      // Add active class to corresponding cards (handle f2 duplicate ID mapping)
+      const element = document.getElementById('node-' + id);
+      if (element) {
+        element.classList.add('active');
+      }
+      
       activeNodeId = id;
       renderDrawer();
     }
 
     function renderDrawer() {
       const node = data[activeNodeId];
+      if (!node) return;
+      
       document.getElementById('drawer-tag').innerText = node.tag;
       document.getElementById('drawer-title').innerText = node.title;
 
