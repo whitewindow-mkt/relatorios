@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voucher Confirmado | Semana Zeiss 50% OFF</title>
+    <meta name="description" content="Seu cupom de 50% de desconto foi liberado com sucesso. Veja como retirar seu óculos na loja física do Grupo Emerson.">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Icons (Lucide Icons via CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="thankyou-page">
+
+    <!-- Full-screen Blurred Zeiss Store Background (Unblurred/Sharp on Thank You Page) -->
+    <div class="full-screen-bg" id="bg-container">
+        <div class="bg-dark-overlay"></div>
+    </div>
+
+    <main class="main-container center-layout">
+        
+        <!-- FLOATING THANK YOU CARD -->
+        <section class="card form-card">
+            
+            <!-- Campaign Tagline (Scent match with Meta Ads reference) -->
+            <div class="campaign-tag-wrapper">
+                <div class="campaign-badge" style="background: #10b981; color: white;">
+                    <i data-lucide="shield-check" class="bell-icon" style="width: 13px; height: 13px; color: #ffffff;"></i>
+                    <span>CUPOM DESBLOQUEADO</span>
+                </div>
+                <h1 class="campaign-main-title">Vem aí: Semana Zeiss<br>de 20 a 27 de Agosto</h1>
+                <p class="campaign-sub-title" style="text-transform: none; font-size: 0.85rem; letter-spacing: 0px; font-weight: 500; color: var(--text-primary); margin-top: 0.5rem; line-height: 1.45;">
+                    Parabéns, <span id="lead-name" style="color: var(--zeiss-blue); font-weight: 700;">Nathan</span>! Visite a unidade <span id="selected-store-text" style="color: var(--zeiss-blue); font-weight: 700;">Loja</span><br>para aproveitar o seu desconto de 50%.
+                </p>
+            </div>
+
+            <!-- Metallic VIP Voucher Card (Simplified, no code) -->
+            <div class="voucher-card">
+                <div class="voucher-header">
+                    <span class="voucher-title">VIP VOUCHER</span>
+                    <span style="font-size: 0.65rem; color: var(--neon-cyan); font-weight: 700; background: rgba(0, 200, 255, 0.1); padding: 0.15rem 0.4rem; border-radius: 4px; border: 1px solid rgba(0, 200, 255, 0.2);">SEMANA ZEISS</span>
+                </div>
+                
+                <div class="voucher-discount" style="margin-bottom: 0.5rem;">50% <span>OFF</span></div>
+                <div style="color: var(--text-secondary); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1.2rem; font-weight: 500;">Nas Melhores Lentes do Mundo</div>
+                
+                <!-- Customer chosen store info -->
+                <div class="store-info-box">
+                    <div class="store-info-title">Sua unidade física de preferência:</div>
+                    <div class="store-info-name" id="selected-store">Aguardando dados...</div>
+                </div>
+            </div>
+            
+            <!-- Dynamic Actions Grid -->
+            <div class="action-buttons-grid">
+                <!-- WhatsApp redirection to booking support -->
+                <a href="#" class="btn-action whatsapp" id="whatsapp-link" target="_blank">
+                    <i data-lucide="message-square" style="width: 16px; height: 16px;"></i>
+                    <span>Agendar no WhatsApp</span>
+                </a>
+                
+                <!-- Google Maps redirection dynamic -->
+                <a href="#" class="btn-action maps" id="maps-link" target="_blank">
+                    <i data-lucide="map-pin" style="width: 16px; height: 16px;"></i>
+                    <span>Ver Rota da Loja</span>
+                </a>
+            </div>
+            
+            <!-- Receita Warning Alert Box (Important notice explaining prescription exam booking) -->
+            <div class="rules-checklist" style="border: 1px solid rgba(239, 68, 68, 0.2); background: rgba(239, 68, 68, 0.05); margin-bottom: 1.2rem; border-radius: 12px; padding: 1rem; text-align: left;">
+                <h3 style="color: var(--error); font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 0.4rem; font-family: var(--font-sans);">
+                    <i data-lucide="alert-triangle" style="width: 16px; height: 16px;"></i> Importante: Receita de Óculos
+                </h3>
+                <p style="font-size: 0.8rem; color: var(--text-primary); line-height: 1.4; font-family: var(--font-sans);">
+                    Para validar os seus 50% de desconto, apresente sua receita médica recente na loja física. 
+                    <strong>Não tem receita válida?</strong> Fale com nossa equipe no WhatsApp acima para agendarmos o seu exame de vista parceiro!
+                </p>
+            </div>
+
+            <!-- Rules checklist -->
+            <div class="rules-checklist">
+                <h3 class="rules-title">Como utilizar o seu desconto:</h3>
+                
+                <div class="rules-item">
+                    <span class="check">✓</span>
+                    <p>Apresente um documento com foto na unidade selecionada.</p>
+                </div>
+                <div class="rules-item">
+                    <span class="check">✓</span>
+                    <p>O desconto de 50% é condicionado ao limite de **1 par de lentes por CPF**.</p>
+                </div>
+                <div class="rules-item">
+                    <span class="check">✓</span>
+                    <p>Válido exclusivamente para atendimento físico presencial para medição do centro óptico.</p>
+                </div>
+                <div class="rules-item">
+                    <span class="check">✓</span>
+                    <p>Leve este cupom digital copiado ou tire um print da tela para validação no caixa.</p>
+                </div>
+            </div>
+
+            <!-- Logo block at the bottom of the card (Ad footer match) -->
+            <div class="logo-container">
+                <svg viewBox="0 0 100 45" style="width: 38px; height: 17px; fill: none; overflow: visible;">
+                    <path d="M 0 10 C 25 -5, 35 25, 60 10 C 85 -5, 90 20, 100 12 C 85 22, 75 -2, 50 10 C 25 22, 15 -2, 0 10 Z" fill="#4b5563"/>
+                    <path d="M 0 18 C 25 3, 35 33, 60 18 C 85 3, 90 28, 100 20 C 85 30, 75 6, 50 18 C 25 30, 15 6, 0 18 Z" fill="#ef4444"/>
+                    <path d="M 0 26 C 25 11, 35 41, 60 26 C 85 11, 90 36, 100 28 C 85 38, 75 14, 50 26 C 25 38, 15 14, 0 26 Z" fill="#0050ff"/>
+                </svg>
+                <span style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.15rem; color: #111827; letter-spacing: -0.5px; line-height: 1;">QualiÓtica</span>
+                <span style="height: 18px; width: 1px; background: rgba(0,0,0,0.12); margin: 0 0.2rem;"></span>
+                <div class="logo-badge" style="background: #0050ff; box-shadow: 0 0 12px rgba(0, 80, 255, 0.45); color: white; font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 4px; letter-spacing: 1px; font-size: 0.9rem;">ZEISS</div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Grupo Emerson. Todos os direitos reservados. Promoção exclusiva para as lojas físicas da rede Zeiss Vision Center e QualiÓtica parceiras do Grupo Emerson. Imagens meramente ilustrativas.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load icons
+            lucide.createIcons();
+
+            // 1. Retrieve saved lead data
+            const rawData = localStorage.getItem('zeiss_lead_data');
+            let name = 'Nathan';
+            let store = 'Zeiss Vision Center - Niterói (Icaraí)';
+            
+            if (rawData) {
+                try {
+                    const leadData = JSON.parse(rawData);
+                    name = leadData.nome || 'Nathan';
+                    store = leadData.loja || store;
+                } catch(e) {
+                    console.error('Erro ao ler localStorage', e);
+                }
+            }
+
+            // Capitalize first name for friendly layout
+            const firstName = name.split(' ')[0];
+            document.getElementById('lead-name').textContent = firstName;
+            document.getElementById('selected-store').textContent = store;
+            
+            // Set dynamic selected store in the upper subtitle text
+            const storeTextEl = document.getElementById('selected-store-text');
+            if (storeTextEl) {
+                storeTextEl.textContent = store;
+            }
+
+            // 2. Map coordinates & links for Google Maps based on selected store
+            const storeMapsQueryMap = {
+                'Zeiss Vision Center - Niterói (Icaraí)': 'Zeiss+Vision+Center+Icarai+Niteroi',
+                'Zeiss Vision Center - São Gonçalo (Centro)': 'Zeiss+Vision+Center+Sao+Goncalo',
+                'QualiÓtica - Niterói (Icaraí)': 'QualiOtica+Icarai+Niteroi',
+                'QualiÓtica - São Gonçalo (Partage)': 'QualiOtica+Partage+Shopping+Sao+Goncalo',
+                'QualiÓtica - Rio de Janeiro (Centro)': 'QualiOtica+Centro+Rio+de+Janeiro'
+            };
+
+            const mapsQuery = storeMapsQueryMap[store] || 'Zeiss+Vision+Center+Icarai+Niteroi';
+            document.getElementById('maps-link').href = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
+
+            // 3. Dynamic WhatsApp Message Construction for booking/FAQ with AI
+            const whatsappNumber = '5521999999999'; // In production, this points to their official HSales channel
+            
+            const rawMessage = `Olá! Acabei de garantir meu desconto da Semana Zeiss. Meu nome é ${name}, escolhi a unidade "${store}" e gostaria de agendar meu atendimento ou marcar meu exame de vista parceiro.`;
+            const encodedMessage = encodeURIComponent(rawMessage);
+            document.getElementById('whatsapp-link').href = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
+        });
+    </script>
+</body>
+</html>
