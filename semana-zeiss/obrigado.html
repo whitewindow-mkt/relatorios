@@ -127,7 +127,7 @@
             // 1. Retrieve saved lead data
             const rawData = localStorage.getItem('zeiss_lead_data');
             let name = 'Nathan';
-            let store = 'Zeiss Vision Center - Niterói (Icaraí)';
+            let store = 'Zeiss Vision Center - Icaraí (Niterói)';
             
             if (rawData) {
                 try {
@@ -150,21 +150,86 @@
                 storeTextEl.textContent = store;
             }
 
-            // 2. Map coordinates & links for Google Maps based on selected store
-            const storeMapsQueryMap = {
-                'Zeiss Vision Center - Niterói (Icaraí)': 'Zeiss+Vision+Center+Icarai+Niteroi',
-                'Zeiss Vision Center - São Gonçalo (Centro)': 'Zeiss+Vision+Center+Sao+Goncalo',
-                'QualiÓtica - Niterói (Icaraí)': 'QualiOtica+Icarai+Niteroi',
-                'QualiÓtica - São Gonçalo (Partage)': 'QualiOtica+Partage+Shopping+Sao+Goncalo',
-                'QualiÓtica - Rio de Janeiro (Centro)': 'QualiOtica+Centro+Rio+de+Janeiro'
+            // 2. Dados reais por loja: link direto do Google Maps (quando disponível) ou busca por endereço,
+            // e o WhatsApp correto de cada unidade (Zeiss = número próprio de cada loja; QualiÓtica = número da região).
+            const storeDataMap = {
+                // ZEISS VISION CENTER — número de WhatsApp próprio de cada loja (verificado via Instagram/Fev 2026)
+                'Zeiss Vision Center - Icaraí (Niterói)': {
+                    mapsUrl: 'https://maps.app.goo.gl/1uR3GMe6ho8SBFBg8',
+                    whatsapp: '5521999790492'
+                },
+                'Zeiss Vision Center - Gávea (Shopping Gávea, RJ)': {
+                    mapsUrl: 'https://maps.app.goo.gl/VgVw3YAen2856k1R6',
+                    whatsapp: '5521972578482'
+                },
+                'Zeiss Vision Center - Rio Sul (Botafogo, RJ)': {
+                    mapsUrl: 'https://maps.app.goo.gl/Zgzn8VHYoFf7CkEN7',
+                    whatsapp: '5521995192315'
+                },
+                'Zeiss Vision Center - Largo do Machado (RJ)': {
+                    mapsUrl: 'https://maps.app.goo.gl/uShJXwP3oh4zWmJN6',
+                    whatsapp: '5521997148790'
+                },
+                // QUALIÓTICA NITERÓI — WhatsApp único da região (+55 21 99603-2814)
+                'QualiÓtica Tiffany (Icaraí)': {
+                    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Rua Ator Paulo Gustavo, 160, loja 101, Icaraí, Niterói'),
+                    whatsapp: '5521996032814'
+                },
+                'QualiÓtica Crystal Platinum (Icaraí)': {
+                    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Rua Ator Paulo Gustavo, 217, loja 101, Icaraí, Niterói'),
+                    whatsapp: '5521996032814'
+                },
+                'QualiÓtica Mariz e Barros (Jardim Icaraí)': {
+                    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Rua Mariz e Barros, 455, loja 102, Niterói'),
+                    whatsapp: '5521996032814'
+                },
+                'QualiÓtica Av. Sete (Jardim Icaraí)': {
+                    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Rua Presidente João Pessoa, 322, loja 106, Niterói'),
+                    whatsapp: '5521996032814'
+                },
+                'QualiÓtica Itaipu (Shopping Itaipu Multicenter)': {
+                    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Estrada Francisco da Cruz Nunes, 6501, loja 257, Shopping Itaipu Multicenter, Niterói'),
+                    whatsapp: '5521996032814'
+                },
+                'QualiÓtica Piratininga': {
+                    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Estrada Francisco da Cruz Nunes, 6266, loja 109, Piratininga, Niterói'),
+                    whatsapp: '5521996032814'
+                },
+                'QualiÓtica Centro (Conceição)': {
+                    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Rua da Conceição, 60, Centro, Niterói'),
+                    whatsapp: '5521996032814'
+                },
+                'QualiÓtica Fonseca': {
+                    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Fonseca, Niterói'),
+                    whatsapp: '5521996032814'
+                },
+                'QualiÓtica Trend Tower (Andrade Neves)': {
+                    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Trend Tower, Andrade Neves, Niterói'),
+                    whatsapp: '5521996032814'
+                },
+                // QUALIÓTICA SÃO GONÇALO — WhatsApp único da região (+55 21 96942-6672)
+                'QualiÓtica Nilo Peçanha': {
+                    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Rua Doutor Nilo Peçanha, 100, loja 04, São Gonçalo'),
+                    whatsapp: '5521969426672'
+                },
+                'QualiÓtica Salvatori': {
+                    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Rua Salvatori, 35, São Gonçalo'),
+                    whatsapp: '5521969426672'
+                },
+                'QualiÓtica Santa Beatriz (Popular)': {
+                    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Rua Coronel Rodrigues, 422, loja 102, São Gonçalo'),
+                    whatsapp: '5521969426672'
+                }
             };
 
-            const mapsQuery = storeMapsQueryMap[store] || 'Zeiss+Vision+Center+Icarai+Niteroi';
-            document.getElementById('maps-link').href = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
+            const defaultStoreData = storeDataMap['Zeiss Vision Center - Icaraí (Niterói)'];
+            const storeData = storeDataMap[store] || defaultStoreData;
 
-            // 3. Dynamic WhatsApp Message Construction for booking/FAQ with AI
-            const whatsappNumber = '5521999999999'; // In production, this points to their official HSales channel
-            
+            document.getElementById('maps-link').href = storeData.mapsUrl;
+
+            // 3. WhatsApp da unidade escolhida (Zeiss: número da própria loja / QualiÓtica: número da região)
+            const whatsappNumber = storeData.whatsapp;
+
             const rawMessage = `Olá! Acabei de garantir meu desconto da Semana Zeiss. Meu nome é ${name}, escolhi a unidade "${store}" e gostaria de agendar meu atendimento ou marcar meu exame de vista parceiro.`;
             const encodedMessage = encodeURIComponent(rawMessage);
             document.getElementById('whatsapp-link').href = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
