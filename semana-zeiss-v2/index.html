@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garanta 50% OFF em lentes premium | Grupo Emerson</title>
+    <meta name="description" content="Cadastre-se e veja seu cupom de desconto se revelar na tela conforme você preenche o formulário. Vagas limitadas por loja.">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <div class="full-screen-bg" id="bg-container">
+        <div class="bg-dark-overlay"></div>
+    </div>
+
+    <main class="main-container center-layout">
+
+        <section class="card form-card" id="form-card">
+
+            <!-- Mystery-mode header: curiosity, no brand named yet -->
+            <div class="campaign-tag-wrapper">
+                <div class="campaign-badge">
+                    <i data-lucide="eye" class="bell-icon" style="width: 13px; height: 13px;"></i>
+                    <span>ACESSO ANTECIPADO</span>
+                </div>
+                <h1 class="campaign-main-title">Uma tecnologia alemã de lentes vai chegar com <span class="highlight">50% OFF</span></h1>
+                <p class="campaign-sub-title">Preencha o formulário abaixo e acompanhe seu cupom secreto ganhar nitidez em tempo real. Vagas limitadas por unidade.</p>
+
+                <div class="acuity-row">
+                    <i data-lucide="scan-eye" style="width: 14px; height: 14px;"></i>
+                    <span>Nitidez do seu cupom: <strong id="acuity-percentage" style="color: var(--neon-cyan);">10%</strong></span>
+                </div>
+                <div class="progress-bar-wrapper">
+                    <div class="progress-bar-fill" id="progress-fill"></div>
+                </div>
+            </div>
+
+            <form id="unified-form" novalidate>
+
+                <div class="form-group">
+                    <label for="nome" class="form-label">Nome Completo</label>
+                    <input type="text" id="nome" class="form-input text-field" placeholder="Digite seu nome completo" autocomplete="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="whatsapp" class="form-label">WhatsApp</label>
+                    <input type="tel" id="whatsapp" class="form-input text-field" placeholder="(00) 00000-0000" autocomplete="tel" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="form-label">E-mail</label>
+                    <input type="email" id="email" class="form-input text-field" placeholder="seuemail@exemplo.com" autocomplete="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loja" class="form-label">Qual unidade fica mais perto de você?</label>
+                    <select id="loja" class="form-select" required>
+                        <option value="" disabled selected>Escolha a unidade mais próxima</option>
+                        <optgroup label="NITERÓI">
+                            <option value="Zeiss Vision Center - Icaraí (Niterói)">Zeiss Vision Center — Icaraí</option>
+                            <option value="QualiÓtica Tiffany (Icaraí)">QualiÓtica Tiffany — Icaraí</option>
+                            <option value="QualiÓtica Crystal Platinum (Icaraí)">QualiÓtica Crystal Platinum — Icaraí</option>
+                            <option value="QualiÓtica Mariz e Barros (Jardim Icaraí)">QualiÓtica Mariz e Barros — Jd. Icaraí</option>
+                            <option value="QualiÓtica Av. Sete (Jardim Icaraí)">QualiÓtica Av. Sete — Jd. Icaraí</option>
+                            <option value="QualiÓtica Itaipu (Shopping Itaipu Multicenter)">QualiÓtica Itaipu — Shopping Itaipu</option>
+                            <option value="QualiÓtica Piratininga">QualiÓtica Piratininga</option>
+                            <option value="QualiÓtica Centro (Conceição)">QualiÓtica Centro — Conceição</option>
+                            <option value="QualiÓtica Fonseca">QualiÓtica Fonseca</option>
+                            <option value="QualiÓtica Trend Tower (Andrade Neves)">QualiÓtica Trend Tower — Andrade Neves</option>
+                        </optgroup>
+                        <optgroup label="SÃO GONÇALO">
+                            <option value="QualiÓtica Nilo Peçanha">QualiÓtica Nilo Peçanha</option>
+                            <option value="QualiÓtica Salvatori">QualiÓtica Salvatori</option>
+                            <option value="QualiÓtica Santa Beatriz (Popular)">QualiÓtica Santa Beatriz — Popular</option>
+                        </optgroup>
+                        <optgroup label="RIO DE JANEIRO">
+                            <option value="Zeiss Vision Center - Gávea (Shopping Gávea, RJ)">Zeiss Vision Center — Shopping Gávea</option>
+                            <option value="Zeiss Vision Center - Rio Sul (Botafogo, RJ)">Zeiss Vision Center — Shopping Rio Sul</option>
+                            <option value="Zeiss Vision Center - Largo do Machado (RJ)">Zeiss Vision Center — Largo do Machado</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <button type="submit" class="voucher-wrapper-interactive" id="submit-btn" disabled>
+                    <div class="voucher-inner-content" id="voucher-blur-content">
+                        <div class="voucher-preview-badge">CUPOM SECRETO</div>
+                        <div class="voucher-discount-text">50% OFF</div>
+                        <div class="voucher-sub-info">Em lentes de alta tecnologia</div>
+                        <div class="voucher-code-placeholder">
+                            <span class="code-title">Marca revelada em:</span>
+                            <span class="code-hidden-value" id="cupom-placeholder-text">PREENCHA PARA REVELAR 🔒</span>
+                        </div>
+                    </div>
+                </button>
+
+            </form>
+
+            <div class="trust-row">
+                <span><i data-lucide="shield-check" style="width: 13px; height: 13px;"></i> Dado protegido</span>
+                <span><i data-lucide="map-pin" style="width: 13px; height: 13px;"></i> Só em loja física</span>
+                <span><i data-lucide="file-check-2" style="width: 13px; height: 13px;"></i> Receita obrigatória</span>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Grupo Emerson. Todos os direitos reservados. Promoção exclusiva para lojas físicas parceiras. Imagens meramente ilustrativas.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

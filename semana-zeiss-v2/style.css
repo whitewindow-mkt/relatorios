@@ -1,0 +1,463 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Outfit:wght@300;400;500;600;700&family=Roboto+Mono:wght@500;700&display=swap');
+
+:root {
+    --bg-dark: #05070d;
+    --bg-card: rgba(13, 18, 32, 0.72);
+    --border-glass: rgba(255, 255, 255, 0.08);
+    --zeiss-blue: #2f7dff;
+    --zeiss-blue-strong: #0050ff;
+    --neon-cyan: #00e5ff;
+    --text-primary: #f4f6fb;
+    --text-secondary: #98a2b8;
+    --text-dim: #626d84;
+    --success: #10b981;
+    --error: #f87171;
+    --font-sans: 'Outfit', sans-serif;
+    --font-display: 'Montserrat', sans-serif;
+    --font-mono: 'Roboto Mono', monospace;
+    --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+.full-screen-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: -2;
+    background-image: url('assets/zeiss_road_night.jpg');
+    background-size: cover;
+    background-position: center;
+    transition: filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    filter: blur(22px) brightness(0.55) saturate(1.05);
+}
+
+.bg-dark-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(180deg, rgba(5,7,13,0.55) 0%, rgba(5,7,13,0.85) 100%);
+}
+
+.main-container {
+    flex: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0.8rem 1rem;
+}
+
+.center-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    padding: 2.5rem 1rem;
+    box-sizing: border-box;
+}
+
+.card {
+    background: var(--bg-card);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--border-glass);
+    border-radius: 20px;
+    padding: 1.6rem 1.6rem;
+    width: 100%;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.03) inset;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+}
+
+.form-card { max-width: 560px; }
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--zeiss-blue), var(--neon-cyan));
+    box-shadow: 0 0 16px rgba(0, 229, 255, 0.5);
+}
+
+/* Mystery-mode header (no brand revealed on capture page) */
+.campaign-tag-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1.4rem;
+    border-bottom: 1px solid var(--border-glass);
+    padding-bottom: 1rem;
+    width: 100%;
+    text-align: center;
+}
+
+.campaign-badge {
+    background: rgba(0, 229, 255, 0.1);
+    border: 1px solid rgba(0, 229, 255, 0.35);
+    color: var(--neon-cyan);
+    font-weight: 800;
+    font-size: 0.68rem;
+    letter-spacing: 2px;
+    padding: 0.4rem 0.95rem;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    text-transform: uppercase;
+}
+
+.campaign-badge .bell-icon { animation: ringBell 2.5s ease infinite; transform-origin: top center; }
+
+@keyframes ringBell {
+    0%, 100% { transform: rotate(0); }
+    10%, 20% { transform: rotate(15deg); }
+    15%, 25% { transform: rotate(-15deg); }
+    30% { transform: rotate(0); }
+}
+
+.campaign-main-title {
+    font-family: var(--font-display);
+    font-size: 1.55rem;
+    font-weight: 900;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+    line-height: 1.32;
+}
+
+.campaign-main-title .highlight {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 18px rgba(0, 229, 255, 0.35);
+}
+
+.campaign-sub-title {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    max-width: 420px;
+}
+
+/* Focus/acuity visual metaphor row */
+.acuity-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.2rem;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+}
+
+.progress-bar-wrapper {
+    background: rgba(255,255,255,0.06);
+    height: 5px;
+    border-radius: 3px;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 0.6rem;
+}
+
+.progress-bar-fill {
+    background: linear-gradient(90deg, var(--zeiss-blue), var(--neon-cyan));
+    height: 100%;
+    border-radius: 3px;
+    width: 10%;
+    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Form */
+.form-group { margin-bottom: 0.7rem; text-align: left; width: 100%; }
+
+.form-label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.3px;
+}
+
+.form-input, .form-select {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 9px;
+    padding: 0.62rem 0.8rem;
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    outline: none;
+    transition: var(--transition-smooth);
+}
+
+.form-input::placeholder { color: var(--text-dim); }
+
+.form-input:focus, .form-select:focus {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.12);
+    background: rgba(255,255,255,0.07);
+}
+
+.form-select option { background: #0d1220; color: var(--text-primary); }
+
+/* Voucher / submit button */
+button.voucher-wrapper-interactive {
+    background: linear-gradient(135deg, rgba(10, 18, 40, 0.95) 0%, rgba(2, 5, 12, 0.98) 100%);
+    border: 2px solid rgba(0, 229, 255, 0.2);
+    border-radius: 14px;
+    padding: 1rem 1.2rem;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+    margin-top: 1.1rem;
+    cursor: pointer;
+    outline: none;
+    font-family: inherit;
+}
+
+.voucher-inner-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    filter: blur(20px);
+}
+
+button.voucher-wrapper-interactive:disabled { cursor: not-allowed; pointer-events: none; opacity: 0.75; }
+
+button.voucher-wrapper-interactive:not(:disabled) {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 30px rgba(0, 229, 255, 0.4), 0 12px 30px rgba(0,0,0,0.4);
+}
+
+button.voucher-wrapper-interactive:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 40px rgba(0, 229, 255, 0.6), 0 14px 35px rgba(0,0,0,0.5);
+}
+
+.voucher-preview-badge {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--neon-cyan);
+    margin-bottom: 0.35rem;
+    border: 1px solid var(--neon-cyan);
+    padding: 0.12rem 0.45rem;
+    border-radius: 4px;
+}
+
+.voucher-discount-text {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1;
+    color: white;
+    margin-bottom: 0.15rem;
+}
+
+.voucher-sub-info {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--text-secondary);
+    margin-bottom: 0.65rem;
+}
+
+.voucher-code-placeholder {
+    background: rgba(0,0,0,0.45);
+    border: 1px dashed rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 0.65rem 1rem;
+    width: 100%;
+    text-align: center;
+}
+
+.code-title { display: block; font-size: 0.6rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.15rem; }
+.code-hidden-value { font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; color: var(--text-secondary); }
+
+.trust-row {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-top: 1.1rem;
+    color: var(--text-dim);
+    font-size: 0.68rem;
+    letter-spacing: 0.3px;
+}
+.trust-row span { display: flex; align-items: center; gap: 0.35rem; }
+
+.spin { animation: loadingSpin 1s linear infinite; }
+@keyframes loadingSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+footer {
+    width: 100%;
+    padding: 1.6rem;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.72rem;
+    margin-top: auto;
+}
+
+@media (max-width: 500px) {
+    .card { padding: 1.4rem 1.1rem; border-radius: 18px; }
+    .campaign-main-title { font-size: 1.3rem; }
+    .voucher-discount-text { font-size: 1.9rem; }
+}
+
+/* ==========================================================================
+   THANK YOU PAGE (obrigado.html) — brand reveal happens here
+   ========================================================================== */
+body.thankyou-page .full-screen-bg {
+    background-image: url('assets/zeiss_store_bg.jpg');
+    filter: blur(0px) brightness(0.5) saturate(1.1) !important;
+}
+
+.reveal-logo-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-bottom: 0.9rem;
+}
+
+.reveal-logo-row img { height: 20px; width: auto; filter: brightness(0) invert(1); opacity: 0.92; }
+
+.brand-pill {
+    background: var(--zeiss-blue-strong);
+    color: white;
+    font-weight: 800;
+    padding: 0.32rem 0.85rem;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+    box-shadow: 0 0 16px rgba(0,80,255,0.5);
+}
+
+.brand-pill.quali { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); }
+
+.voucher-card {
+    background: linear-gradient(135deg, rgba(10, 18, 40, 0.96) 0%, rgba(2, 5, 12, 0.98) 100%);
+    border: 2px solid rgba(0, 229, 255, 0.28);
+    border-radius: 14px;
+    padding: 1.3rem 1.5rem;
+    box-shadow: 0 14px 34px rgba(0,0,0,0.4);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 1.2rem;
+    color: white;
+}
+
+.voucher-header { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 0.5rem; }
+.voucher-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; color: var(--neon-cyan); }
+
+.voucher-discount { font-size: 2.6rem; font-weight: 900; color: white; display: flex; align-items: baseline; gap: 0.2rem; line-height: 1.1; }
+.voucher-discount span { font-size: 1.1rem; font-weight: 600; color: rgba(255,255,255,0.65); }
+
+.event-dates-box {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0, 229, 255, 0.08);
+    border: 1px dashed rgba(0, 229, 255, 0.35);
+    border-radius: 8px;
+    padding: 0.55rem 0.85rem;
+    margin: 0.7rem 0 0.9rem;
+    font-size: 0.78rem;
+    color: var(--neon-cyan);
+    font-weight: 600;
+}
+
+.store-info-box { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.85rem; width: 100%; text-align: left; }
+.store-info-title { font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.2rem; }
+.store-info-name { font-size: 0.85rem; font-weight: 700; color: white; line-height: 1.3; }
+
+.action-buttons-grid { display: flex; gap: 0.8rem; width: 100%; margin-bottom: 1.2rem; }
+
+.btn-action {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+    color: white;
+}
+
+.btn-action.whatsapp { background: linear-gradient(135deg, #128c7e 0%, #075e54 100%); }
+.btn-action.whatsapp:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(18,140,126,0.35); }
+.btn-action.maps { background: linear-gradient(135deg, var(--zeiss-blue-strong) 0%, var(--neon-cyan) 100%); }
+.btn-action.maps:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,229,255,0.35); }
+
+/* Lens technology explainer */
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+    width: 100%;
+    margin-bottom: 1.2rem;
+}
+
+.tech-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 0.7rem 0.5rem;
+    text-align: center;
+}
+
+.tech-item i { color: var(--neon-cyan); margin-bottom: 0.35rem; }
+.tech-item .tech-name { font-size: 0.68rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 0.15rem; }
+.tech-item .tech-desc { font-size: 0.62rem; color: var(--text-dim); line-height: 1.3; display: block; }
+
+.rules-checklist { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1rem; text-align: left; width: 100%; }
+.rules-title { font-size: 0.85rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.rules-item { display: flex; gap: 0.5rem; align-items: flex-start; margin-bottom: 0.5rem; }
+.rules-item .check { color: var(--success); font-weight: 800; font-size: 0.95rem; line-height: 1.2; }
+.rules-item p { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; }
+
+.alert-box {
+    border: 1px solid rgba(248, 113, 113, 0.3);
+    background: rgba(248, 113, 113, 0.06);
+    margin-bottom: 1.2rem;
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: left;
+}
+.alert-box h3 { color: var(--error); font-size: 0.9rem; font-weight: 700; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.4rem; }
+.alert-box p { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.45; }
+
+@media (max-width: 500px) {
+    .action-buttons-grid { flex-direction: column; }
+    .tech-grid { grid-template-columns: 1fr; }
+    .voucher-card { padding: 1.1rem 1.2rem; }
+}
