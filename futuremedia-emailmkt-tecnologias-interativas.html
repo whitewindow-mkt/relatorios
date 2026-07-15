@@ -1,50 +1,32 @@
 <!--
 =====================================================================
-FUTUREMEDIA — E-MAIL MKT — "Tecnologias Interativas para Ações de Marketing"
-VERSÃO 10 — identidade oficial aplicada a partir do Brandbook Futuremedia
-(https://roboparaeventos.com.br/manual-marca-futuremedia/).
+FUTUREMEDIA — E-MAIL MKT — "Tecnologias Interativas para Ativações de
+Marketing e Ações Promocionais"
+VERSÃO 11 — correção de tema sobre a v10.
 
-O QUE MUDOU NESTA PASSADA:
-- LOGO REAL: trocado o "chip fm" de texto pelas assinaturas oficiais em
-  PNG (extraídas do vetor oficial em alta resolução, fundo transparente).
-  Positiva (gradiente) em fundos claros, Negativa (Off-white Tecnológico
-  #F1EFEB, versão monocromática documentada no manual) em fundos escuros.
-  Nenhuma versão clara sobre fundo claro nem escura sobre fundo escuro
-  (regra do manual: "Contraste Inexistente" é uso indevido).
-- PALETA EXATA do manual, nada de tom inventado:
-  Azul Institucional #174786 (cor principal, domina a superfície)
-  Azul Claro/Ciano   #008BCC (apoio — uso de ~10%, só em acentos e botões,
-                               nunca como fundo de seção inteira: a v9
-                               tinha 2 blocos 100% ciano, o que violava
-                               essa regra do manual; corrigido aqui)
-  Off-white Tecnológico #F1EFEB (base clara, substitui os cinzas-azulados
-                               inventados nas versões anteriores)
-  Grafite Digital     #2E2F35 (texto de corpo e contraste estrutural)
-- TIPOGRAFIA: Roboto (família institucional oficial). Pesos fortes
-  (Bold/Black) só em títulos e chamadas; pesos leves (Regular/Medium) só
-  em texto corrido — exatamente a regra do manual. Web font via Google
-  Fonts com fallback Arial/Helvetica para clientes que bloqueiam @import.
-- Removidos os 2 blocos 100% ciano (foto 2 e fechamento) e substituídos
-  por Azul Institucional, mantendo o ciano só como acento pontual
-  (palavra de destaque no título, numerais, botão).
-- Área de proteção: padding generoso ao redor da logo (regra do "1X" do
-  manual) em todas as aplicações.
+CORREÇÃO IMPORTANTE: a v10 (e versões anteriores) tinham deslizado a
+copy para "eventos" (headline "dominando eventos", legendas de foto
+"robô em evento", "feiras e lançamentos" na intro). O tema do e-mail NÃO
+é eventos — é TECNOLOGIAS INTERATIVAS PARA ATIVAÇÕES DE MARKETING E
+AÇÕES PROMOCIONAIS, que é mais amplo (inclui PDV, campanha, ação de rua,
+ativação de loja — não só evento pontual). Toda a copy foi revisada para
+tirar "evento/feira" como enquadramento principal e falar em "ativação
+de marketing" e "ação promocional".
 
-IMAGENS: 2 placeholders (borda tracejada) para fotos reais de robôs em
-ativação. Logo já é asset real, hospedado em /relatorios/assets/.
+Design, paleta, logo e tipografia seguem idênticos à v10 (identidade
+oficial do brandbook já aplicada corretamente) — esta passada mexeu
+apenas na copy/enquadramento temático.
 
-ASSUNTO:        TECNOLOGIAS INTERATIVAS PARA AÇÕES DE MARKETING
-ASSUNTO ALT:     A tecnologia que está dominando eventos e ações de marketing
-PREVIEW TEXT:    Robótica, realidade aumentada e telas touch: o que está funcionando nas ativações de marca hoje.
+ASSUNTO:        TECNOLOGIAS INTERATIVAS PARA ATIVAÇÕES DE MARKETING E AÇÕES PROMOCIONAIS
+ASSUNTO ALT:     A tecnologia que está dominando as ativações de marketing
+PREVIEW TEXT:    Robótica, realidade aumentada e telas touch: o que está funcionando em ativações de marketing e ações promocionais hoje.
 
 ANTES DE ENVIAR:
 1. Substituir [LINK_DESCADASTRO], [LINK_VER_NA_WEB], [LINK_FACEBOOK],
    [LINK_INSTAGRAM] e [LINK_YOUTUBE] pelas tags/URLs no Dinamize.
 2. Trocar os blocos de FOTO PLACEHOLDER por imagens reais.
 3. Confirmar número de WhatsApp nos botões (hoje: (21) 99946-6770).
-4. Testar em Litmus/Email on Acid (Roboto cai pra Arial na maior parte
-   dos clientes de e-mail — normal, é o fallback correto) antes do
-   disparo em massa.
+4. Testar em Litmus/Email on Acid antes do disparo em massa.
 =====================================================================
 -->
 <!DOCTYPE html>
@@ -53,7 +35,7 @@ ANTES DE ENVIAR:
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Tecnologias Interativas para Ações de Marketing</title>
+<title>Tecnologias Interativas para Ativações de Marketing e Ações Promocionais</title>
 <!--[if mso]>
 <noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
 <![endif]-->
@@ -79,7 +61,7 @@ ANTES DE ENVIAR:
 <body style="margin:0; padding:0; background-color:#e4e2dc;">
 
   <div style="display:none; max-height:0; overflow:hidden; mso-hide:all;">
-    Robótica, realidade aumentada e telas touch: o que está funcionando nas ativações de marca hoje.
+    Robótica, realidade aumentada e telas touch: o que está funcionando em ativações de marketing e ações promocionais hoje.
   </div>
   <div style="display:none; max-height:0; overflow:hidden; mso-hide:all;">
     &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp;
@@ -103,23 +85,23 @@ ANTES DE ENVIAR:
             </td>
           </tr>
 
-          <!-- HEADER: LOGO OFICIAL POSITIVA (fundo claro → assinatura em gradiente) -->
+          <!-- HEADER: LOGO OFICIAL POSITIVA -->
           <tr>
             <td style="background-color:#F1EFEB; padding:28px 32px 26px 32px;">
               <img src="https://whitewindow-mkt.github.io/relatorios/assets/futuremedia-logo-positiva.png" width="168" height="74" alt="Futuremedia" style="display:block; width:168px; height:74px;">
             </td>
           </tr>
 
-          <!-- HERO: AZUL INSTITUCIONAL (cor principal, domina a seção) -->
+          <!-- HERO: AZUL INSTITUCIONAL -->
           <tr>
             <td style="background-color:#174786; padding:56px 44px 0 44px;" class="px-mobile">
               <p style="margin:0 0 18px 0; font-size:12px; font-weight:700; color:#F1EFEB; text-transform:uppercase; letter-spacing:2px;">Comunicação interativa</p>
-              <p class="hero-title" style="margin:0 0 20px 0; font-size:40px; line-height:46px; font-weight:900; color:#F1EFEB; letter-spacing:-0.5px;">A tecnologia que está <span style="color:#008BCC;">dominando eventos</span> e ações de marketing.</p>
-              <p style="margin:0 0 30px 0; font-size:16px; line-height:26px; font-weight:400; color:#c3d3e6; max-width:460px;">Robótica, inteligência artificial e recursos interativos se consolidaram como a principal atração em ativações de marca. O motivo é simples: transformam tecnologia em experiência inesquecível.</p>
+              <p class="hero-title" style="margin:0 0 20px 0; font-size:40px; line-height:46px; font-weight:900; color:#F1EFEB; letter-spacing:-0.5px;">A tecnologia que está <span style="color:#008BCC;">dominando as ativações de marketing.</span></p>
+              <p style="margin:0 0 30px 0; font-size:16px; line-height:26px; font-weight:400; color:#c3d3e6; max-width:460px;">Robótica, inteligência artificial e recursos interativos se consolidaram como a principal atração em ativações de marca e ações promocionais. O motivo é simples: transformam tecnologia em experiência inesquecível.</p>
               <table role="presentation" cellpadding="0" cellspacing="0">
                 <tr>
                   <td class="btn-mobile" style="background-color:#008BCC; border-radius:6px;">
-                    <a href="https://wa.me/5521999466770?text=Ol%C3%A1%21%20Vi%20o%20e-mail%20da%20Futuremedia%20sobre%20tecnologias%20interativas%20para%20a%C3%A7%C3%B5es%20de%20marketing%20e%20quero%20saber%20mais." style="display:inline-block; padding:15px 34px; font-size:14px; font-weight:700; color:#F1EFEB; text-transform:uppercase; letter-spacing:0.5px;">Fale Conosco</a>
+                    <a href="https://wa.me/5521999466770?text=Ol%C3%A1%21%20Vi%20o%20e-mail%20da%20Futuremedia%20sobre%20tecnologias%20interativas%20para%20ativa%C3%A7%C3%B5es%20de%20marketing%20e%20a%C3%A7%C3%B5es%20promocionais%20e%20quero%20saber%20mais." style="display:inline-block; padding:15px 34px; font-size:14px; font-weight:700; color:#F1EFEB; text-transform:uppercase; letter-spacing:0.5px;">Fale Conosco</a>
                   </td>
                 </tr>
               </table>
@@ -130,7 +112,7 @@ ANTES DE ENVIAR:
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px dashed #4a6ea6; border-radius:10px;">
                 <tr>
                   <td align="center" style="padding:74px 20px; font-size:11px; font-weight:700; letter-spacing:1px; color:#c3d3e6; text-transform:uppercase;">
-                    Foto: robôs interativos em ativação de marca
+                    Foto: robôs interativos em ativação de marketing
                   </td>
                 </tr>
               </table>
@@ -140,12 +122,12 @@ ANTES DE ENVIAR:
           <!-- INTRO — FUNDO OFF-WHITE, TEXTO GRAFITE -->
           <tr>
             <td class="px-mobile" style="background-color:#F1EFEB; padding:46px 44px 42px 44px; font-size:16px; line-height:26px; font-weight:400; color:#2E2F35;">
-              <p style="margin:0 0 18px 0;">Ativações de marca, feiras e lançamentos estão cada vez mais concorridos. Apenas marcar presença já não é suficiente para capturar a atenção do público, e é nesse cenário que as tecnologias interativas se consolidam como recurso central nas estratégias de marketing.</p>
-              <p style="margin:0;">Mais do que um diferencial estético, essas tecnologias transformam presença em experiência: geram engajamento real durante a ação, produzem conteúdo espontâneo para as redes e reforçam a lembrança de marca muito depois do evento terminar.</p>
+              <p style="margin:0 0 18px 0;">Ativações de marca e ações promocionais estão cada vez mais concorridas. Apenas marcar presença já não é suficiente para capturar a atenção do público, e é nesse cenário que as tecnologias interativas se consolidam como recurso central nas estratégias de marketing.</p>
+              <p style="margin:0;">Mais do que um diferencial estético, essas tecnologias transformam presença em experiência: geram engajamento real durante a ação, produzem conteúdo espontâneo para as redes e reforçam a lembrança de marca muito depois da ação terminar.</p>
             </td>
           </tr>
 
-          <!-- BANDA DE PERGUNTA — AZUL INSTITUCIONAL (não ciano: mantém a cor de apoio em ~10%) -->
+          <!-- BANDA DE PERGUNTA -->
           <tr>
             <td style="background-color:#123a72; padding:48px 44px;" class="px-mobile">
               <p class="band-title" style="margin:0 0 14px 0; font-size:28px; line-height:35px; font-weight:900; color:#F1EFEB; letter-spacing:-0.3px;">Sua marca está tendo a <span style="color:#008BCC;">visibilidade que merece?</span></p>
@@ -160,7 +142,7 @@ ANTES DE ENVIAR:
             </td>
           </tr>
 
-          <!-- LISTA EDITORIAL NUMERADA — FUNDO OFF-WHITE -->
+          <!-- LISTA EDITORIAL NUMERADA -->
           <tr>
             <td class="px-mobile" style="background-color:#F1EFEB; padding:48px 44px 10px 44px;">
               <p style="margin:0; font-size:22px; line-height:29px; font-weight:900; color:#174786; letter-spacing:-0.3px;">Marcas que dominam o mercado não fazem apenas ativações. Elas usam tecnologia interativa para:</p>
@@ -220,24 +202,24 @@ ANTES DE ENVIAR:
             </td>
           </tr>
 
-          <!-- FOTO 2 — AZUL INSTITUCIONAL (corrigido: era 100% ciano na v9) -->
+          <!-- FOTO 2 -->
           <tr>
             <td style="background-color:#174786; padding:44px 44px 0 44px;" class="px-mobile">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px dashed #4a6ea6; border-radius:10px;">
                 <tr>
                   <td align="center" style="padding:58px 20px; font-size:11px; font-weight:700; letter-spacing:1px; color:#c3d3e6; text-transform:uppercase;">
-                    Foto: robô interativo em evento
+                    Foto: robô interativo em ação promocional
                   </td>
                 </tr>
               </table>
             </td>
           </tr>
 
-          <!-- FECHAMENTO — AZUL INSTITUCIONAL (corrigido: era 100% ciano na v9), logo negativa -->
+          <!-- FECHAMENTO -->
           <tr>
             <td style="background-color:#174786; padding:40px 44px 30px 44px;" class="px-mobile">
               <p class="close-title" style="margin:0 0 16px 0; font-size:30px; line-height:37px; font-weight:900; color:#F1EFEB; letter-spacing:-0.3px;">Presença não gera lembrança.<br>Experiência gera.</p>
-              <p style="margin:0 0 28px 0; font-size:15px; line-height:24px; font-weight:400; color:#c3d3e6; max-width:450px;">A Futuremedia é referência em tecnologia interativa no Brasil, unindo robótica e inteligência artificial para criar ações de marketing que o público lembra.</p>
+              <p style="margin:0 0 28px 0; font-size:15px; line-height:24px; font-weight:400; color:#c3d3e6; max-width:450px;">A Futuremedia é referência em tecnologia interativa no Brasil, unindo robótica e inteligência artificial para criar ativações de marketing e ações promocionais que o público lembra.</p>
               <table role="presentation" cellpadding="0" cellspacing="0">
                 <tr>
                   <td class="btn-mobile" style="background-color:#008BCC; border-radius:6px;">
