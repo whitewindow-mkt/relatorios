@@ -1,44 +1,42 @@
 <!--
 =====================================================================
 FUTUREMEDIA — E-MAIL MKT — "Tecnologias Interativas para Ações de Marketing"
-VERSÃO 7 — GLOWUP visual sobre a base institucional da v6.
+VERSÃO 8 — passada final de design-critique + ux-copy sobre a v7.
 
-O QUE MUDOU (referências usadas):
-- Caixas sobrepostas: card branco de headline "flutua" por cima da foto de
-  herói (margin-top negativo), igual ao efeito das botas CAT por cima do
-  bloco amarelo e do ícone-cartão por cima do hero.
-- Detalhes nos cards: etiqueta/kicker numerada em cada card (ex. "01 ·
-  ATENÇÃO"), barra de destaque colorida, cantos arredondados + sombra.
-- Tipografia grande pra destacar algo específico: estatística "3" em
-  tamanho gigante (mesmo recurso do "980K" da CAT), headline em duas cores
-  (efeito "BUILT / FOR IT.").
-- Estrutura geral realinhada com os 2 e-mails antigos da Futuremedia que o
-  cliente já aprovou: foto de herói no topo, pergunta provocativa + CTA
-  cedo, bloco "marcas que dominam usam tecnologia pra X", fechamento com
-  CTA forte + ícones sociais no rodapé.
-- Conteúdo continua GERAL (sem nome de produto específico), como pedido —
-  os cards falam de benefício/uso, não de HoloTouch/Holograma Box/Espelho.
+O QUE MUDOU NESTA PASSADA:
+- FIX técnico: todo bloco com linear-gradient agora tem background-color
+  sólido de fallback (Outlook e clientes antigos não renderizam gradiente;
+  antes o texto branco sumiria em fundo branco).
+- Wordmark: "fm" tratado como chip de marca (quadrado arredondado azul com
+  fm branco), aproximando do símbolo real do logo.
+- Novo bloco de tensão: pergunta provocativa "Sua marca está tendo a
+  visibilidade que merece?" + CTA — espelha o e-mail antigo já aprovado
+  pelo cliente.
+- Headline principal reescrita na formulação que o cliente já aprovou:
+  "A tecnologia que está dominando eventos e ações de marketing".
+- Estatística gigante trocada de "3" para "100%" com rótulo que carrega
+  a promessa (atenção do público onde a marca está).
+- Ícones sociais agora são links reais (placeholders [LINK_*] para trocar
+  pelas URLs oficiais no Dinamize).
+- Micro-ajustes de copy nos cards (mais curtos, verbo forte, paralelismo).
 
-IMAGENS: este arquivo usa blocos placeholder (gradiente + borda tracejada)
-no lugar de fotos reais, seguindo o mesmo padrão já usado em
-clientes/futuremedia/entregaveis/carrossel-robos-marketing/. Trocar pelos
-recortes reais de robôs/ativações antes do envio.
+IMAGENS: blocos placeholder (borda tracejada) no lugar das fotos reais.
+Trocar pelos recortes de robôs/ativações antes do envio.
 
-NOTA TÉCNICA: os overlaps (margin-top negativo) são efeito visual pensado
-pra esta prévia de aprovação. Em clientes de e-mail antigos (Outlook
-desktop) o overlap pode não renderizar e a caixa simplesmente cai abaixo
-da foto, sem quebrar o layout — testar em Litmus/Email on Acid antes do
-disparo final e simplificar se necessário.
+NOTA TÉCNICA: overlaps por margin-top negativo degradam com elegância no
+Outlook (o card cai abaixo da foto, sem quebrar). Testar em Litmus antes
+do disparo em massa.
 
 ASSUNTO:        TECNOLOGIAS INTERATIVAS PARA AÇÕES DE MARKETING
-ASSUNTO ALT:     Como a tecnologia interativa está mudando as ações de marketing
+ASSUNTO ALT:     A tecnologia que está dominando eventos e ações de marketing
 PREVIEW TEXT:    Robótica, realidade aumentada e telas touch: o que está funcionando nas ativações de marca hoje.
 
 ANTES DE ENVIAR:
-1. Substituir [LINK_DESCADASTRO] e [LINK_VER_NA_WEB] pelas tags do Dinamize.
+1. Substituir [LINK_DESCADASTRO], [LINK_VER_NA_WEB], [LINK_FACEBOOK],
+   [LINK_INSTAGRAM] e [LINK_YOUTUBE] pelas tags/URLs no Dinamize.
 2. Trocar os blocos de FOTO PLACEHOLDER por imagens reais.
 3. Confirmar número de WhatsApp nos botões (hoje: (21) 99946-6770).
-4. Testar overlaps em Outlook desktop / Litmus antes do disparo em massa.
+4. Testar em Litmus/Email on Acid (overlap + gradiente) antes do disparo.
 =====================================================================
 -->
 <!DOCTYPE html>
@@ -59,8 +57,8 @@ ANTES DE ENVIAR:
   @media screen and (max-width:600px) {
     .email-container { width:100% !important; }
     .px-mobile { padding-left:22px !important; padding-right:22px !important; }
-    .hero-title { font-size:26px !important; line-height:31px !important; }
-    .stat-big { font-size:56px !important; }
+    .hero-title { font-size:25px !important; line-height:31px !important; }
+    .stat-big { font-size:48px !important; line-height:48px !important; }
     .btn-mobile { width:100% !important; text-align:center !important; }
     .overlap-card { margin-top:-28px !important; }
   }
@@ -93,46 +91,40 @@ ANTES DE ENVIAR:
             </td>
           </tr>
 
-          <!-- HEADER: WORDMARK -->
+          <!-- HEADER: CHIP fm + WORDMARK -->
           <tr>
-            <td align="center" style="background-color:#ffffff; padding:20px 20px 24px 20px;">
+            <td align="center" style="background-color:#ffffff; padding:22px 20px 24px 20px;">
               <table role="presentation" cellpadding="0" cellspacing="0">
                 <tr>
-                  <td style="font-size:26px; font-weight:800; color:#174786; letter-spacing:-0.5px;">fm</td>
-                  <td style="width:9px;">&nbsp;</td>
-                  <td style="font-size:21px; font-weight:400; color:#008BCC; letter-spacing:0.5px;">futuremedia</td>
+                  <td width="40" height="40" align="center" valign="middle" style="background-color:#174786; border-radius:10px; font-size:19px; font-weight:800; color:#ffffff; letter-spacing:-0.5px;">fm</td>
+                  <td style="width:11px;">&nbsp;</td>
+                  <td style="font-size:22px; font-weight:400; color:#008BCC; letter-spacing:0.5px;">future<span style="font-weight:800; color:#174786;">media</span></td>
                 </tr>
               </table>
             </td>
           </tr>
 
-          <!-- HERO: FOTO PLACEHOLDER COM KICKER SOBREPOSTO -->
+          <!-- HERO: FOTO PLACEHOLDER (fundo com fallback sólido + gradiente) -->
           <tr>
-            <td style="position:relative; padding:0;">
+            <td style="background-color:#174786; background:linear-gradient(155deg, #174786 0%, #008BCC 60%, #007CC1 100%); padding:0;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                 <tr>
-                  <td style="background:linear-gradient(155deg, #174786 0%, #008BCC 60%, #007CC1 100%); padding:0;">
-                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                  <td style="padding:18px 22px 0 22px;">
+                    <table role="presentation" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="padding:18px 22px 0 22px;">
-                          <table role="presentation" cellpadding="0" cellspacing="0">
-                            <tr>
-                              <td style="background-color:#ffffff; padding:6px 14px; border-radius:20px;">
-                                <span style="font-size:11px; font-weight:800; color:#174786; letter-spacing:1px; text-transform:uppercase;">Comunicação interativa</span>
-                              </td>
-                            </tr>
-                          </table>
+                        <td style="background-color:#ffffff; padding:6px 14px; border-radius:20px;">
+                          <span style="font-size:11px; font-weight:800; color:#174786; letter-spacing:1px; text-transform:uppercase;">Comunicação interativa</span>
                         </td>
                       </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:24px 22px 60px 22px;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:2px dashed rgba(255,255,255,0.55); border-radius:14px;">
                       <tr>
-                        <td style="padding:24px 22px 60px 22px;">
-                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:2px dashed rgba(255,255,255,0.55); border-radius:14px;">
-                            <tr>
-                              <td align="center" style="padding:70px 20px; font-size:12px; font-weight:700; letter-spacing:0.5px; color:rgba(255,255,255,0.85); text-transform:uppercase;">
-                                FOTO — robôs interativos em ativação de marca
-                              </td>
-                            </tr>
-                          </table>
+                        <td align="center" style="padding:70px 20px; font-size:12px; font-weight:700; letter-spacing:0.5px; color:#ffffff; text-transform:uppercase;">
+                          FOTO — robôs interativos em ativação de marca
                         </td>
                       </tr>
                     </table>
@@ -142,14 +134,14 @@ ANTES DE ENVIAR:
             </td>
           </tr>
 
-          <!-- CARD BRANCO SOBREPOSTO NA FOTO (efeito "caixa sobreposta") -->
+          <!-- CARD BRANCO SOBREPOSTO NA FOTO -->
           <tr>
             <td align="center" style="padding:0 24px;">
               <table role="presentation" class="overlap-card" width="100%" cellpadding="0" cellspacing="0" style="margin-top:-44px; background-color:#ffffff; border-radius:16px; box-shadow:0 14px 30px rgba(23,71,134,0.18);">
                 <tr>
                   <td class="px-mobile" align="center" style="padding:34px 40px 30px 40px;">
-                    <p class="hero-title" style="margin:0 0 16px 0; font-size:30px; line-height:36px; font-weight:800; text-align:center;"><span style="color:#161a22;">Tecnologia interativa.</span><br><span style="color:#008BCC;">Dominando eventos e ações de marketing.</span></p>
-                    <p style="margin:0 0 24px 0; font-size:14.5px; line-height:22px; color:#5b6372; text-align:center;">Os recursos interativos com robótica e inteligência artificial se consolidam como atração em eventos e ativações de marca — e transformam tecnologia em experiência memorável.</p>
+                    <p class="hero-title" style="margin:0 0 16px 0; font-size:29px; line-height:36px; font-weight:800; text-align:center;"><span style="color:#161a22;">Descubra a tecnologia que está</span><br><span style="color:#008BCC;">dominando eventos e ações de marketing.</span></p>
+                    <p style="margin:0 0 24px 0; font-size:14.5px; line-height:22px; color:#5b6372; text-align:center;">Robótica, inteligência artificial e recursos interativos se consolidam como atração em eventos e ativações de marca — e transformam tecnologia em experiência inesquecível.</p>
                     <table role="presentation" cellpadding="0" cellspacing="0">
                       <tr>
                         <td class="btn-mobile" style="background-color:#008BCC; border-radius:6px;">
@@ -171,19 +163,34 @@ ANTES DE ENVIAR:
             </td>
           </tr>
 
-          <!-- ESTATÍSTICA GIGANTE (efeito "980K" da CAT) -->
+          <!-- BLOCO DE TENSÃO: PERGUNTA + CTA (do e-mail antigo aprovado) -->
           <tr>
-            <td style="background-color:#ffffff; padding:30px 48px 34px 48px;" class="px-mobile">
+            <td style="background-color:#ffffff; padding:30px 48px 8px 48px;" class="px-mobile">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4faff; border-left:4px solid #008BCC; border-radius:0 12px 12px 0;">
+                <tr>
+                  <td style="padding:24px 26px;">
+                    <p style="margin:0 0 6px 0; font-size:19px; line-height:25px; font-weight:800; color:#174786;">Sua marca está tendo a visibilidade que merece?</p>
+                    <p style="margin:0 0 16px 0; font-size:14.5px; line-height:22px; color:#4b5265;">Se as suas ações ainda dependem só de estande, banner e panfleto, a resposta provavelmente é não.</p>
+                    <a href="https://wa.me/5521999466770?text=Ol%C3%A1%21%20Quero%20entender%20como%20dar%20mais%20visibilidade%20%C3%A0%20minha%20marca%20com%20tecnologia%20interativa." style="display:inline-block; padding:11px 22px; background-color:#174786; border-radius:6px; font-size:12.5px; font-weight:800; color:#ffffff; text-transform:uppercase; letter-spacing:0.5px;">Fale Conosco</a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- ESTATÍSTICA GIGANTE -->
+          <tr>
+            <td style="background-color:#ffffff; padding:26px 48px 34px 48px;" class="px-mobile">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#0b2c56; border-radius:14px;">
                 <tr>
                   <td style="padding:26px 28px;">
                     <table role="presentation" cellpadding="0" cellspacing="0">
                       <tr>
                         <td valign="middle" style="padding-right:18px;">
-                          <span class="stat-big" style="font-size:64px; line-height:64px; font-weight:800; color:#ffffff;">3</span>
+                          <span class="stat-big" style="font-size:58px; line-height:58px; font-weight:800; color:#ffffff;">100%</span>
                         </td>
-                        <td valign="middle" style="border-left:2px solid rgba(255,255,255,0.25); padding-left:18px;">
-                          <span style="font-size:13px; line-height:19px; font-weight:700; color:#9fdcff; text-transform:uppercase; letter-spacing:0.5px;">frentes de tecnologia interativa moldando eventos e ações de marketing hoje</span>
+                        <td valign="middle" style="border-left:2px solid #3d5a85; padding-left:18px;">
+                          <span style="font-size:13px; line-height:19px; font-weight:700; color:#9fdcff; text-transform:uppercase; letter-spacing:0.5px;">da atenção do público no ponto onde a sua marca está — esse é o trabalho da tecnologia interativa</span>
                         </td>
                       </tr>
                     </table>
@@ -215,8 +222,8 @@ ANTES DE ENVIAR:
                         </td>
                       </tr>
                     </table>
-                    <p style="margin:0 0 6px 0; font-size:16px; font-weight:800; color:#161a22;">Atrair atenção nos primeiros segundos</p>
-                    <p style="margin:0; font-size:14.5px; line-height:22px; color:#4b5265;">Elementos interativos param o público em segundos — um efeito que a comunicação estática, sozinha, não consegue replicar.</p>
+                    <p style="margin:0 0 6px 0; font-size:16px; font-weight:800; color:#161a22;">Atrair o público nos primeiros segundos</p>
+                    <p style="margin:0; font-size:14.5px; line-height:22px; color:#4b5265;">Um robô em movimento ou uma tela que responde para o público em segundos — um efeito que banner e estande, sozinhos, não conseguem replicar.</p>
                   </td>
                 </tr>
               </table>
@@ -238,7 +245,7 @@ ANTES DE ENVIAR:
                       </tr>
                     </table>
                     <p style="margin:0 0 6px 0; font-size:16px; font-weight:800; color:#161a22;">Criar interação real com o público</p>
-                    <p style="margin:0; font-size:14.5px; line-height:22px; color:#4b5265;">Robótica, IA conversacional e realidade aumentada convidam o público a participar da ação, não apenas observar de longe.</p>
+                    <p style="margin:0; font-size:14.5px; line-height:22px; color:#4b5265;">Robótica, IA conversacional e realidade aumentada convidam o público a participar da ação — tocar, conversar, testar — em vez de apenas observar de longe.</p>
                   </td>
                 </tr>
               </table>
@@ -267,19 +274,13 @@ ANTES DE ENVIAR:
             </td>
           </tr>
 
-          <!-- FECHAMENTO: FOTO PLACEHOLDER + CARD SOBREPOSTO COM CTA -->
+          <!-- FECHAMENTO: FOTO + CARD SOBREPOSTO COM CTA -->
           <tr>
-            <td style="padding:0;">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            <td style="background-color:#0b2c56; background:linear-gradient(155deg, #0b2c56 0%, #174786 60%, #008BCC 100%); padding:40px 22px 60px 22px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:2px dashed rgba(255,255,255,0.5); border-radius:14px;">
                 <tr>
-                  <td style="background:linear-gradient(155deg, #0b2c56 0%, #174786 60%, #008BCC 100%); padding:40px 22px 60px 22px;">
-                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:2px dashed rgba(255,255,255,0.5); border-radius:14px;">
-                      <tr>
-                        <td align="center" style="padding:44px 20px; font-size:12px; font-weight:700; letter-spacing:0.5px; color:rgba(255,255,255,0.8); text-transform:uppercase;">
-                          FOTO — robô interativo em evento / ativação
-                        </td>
-                      </tr>
-                    </table>
+                  <td align="center" style="padding:44px 20px; font-size:12px; font-weight:700; letter-spacing:0.5px; color:#ffffff; text-transform:uppercase;">
+                    FOTO — robô interativo em evento / ativação
                   </td>
                 </tr>
               </table>
@@ -305,26 +306,27 @@ ANTES DE ENVIAR:
             </td>
           </tr>
 
-          <!-- RODAPÉ COM ÍCONES SOCIAIS -->
+          <!-- RODAPÉ COM ÍCONES SOCIAIS (com link) -->
           <tr>
-            <td align="center" style="padding:34px 44px 8px 44px;">
+            <td align="center" style="padding:34px 44px 6px 44px;">
+              <p style="margin:0 0 14px 0; font-size:12px; font-weight:700; color:#5b6372; text-transform:uppercase; letter-spacing:1px;">Siga-nos nas redes sociais</p>
               <table role="presentation" cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="padding:0 6px;">
-                    <table role="presentation" cellpadding="0" cellspacing="0"><tr><td width="30" height="30" align="center" valign="middle" style="background-color:#eef2f7; border-radius:50%; font-size:12px; font-weight:800; color:#174786;">f</td></tr></table>
+                    <a href="[LINK_FACEBOOK]" style="display:block;"><table role="presentation" cellpadding="0" cellspacing="0"><tr><td width="32" height="32" align="center" valign="middle" style="background-color:#174786; border-radius:50%; font-size:13px; font-weight:800; color:#ffffff;">f</td></tr></table></a>
                   </td>
                   <td style="padding:0 6px;">
-                    <table role="presentation" cellpadding="0" cellspacing="0"><tr><td width="30" height="30" align="center" valign="middle" style="background-color:#eef2f7; border-radius:50%; font-size:12px; font-weight:800; color:#174786;">ig</td></tr></table>
+                    <a href="[LINK_INSTAGRAM]" style="display:block;"><table role="presentation" cellpadding="0" cellspacing="0"><tr><td width="32" height="32" align="center" valign="middle" style="background-color:#174786; border-radius:50%; font-size:12px; font-weight:800; color:#ffffff;">ig</td></tr></table></a>
                   </td>
                   <td style="padding:0 6px;">
-                    <table role="presentation" cellpadding="0" cellspacing="0"><tr><td width="30" height="30" align="center" valign="middle" style="background-color:#eef2f7; border-radius:50%; font-size:12px; font-weight:800; color:#174786;">yt</td></tr></table>
+                    <a href="[LINK_YOUTUBE]" style="display:block;"><table role="presentation" cellpadding="0" cellspacing="0"><tr><td width="32" height="32" align="center" valign="middle" style="background-color:#174786; border-radius:50%; font-size:12px; font-weight:800; color:#ffffff;">yt</td></tr></table></a>
                   </td>
                 </tr>
               </table>
             </td>
           </tr>
           <tr>
-            <td style="padding:12px 44px 26px 44px; font-size:11px; line-height:17px; color:#9aa3b2;">
+            <td style="padding:16px 44px 26px 44px; font-size:11px; line-height:17px; color:#9aa3b2;">
               <p style="margin:0 0 10px 0;">A Futuremedia respeita a sua privacidade e é contra o envio de spam. Não vendemos, compartilhamos ou distribuímos seus dados a terceiros. Você está recebendo este e-mail porque interagiu com nossos robôs ou tecnologias em feiras, eventos e ações comerciais, ou porque seu contato foi registrado em uma interação com a nossa equipe.</p>
               <p style="margin:0 0 10px 0;"><strong style="color:#5b6372;">Atendimento Futuremedia</strong> (21) 3587-2812 / (11) 3360-4270. De Segunda a Sexta das 8:30 às 18:00 (exceto feriados). contato@futuremedia.com.br · www.futuremedia.com.br</p>
               <p style="margin:0;"><a href="[LINK_DESCADASTRO]" style="color:#9aa3b2; text-decoration:underline;">Descadastre-se</a> caso não queira mais receber e-mails.</p>
