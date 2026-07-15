@@ -1,28 +1,37 @@
 <!--
 =====================================================================
 FUTUREMEDIA — E-MAIL MKT — "Tecnologias Interativas para Ações de Marketing"
-VERSÃO 9 — glowup com a skill impeccable (registro brand).
+VERSÃO 10 — identidade oficial aplicada a partir do Brandbook Futuremedia
+(https://roboparaeventos.com.br/manual-marca-futuremedia/).
 
-O QUE MUDOU (correções de bans absolutos da skill):
-- REMOVIDO side-stripe (border-left colorida) do bloco de pergunta →
-  virou banda navy de largura total com tipografia grande.
-- REMOVIDO hero-metric ("100%" gigante + label) → a promessa virou frase
-  na copy, não número decorativo.
-- REMOVIDOS os 3 cards idênticos → lista editorial numerada assimétrica:
-  numeral gigante à esquerda, conteúdo à direita, separada por hairlines.
-- REMOVIDOS kickers repetidos (label maiúscula em toda seção) → kicker
-  usado UMA vez, no hero.
-- REMOVIDOS todos os travessões da copy (ban da skill).
-- COR: estratégia Committed/Drenched → o navy/azul Futuremedia carrega a
-  maior parte da superfície (hero drenched, banda de pergunta, fechamento
-  cyan). Sem gradiente (mais robusto em e-mail que a v8).
-- NEUTROS TINTADOS: nenhum #fff/#000 puro; brancos e pretos puxados para
-  o azul da marca.
-- LAYOUT: hero e seções alinhados à ESQUERDA (não tudo centrado).
-- TIPOGRAFIA: escala com contraste forte (12 → 16 → 22 → 40px, pesos
-  400/800), numerais 64px.
+O QUE MUDOU NESTA PASSADA:
+- LOGO REAL: trocado o "chip fm" de texto pelas assinaturas oficiais em
+  PNG (extraídas do vetor oficial em alta resolução, fundo transparente).
+  Positiva (gradiente) em fundos claros, Negativa (Off-white Tecnológico
+  #F1EFEB, versão monocromática documentada no manual) em fundos escuros.
+  Nenhuma versão clara sobre fundo claro nem escura sobre fundo escuro
+  (regra do manual: "Contraste Inexistente" é uso indevido).
+- PALETA EXATA do manual, nada de tom inventado:
+  Azul Institucional #174786 (cor principal, domina a superfície)
+  Azul Claro/Ciano   #008BCC (apoio — uso de ~10%, só em acentos e botões,
+                               nunca como fundo de seção inteira: a v9
+                               tinha 2 blocos 100% ciano, o que violava
+                               essa regra do manual; corrigido aqui)
+  Off-white Tecnológico #F1EFEB (base clara, substitui os cinzas-azulados
+                               inventados nas versões anteriores)
+  Grafite Digital     #2E2F35 (texto de corpo e contraste estrutural)
+- TIPOGRAFIA: Roboto (família institucional oficial). Pesos fortes
+  (Bold/Black) só em títulos e chamadas; pesos leves (Regular/Medium) só
+  em texto corrido — exatamente a regra do manual. Web font via Google
+  Fonts com fallback Arial/Helvetica para clientes que bloqueiam @import.
+- Removidos os 2 blocos 100% ciano (foto 2 e fechamento) e substituídos
+  por Azul Institucional, mantendo o ciano só como acento pontual
+  (palavra de destaque no título, numerais, botão).
+- Área de proteção: padding generoso ao redor da logo (regra do "1X" do
+  manual) em todas as aplicações.
 
-IMAGENS: 2 placeholders (borda tracejada). Trocar por fotos reais.
+IMAGENS: 2 placeholders (borda tracejada) para fotos reais de robôs em
+ativação. Logo já é asset real, hospedado em /relatorios/assets/.
 
 ASSUNTO:        TECNOLOGIAS INTERATIVAS PARA AÇÕES DE MARKETING
 ASSUNTO ALT:     A tecnologia que está dominando eventos e ações de marketing
@@ -33,7 +42,9 @@ ANTES DE ENVIAR:
    [LINK_INSTAGRAM] e [LINK_YOUTUBE] pelas tags/URLs no Dinamize.
 2. Trocar os blocos de FOTO PLACEHOLDER por imagens reais.
 3. Confirmar número de WhatsApp nos botões (hoje: (21) 99946-6770).
-4. Testar em Litmus/Email on Acid antes do disparo em massa.
+4. Testar em Litmus/Email on Acid (Roboto cai pra Arial na maior parte
+   dos clientes de e-mail — normal, é o fallback correto) antes do
+   disparo em massa.
 =====================================================================
 -->
 <!DOCTYPE html>
@@ -46,24 +57,26 @@ ANTES DE ENVIAR:
 <!--[if mso]>
 <noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
 <![endif]-->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" type="text/css">
 <style>
-  body, table, td { font-family: Arial, Helvetica, sans-serif; }
-  body { margin:0; padding:0; width:100% !important; background-color:#e8eef6; }
+  body, table, td { font-family: 'Roboto', Arial, Helvetica, sans-serif; }
+  body { margin:0; padding:0; width:100% !important; background-color:#e4e2dc; }
   table { border-collapse:collapse !important; }
   a { text-decoration:none; }
+  img { border:0; outline:none; -ms-interpolation-mode:bicubic; }
   @media screen and (max-width:600px) {
     .email-container { width:100% !important; }
     .px-mobile { padding-left:24px !important; padding-right:24px !important; }
-    .hero-title { font-size:31px !important; line-height:37px !important; }
-    .band-title { font-size:24px !important; line-height:30px !important; }
-    .close-title { font-size:26px !important; line-height:32px !important; }
+    .hero-title { font-size:30px !important; line-height:36px !important; }
+    .band-title { font-size:23px !important; line-height:29px !important; }
+    .close-title { font-size:25px !important; line-height:31px !important; }
     .num-col { width:64px !important; }
     .num-col span { font-size:44px !important; line-height:44px !important; }
     .btn-mobile { width:100% !important; text-align:center !important; }
   }
 </style>
 </head>
-<body style="margin:0; padding:0; background-color:#e8eef6;">
+<body style="margin:0; padding:0; background-color:#e4e2dc;">
 
   <div style="display:none; max-height:0; overflow:hidden; mso-hide:all;">
     Robótica, realidade aumentada e telas touch: o que está funcionando nas ativações de marca hoje.
@@ -72,7 +85,7 @@ ANTES DE ENVIAR:
     &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp;
   </div>
 
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#e8eef6;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#e4e2dc;">
     <tr>
       <td align="center" style="padding:0 12px 36px 12px;">
 
@@ -80,49 +93,43 @@ ANTES DE ENVIAR:
 
           <!-- BARRA UTILITÁRIA -->
           <tr>
-            <td style="background-color:#fbfcfe; padding:12px 28px;">
+            <td style="background-color:#F1EFEB; padding:12px 28px;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                 <tr>
-                  <td align="left" style="font-size:11px; color:#8c98ac;"><a href="[LINK_VER_NA_WEB]" style="color:#8c98ac; text-decoration:underline;">Ver no navegador</a></td>
-                  <td align="right" style="font-size:11px; color:#8c98ac;"><a href="[LINK_DESCADASTRO]" style="color:#8c98ac; text-decoration:underline;">Descadastre-se</a></td>
+                  <td align="left" style="font-size:11px; font-weight:500; color:#6b6d76;"><a href="[LINK_VER_NA_WEB]" style="color:#6b6d76; text-decoration:underline;">Ver no navegador</a></td>
+                  <td align="right" style="font-size:11px; font-weight:500; color:#6b6d76;"><a href="[LINK_DESCADASTRO]" style="color:#6b6d76; text-decoration:underline;">Descadastre-se</a></td>
                 </tr>
               </table>
             </td>
           </tr>
 
-          <!-- HEADER: CHIP fm + WORDMARK -->
+          <!-- HEADER: LOGO OFICIAL POSITIVA (fundo claro → assinatura em gradiente) -->
           <tr>
-            <td style="background-color:#fbfcfe; padding:20px 32px 22px 32px;">
-              <table role="presentation" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td width="38" height="38" align="center" valign="middle" style="background-color:#174786; border-radius:9px; font-size:18px; font-weight:800; color:#f5faff; letter-spacing:-0.5px;">fm</td>
-                  <td style="width:11px;">&nbsp;</td>
-                  <td style="font-size:21px; font-weight:400; color:#008BCC; letter-spacing:0.3px;">future<span style="font-weight:800; color:#174786;">media</span></td>
-                </tr>
-              </table>
+            <td style="background-color:#F1EFEB; padding:28px 32px 26px 32px;">
+              <img src="https://whitewindow-mkt.github.io/relatorios/assets/futuremedia-logo-positiva.png" width="168" height="74" alt="Futuremedia" style="display:block; width:168px; height:74px;">
             </td>
           </tr>
 
-          <!-- HERO DRENCHED NAVY, ALINHADO À ESQUERDA -->
+          <!-- HERO: AZUL INSTITUCIONAL (cor principal, domina a seção) -->
           <tr>
-            <td style="background-color:#123a72; padding:52px 44px 0 44px;" class="px-mobile">
-              <p style="margin:0 0 18px 0; font-size:12px; font-weight:800; color:#5fc2f5; text-transform:uppercase; letter-spacing:2px;">Comunicação interativa</p>
-              <p class="hero-title" style="margin:0 0 20px 0; font-size:40px; line-height:46px; font-weight:800; color:#f5faff; letter-spacing:-0.5px;">A tecnologia que está <span style="color:#5fc2f5;">dominando eventos</span> e ações de marketing.</p>
-              <p style="margin:0 0 30px 0; font-size:16px; line-height:26px; color:#b9d4ee; max-width:460px;">Robótica, inteligência artificial e recursos interativos se consolidaram como a principal atração em ativações de marca. O motivo é simples: transformam tecnologia em experiência inesquecível.</p>
+            <td style="background-color:#174786; padding:56px 44px 0 44px;" class="px-mobile">
+              <p style="margin:0 0 18px 0; font-size:12px; font-weight:700; color:#F1EFEB; text-transform:uppercase; letter-spacing:2px;">Comunicação interativa</p>
+              <p class="hero-title" style="margin:0 0 20px 0; font-size:40px; line-height:46px; font-weight:900; color:#F1EFEB; letter-spacing:-0.5px;">A tecnologia que está <span style="color:#008BCC;">dominando eventos</span> e ações de marketing.</p>
+              <p style="margin:0 0 30px 0; font-size:16px; line-height:26px; font-weight:400; color:#c3d3e6; max-width:460px;">Robótica, inteligência artificial e recursos interativos se consolidaram como a principal atração em ativações de marca. O motivo é simples: transformam tecnologia em experiência inesquecível.</p>
               <table role="presentation" cellpadding="0" cellspacing="0">
                 <tr>
                   <td class="btn-mobile" style="background-color:#008BCC; border-radius:6px;">
-                    <a href="https://wa.me/5521999466770?text=Ol%C3%A1%21%20Vi%20o%20e-mail%20da%20Futuremedia%20sobre%20tecnologias%20interativas%20para%20a%C3%A7%C3%B5es%20de%20marketing%20e%20quero%20saber%20mais." style="display:inline-block; padding:15px 34px; font-size:14px; font-weight:800; color:#f5faff; text-transform:uppercase; letter-spacing:0.5px;">Fale Conosco</a>
+                    <a href="https://wa.me/5521999466770?text=Ol%C3%A1%21%20Vi%20o%20e-mail%20da%20Futuremedia%20sobre%20tecnologias%20interativas%20para%20a%C3%A7%C3%B5es%20de%20marketing%20e%20quero%20saber%20mais." style="display:inline-block; padding:15px 34px; font-size:14px; font-weight:700; color:#F1EFEB; text-transform:uppercase; letter-spacing:0.5px;">Fale Conosco</a>
                   </td>
                 </tr>
               </table>
             </td>
           </tr>
           <tr>
-            <td style="background-color:#123a72; padding:40px 44px 48px 44px;" class="px-mobile">
+            <td style="background-color:#174786; padding:40px 44px 48px 44px;" class="px-mobile">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px dashed #4a6ea6; border-radius:10px;">
                 <tr>
-                  <td align="center" style="padding:74px 20px; font-size:11px; font-weight:700; letter-spacing:1px; color:#b9d4ee; text-transform:uppercase;">
+                  <td align="center" style="padding:74px 20px; font-size:11px; font-weight:700; letter-spacing:1px; color:#c3d3e6; text-transform:uppercase;">
                     Foto: robôs interativos em ativação de marca
                   </td>
                 </tr>
@@ -130,95 +137,95 @@ ANTES DE ENVIAR:
             </td>
           </tr>
 
-          <!-- INTRO CLARA -->
+          <!-- INTRO — FUNDO OFF-WHITE, TEXTO GRAFITE -->
           <tr>
-            <td class="px-mobile" style="background-color:#fbfcfe; padding:46px 44px 42px 44px; font-size:16px; line-height:26px; color:#1d2b42;">
+            <td class="px-mobile" style="background-color:#F1EFEB; padding:46px 44px 42px 44px; font-size:16px; line-height:26px; font-weight:400; color:#2E2F35;">
               <p style="margin:0 0 18px 0;">Ativações de marca, feiras e lançamentos estão cada vez mais concorridos. Apenas marcar presença já não é suficiente para capturar a atenção do público, e é nesse cenário que as tecnologias interativas se consolidam como recurso central nas estratégias de marketing.</p>
               <p style="margin:0;">Mais do que um diferencial estético, essas tecnologias transformam presença em experiência: geram engajamento real durante a ação, produzem conteúdo espontâneo para as redes e reforçam a lembrança de marca muito depois do evento terminar.</p>
             </td>
           </tr>
 
-          <!-- BANDA DE PERGUNTA: NAVY, LARGURA TOTAL, SEM BORDA-TRUQUE -->
+          <!-- BANDA DE PERGUNTA — AZUL INSTITUCIONAL (não ciano: mantém a cor de apoio em ~10%) -->
           <tr>
-            <td style="background-color:#0d2c58; padding:48px 44px;" class="px-mobile">
-              <p class="band-title" style="margin:0 0 14px 0; font-size:28px; line-height:35px; font-weight:800; color:#f5faff; letter-spacing:-0.3px;">Sua marca está tendo a <span style="color:#5fc2f5;">visibilidade que merece?</span></p>
-              <p style="margin:0 0 26px 0; font-size:15px; line-height:24px; color:#b9d4ee; max-width:440px;">Se as suas ações ainda dependem só de estande, banner e panfleto, a resposta provavelmente é não.</p>
+            <td style="background-color:#123a72; padding:48px 44px;" class="px-mobile">
+              <p class="band-title" style="margin:0 0 14px 0; font-size:28px; line-height:35px; font-weight:900; color:#F1EFEB; letter-spacing:-0.3px;">Sua marca está tendo a <span style="color:#008BCC;">visibilidade que merece?</span></p>
+              <p style="margin:0 0 26px 0; font-size:15px; line-height:24px; font-weight:400; color:#c3d3e6; max-width:440px;">Se as suas ações ainda dependem só de estande, banner e panfleto, a resposta provavelmente é não.</p>
               <table role="presentation" cellpadding="0" cellspacing="0">
                 <tr>
-                  <td class="btn-mobile" style="background-color:#f5faff; border-radius:6px;">
-                    <a href="https://wa.me/5521999466770?text=Ol%C3%A1%21%20Quero%20entender%20como%20dar%20mais%20visibilidade%20%C3%A0%20minha%20marca%20com%20tecnologia%20interativa." style="display:inline-block; padding:13px 28px; font-size:13px; font-weight:800; color:#0d2c58; text-transform:uppercase; letter-spacing:0.5px;">Fale Conosco</a>
+                  <td class="btn-mobile" style="background-color:#F1EFEB; border-radius:6px;">
+                    <a href="https://wa.me/5521999466770?text=Ol%C3%A1%21%20Quero%20entender%20como%20dar%20mais%20visibilidade%20%C3%A0%20minha%20marca%20com%20tecnologia%20interativa." style="display:inline-block; padding:13px 28px; font-size:13px; font-weight:700; color:#174786; text-transform:uppercase; letter-spacing:0.5px;">Fale Conosco</a>
                   </td>
                 </tr>
               </table>
             </td>
           </tr>
 
-          <!-- LISTA EDITORIAL NUMERADA (substitui os cards) -->
+          <!-- LISTA EDITORIAL NUMERADA — FUNDO OFF-WHITE -->
           <tr>
-            <td class="px-mobile" style="background-color:#fbfcfe; padding:48px 44px 10px 44px;">
-              <p style="margin:0; font-size:22px; line-height:29px; font-weight:800; color:#0d2c58; letter-spacing:-0.3px;">Marcas que dominam o mercado não fazem apenas ativações. Elas usam tecnologia interativa para:</p>
+            <td class="px-mobile" style="background-color:#F1EFEB; padding:48px 44px 10px 44px;">
+              <p style="margin:0; font-size:22px; line-height:29px; font-weight:900; color:#174786; letter-spacing:-0.3px;">Marcas que dominam o mercado não fazem apenas ativações. Elas usam tecnologia interativa para:</p>
             </td>
           </tr>
 
           <!-- ITEM 01 -->
           <tr>
-            <td class="px-mobile" style="background-color:#fbfcfe; padding:34px 44px 0 44px;">
+            <td class="px-mobile" style="background-color:#F1EFEB; padding:34px 44px 0 44px;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td class="num-col" valign="top" width="88">
-                    <span style="font-size:64px; line-height:64px; font-weight:800; color:#008BCC; letter-spacing:-2px;">01</span>
+                    <span style="font-size:64px; line-height:64px; font-weight:900; color:#008BCC; letter-spacing:-2px;">01</span>
                   </td>
                   <td valign="top" style="padding-top:6px;">
-                    <p style="margin:0 0 6px 0; font-size:17px; font-weight:800; color:#16243a;">Atrair o público nos primeiros segundos</p>
-                    <p style="margin:0; font-size:14.5px; line-height:23px; color:#45536b;">Um robô em movimento ou uma tela que responde para o público em instantes. É um efeito que banner e estande, sozinhos, não conseguem replicar.</p>
+                    <p style="margin:0 0 6px 0; font-size:17px; font-weight:700; color:#2E2F35;">Atrair o público nos primeiros segundos</p>
+                    <p style="margin:0; font-size:14.5px; line-height:23px; font-weight:400; color:#54565f;">Um robô em movimento ou uma tela que responde para o público em instantes. É um efeito que banner e estande, sozinhos, não conseguem replicar.</p>
                   </td>
                 </tr>
               </table>
             </td>
           </tr>
-          <tr><td style="background-color:#fbfcfe; padding:28px 44px 0 44px;" class="px-mobile"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td height="1" style="background-color:#dde6f0; font-size:0; line-height:0;">&nbsp;</td></tr></table></td></tr>
+          <tr><td style="background-color:#F1EFEB; padding:28px 44px 0 44px;" class="px-mobile"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td height="1" style="background-color:#dcd9d0; font-size:0; line-height:0;">&nbsp;</td></tr></table></td></tr>
 
           <!-- ITEM 02 -->
           <tr>
-            <td class="px-mobile" style="background-color:#fbfcfe; padding:28px 44px 0 44px;">
+            <td class="px-mobile" style="background-color:#F1EFEB; padding:28px 44px 0 44px;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td class="num-col" valign="top" width="88">
-                    <span style="font-size:64px; line-height:64px; font-weight:800; color:#174786; letter-spacing:-2px;">02</span>
+                    <span style="font-size:64px; line-height:64px; font-weight:900; color:#174786; letter-spacing:-2px;">02</span>
                   </td>
                   <td valign="top" style="padding-top:6px;">
-                    <p style="margin:0 0 6px 0; font-size:17px; font-weight:800; color:#16243a;">Criar interação real com o público</p>
-                    <p style="margin:0; font-size:14.5px; line-height:23px; color:#45536b;">Robótica, IA conversacional e realidade aumentada convidam as pessoas a tocar, conversar e testar, em vez de apenas observar de longe.</p>
+                    <p style="margin:0 0 6px 0; font-size:17px; font-weight:700; color:#2E2F35;">Criar interação real com o público</p>
+                    <p style="margin:0; font-size:14.5px; line-height:23px; font-weight:400; color:#54565f;">Robótica, IA conversacional e realidade aumentada convidam as pessoas a tocar, conversar e testar, em vez de apenas observar de longe.</p>
                   </td>
                 </tr>
               </table>
             </td>
           </tr>
-          <tr><td style="background-color:#fbfcfe; padding:28px 44px 0 44px;" class="px-mobile"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td height="1" style="background-color:#dde6f0; font-size:0; line-height:0;">&nbsp;</td></tr></table></td></tr>
+          <tr><td style="background-color:#F1EFEB; padding:28px 44px 0 44px;" class="px-mobile"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td height="1" style="background-color:#dcd9d0; font-size:0; line-height:0;">&nbsp;</td></tr></table></td></tr>
 
           <!-- ITEM 03 -->
           <tr>
-            <td class="px-mobile" style="background-color:#fbfcfe; padding:28px 44px 48px 44px;">
+            <td class="px-mobile" style="background-color:#F1EFEB; padding:28px 44px 48px 44px;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td class="num-col" valign="top" width="88">
-                    <span style="font-size:64px; line-height:64px; font-weight:800; color:#008BCC; letter-spacing:-2px;">03</span>
+                    <span style="font-size:64px; line-height:64px; font-weight:900; color:#008BCC; letter-spacing:-2px;">03</span>
                   </td>
                   <td valign="top" style="padding-top:6px;">
-                    <p style="margin:0 0 6px 0; font-size:17px; font-weight:800; color:#16243a;">Gerar mais conteúdo e leads qualificados</p>
-                    <p style="margin:0; font-size:14.5px; line-height:23px; color:#45536b;">Cada interação vira registro espontâneo nas redes e oportunidade de capturar contato qualificado no pico de atenção do público.</p>
+                    <p style="margin:0 0 6px 0; font-size:17px; font-weight:700; color:#2E2F35;">Gerar mais conteúdo e leads qualificados</p>
+                    <p style="margin:0; font-size:14.5px; line-height:23px; font-weight:400; color:#54565f;">Cada interação vira registro espontâneo nas redes e oportunidade de capturar contato qualificado no pico de atenção do público.</p>
                   </td>
                 </tr>
               </table>
             </td>
           </tr>
 
-          <!-- FOTO 2 -->
+          <!-- FOTO 2 — AZUL INSTITUCIONAL (corrigido: era 100% ciano na v9) -->
           <tr>
-            <td style="background-color:#008BCC; padding:44px 44px 0 44px;" class="px-mobile">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px dashed #66c4ec; border-radius:10px;">
+            <td style="background-color:#174786; padding:44px 44px 0 44px;" class="px-mobile">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px dashed #4a6ea6; border-radius:10px;">
                 <tr>
-                  <td align="center" style="padding:58px 20px; font-size:11px; font-weight:700; letter-spacing:1px; color:#dff3fd; text-transform:uppercase;">
+                  <td align="center" style="padding:58px 20px; font-size:11px; font-weight:700; letter-spacing:1px; color:#c3d3e6; text-transform:uppercase;">
                     Foto: robô interativo em evento
                   </td>
                 </tr>
@@ -226,45 +233,50 @@ ANTES DE ENVIAR:
             </td>
           </tr>
 
-          <!-- FECHAMENTO DRENCHED CYAN -->
+          <!-- FECHAMENTO — AZUL INSTITUCIONAL (corrigido: era 100% ciano na v9), logo negativa -->
           <tr>
-            <td style="background-color:#008BCC; padding:40px 44px 52px 44px;" class="px-mobile">
-              <p class="close-title" style="margin:0 0 16px 0; font-size:30px; line-height:37px; font-weight:800; color:#f5faff; letter-spacing:-0.3px;">Presença não gera lembrança.<br>Experiência gera.</p>
-              <p style="margin:0 0 28px 0; font-size:15px; line-height:24px; color:#dff3fd; max-width:450px;">A Futuremedia é referência em tecnologia interativa no Brasil, unindo robótica e inteligência artificial para criar ações de marketing que o público lembra.</p>
+            <td style="background-color:#174786; padding:40px 44px 30px 44px;" class="px-mobile">
+              <p class="close-title" style="margin:0 0 16px 0; font-size:30px; line-height:37px; font-weight:900; color:#F1EFEB; letter-spacing:-0.3px;">Presença não gera lembrança.<br>Experiência gera.</p>
+              <p style="margin:0 0 28px 0; font-size:15px; line-height:24px; font-weight:400; color:#c3d3e6; max-width:450px;">A Futuremedia é referência em tecnologia interativa no Brasil, unindo robótica e inteligência artificial para criar ações de marketing que o público lembra.</p>
               <table role="presentation" cellpadding="0" cellspacing="0">
                 <tr>
-                  <td class="btn-mobile" style="background-color:#f5faff; border-radius:6px;">
-                    <a href="https://wa.me/5521999466770?text=Ol%C3%A1%21%20Recebi%20o%20e-mail%20da%20Futuremedia%20sobre%20tecnologias%20interativas%20e%20quero%20falar%20com%20um%20consultor." style="display:inline-block; padding:15px 34px; font-size:14px; font-weight:800; color:#0d2c58; text-transform:uppercase; letter-spacing:0.5px;">Fale com um Consultor</a>
+                  <td class="btn-mobile" style="background-color:#008BCC; border-radius:6px;">
+                    <a href="https://wa.me/5521999466770?text=Ol%C3%A1%21%20Recebi%20o%20e-mail%20da%20Futuremedia%20sobre%20tecnologias%20interativas%20e%20quero%20falar%20com%20um%20consultor." style="display:inline-block; padding:15px 34px; font-size:14px; font-weight:700; color:#F1EFEB; text-transform:uppercase; letter-spacing:0.5px;">Fale com um Consultor</a>
                   </td>
                 </tr>
               </table>
+            </td>
+          </tr>
+          <tr>
+            <td align="left" style="background-color:#174786; padding:34px 44px 44px 44px;" class="px-mobile">
+              <img src="https://whitewindow-mkt.github.io/relatorios/assets/futuremedia-logo-negativa.png" width="128" height="56" alt="Futuremedia" style="display:block; width:128px; height:56px; opacity:0.9;">
             </td>
           </tr>
 
           <!-- RODAPÉ -->
           <tr>
-            <td align="center" style="background-color:#e8eef6; padding:36px 44px 6px 44px;">
-              <p style="margin:0 0 14px 0; font-size:12px; font-weight:700; color:#45536b; text-transform:uppercase; letter-spacing:1px;">Siga-nos nas redes sociais</p>
+            <td align="center" style="background-color:#e4e2dc; padding:36px 44px 6px 44px;">
+              <p style="margin:0 0 14px 0; font-size:12px; font-weight:700; color:#54565f; text-transform:uppercase; letter-spacing:1px;">Siga-nos nas redes sociais</p>
               <table role="presentation" cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="padding:0 6px;">
-                    <a href="[LINK_FACEBOOK]" style="display:block;"><table role="presentation" cellpadding="0" cellspacing="0"><tr><td width="32" height="32" align="center" valign="middle" style="background-color:#174786; border-radius:50%; font-size:13px; font-weight:800; color:#f5faff;">f</td></tr></table></a>
+                    <a href="[LINK_FACEBOOK]" style="display:block;"><table role="presentation" cellpadding="0" cellspacing="0"><tr><td width="32" height="32" align="center" valign="middle" style="background-color:#174786; border-radius:50%; font-size:13px; font-weight:700; color:#F1EFEB;">f</td></tr></table></a>
                   </td>
                   <td style="padding:0 6px;">
-                    <a href="[LINK_INSTAGRAM]" style="display:block;"><table role="presentation" cellpadding="0" cellspacing="0"><tr><td width="32" height="32" align="center" valign="middle" style="background-color:#174786; border-radius:50%; font-size:12px; font-weight:800; color:#f5faff;">ig</td></tr></table></a>
+                    <a href="[LINK_INSTAGRAM]" style="display:block;"><table role="presentation" cellpadding="0" cellspacing="0"><tr><td width="32" height="32" align="center" valign="middle" style="background-color:#174786; border-radius:50%; font-size:12px; font-weight:700; color:#F1EFEB;">ig</td></tr></table></a>
                   </td>
                   <td style="padding:0 6px;">
-                    <a href="[LINK_YOUTUBE]" style="display:block;"><table role="presentation" cellpadding="0" cellspacing="0"><tr><td width="32" height="32" align="center" valign="middle" style="background-color:#174786; border-radius:50%; font-size:12px; font-weight:800; color:#f5faff;">yt</td></tr></table></a>
+                    <a href="[LINK_YOUTUBE]" style="display:block;"><table role="presentation" cellpadding="0" cellspacing="0"><tr><td width="32" height="32" align="center" valign="middle" style="background-color:#174786; border-radius:50%; font-size:12px; font-weight:700; color:#F1EFEB;">yt</td></tr></table></a>
                   </td>
                 </tr>
               </table>
             </td>
           </tr>
           <tr>
-            <td style="background-color:#e8eef6; padding:16px 44px 10px 44px; font-size:11px; line-height:17px; color:#8c98ac;">
+            <td style="background-color:#e4e2dc; padding:16px 44px 10px 44px; font-size:11px; line-height:17px; font-weight:400; color:#6b6d76;">
               <p style="margin:0 0 10px 0;">A Futuremedia respeita a sua privacidade e é contra o envio de spam. Não vendemos, compartilhamos ou distribuímos seus dados a terceiros. Você está recebendo este e-mail porque interagiu com nossos robôs ou tecnologias em feiras, eventos e ações comerciais, ou porque seu contato foi registrado em uma interação com a nossa equipe.</p>
-              <p style="margin:0 0 10px 0;"><strong style="color:#45536b;">Atendimento Futuremedia</strong> (21) 3587-2812 / (11) 3360-4270. De Segunda a Sexta das 8:30 às 18:00 (exceto feriados). contato@futuremedia.com.br · www.futuremedia.com.br</p>
-              <p style="margin:0;"><a href="[LINK_DESCADASTRO]" style="color:#8c98ac; text-decoration:underline;">Descadastre-se</a> caso não queira mais receber e-mails.</p>
+              <p style="margin:0 0 10px 0;"><strong style="color:#2E2F35;">Atendimento Futuremedia</strong> (21) 3587-2812 / (11) 3360-4270. De Segunda a Sexta das 8:30 às 18:00 (exceto feriados). contato@futuremedia.com.br · www.futuremedia.com.br</p>
+              <p style="margin:0;"><a href="[LINK_DESCADASTRO]" style="color:#6b6d76; text-decoration:underline;">Descadastre-se</a> caso não queira mais receber e-mails.</p>
             </td>
           </tr>
 
