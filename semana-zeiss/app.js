@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Webhook configuration for leads integration (e.g. Google Apps Script, Make, Zapier or HSales API)
-    const WEBHOOK_URL = ''; // Insira aqui a URL do seu webhook
+    const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwA-h4CKdE8bIzkoh5WrxVcuM77FLFmJhQag2yMrdypD2ReFxEQl0K6DtomjyM7fFH5/exec'; // Insira aqui a URL do seu webhook
 
     // DOM Elements
     const bgContainer = document.getElementById('bg-container');
