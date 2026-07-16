@@ -37,6 +37,10 @@ body {
     line-height: 1.6;
 }
 
+.mobile-only {
+    display: none;
+}
+
 /* Full-screen Background with Dynamic Blur */
 .full-screen-bg {
     position: fixed;
@@ -976,6 +980,19 @@ footer {
     }
     .campaign-main-title {
         font-size: 1.35rem;
+    }
+    .center-layout {
+        padding: 1rem 1rem !important; /* Reduces vertical spacing from card to top/bottom of screen on mobile */
+    }
+    .mobile-only {
+        display: inline !important; /* Shows mobile-only line breaks */
+    }
+    .campaign-tag-wrapper {
+        margin-bottom: 0.8rem !important; /* Reduces spacing under the main title on mobile */
+    }
+    .subtitle-obrigado {
+        line-height: 1.35 !important;
+        margin-bottom: 0.6rem !important;
     }
 }
 
