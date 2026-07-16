@@ -497,6 +497,19 @@ button.voucher-wrapper-interactive:not(:disabled):hover .ticket-voucher {
         white-space: nowrap !important;
         font-size: 0.82rem !important;
     }
+    .form-card {
+        max-width: 480px !important;
+    }
+    .campaign-main-title {
+        font-size: 1.42rem !important;
+        line-height: 1.25 !important;
+    }
+    .campaign-main-title .highlight-line {
+        font-size: 0.95em !important;
+    }
+    .logo-container img {
+        height: 42px !important;
+    }
 }
 
 .subtitle-obrigado {
