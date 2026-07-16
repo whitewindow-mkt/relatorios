@@ -1157,75 +1157,63 @@ body.thankyou-page .bg-dark-overlay {
     height: auto;
     border-radius: 6px;
     opacity: 0;
-    transform: scale(0.85);
-    animation: zoomInCinematic 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transform: scale(0.7);
+    filter: blur(10px);
+    animation: logoEntrance 1.0s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes zoomInCinematic {
+@keyframes logoEntrance {
     0% {
         opacity: 0;
-        transform: scale(0.8) translateY(10px);
-        filter: blur(8px);
+        transform: scale(0.7);
+        filter: blur(10px);
     }
     100% {
         opacity: 1;
-        transform: scale(1) translateY(0);
+        transform: scale(1);
         filter: blur(0px);
     }
 }
 
-/* Slide down animation for logo transition */
+/* Shutter Zoom-Past Exit Animation (fly-through the lens) */
 #intro-overlay.intro-out .intro-logo {
-    animation: slideDownOut 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: logoZoomPast 0.8s cubic-bezier(0.76, 0, 0.24, 1) forwards;
 }
 
-@keyframes slideDownOut {
+@keyframes logoZoomPast {
     0% {
         opacity: 1;
-        transform: scale(1) translateY(0);
+        transform: scale(1);
+        filter: blur(0px);
     }
     100% {
         opacity: 0;
-        transform: scale(0.55) translateY(180px);
-        filter: blur(4px);
+        transform: scale(5.5);
+        filter: blur(30px);
     }
 }
 
 /* Disable default animation for form-card on index.html so the intro handles it */
 #form-card {
-    animation: none;
+    animation: none !important;
     opacity: 0;
+    transform: scale(0.93);
+    filter: blur(8px);
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 #bg-container {
     opacity: 0;
+    transition: opacity 1.2s ease-out;
 }
 
-/* Once intro transitions, slide up the form card and fade in background */
+/* Once intro transitions, fly into the form card and fade in background */
 body.intro-completed #form-card {
-    animation: revealUpCard 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    opacity: 1 !important;
+    transform: scale(1) !important;
+    filter: blur(0px) !important;
 }
 
 body.intro-completed #bg-container {
-    animation: fadeInBg 1.2s ease-out forwards;
-}
-
-@keyframes revealUpCard {
-    from {
-        opacity: 0;
-        transform: translateY(50px) scale(0.97);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-@keyframes fadeInBg {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    opacity: 1 !important;
 }
