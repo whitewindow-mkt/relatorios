@@ -137,7 +137,7 @@ header {
 }
 
 .form-card {
-    max-width: 480px;
+    max-width: 580px;
 }
 
 .form-card::before {
@@ -1124,96 +1124,3 @@ body.thankyou-page .bg-dark-overlay {
     border-radius: 12px;
 }
 
-/* ===== Cinematic Intro Pre-loader Overlay ===== */
-#intro-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 99999;
-    opacity: 1;
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-#intro-overlay.intro-out {
-    opacity: 0;
-    pointer-events: none;
-}
-
-.intro-logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    perspective: 800px;
-}
-
-.intro-logo {
-    width: 90px;
-    height: auto;
-    border-radius: 6px;
-    opacity: 0;
-    transform: scale(0.7);
-    filter: blur(10px);
-    animation: logoEntrance 1.0s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes logoEntrance {
-    0% {
-        opacity: 0;
-        transform: scale(0.7);
-        filter: blur(10px);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-        filter: blur(0px);
-    }
-}
-
-/* Shutter Zoom-Past Exit Animation (fly-through the lens) */
-#intro-overlay.intro-out .intro-logo {
-    animation: logoZoomPast 0.8s cubic-bezier(0.76, 0, 0.24, 1) forwards;
-}
-
-@keyframes logoZoomPast {
-    0% {
-        opacity: 1;
-        transform: scale(1);
-        filter: blur(0px);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(5.5);
-        filter: blur(30px);
-    }
-}
-
-/* Disable default animation for form-card on index.html so the intro handles it */
-#form-card {
-    animation: none !important;
-    opacity: 0;
-    transform: scale(0.93);
-    filter: blur(8px);
-    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-#bg-container {
-    opacity: 0;
-    transition: opacity 1.2s ease-out;
-}
-
-/* Once intro transitions, fly into the form card and fade in background */
-body.intro-completed #form-card {
-    opacity: 1 !important;
-    transform: scale(1) !important;
-    filter: blur(0px) !important;
-}
-
-body.intro-completed #bg-container {
-    opacity: 1 !important;
-}

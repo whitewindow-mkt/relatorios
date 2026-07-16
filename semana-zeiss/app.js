@@ -2,18 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize Lucide icons
     lucide.createIcons();
 
-    // Cinematic Intro preloader animation sequence
-    const introOverlay = document.getElementById('intro-overlay');
-    if (introOverlay) {
-        setTimeout(() => {
-            introOverlay.classList.add('intro-out');
-            document.body.classList.add('intro-completed');
-        }, 1300); // 1.3 seconds of branding focus, then transition
-    } else {
-        // Fallback if intro-overlay is not in DOM (e.g. obrigado.html)
-        document.body.classList.add('intro-completed');
-    }
-
     // DOM Elements
     const bgContainer = document.getElementById('bg-container');
     const progressFill = document.getElementById('progress-fill');
