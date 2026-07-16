@@ -23,9 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const bgContainer = document.getElementById('bg-container');
     const progressFill = document.getElementById('progress-fill');
     const stepCounter = document.getElementById('step-counter');
-    const submitBtn = document.getElementById('submit-btn'); // Interactive voucher button (final step)
     const voucherBlurContent = document.getElementById('voucher-blur-content');
-    const cupomPlaceholderText = document.getElementById('cupom-placeholder-text');
 
     // Form inputs (Only 4 fields now!)
     const nomeInput = document.getElementById('nome');
@@ -39,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const steps = Array.from(document.querySelectorAll('.quiz-step'));
     const totalSteps = steps.length;
     let currentStep = 1;
-    let isVoucherUnlocked = false;
 
     // -------------------------------------------------------------
     // FORM VALIDATION
@@ -79,39 +76,18 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function updateVoucherPreview() {
-        const { completedCount, validity } = checkFieldsValidity();
-        
-        if (isVoucherUnlocked) {
-            // Unlocked state (after user clicked "Gerar meu cupom")
-            if (voucherBlurContent) voucherBlurContent.style.filter = 'blur(0px)';
-            bgContainer.style.filter = 'blur(0px)';
-            
-            submitBtn.disabled = false;
-            submitBtn.style.pointerEvents = 'auto';
-            submitBtn.style.cursor = 'pointer';
-            submitBtn.classList.add('glow-animation');
-            
-            cupomPlaceholderText.textContent = 'CLIQUE AQUI PARA RESGATAR 🔓';
-            cupomPlaceholderText.style.color = 'var(--zeiss-blue)';
-        } else {
-            // Normal progression-based blur
-            const config = progressionMap[currentStep];
-            if (config) {
-                if (voucherBlurContent) voucherBlurContent.style.filter = `blur(${config.voucherBlur})`;
-                bgContainer.style.filter = `blur(${config.bgBlur})`;
-            }
-            
-            submitBtn.disabled = true;
-            submitBtn.style.pointerEvents = 'none';
-            submitBtn.style.cursor = 'not-allowed';
-            submitBtn.classList.remove('glow-animation');
-            
-            cupomPlaceholderText.textContent = 'RESPONDA PARA DESBLOQUEAR 🔒';
-            cupomPlaceholderText.style.color = '';
+        const { validity } = checkFieldsValidity();
+
+        // Progressive blur: sharpens a bit with each step advanced (not on every keystroke).
+        // Full reveal happens on the next page (obrigado.html) right after "Gerar meu cupom".
+        const config = progressionMap[currentStep];
+        if (config) {
+            if (voucherBlurContent) voucherBlurContent.style.filter = `blur(${config.voucherBlur})`;
+            bgContainer.style.filter = `blur(${config.bgBlur})`;
         }
 
         if (btnSubmitForm) {
-            btnSubmitForm.disabled = !validity.loja || isVoucherUnlocked;
+            btnSubmitForm.disabled = !validity.loja;
         }
     }
 
@@ -272,36 +248,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Save locally to display on thank you page
         localStorage.setItem('zeiss_lead_data', JSON.stringify(leadData));
 
-        // Mark voucher as unlocked!
-        isVoucherUnlocked = true;
-        updateVoucherPreview();
-
-        // Update step progress indicator to 100% complete
-        if (progressFill) {
-            progressFill.style.width = '100%';
-            progressFill.style.background = 'var(--success)';
-        }
-        if (stepCounter) {
-            stepCounter.innerHTML = `Cupom liberado <i data-lucide="check" style="width: 12px; height: 12px; color: var(--success); vertical-align: middle;"></i>`;
-            lucide.createIcons();
-        }
-
-        // Change submit button state to "Loja Confirmada ✓" and disable it
-        if (btnSubmitForm) {
-            btnSubmitForm.innerHTML = `Loja Confirmada <i data-lucide="check" style="width: 15px; height: 15px;"></i>`;
-            btnSubmitForm.style.background = 'var(--success)';
-            btnSubmitForm.style.opacity = '0.7';
-            btnSubmitForm.style.cursor = 'not-allowed';
-            btnSubmitForm.disabled = true;
-            lucide.createIcons();
-        }
-    });
-
-    // Handle clicking on the unblurred, glowing coupon to redeem it
-    submitBtn.addEventListener('click', () => {
-        if (isVoucherUnlocked) {
-            window.location.href = 'obrigado.html';
-        }
+        // Um clique so: gera o cupom e ja abre a pagina de confirmacao (confete la faz a festa)
+        window.location.href = 'obrigado.html';
     });
 
     // Run initial UI state
