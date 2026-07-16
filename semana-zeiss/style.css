@@ -137,7 +137,7 @@ header {
 }
 
 .form-card {
-    max-width: 580px;
+    max-width: 480px;
 }
 
 .form-card::before {
