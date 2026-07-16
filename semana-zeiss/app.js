@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('intro-completed');
     }
 
+    // Webhook configuration for leads integration (e.g. Google Apps Script, Make, Zapier or HSales API)
+    const WEBHOOK_URL = ''; // Insira aqui a URL do seu webhook
+
     // DOM Elements
     const bgContainer = document.getElementById('bg-container');
     const progressFill = document.getElementById('progress-fill');
@@ -242,14 +245,41 @@ document.addEventListener('DOMContentLoaded', () => {
             email: email,
             receita: 'exame', // Leads default to scheduling examination validation on thanks page
             loja: loja,
-            timestamp: new Date().toISOString()
+            timestamp: new Date().toISOString(),
+            origem: 'Semana Zeiss'
         };
 
         // Save locally to display on thank you page
         localStorage.setItem('zeiss_lead_data', JSON.stringify(leadData));
 
-        // Um clique so: gera o cupom e ja abre a pagina de confirmacao (confete la faz a festa)
-        window.location.href = 'obrigado.html';
+        if (WEBHOOK_URL) {
+            // Show loading state to prevent double submits and show background progress
+            if (btnSubmitForm) {
+                btnSubmitForm.disabled = true;
+                btnSubmitForm.innerHTML = `Gerando cupom... <i data-lucide="loader" class="spin" style="width: 15px; height: 15px; vertical-align: middle; margin-left: 5px;"></i>`;
+                if (window.lucide) window.lucide.createIcons();
+            }
+
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(leadData),
+                mode: 'no-cors' // Crucial: prevents CORS blockage when sending to Google Apps Script / webhooks
+            })
+            .then(() => {
+                window.location.href = 'obrigado.html';
+            })
+            .catch((error) => {
+                console.error('Erro ao enviar lead:', error);
+                // Fallback: always redirect so the user is never locked out of the thank you page
+                window.location.href = 'obrigado.html';
+            });
+        } else {
+            // Um clique so: gera o cupom e ja abre a pagina de confirmacao (confete la faz a festa)
+            window.location.href = 'obrigado.html';
+        }
     });
 
     // Run initial UI state
