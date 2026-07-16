@@ -125,17 +125,17 @@ document.addEventListener('DOMContentLoaded', () => {
             document.activeElement.blur();
         }
 
-        // 2. Viewport Reset Trick to force iOS/mobile browser zoom back to 1.0
-        const viewport = document.querySelector('meta[name="viewport"]');
-        if (viewport) {
-            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
-            setTimeout(() => {
-                viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
-            }, 100);
-        }
-
-        // 3. Reposition scroll smoothly to the very top
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // 2. Viewport Reset Trick & Scroll after keyboard slides down (350ms delay)
+        setTimeout(() => {
+            const viewport = document.querySelector('meta[name="viewport"]');
+            if (viewport) {
+                viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+                setTimeout(() => {
+                    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
+                }, 100);
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 350);
 
         const dir = direction || (stepNumber >= currentStep ? 'forward' : 'back');
         currentStep = stepNumber;
