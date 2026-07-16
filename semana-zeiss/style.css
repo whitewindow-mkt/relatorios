@@ -822,7 +822,7 @@ button.voucher-wrapper-interactive:not(:disabled):hover .ticket-voucher {
     padding: 0.55rem 0.75rem;
     color: #111827;
     font-family: var(--font-sans);
-    font-size: 16px; /* Prevents auto-zoom on mobile inputs */
+    font-size: 0.9rem;
     outline: none;
     transition: var(--transition-smooth);
 }

@@ -120,6 +120,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // -------------------------------------------------------------
 
     function goToStep(stepNumber, direction) {
+        // 1. Force blur on the active input to close mobile keyboard and help reset zoom
+        if (document.activeElement && typeof document.activeElement.blur === 'function') {
+            document.activeElement.blur();
+        }
+
+        // 2. Viewport Reset Trick to force iOS/mobile browser zoom back to 1.0
+        const viewport = document.querySelector('meta[name="viewport"]');
+        if (viewport) {
+            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
+            setTimeout(() => {
+                viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
+            }, 100);
+        }
+
+        // 3. Reposition scroll smoothly to the very top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
         const dir = direction || (stepNumber >= currentStep ? 'forward' : 'back');
         currentStep = stepNumber;
 
