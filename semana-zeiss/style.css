@@ -1124,3 +1124,84 @@ body.thankyou-page .bg-dark-overlay {
     border-radius: 12px;
 }
 
+/* ===== Cinematic Split Shutter Page Intro ===== */
+#intro-shutter {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99999;
+    pointer-events: none; /* Let clicks pass through if somehow displayed */
+    overflow: hidden; /* Prevent bottom shutter from creating scrollbar during transition */
+}
+
+/* Force body to hide scrollbar while intro splits */
+body:not(.intro-completed) {
+    overflow: hidden !important;
+}
+
+.shutter-half {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 50.5%; /* slight overlap to avoid line rendering gaps */
+    background: #ffffff;
+    transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.shutter-top {
+    top: 0;
+    transform: translateY(0);
+}
+
+.shutter-bottom {
+    bottom: 0;
+    transform: translateY(0);
+}
+
+#intro-shutter.intro-out .shutter-top {
+    transform: translateY(-100%);
+}
+
+#intro-shutter.intro-out .shutter-bottom {
+    transform: translateY(100%);
+}
+
+.shutter-logo-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100000;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.shutter-logo-wrapper .intro-logo {
+    width: 90px;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+#intro-shutter.intro-out .shutter-logo-wrapper {
+    transform: translate(-50%, -180%) scale(0.85); /* slide up out of viewport */
+    opacity: 0;
+}
+
+/* Page card entry timing control: starts rising before shutter finishes opening */
+#form-card {
+    animation: none !important;
+    opacity: 0;
+    transform: translateY(50px) scale(0.97);
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.22s, opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.22s; /* 220ms delay! */
+}
+
+body.intro-completed #form-card {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1) !important;
+}
+

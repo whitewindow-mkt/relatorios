@@ -2,6 +2,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize Lucide icons
     lucide.createIcons();
 
+    // Cinematic Split Shutter Intro Transition
+    const introShutter = document.getElementById('intro-shutter');
+    if (introShutter) {
+        // Logo is immediately visible on white, then shutter splits after 650ms
+        setTimeout(() => {
+            introShutter.classList.add('intro-out');
+            document.body.classList.add('intro-completed');
+        }, 650);
+        
+        // Remove from DOM entirely after transitions finish
+        setTimeout(() => {
+            introShutter.style.display = 'none';
+        }, 1800);
+    } else {
+        document.body.classList.add('intro-completed');
+    }
+
     // DOM Elements
     const bgContainer = document.getElementById('bg-container');
     const progressFill = document.getElementById('progress-fill');
@@ -121,7 +138,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Focus the current step's field for fast keyboard-driven completion
         const activeField = document.getElementById(fieldByStep[stepNumber]);
-        if (activeField) setTimeout(() => activeField.focus(), 350);
+        if (activeField) {
+            const delay = document.body.classList.contains('intro-completed') ? 350 : 1400;
+            setTimeout(() => activeField.focus(), delay);
+        }
 
         // Update voucher focus/blur when changing step
         updateVoucherPreview();
