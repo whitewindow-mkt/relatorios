@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cupom liberado: 50% OFF ZEISS | Grupo Emerson</title>
-    <meta name="description" content="Seu cupom de 50% de desconto em lentes ZEISS foi liberado. Veja como retirar na loja física do Grupo Emerson.">
+    <title>Cupom liberado: 50% OFF ZEISS | Zeiss Vision Center</title>
+    <meta name="description" content="Seu cupom de 50% de desconto em lentes ZEISS foi liberado. Veja como retirar na loja física Zeiss Vision Center.">
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
@@ -27,7 +27,6 @@
                 <!-- Brand reveal happens here, not on the capture page -->
                 <div class="reveal-logo-row">
                     <div class="brand-pill">ZEISS</div>
-                    <div class="brand-pill quali">QualiÓtica</div>
                 </div>
 
                 <h1 class="campaign-main-title">Era isso: <span class="highlight">lentes ZEISS</span><br>com 50% OFF</h1>
@@ -109,7 +108,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 Grupo Emerson. Todos os direitos reservados. Promoção exclusiva para as lojas físicas da rede Zeiss Vision Center e QualiÓtica parceiras do Grupo Emerson. Imagens meramente ilustrativas.</p>
+        <p>&copy; 2026 Zeiss Vision Center. Todos os direitos reservados. Promoção exclusiva para as lojas físicas Zeiss Vision Center participantes. Imagens meramente ilustrativas.</p>
     </footer>
 
     <script>
@@ -138,24 +137,12 @@
             if (storeTextEl) storeTextEl.textContent = store;
 
             // Dados reais por loja (endereço/Maps/WhatsApp) — fonte: doc "QualiÓtica & Zeiss Vision Center - Fev 2026" (Drive).
-            // Zeiss usa o WhatsApp da própria loja; QualiÓtica usa o WhatsApp único da região (Niterói ou São Gonçalo).
+            // WhatsApp da própria loja.
             const storeDataMap = {
                 'Zeiss Vision Center - Icaraí (Niterói)': { mapsUrl: 'https://maps.app.goo.gl/1uR3GMe6ho8SBFBg8', whatsapp: '5521999790492' },
                 'Zeiss Vision Center - Gávea (Shopping Gávea, RJ)': { mapsUrl: 'https://maps.app.goo.gl/VgVw3YAen2856k1R6', whatsapp: '5521972578482' },
                 'Zeiss Vision Center - Rio Sul (Botafogo, RJ)': { mapsUrl: 'https://maps.app.goo.gl/Zgzn8VHYoFf7CkEN7', whatsapp: '5521995192315' },
-                'Zeiss Vision Center - Largo do Machado (RJ)': { mapsUrl: 'https://maps.app.goo.gl/uShJXwP3oh4zWmJN6', whatsapp: '5521997148790' },
-                'QualiÓtica Tiffany (Icaraí)': { mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Rua Ator Paulo Gustavo, 160, loja 101, Icaraí, Niterói'), whatsapp: '5521996032814' },
-                'QualiÓtica Crystal Platinum (Icaraí)': { mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Rua Ator Paulo Gustavo, 217, loja 101, Icaraí, Niterói'), whatsapp: '5521996032814' },
-                'QualiÓtica Mariz e Barros (Jardim Icaraí)': { mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Rua Mariz e Barros, 455, loja 102, Niterói'), whatsapp: '5521996032814' },
-                'QualiÓtica Av. Sete (Jardim Icaraí)': { mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Rua Presidente João Pessoa, 322, loja 106, Niterói'), whatsapp: '5521996032814' },
-                'QualiÓtica Itaipu (Shopping Itaipu Multicenter)': { mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Estrada Francisco da Cruz Nunes, 6501, loja 257, Shopping Itaipu Multicenter, Niterói'), whatsapp: '5521996032814' },
-                'QualiÓtica Piratininga': { mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Estrada Francisco da Cruz Nunes, 6266, loja 109, Piratininga, Niterói'), whatsapp: '5521996032814' },
-                'QualiÓtica Centro (Conceição)': { mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Rua da Conceição, 60, Centro, Niterói'), whatsapp: '5521996032814' },
-                'QualiÓtica Fonseca': { mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Fonseca, Niterói'), whatsapp: '5521996032814' },
-                'QualiÓtica Trend Tower (Andrade Neves)': { mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Trend Tower, Andrade Neves, Niterói'), whatsapp: '5521996032814' },
-                'QualiÓtica Nilo Peçanha': { mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Rua Doutor Nilo Peçanha, 100, loja 04, São Gonçalo'), whatsapp: '5521969426672' },
-                'QualiÓtica Salvatori': { mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Rua Salvatori, 35, São Gonçalo'), whatsapp: '5521969426672' },
-                'QualiÓtica Santa Beatriz (Popular)': { mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('QualiÓtica, Rua Coronel Rodrigues, 422, loja 102, São Gonçalo'), whatsapp: '5521969426672' }
+                'Zeiss Vision Center - Largo do Machado (RJ)': { mapsUrl: 'https://maps.app.goo.gl/uShJXwP3oh4zWmJN6', whatsapp: '5521997148790' }
             };
 
             const defaultStoreData = storeDataMap['Zeiss Vision Center - Icaraí (Niterói)'];

@@ -2,11 +2,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize Lucide icons
     lucide.createIcons();
 
+    // Cinematic Intro preloader animation sequence
+    const introOverlay = document.getElementById('intro-overlay');
+    if (introOverlay) {
+        setTimeout(() => {
+            introOverlay.classList.add('intro-out');
+            document.body.classList.add('intro-completed');
+        }, 1300); // 1.3 seconds of branding focus, then transition
+    } else {
+        // Fallback if intro-overlay is not in DOM (e.g. obrigado.html)
+        document.body.classList.add('intro-completed');
+    }
+
     // DOM Elements
     const bgContainer = document.getElementById('bg-container');
-    const acuityPercentage = document.getElementById('acuity-percentage');
     const progressFill = document.getElementById('progress-fill');
-    const submitBtn = document.getElementById('submit-btn'); // Note: this is now the interactive voucher button
+    const stepCounter = document.getElementById('step-counter');
+    const submitBtn = document.getElementById('submit-btn'); // Interactive voucher button (final step)
     const voucherBlurContent = document.getElementById('voucher-blur-content');
     const cupomPlaceholderText = document.getElementById('cupom-placeholder-text');
 
@@ -15,92 +27,194 @@ document.addEventListener('DOMContentLoaded', () => {
     const whatsappInput = document.getElementById('whatsapp');
     const emailInput = document.getElementById('email');
     const lojaSelect = document.getElementById('loja');
+    const countrySelect = document.getElementById('country-select');
+    const btnSubmitForm = document.getElementById('btn-submit-form');
+
+    // Quiz step elements
+    const steps = Array.from(document.querySelectorAll('.quiz-step'));
+    const totalSteps = steps.length;
+    let currentStep = 1;
+    let isVoucherUnlocked = false;
 
     // -------------------------------------------------------------
-    // FORM VALIDATION & DYNAMIC PROGRESS CONTROL
+    // FORM VALIDATION
     // -------------------------------------------------------------
 
     function checkFieldsValidity() {
+        // Nome: exige nome + espaço + ao menos 1 letra do sobrenome (ex: "Nathan m")
+        const isBrazil = !countrySelect || countrySelect.value === '55';
+        const phoneDigits = whatsappInput.value.replace(/\D/g, '');
+
         const results = {
-            nome: nomeInput.value.trim().length >= 3,
-            whatsapp: whatsappInput.value.replace(/\D/g, '').length >= 10 && whatsappInput.value.replace(/\D/g, '').length <= 11,
+            nome: /\S+\s+\S+/.test(nomeInput.value),
+            // Brasil: DDD + numero (10-11 digitos). Outros paises: so exige pelo menos 8 digitos, formato varia.
+            whatsapp: isBrazil ? (phoneDigits.length >= 10 && phoneDigits.length <= 11) : (phoneDigits.length >= 8),
+            // Exige apenas arroba + algo + ponto + algo (sem validar TLD especifico, pra nao travar)
             email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim()),
             loja: lojaSelect.value !== ''
         };
 
-        // Calculate count of valid completed fields
         let completedCount = 0;
         if (results.nome) completedCount++;
         if (results.whatsapp) completedCount++;
         if (results.email) completedCount++;
         if (results.loja) completedCount++;
 
-        return {
-            validity: results,
-            completedCount: completedCount
-        };
+        return { validity: results, completedCount: completedCount };
     }
 
-    // Progression map (Completed Fields -> Voucher Blur, Page Bg Blur, Acuity Pct Label)
+    const fieldByStep = { 1: 'nome', 2: 'whatsapp', 3: 'email', 4: 'loja' };
+
+    // Progression map (Current Step -> Voucher Blur, Page Bg Blur)
     const progressionMap = {
-        0: { voucherBlur: '18px', bgBlur: '15px', pct: '10%' },
-        1: { voucherBlur: '7px', bgBlur: '6px', pct: '50%' }, // Dynamic drop to 50% on first step
-        2: { voucherBlur: '4px', bgBlur: '3.5px', pct: '70%' },
-        3: { voucherBlur: '2px', bgBlur: '1.5px', pct: '85%' },
-        4: { voucherBlur: '0px', bgBlur: '0px', pct: '100%' }  // Perfectly sharp!
+        1: { voucherBlur: '7px', bgBlur: '6px' },    // Step 1 active (initial blur is lighter so client knows it is a coupon)
+        2: { voucherBlur: '5px', bgBlur: '4px' },    // Step 2 active
+        3: { voucherBlur: '3.5px', bgBlur: '2.5px' },// Step 3 active
+        4: { voucherBlur: '2px', bgBlur: '1.5px' }   // Step 4 active (still slightly locked to encourage submission)
     };
 
-    function updateProgressUI() {
-        const { validity, completedCount } = checkFieldsValidity();
-        const config = progressionMap[completedCount];
-
-        if (config) {
-            // Apply sync blur changes to both coupon content and page background image
-            if (voucherBlurContent) voucherBlurContent.style.filter = `blur(${config.voucherBlur})`;
-            bgContainer.style.filter = `blur(${config.bgBlur})`;
+    function updateVoucherPreview() {
+        const { completedCount, validity } = checkFieldsValidity();
+        
+        if (isVoucherUnlocked) {
+            // Unlocked state (after user clicked "Gerar meu cupom")
+            if (voucherBlurContent) voucherBlurContent.style.filter = 'blur(0px)';
+            bgContainer.style.filter = 'blur(0px)';
             
-            if (acuityPercentage) acuityPercentage.textContent = config.pct;
-            if (progressFill) progressFill.style.width = config.pct;
-        }
-
-        // Enable or disable submit button (the coupon itself) based on form completion
-        if (completedCount === 4) {
             submitBtn.disabled = false;
+            submitBtn.style.pointerEvents = 'auto';
+            submitBtn.style.cursor = 'pointer';
+            submitBtn.classList.add('glow-animation');
+            
             cupomPlaceholderText.textContent = 'CLIQUE AQUI PARA RESGATAR 🔓';
-            cupomPlaceholderText.style.color = 'var(--neon-cyan)';
+            cupomPlaceholderText.style.color = 'var(--zeiss-blue)';
         } else {
+            // Normal progression-based blur
+            const config = progressionMap[currentStep];
+            if (config) {
+                if (voucherBlurContent) voucherBlurContent.style.filter = `blur(${config.voucherBlur})`;
+                bgContainer.style.filter = `blur(${config.bgBlur})`;
+            }
+            
             submitBtn.disabled = true;
-            cupomPlaceholderText.textContent = 'PREENCHA PARA REVELAR 🔒';
+            submitBtn.style.pointerEvents = 'none';
+            submitBtn.style.cursor = 'not-allowed';
+            submitBtn.classList.remove('glow-animation');
+            
+            cupomPlaceholderText.textContent = 'RESPONDA PARA DESBLOQUEAR 🔒';
             cupomPlaceholderText.style.color = '';
         }
+
+        if (btnSubmitForm) {
+            btnSubmitForm.disabled = !validity.loja || isVoucherUnlocked;
+        }
     }
+
+    // -------------------------------------------------------------
+    // QUIZ STEP NAVIGATION
+    // -------------------------------------------------------------
+
+    function goToStep(stepNumber, direction) {
+        const dir = direction || (stepNumber >= currentStep ? 'forward' : 'back');
+        currentStep = stepNumber;
+
+        steps.forEach((stepEl) => {
+            const isTarget = Number(stepEl.dataset.step) === stepNumber;
+            stepEl.classList.remove('active', 'dir-forward', 'dir-back');
+            if (isTarget) {
+                // Force reflow so the animation re-triggers even if this step was shown before
+                void stepEl.offsetWidth;
+                stepEl.classList.add('active', dir === 'back' ? 'dir-back' : 'dir-forward');
+            }
+        });
+
+        if (stepCounter) stepCounter.textContent = `Pergunta ${stepNumber} de ${totalSteps}`;
+        if (progressFill) progressFill.style.width = `${(stepNumber / totalSteps) * 100}%`;
+
+        // Focus the current step's field for fast keyboard-driven completion
+        const activeField = document.getElementById(fieldByStep[stepNumber]);
+        if (activeField) setTimeout(() => activeField.focus(), 350);
+
+        // Update voucher focus/blur when changing step
+        updateVoucherPreview();
+    }
+
+    function updateNextButtonForStep(stepNumber) {
+        const stepEl = steps.find((el) => Number(el.dataset.step) === stepNumber);
+        if (!stepEl) return;
+        const nextBtn = stepEl.querySelector('[data-next]');
+        if (!nextBtn) return;
+
+        const { validity } = checkFieldsValidity();
+        nextBtn.disabled = !validity[fieldByStep[stepNumber]];
+    }
+
+    document.querySelectorAll('[data-next]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            if (btn.disabled) return;
+            goToStep(currentStep + 1);
+        });
+    });
+
+    document.querySelectorAll('[data-back]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            goToStep(Math.max(1, currentStep - 1));
+        });
+    });
+
+    // Advance to next step by pressing Enter inside a text input
+    [nomeInput, whatsappInput, emailInput].forEach((input) => {
+        input.addEventListener('keydown', (e) => {
+            if (e.key !== 'Enter') return;
+            e.preventDefault();
+            const stepEl = input.closest('.quiz-step');
+            const nextBtn = stepEl.querySelector('[data-next]');
+            if (nextBtn && !nextBtn.disabled) goToStep(currentStep + 1);
+        });
+    });
 
     // -------------------------------------------------------------
     // EVENT LISTENERS & INPUT HANDLING
     // -------------------------------------------------------------
 
-    nomeInput.addEventListener('input', updateProgressUI);
-    emailInput.addEventListener('input', updateProgressUI);
-    lojaSelect.addEventListener('change', updateProgressUI);
+    nomeInput.addEventListener('input', () => { updateNextButtonForStep(1); updateVoucherPreview(); });
+    emailInput.addEventListener('input', () => { updateNextButtonForStep(3); updateVoucherPreview(); });
+    lojaSelect.addEventListener('change', () => { updateVoucherPreview(); });
 
-    // WhatsApp Input Formatting Mask & trigger validation
+    // WhatsApp Input Formatting Mask & trigger validation (mascara BR so quando o pais for Brasil)
     whatsappInput.addEventListener('input', (e) => {
+        const isBrazil = !countrySelect || countrySelect.value === '55';
         let value = e.target.value.replace(/\D/g, ''); // Remove non-numeric
-        if (value.length > 11) value = value.substring(0, 11);
 
-        // Apply formatting mask dynamically
-        if (value.length > 6) {
-            e.target.value = `(${value.substring(0, 2)}) ${value.substring(2, 7)}-${value.substring(7)}`;
-        } else if (value.length > 2) {
-            e.target.value = `(${value.substring(0, 2)}) ${value.substring(2)}`;
-        } else if (value.length > 0) {
-            e.target.value = `(${value}`;
-        } else {
-            e.target.value = '';
+        if (isBrazil) {
+            if (value.length > 11) value = value.substring(0, 11);
+            if (value.length > 6) {
+                e.target.value = `(${value.substring(0, 2)}) ${value.substring(2, 7)}-${value.substring(7)}`;
+            } else if (value.length > 2) {
+                e.target.value = `(${value.substring(0, 2)}) ${value.substring(2)}`;
+            } else if (value.length > 0) {
+                e.target.value = `(${value}`;
+            } else {
+                e.target.value = '';
+            }
         }
+        // Outros paises: digitação livre, sem mascara (formato varia por pais)
 
-        updateProgressUI();
+        updateNextButtonForStep(2);
+        updateVoucherPreview();
     });
+
+    // Trocar de pais: liga/desliga a mascara BR e ajusta o placeholder
+    if (countrySelect) {
+        countrySelect.addEventListener('change', () => {
+            const isBrazil = countrySelect.value === '55';
+            whatsappInput.value = whatsappInput.value.replace(/\D/g, '');
+            whatsappInput.placeholder = isBrazil ? '(00) 00000-0000' : 'Número com DDD/código local';
+            if (isBrazil) whatsappInput.dispatchEvent(new Event('input', { bubbles: true }));
+            updateNextButtonForStep(2);
+            updateVoucherPreview();
+        });
+    }
 
     // -------------------------------------------------------------
     // FORM SUBMIT & LEADS RETENTION
@@ -110,18 +224,20 @@ document.addEventListener('DOMContentLoaded', () => {
     unifiedForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        const { validity, completedCount } = checkFieldsValidity();
+        const { completedCount } = checkFieldsValidity();
         if (completedCount < 4) return; // Halt if form is incomplete
 
         const nome = nomeInput.value.trim();
         const whatsapp = whatsappInput.value.trim();
         const email = emailInput.value.trim();
         const loja = lojaSelect.value;
+        const paisCodigo = countrySelect ? (countrySelect.value === 'other' ? '' : `+${countrySelect.value}`) : '+55';
 
-        // Construct lead payload (sets default receta as 'agendar' for CRM alerts)
+        // Construct lead payload
         const leadData = {
             nome: nome,
             whatsapp: whatsapp,
+            paisCodigo: paisCodigo,
             email: email,
             receita: 'exame', // Leads default to scheduling examination validation on thanks page
             loja: loja,
@@ -131,35 +247,40 @@ document.addEventListener('DOMContentLoaded', () => {
         // Save locally to display on thank you page
         localStorage.setItem('zeiss_lead_data', JSON.stringify(leadData));
 
-        // Submit loading states on the Coupon button
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = `
-            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; padding: 1.5rem 0;">
-                <span style="font-weight: 700; color: #10b981; font-size: 0.9rem; letter-spacing: 1.5px; text-transform: uppercase;">GERANDO SEU VOUCHER...</span>
-                <i data-lucide="loader" class="spin" style="width: 24px; height: 24px; color: #10b981;"></i>
-            </div>
-        `;
-        lucide.createIcons();
+        // Mark voucher as unlocked!
+        isVoucherUnlocked = true;
+        updateVoucherPreview();
 
-        // 100% Unblur / focus satisfaction animation on submit
-        if (voucherBlurContent) voucherBlurContent.style.filter = 'blur(0px)';
-        submitBtn.style.borderColor = 'var(--success)';
-        submitBtn.style.boxShadow = '0 0 35px rgba(16, 185, 129, 0.5)';
-        
-        bgContainer.style.filter = 'blur(0px)';
-        
-        if (acuityPercentage) acuityPercentage.textContent = '100%';
+        // Update step progress indicator to 100% complete
         if (progressFill) {
             progressFill.style.width = '100%';
             progressFill.style.background = 'var(--success)';
         }
+        if (stepCounter) {
+            stepCounter.innerHTML = `Cupom liberado <i data-lucide="check" style="width: 12px; height: 12px; color: var(--success); vertical-align: middle;"></i>`;
+            lucide.createIcons();
+        }
 
-        // Simulate small delay, then redirect
-        setTimeout(() => {
+        // Change submit button state to "Loja Confirmada ✓" and disable it
+        if (btnSubmitForm) {
+            btnSubmitForm.innerHTML = `Loja Confirmada <i data-lucide="check" style="width: 15px; height: 15px;"></i>`;
+            btnSubmitForm.style.background = 'var(--success)';
+            btnSubmitForm.style.opacity = '0.7';
+            btnSubmitForm.style.cursor = 'not-allowed';
+            btnSubmitForm.disabled = true;
+            lucide.createIcons();
+        }
+    });
+
+    // Handle clicking on the unblurred, glowing coupon to redeem it
+    submitBtn.addEventListener('click', () => {
+        if (isVoucherUnlocked) {
             window.location.href = 'obrigado.html';
-        }, 1100);
+        }
     });
 
     // Run initial UI state
-    updateProgressUI();
+    goToStep(1);
+    updateNextButtonForStep(1);
+    updateVoucherPreview();
 });

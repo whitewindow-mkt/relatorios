@@ -12,6 +12,13 @@
 </head>
 <body>
 
+    <!-- Cinematic Pre-loading Intro Overlay -->
+    <div id="intro-overlay">
+        <div class="intro-logo-container">
+            <img src="assets/zeiss-logo-real.webp" alt="ZEISS" class="intro-logo">
+        </div>
+    </div>
+
     <!-- Full-screen Blurred Zeiss Store Background -->
     <div class="full-screen-bg" id="bg-container">
         <div class="bg-dark-overlay"></div>
@@ -28,67 +35,100 @@
                     <i data-lucide="bell" class="bell-icon" style="width: 13px; height: 13px;"></i>
                     <span>PREPARE-SE</span>
                 </div>
-                <h1 class="campaign-main-title">A melhor semana para comprar<br>lentes e óculos vem aí!</h1>
-                <p class="campaign-sub-title">PREENCHA O FORMULÁRIO E VEJA O SEU CUPOM DE DESCONTO.</p>
+                <h1 class="campaign-main-title">A maior campanha do ano para trocar seus óculos<span class="highlight-line">está chegando aqui na ZEISS</span></h1>
+                <p class="campaign-sub-title subtitle-index">Responda 4 perguntas rápidas e veja seu <strong>cupom de desconto</strong> desbloquear.</p>
             </div>
 
-            <!-- Unified Stacked Form -->
+            <!-- Quiz progress: step counter + speed reassurance -->
+            <div class="quiz-progress-header">
+                <div class="quiz-progress-label">
+                    <span id="step-counter">Pergunta 1 de 4</span>
+                    <span class="quiz-speed-badge"><i data-lucide="zap" style="width: 11px; height: 11px;"></i> Menos de 1 min</span>
+                </div>
+                <div class="progress-bar-wrapper">
+                    <div class="progress-bar-fill" id="progress-fill"></div>
+                </div>
+            </div>
+
+            <!-- Quiz-style form: one question per screen -->
             <form id="unified-form" novalidate>
-                
-                <div class="form-group">
-                    <label for="nome" class="form-label">Nome Completo</label>
-                    <input type="text" id="nome" class="form-input text-field" placeholder="Digite seu nome completo" autocomplete="name" required>
+
+                <div class="quiz-step active" data-step="1">
+                    <div class="form-group">
+                        <label for="nome" class="form-label">Qual é o seu nome completo?</label>
+                        <input type="text" id="nome" class="form-input text-field" placeholder="Digite seu nome completo" autocomplete="name" required>
+                    </div>
+                    <div class="btn-row">
+                        <button type="button" class="btn-next" data-next disabled>Próxima pergunta <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i></button>
+                    </div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="whatsapp" class="form-label">WhatsApp</label>
-                    <input type="tel" id="whatsapp" class="form-input text-field" placeholder="(00) 00000-0000" autocomplete="tel" required>
+
+                <div class="quiz-step" data-step="2">
+                    <div class="form-group">
+                        <label for="whatsapp" class="form-label">Qual o seu WhatsApp?</label>
+                        <input type="tel" id="whatsapp" class="form-input text-field" placeholder="(00) 00000-0000" autocomplete="tel" required>
+                    </div>
+                    <div class="btn-row">
+                        <button type="button" class="btn-back" data-back>Voltar</button>
+                        <button type="button" class="btn-next" data-next disabled>Próxima pergunta <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i></button>
+                    </div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="email" class="form-label">E-mail</label>
-                    <input type="email" id="email" class="form-input text-field" placeholder="seuemail@exemplo.com" autocomplete="email" required>
+
+                <div class="quiz-step" data-step="3">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Qual o seu melhor e-mail?</label>
+                        <input type="email" id="email" class="form-input text-field" placeholder="seuemail@exemplo.com" autocomplete="email" required>
+                    </div>
+                    <div class="btn-row">
+                        <button type="button" class="btn-back" data-back>Voltar</button>
+                        <button type="button" class="btn-next" data-next disabled>Próxima pergunta <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i></button>
+                    </div>
                 </div>
-                
-                <!-- Loja Select Dropdown -->
-                <div class="form-group">
-                    <label for="loja" class="form-label">Em qual loja do Grupo Emerson prefere retirar seu desconto?</label>
-                    <select id="loja" class="form-select" required>
-                        <option value="" disabled selected>Escolha uma unidade física para retirar</option>
-                        <optgroup label="ZEISS VISION CENTER">
+
+                <div class="quiz-step" data-step="4">
+                    <div class="form-group">
+                        <label for="loja" class="form-label">Onde você quer retirar seu desconto?</label>
+                        <select id="loja" class="form-select" required>
+                            <option value="" disabled selected>Escolha uma unidade física para retirar</option>
                             <option value="Zeiss Vision Center - Icaraí (Niterói)">Zeiss Vision Center - Icaraí (Niterói)</option>
                             <option value="Zeiss Vision Center - Gávea (Shopping Gávea, RJ)">Zeiss Vision Center - Gávea (Shopping Gávea, RJ)</option>
                             <option value="Zeiss Vision Center - Rio Sul (Botafogo, RJ)">Zeiss Vision Center - Rio Sul (Botafogo, RJ)</option>
                             <option value="Zeiss Vision Center - Largo do Machado (RJ)">Zeiss Vision Center - Largo do Machado (RJ)</option>
-                        </optgroup>
-                        <optgroup label="QUALIÓTICA — NITERÓI">
-                            <option value="QualiÓtica Tiffany (Icaraí)">QualiÓtica Tiffany (Icaraí)</option>
-                            <option value="QualiÓtica Crystal Platinum (Icaraí)">QualiÓtica Crystal Platinum (Icaraí)</option>
-                            <option value="QualiÓtica Mariz e Barros (Jardim Icaraí)">QualiÓtica Mariz e Barros (Jardim Icaraí)</option>
-                            <option value="QualiÓtica Av. Sete (Jardim Icaraí)">QualiÓtica Av. Sete (Jardim Icaraí)</option>
-                            <option value="QualiÓtica Itaipu (Shopping Itaipu Multicenter)">QualiÓtica Itaipu (Shopping Itaipu Multicenter)</option>
-                            <option value="QualiÓtica Piratininga">QualiÓtica Piratininga</option>
-                            <option value="QualiÓtica Centro (Conceição)">QualiÓtica Centro (Conceição)</option>
-                            <option value="QualiÓtica Fonseca">QualiÓtica Fonseca</option>
-                            <option value="QualiÓtica Trend Tower (Andrade Neves)">QualiÓtica Trend Tower (Andrade Neves)</option>
-                        </optgroup>
-                        <optgroup label="QUALIÓTICA — SÃO GONÇALO">
-                            <option value="QualiÓtica Nilo Peçanha">QualiÓtica Nilo Peçanha</option>
-                            <option value="QualiÓtica Salvatori">QualiÓtica Salvatori</option>
-                            <option value="QualiÓtica Santa Beatriz (Popular)">QualiÓtica Santa Beatriz (Popular)</option>
-                        </optgroup>
-                    </select>
+                        </select>
+                    </div>
+                    <div class="btn-row">
+                        <button type="button" class="btn-back" data-back>Voltar</button>
+                        <button type="submit" class="btn-submit" id="btn-submit-form" disabled>Gerar meu cupom <i data-lucide="check" style="width: 15px; height: 15px;"></i></button>
+                    </div>
                 </div>
-                
-                <!-- The Progressive Blurred Digital Voucher (Acts directly as the Submit Button!) -->
-                <button type="submit" class="voucher-wrapper-interactive" id="submit-btn" disabled>
+
+                <div class="top-divider"></div>
+
+                <!-- Persistent voucher preview: on screen from question 1, sharpens and unlocks with every answer -->
+                <button type="button" class="voucher-wrapper-interactive" id="submit-btn" disabled>
                     <div class="voucher-inner-content" id="voucher-blur-content">
-                        <div class="voucher-preview-badge">VIP VOUCHER</div>
-                        <div class="voucher-discount-text">50% OFF</div>
-                        <div class="voucher-sub-info">Semana Zeiss 2026</div>
-                        <div class="voucher-code-placeholder">
-                            <span class="code-title">Código Desbloqueado:</span>
-                            <span class="code-hidden-value" id="cupom-placeholder-text">PREENCHA PARA REVELAR 🔒</span>
+                        <div class="ticket-voucher">
+                            <svg class="ticket-bg-svg" viewBox="0 0 460 240" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M 16 0 L 444 0 A 16 16 0 0 1 460 16 L 460 100 A 20 20 0 0 0 460 140 L 460 224 A 16 16 0 0 1 444 240 L 16 240 A 16 16 0 0 1 0 224 L 0 140 A 20 20 0 0 0 0 100 L 0 16 A 16 16 0 0 1 16 0 Z" fill="#f5f8ff" stroke="#0050ff" stroke-width="4.5" />
+                                <path d="M 16 8 L 444 8 A 8 8 0 0 1 452 16 L 452 92 A 28 28 0 0 0 452 148 L 452 224 A 8 8 0 0 1 444 232 L 16 232 A 8 8 0 0 1 8 224 L 8 148 A 28 28 0 0 0 8 92 L 8 16 A 8 8 0 0 1 16 8 Z" fill="none" stroke="#0050ff" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.45" />
+                                <line x1="250" y1="8" x2="250" y2="168" stroke="#0050ff" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.45" />
+                                <line x1="8" y1="168" x2="452" y2="168" stroke="#0050ff" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.45" />
+                            </svg>
+                            <div class="ticket-body">
+                                <div class="ticket-main-row">
+                                    <div class="ticket-left">
+                                        <img src="assets/zeiss-logo-text.png" alt="ZEISS" class="ticket-logo">
+                                        <div class="ticket-tag">CUPOM</div>
+                                    </div>
+                                    <div class="ticket-right">
+                                        <span class="ticket-num">50%</span>
+                                        <div class="ticket-txt">DESCONTO</div>
+                                    </div>
+                                </div>
+                                <div class="ticket-bottom-cta">
+                                    <span id="cupom-placeholder-text">RESPONDA PARA DESBLOQUEAR 🔒</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </button>
@@ -97,14 +137,7 @@
 
             <!-- Logo block at the bottom of the card (Ad footer match) -->
             <div class="logo-container">
-                <svg viewBox="0 0 100 45" style="width: 38px; height: 17px; fill: none; overflow: visible;">
-                    <path d="M 0 10 C 25 -5, 35 25, 60 10 C 85 -5, 90 20, 100 12 C 85 22, 75 -2, 50 10 C 25 22, 15 -2, 0 10 Z" fill="#4b5563"/>
-                    <path d="M 0 18 C 25 3, 35 33, 60 18 C 85 3, 90 28, 100 20 C 85 30, 75 6, 50 18 C 25 30, 15 6, 0 18 Z" fill="#ef4444"/>
-                    <path d="M 0 26 C 25 11, 35 41, 60 26 C 85 11, 90 36, 100 28 C 85 38, 75 14, 50 26 C 25 38, 15 14, 0 26 Z" fill="#0050ff"/>
-                </svg>
-                <span style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.15rem; color: #111827; letter-spacing: -0.5px; line-height: 1;">QualiÓtica</span>
-                <span style="height: 18px; width: 1px; background: rgba(0,0,0,0.12); margin: 0 0.2rem;"></span>
-                <div class="logo-badge" style="background: #0050ff; box-shadow: 0 0 12px rgba(0, 80, 255, 0.45); color: white; font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 4px; letter-spacing: 1px; font-size: 0.9rem;">ZEISS</div>
+                <img src="assets/zeiss-logo-real.webp" alt="ZEISS" style="height: 52px; width: auto; border-radius: 3px;">
             </div>
 
         </section>
@@ -112,7 +145,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 Grupo Emerson. Todos os direitos reservados. Promoção exclusiva para as lojas físicas da rede Zeiss Vision Center e QualiÓtica parceiras do Grupo Emerson. Imagens meramente ilustrativas.</p>
+        <p>&copy; 2026 Zeiss Vision Center. Todos os direitos reservados. Promoção exclusiva para as lojas físicas Zeiss Vision Center participantes. Imagens meramente ilustrativas.</p>
     </footer>
 
     <!-- JS Logic -->
