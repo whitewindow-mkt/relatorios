@@ -1193,7 +1193,7 @@ body.thankyou-page .bg-dark-overlay {
 
 /* Disable default animation for form-card on index.html so the intro handles it */
 #form-card {
-    animation: none !important;
+    animation: none;
     opacity: 0;
 }
 
@@ -1203,7 +1203,7 @@ body.thankyou-page .bg-dark-overlay {
 
 /* Once intro transitions, slide up the form card and fade in background */
 body.intro-completed #form-card {
-    animation: revealUpCard 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: revealUpCard 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
 }
 
 body.intro-completed #bg-container {
