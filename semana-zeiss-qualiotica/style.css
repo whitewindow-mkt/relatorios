@@ -564,24 +564,11 @@ button.voucher-wrapper-interactive:not(:disabled):hover .ticket-voucher {
     .logo-container {
         margin-top: 2rem !important;
     }
-    /* Success page overrides for desktop */
-    .subtitle-obrigado {
-        font-size: 1.05rem !important;
-        line-height: 1.5 !important;
-        margin-top: 0.5rem !important;
-        margin-bottom: 1.2rem !important;
-    }
-    .store-info-name {
-        font-size: 1.15rem !important;
-    }
-    .store-info-title {
-        font-size: 0.75rem !important;
-    }
-    .rules-checklist h3 {
-        font-size: 1.1rem !important;
-    }
-    .rules-checklist p {
-        font-size: 0.92rem !important;
+    /* Success page spacing optimizations to keep it matching the quiz card height */
+    body.thankyou-page .campaign-tag-wrapper {
+        border-bottom: none !important;
+        padding-bottom: 0 !important;
+        margin-bottom: 0.8rem !important;
     }
 }
 
