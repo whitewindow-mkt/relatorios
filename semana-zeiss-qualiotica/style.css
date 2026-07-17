@@ -521,11 +521,9 @@ button.voucher-wrapper-interactive:not(:disabled):hover .ticket-voucher {
     /* Tamanhos ~20% menores que antes: o layout anterior só cabia certo com o
        navegador em zoom 80%. Em zoom 100% (o normal) tudo abaixo já ocupa o
        espaço certo, sem sobrar barra de rolagem. */
-    .center-layout {
-        align-items: flex-start !important; /* Subir formulário no PC */
-        padding-top: 2vh !important;
-        padding-bottom: 0.8rem !important;
-    }
+    /* Sem override de align-items aqui: mantém o "align-items: center" do
+       mobile-first, que já centraliza o card verticalmente em qualquer
+       altura de tela (notebook pequeno ou monitor grande). */
     .form-card {
         max-width: 500px !important;
         padding: 2rem 1.75rem !important;
