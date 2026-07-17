@@ -41,6 +41,9 @@
                 <p class="campaign-sub-title subtitle-obrigado">
                     Visite a unidade:<br>
                     <strong id="selected-store-text" style="color: var(--zeiss-blue); font-size: 0.76rem; line-height: 1.25; display: inline-block; max-width: 95%; margin: 0.25rem 0; padding: 0.2rem 0.6rem; background: rgba(0, 80, 255, 0.05); border-radius: 6px;">Zeiss Vision Center</strong><br>
+                    <a id="maps-link" href="#" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.68rem; font-weight: 700; color: var(--text-secondary); text-decoration: none; margin-top: 0.15rem;">
+                        <i data-lucide="map-pin" style="width: 11px; height: 11px;"></i> Ver no Google Maps
+                    </a><br>
                     e aproveite o seu cupom de desconto.
                 </p>
             </div>
@@ -211,7 +214,9 @@
                 storeTextEl.textContent = store;
             }
 
-            // 2. WhatsApp por loja: número da própria loja (Zeiss) ou número único da região (QualiÓtica)
+            // 2. WhatsApp por loja: número da própria loja (Zeiss) ou número único da região (QualiÓtica).
+            // mapsUrl: AINDA NÃO TEMOS o link salvo de cada loja QualiÓtica (pendente conferência com o
+            // Nathan) — por ora monta uma busca no Maps pelo nome + cidade, só pra não ficar sem link.
             const storeDataMap = {
                 // QUALIÓTICA NITERÓI — WhatsApp único da região (+55 21 99603-2814)
                 'QualiÓtica Tiffany (Icaraí)': { whatsapp: '5521996032814' },
@@ -224,9 +229,9 @@
                 'QualiÓtica Fonseca': { whatsapp: '5521996032814' },
                 'QualiÓtica Trend Tower (Andrade Neves)': { whatsapp: '5521996032814' },
                 // QUALIÓTICA SÃO GONÇALO — WhatsApp único da região (+55 21 96942-6672)
-                'QualiÓtica Nilo Peçanha': { whatsapp: '5521969426672' },
-                'QualiÓtica Salvatori': { whatsapp: '5521969426672' },
-                'QualiÓtica Santa Beatriz (Popular)': { whatsapp: '5521969426672' }
+                'QualiÓtica Nilo Peçanha': { whatsapp: '5521969426672', cidade: 'São Gonçalo' },
+                'QualiÓtica Salvatori': { whatsapp: '5521969426672', cidade: 'São Gonçalo' },
+                'QualiÓtica Santa Beatriz (Popular)': { whatsapp: '5521969426672', cidade: 'São Gonçalo' }
             };
 
             const defaultStoreData = storeDataMap['QualiÓtica Tiffany (Icaraí)'];
@@ -237,6 +242,13 @@
             const rawMessage = `Olá! Acabei de garantir meu desconto da Semana Zeiss. Meu nome é ${name}, escolhi a unidade "${store}" e gostaria de agendar meu exame de vista.`;
             const encodedMessage = encodeURIComponent(rawMessage);
             document.getElementById('whatsapp-link').href = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
+
+            // 4. Botão discreto para o Google Maps da unidade
+            const mapsLinkEl = document.getElementById('maps-link');
+            if (mapsLinkEl) {
+                const cidade = storeData.cidade || 'Niterói';
+                mapsLinkEl.href = storeData.mapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(store + ', ' + cidade)}`;
+            }
         });
     </script>
 </body>

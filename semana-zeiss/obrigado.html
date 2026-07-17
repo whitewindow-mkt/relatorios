@@ -41,6 +41,9 @@
                 <p class="campaign-sub-title subtitle-obrigado">
                     Visite a unidade:<br>
                     <strong id="selected-store-text" style="color: var(--zeiss-blue); font-size: 0.76rem; line-height: 1.25; display: inline-block; max-width: 95%; margin: 0.25rem 0; padding: 0.2rem 0.6rem; background: rgba(0, 80, 255, 0.05); border-radius: 6px;">Zeiss Vision Center</strong><br>
+                    <a id="maps-link" href="#" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.68rem; font-weight: 700; color: var(--text-secondary); text-decoration: none; margin-top: 0.15rem;">
+                        <i data-lucide="map-pin" style="width: 11px; height: 11px;"></i> Ver no Google Maps
+                    </a><br>
                     e aproveite o seu cupom de desconto.
                 </p>
             </div>
@@ -211,12 +214,13 @@
                 storeTextEl.textContent = store;
             }
 
-            // 2. Dados reais por loja: WhatsApp próprio de cada unidade (verificado via Instagram/Fev 2026).
+            // 2. Dados reais por loja: WhatsApp próprio de cada unidade (verificado via Instagram/Fev 2026)
+            // + link do Google Maps salvo de cada loja.
             const storeDataMap = {
-                'Zeiss Vision Center - Icaraí (Niterói)': { whatsapp: '5521999790492' },
-                'Zeiss Vision Center - Gávea (Shopping Gávea, RJ)': { whatsapp: '5521972578482' },
-                'Zeiss Vision Center - Rio Sul (Botafogo, RJ)': { whatsapp: '5521995192315' },
-                'Zeiss Vision Center - Largo do Machado (RJ)': { whatsapp: '5521997148790' }
+                'Zeiss Vision Center - Icaraí (Niterói)': { whatsapp: '5521999790492', mapsUrl: 'https://maps.app.goo.gl/1uR3GMe6ho8SBFBg8' },
+                'Zeiss Vision Center - Gávea (Shopping Gávea, RJ)': { whatsapp: '5521972578482', mapsUrl: 'https://maps.app.goo.gl/VgVw3YAen2856k1R6' },
+                'Zeiss Vision Center - Rio Sul (Botafogo, RJ)': { whatsapp: '5521995192315', mapsUrl: 'https://maps.app.goo.gl/Zgzn8VHYoFf7CkEN7' },
+                'Zeiss Vision Center - Largo do Machado (RJ)': { whatsapp: '5521997148790', mapsUrl: 'https://maps.app.goo.gl/uShJXwP3oh4zWmJN6' }
             };
 
             const defaultStoreData = storeDataMap['Zeiss Vision Center - Icaraí (Niterói)'];
@@ -227,6 +231,12 @@
             const rawMessage = `Olá! Acabei de garantir meu desconto da Semana Zeiss. Meu nome é ${name}, escolhi a unidade "${store}" e gostaria de agendar meu exame de vista.`;
             const encodedMessage = encodeURIComponent(rawMessage);
             document.getElementById('whatsapp-link').href = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
+
+            // 4. Botão discreto para o Google Maps da unidade
+            const mapsLinkEl = document.getElementById('maps-link');
+            if (mapsLinkEl) {
+                mapsLinkEl.href = storeData.mapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(store)}`;
+            }
         });
     </script>
 </body>
