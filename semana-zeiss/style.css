@@ -524,8 +524,8 @@ button.voucher-wrapper-interactive:not(:disabled):hover .ticket-voucher {
         padding-bottom: 0.8rem !important;
     }
     .form-card {
-        max-width: 580px !important; /* Alarga o card no PC para o texto caber sem quebras desnecessárias */
-        padding: 2.2rem 2rem !important; /* Margens internas menores nas laterais (mais próximo às bordas) */
+        max-width: 620px !important; /* Alarga o card no PC para o texto caber sem quebras desnecessárias */
+        padding: 2.5rem 2.2rem !important; /* Margens internas menores nas laterais (mais próximo às bordas) */
     }
     .subtitle-index {
         font-size: 0.92rem !important;
@@ -1199,8 +1199,8 @@ body.thankyou-page .bg-dark-overlay {
 
 .top-divider {
     width: 100%;
-    border-top: 1px solid rgba(0, 0, 0, 0.06);
-    margin: 1.2rem 0;
+    border-top: 1.5px solid rgba(0, 80, 255, 0.15); /* More visible blue brand color border line for premium detailing */
+    margin: 1.5rem 0;
 }
 
 @keyframes pulseGlow {
