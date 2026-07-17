@@ -40,7 +40,7 @@
                 <h1 class="campaign-main-title">Prontinho, <span id="lead-name">Nathan</span><span class="highlight-line">SEMANA ZEISS VEM AÍ!<br>DE 20 A 27 DE AGOSTO</span></h1>
                 <p class="campaign-sub-title subtitle-obrigado">
                     Visite a unidade:<br>
-                    <strong id="selected-store-text">Zeiss Vision Center</strong><br>
+                    <strong id="selected-store-text" style="color: var(--zeiss-blue); font-size: 1.25rem; display: inline-block; margin: 0.3rem 0; padding: 0.2rem 0.6rem; background: rgba(0, 80, 255, 0.05); border-radius: 6px;">Zeiss Vision Center</strong><br>
                     e aproveite o seu cupom de desconto.
                 </p>
             </div>
@@ -57,11 +57,10 @@
             </div>
 
             <div class="ticket-voucher ticket-voucher-obrigado">
-                <svg class="ticket-bg-svg" viewBox="0 0 460 240" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M 16 0 L 444 0 A 16 16 0 0 1 460 16 L 460 100 A 20 20 0 0 0 460 140 L 460 224 A 16 16 0 0 1 444 240 L 16 240 A 16 16 0 0 1 0 224 L 0 140 A 20 20 0 0 0 0 100 L 0 16 A 16 16 0 0 1 16 0 Z" fill="#f5f8ff" stroke="#0050ff" stroke-width="4.5" />
-                    <path d="M 16 8 L 444 8 A 8 8 0 0 1 452 16 L 452 92 A 28 28 0 0 0 452 148 L 452 224 A 8 8 0 0 1 444 232 L 16 232 A 8 8 0 0 1 8 224 L 8 148 A 28 28 0 0 0 8 92 L 8 16 A 8 8 0 0 1 16 8 Z" fill="none" stroke="#0050ff" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.45" />
-                    <line x1="250" y1="8" x2="250" y2="168" stroke="#0050ff" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.45" />
-                    <line x1="8" y1="168" x2="452" y2="168" stroke="#0050ff" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.45" />
+                <svg class="ticket-bg-svg" viewBox="0 0 460 140" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 16 0 L 444 0 A 16 16 0 0 1 460 16 L 460 54 A 16 16 0 0 0 460 86 L 460 124 A 16 16 0 0 1 444 140 L 16 140 A 16 16 0 0 1 0 124 L 0 86 A 16 16 0 0 0 0 54 L 0 16 A 16 16 0 0 1 16 0 Z" fill="#f5f8ff" stroke="#0050ff" stroke-width="4.5" />
+                    <path d="M 16 8 L 444 8 A 8 8 0 0 1 452 16 L 452 46 A 24 24 0 0 0 452 94 L 452 124 A 8 8 0 0 1 444 132 L 16 132 A 8 8 0 0 1 8 124 L 8 94 A 24 24 0 0 0 8 46 L 8 16 A 8 8 0 0 1 16 8 Z" fill="none" stroke="#0050ff" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.45" />
+                    <line x1="250" y1="8" x2="250" y2="132" stroke="#0050ff" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.45" />
                 </svg>
                 <div class="ticket-body">
                     <div class="ticket-main-row">
@@ -73,10 +72,6 @@
                             <span class="ticket-num">50%</span>
                             <div class="ticket-txt">DESCONTO</div>
                         </div>
-                    </div>
-                    <div class="ticket-bottom-store">
-                        <span class="ticket-store-title">SUA UNIDADE DE RETIRADA:</span>
-                        <strong class="ticket-store-name" id="selected-store">Aguardando dados...</strong>
                     </div>
                 </div>
             </div>
@@ -205,7 +200,10 @@
             // Capitalize first name for friendly layout
             const firstName = name.split(' ')[0];
             document.getElementById('lead-name').textContent = firstName + ',';
-            document.getElementById('selected-store').textContent = store;
+            const storeEl = document.getElementById('selected-store');
+            if (storeEl) {
+                storeEl.textContent = store;
+            }
 
             // Set dynamic selected store in the upper subtitle text
             const storeTextEl = document.getElementById('selected-store-text');

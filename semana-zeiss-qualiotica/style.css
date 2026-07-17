@@ -353,7 +353,7 @@ button.voucher-wrapper-interactive:not(:disabled) {
     width: 100%;
     max-width: 100%; /* Stretch to align perfectly with buttons, progress bar, and warning box */
     margin: 0 auto;
-    aspect-ratio: 1.92; /* Taller ticket aspect ratio matching the 460x240 viewBox */
+    aspect-ratio: 3.28; /* Sleeker ticket aspect ratio matching the 460x140 viewBox */
     border-radius: 12px;
     overflow: hidden;
     display: flex;
@@ -376,7 +376,7 @@ button.voucher-wrapper-interactive:not(:disabled) {
 
 .ticket-main-row {
     display: flex;
-    flex: 0 0 70%;
+    flex: 1; /* Takes full height since bottom row is removed */
     width: 100%;
 }
 
