@@ -54,11 +54,11 @@ body {
     width: 100vw;
     height: 100vh;
     z-index: -2;
-    background-image: url('assets/zeiss_store_bg.jpg');
+    background-image: url('assets/store_bg_zeiss.jpg');
     background-size: cover;
     background-position: center;
     transition: filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    filter: blur(15px); /* Starts highly blurred */
+    filter: blur(0px); /* Image is already pre-blurred in backend */
 }
 
 .bg-dark-overlay {
