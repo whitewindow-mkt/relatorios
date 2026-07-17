@@ -214,24 +214,24 @@
                 storeTextEl.textContent = store;
             }
 
-            // 2. WhatsApp por loja: número da própria loja (Zeiss) ou número único da região (QualiÓtica).
-            // mapsUrl: AINDA NÃO TEMOS o link salvo de cada loja QualiÓtica (pendente conferência com o
-            // Nathan) — por ora monta uma busca no Maps pelo nome + cidade, só pra não ficar sem link.
+            // 2. WhatsApp por loja: número único da região (QualiÓtica) + endereço real (fonte: doc
+            // "QualiÓtica & Zeiss Vision Center - Fev 2026", Drive). Fonseca e Trend Tower ainda não
+            // têm endereço nesse doc — pendente confirmar com o Nathan.
             const storeDataMap = {
                 // QUALIÓTICA NITERÓI — WhatsApp único da região (+55 21 99603-2814)
-                'QualiÓtica Tiffany (Icaraí)': { whatsapp: '5521996032814' },
-                'QualiÓtica Crystal Platinum (Icaraí)': { whatsapp: '5521996032814' },
-                'QualiÓtica Mariz e Barros (Jardim Icaraí)': { whatsapp: '5521996032814' },
-                'QualiÓtica Av. Sete (Jardim Icaraí)': { whatsapp: '5521996032814' },
-                'QualiÓtica Itaipu (Shopping Itaipu Multicenter)': { whatsapp: '5521996032814' },
-                'QualiÓtica Piratininga': { whatsapp: '5521996032814' },
-                'QualiÓtica Centro (Conceição)': { whatsapp: '5521996032814' },
-                'QualiÓtica Fonseca': { whatsapp: '5521996032814' },
-                'QualiÓtica Trend Tower (Andrade Neves)': { whatsapp: '5521996032814' },
+                'QualiÓtica Tiffany (Icaraí)': { whatsapp: '5521996032814', endereco: 'Rua Ator Paulo Gustavo, 160, loja 101, Icaraí, Niterói' },
+                'QualiÓtica Crystal Platinum (Icaraí)': { whatsapp: '5521996032814', endereco: 'Rua Ator Paulo Gustavo, 217, loja 101, Icaraí, Niterói' },
+                'QualiÓtica Mariz e Barros (Jardim Icaraí)': { whatsapp: '5521996032814', endereco: 'Rua Mariz e Barros, 455, loja 102, Niterói' },
+                'QualiÓtica Av. Sete (Jardim Icaraí)': { whatsapp: '5521996032814', endereco: 'Rua Presidente João Pessoa, 322, loja 106, Niterói' },
+                'QualiÓtica Itaipu (Shopping Itaipu Multicenter)': { whatsapp: '5521996032814', endereco: 'Estrada Francisco da Cruz Nunes, 6501, loja 257, Shopping Itaipu Multicenter, Niterói' },
+                'QualiÓtica Piratininga': { whatsapp: '5521996032814', endereco: 'Estrada Francisco da Cruz Nunes, 6266, loja 109, Piratininga, Niterói' },
+                'QualiÓtica Centro (Conceição)': { whatsapp: '5521996032814', endereco: 'Rua da Conceição, 60, Centro, Niterói' },
+                'QualiÓtica Fonseca': { whatsapp: '5521996032814', cidade: 'Fonseca, Niterói' },
+                'QualiÓtica Trend Tower (Andrade Neves)': { whatsapp: '5521996032814', cidade: 'Andrade Neves, Niterói' },
                 // QUALIÓTICA SÃO GONÇALO — WhatsApp único da região (+55 21 96942-6672)
-                'QualiÓtica Nilo Peçanha': { whatsapp: '5521969426672', cidade: 'São Gonçalo' },
-                'QualiÓtica Salvatori': { whatsapp: '5521969426672', cidade: 'São Gonçalo' },
-                'QualiÓtica Santa Beatriz (Popular)': { whatsapp: '5521969426672', cidade: 'São Gonçalo' }
+                'QualiÓtica Nilo Peçanha': { whatsapp: '5521969426672', endereco: 'Rua Doutor Nilo Peçanha, 100, loja 04, São Gonçalo' },
+                'QualiÓtica Salvatori': { whatsapp: '5521969426672', endereco: 'Rua Salvatori, 35, São Gonçalo' },
+                'QualiÓtica Santa Beatriz (Popular)': { whatsapp: '5521969426672', endereco: 'Rua Coronel Rodrigues, 422, loja 102, São Gonçalo' }
             };
 
             const defaultStoreData = storeDataMap['QualiÓtica Tiffany (Icaraí)'];
@@ -243,11 +243,14 @@
             const encodedMessage = encodeURIComponent(rawMessage);
             document.getElementById('whatsapp-link').href = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
 
-            // 4. Botão discreto para o Google Maps da unidade
+            // 4. Botão discreto para o Google Maps da unidade: prioriza link salvo, depois endereço
+            // real, e só por último nome + cidade (Fonseca e Trend Tower ainda não têm endereço).
             const mapsLinkEl = document.getElementById('maps-link');
             if (mapsLinkEl) {
-                const cidade = storeData.cidade || 'Niterói';
-                mapsLinkEl.href = storeData.mapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(store + ', ' + cidade)}`;
+                const query = storeData.endereco
+                    ? `QualiÓtica, ${storeData.endereco}`
+                    : `${store}, ${storeData.cidade || 'Niterói'}`;
+                mapsLinkEl.href = storeData.mapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
             }
         });
     </script>
