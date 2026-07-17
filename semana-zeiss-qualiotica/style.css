@@ -58,7 +58,7 @@ body {
     background-size: cover;
     background-position: center;
     transition: filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    filter: blur(0px); /* Image is already pre-blurred in backend */
+    filter: blur(15px); /* Starts highly blurred, dynamic blur managed by JS */
 }
 
 .bg-dark-overlay {
@@ -232,7 +232,6 @@ header {
 .campaign-main-title .highlight-line {
     display: block;
     color: var(--zeiss-blue);
-    white-space: nowrap;
     font-size: 0.9em;
 }
 
