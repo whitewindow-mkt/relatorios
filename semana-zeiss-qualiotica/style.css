@@ -119,7 +119,7 @@ header {
     align-items: center; /* Center vertically for a balanced premium look */
     justify-content: center;
     width: 100%;
-    min-height: 100vh;
+    min-height: calc(100vh - 60px); /* Leave room for footer to prevent vertical scrollbar */
     padding: 2.5rem 1rem; /* Generous spacing above and below the card */
     box-sizing: border-box;
 }
@@ -563,6 +563,25 @@ button.voucher-wrapper-interactive:not(:disabled):hover .ticket-voucher {
     }
     .logo-container {
         margin-top: 2rem !important;
+    }
+    /* Success page overrides for desktop */
+    .subtitle-obrigado {
+        font-size: 1.05rem !important;
+        line-height: 1.5 !important;
+        margin-top: 0.5rem !important;
+        margin-bottom: 1.2rem !important;
+    }
+    .store-info-name {
+        font-size: 1.15rem !important;
+    }
+    .store-info-title {
+        font-size: 0.75rem !important;
+    }
+    .rules-checklist h3 {
+        font-size: 1.1rem !important;
+    }
+    .rules-checklist p {
+        font-size: 0.92rem !important;
     }
 }
 
