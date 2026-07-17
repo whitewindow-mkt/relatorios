@@ -529,45 +529,45 @@ button.voucher-wrapper-interactive:not(:disabled):hover .ticket-voucher {
        mobile-first, que já centraliza o card verticalmente em qualquer
        altura de tela (notebook pequeno ou monitor grande). */
     .form-card {
-        max-width: 500px !important;
-        padding: 2rem 1.75rem !important;
+        max-width: 430px !important;
+        padding: 1.5rem 1.3rem !important;
     }
     .subtitle-index {
-        font-size: 0.85rem !important;
-        line-height: 1.45 !important;
-        margin-top: 0.35rem !important;
+        font-size: 0.75rem !important;
+        line-height: 1.4 !important;
+        margin-top: 0.3rem !important;
     }
     .campaign-main-title {
-        font-size: 1.4rem !important;
-        line-height: 1.22 !important;
+        font-size: 1.15rem !important;
+        line-height: 1.2 !important;
     }
     .campaign-main-title .highlight-line {
         font-size: 0.95em !important;
-        margin-top: 0.15rem !important;
+        margin-top: 0.12rem !important;
     }
     .logo-container img {
-        height: 38px !important;
+        height: 30px !important;
     }
     .form-label {
-        font-size: 0.95rem !important;
-        margin-bottom: 0.65rem !important;
+        font-size: 0.82rem !important;
+        margin-bottom: 0.5rem !important;
     }
     .form-input {
-        font-size: 0.88rem !important;
-        padding: 0.72rem 0.95rem !important;
+        font-size: 0.8rem !important;
+        padding: 0.6rem 0.8rem !important;
     }
     .quiz-progress-header {
-        margin-bottom: 1.75rem !important;
+        margin-bottom: 1.4rem !important;
     }
     .btn-next, .btn-submit {
-        padding: 0.76rem 1.2rem !important;
-        font-size: 0.88rem !important;
+        padding: 0.62rem 1rem !important;
+        font-size: 0.8rem !important;
     }
     .btn-row {
-        margin-top: 1.4rem !important;
+        margin-top: 1.1rem !important;
     }
     .logo-container {
-        margin-top: 1.6rem !important;
+        margin-top: 1.3rem !important;
     }
     /* Success page spacing optimizations to keep it matching the quiz card height */
     body.thankyou-page .campaign-tag-wrapper {
