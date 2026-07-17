@@ -503,22 +503,51 @@ button.voucher-wrapper-interactive:not(:disabled):hover .ticket-voucher {
 }
 
 @media (min-width: 501px) {
-    .subtitle-index {
-        white-space: nowrap !important;
-        font-size: 0.82rem !important;
+    .center-layout {
+        align-items: flex-start !important; /* Subir formulário no PC */
+        padding-top: 3.5vh !important; /* Espaçamento sutil do topo */
+        padding-bottom: 2.5rem !important;
     }
     .form-card {
-        max-width: 480px !important;
+        max-width: 540px !important; /* Alarga o card no PC */
+        padding: 2.2rem 2.8rem !important; /* Mais espaçamento interno (menos amontoado) */
+    }
+    .subtitle-index {
+        font-size: 0.92rem !important;
+        line-height: 1.5 !important;
+        margin-top: 0.4rem !important;
     }
     .campaign-main-title {
-        font-size: 1.42rem !important;
-        line-height: 1.25 !important;
+        font-size: 1.7rem !important; /* Fontes maiores */
+        line-height: 1.22 !important;
     }
     .campaign-main-title .highlight-line {
         font-size: 0.95em !important;
+        margin-top: 0.2rem !important;
     }
     .logo-container img {
-        height: 42px !important;
+        height: 48px !important; /* Logo maior no rodapé */
+    }
+    .form-label {
+        font-size: 1.15rem !important;
+        margin-bottom: 0.8rem !important;
+    }
+    .form-input {
+        font-size: 1.05rem !important;
+        padding: 0.9rem 1.2rem !important;
+    }
+    .quiz-progress-header {
+        margin-bottom: 2.2rem !important;
+    }
+    .btn-next, .btn-submit {
+        padding: 0.95rem 1.5rem !important;
+        font-size: 1.05rem !important;
+    }
+    .btn-row {
+        margin-top: 1.8rem !important;
+    }
+    .logo-container {
+        margin-top: 2rem !important;
     }
 }
 
