@@ -235,6 +235,22 @@ header {
     font-size: 0.9em;
 }
 
+.inline-logo-highlight {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.inline-header-logo {
+    height: 1.6rem;
+    width: auto;
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 0.1rem;
+}
+
 .campaign-sub-title {
     font-family: var(--font-sans);
     font-size: 0.9rem;
