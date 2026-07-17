@@ -57,7 +57,10 @@ body {
     background-image: url('assets/store_bg_qualiotica.jpg');
     background-size: cover;
     background-position: center;
-    transition: filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Sem "transition" aqui de propósito: em elementos position:fixed de tela
+       cheia, o Chrome às vezes trava a transição de filter no valor inicial
+       e o desfoque nunca muda de verdade. Aplicando direto (sem animação)
+       garante que o efeito funcione sempre. */
     filter: blur(15px); /* Starts highly blurred, dynamic blur managed by JS */
 }
 
@@ -334,7 +337,8 @@ button.voucher-wrapper-interactive {
 
 .voucher-inner-content {
     width: 100%;
-    transition: filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Sem "transition" de propósito (mesmo motivo do .full-screen-bg acima):
+       evita o filter travar no valor inicial e nunca mudar de verdade. */
     filter: blur(18px); /* Starts highly blurred inside the clipped parent */
 }
 
