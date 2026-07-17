@@ -129,11 +129,11 @@ header {
     background: var(--bg-card);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 80, 255, 0.08); /* No white outer edge line */
+    border: 1px solid rgba(0, 0, 0, 0.08); /* Clean, matte border */
     border-radius: 18px;
     padding: 1.2rem 1.5rem;
     width: 100%;
-    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.22), 0 15px 35px rgba(0, 80, 255, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.45); /* Extra strong card shadow + soft inset glass highlight */
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.22); /* Clean dark shadow, no glowing white or blue highlights */
     position: relative;
     overflow: hidden;
     transition: var(--transition-smooth);
