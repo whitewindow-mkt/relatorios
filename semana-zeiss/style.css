@@ -518,57 +518,60 @@ button.voucher-wrapper-interactive:not(:disabled):hover .ticket-voucher {
 }
 
 @media (min-width: 501px) {
+    /* Tamanhos ~20% menores que antes: o layout anterior só cabia certo com o
+       navegador em zoom 80%. Em zoom 100% (o normal) tudo abaixo já ocupa o
+       espaço certo, sem sobrar barra de rolagem. */
     .center-layout {
         align-items: flex-start !important; /* Subir formulário no PC */
-        padding-top: 2.5vh !important; /* Espaçamento sutil do topo */
+        padding-top: 2vh !important;
         padding-bottom: 0.8rem !important;
     }
     .form-card {
-        max-width: 620px !important; /* Alarga o card no PC para o texto caber sem quebras desnecessárias */
-        padding: 2.5rem 2.2rem !important; /* Margens internas menores nas laterais (mais próximo às bordas) */
+        max-width: 500px !important;
+        padding: 2rem 1.75rem !important;
     }
     .subtitle-index {
-        font-size: 0.92rem !important;
-        line-height: 1.5 !important;
-        margin-top: 0.4rem !important;
+        font-size: 0.85rem !important;
+        line-height: 1.45 !important;
+        margin-top: 0.35rem !important;
     }
     .campaign-main-title {
-        font-size: 1.7rem !important; /* Fontes maiores */
+        font-size: 1.4rem !important;
         line-height: 1.22 !important;
     }
     .campaign-main-title .highlight-line {
         font-size: 0.95em !important;
-        margin-top: 0.2rem !important;
+        margin-top: 0.15rem !important;
     }
     .logo-container img {
-        height: 48px !important; /* Logo maior no rodapé */
+        height: 38px !important;
     }
     .form-label {
-        font-size: 1.15rem !important;
-        margin-bottom: 0.8rem !important;
+        font-size: 0.95rem !important;
+        margin-bottom: 0.65rem !important;
     }
     .form-input {
-        font-size: 1.05rem !important;
-        padding: 0.9rem 1.2rem !important;
+        font-size: 0.88rem !important;
+        padding: 0.72rem 0.95rem !important;
     }
     .quiz-progress-header {
-        margin-bottom: 2.2rem !important;
+        margin-bottom: 1.75rem !important;
     }
     .btn-next, .btn-submit {
-        padding: 0.95rem 1.5rem !important;
-        font-size: 1.05rem !important;
+        padding: 0.76rem 1.2rem !important;
+        font-size: 0.88rem !important;
     }
     .btn-row {
-        margin-top: 1.8rem !important;
+        margin-top: 1.4rem !important;
     }
     .logo-container {
-        margin-top: 2rem !important;
+        margin-top: 1.6rem !important;
     }
     /* Success page spacing optimizations to keep it matching the quiz card height */
     body.thankyou-page .campaign-tag-wrapper {
         border-bottom: none !important;
         padding-bottom: 0 !important;
-        margin-bottom: 0.8rem !important;
+        margin-bottom: 0.65rem !important;
     }
 }
 
