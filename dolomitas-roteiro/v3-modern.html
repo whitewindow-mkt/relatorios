@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dolomitas · Roteiro do dia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#faf9f7;
+  --card:#ffffff;
+  --ink:#1c1917;
+  --dim:#78716c;
+  --line:#eeeae4;
+  --coral:#ec6a4e;
+  --teal:#2a9d8f;
+  --gold:#f2b155;
+  --radius:24px;
+  --shadow:0 2px 8px rgba(28,25,23,.04), 0 12px 32px -12px rgba(28,25,23,.10);
+  --shadow-lg:0 8px 24px rgba(28,25,23,.06), 0 30px 60px -20px rgba(28,25,23,.16);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.5;}
+::selection{background:var(--coral);color:#fff;}
+img{display:block;max-width:100%;}
+
+#progress{position:fixed;top:0;left:0;height:3px;background:var(--coral);width:0%;z-index:999;border-radius:0 3px 3px 0;}
+
+nav.topnav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;justify-content:space-between;align-items:center;
+  padding:18px 32px;backdrop-filter:blur(12px);background:rgba(250,249,247,0);transition:background .3s ease,box-shadow .3s ease;}
+nav.topnav.scrolled{background:rgba(250,249,247,.85);box-shadow:0 1px 0 var(--line);}
+nav.topnav .brand{font-weight:700;font-size:15px;letter-spacing:-.2px;}
+nav.topnav .pill{background:var(--ink);color:#fff;font-size:13px;font-weight:600;padding:9px 18px;border-radius:100px;}
+
+section{position:relative;}
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px;}
+@media (max-width:640px){.wrap{padding:0 20px;}}
+
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--coral);margin-bottom:14px;}
+.eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--coral);}
+h2.title{font-size:clamp(1.7rem,3.6vw,2.6rem);font-weight:700;letter-spacing:-.02em;line-height:1.15;color:var(--ink);}
+p.lead{margin-top:14px;color:var(--dim);font-size:1.02rem;max-width:560px;line-height:1.65;}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1);}
+.reveal.in{opacity:1;transform:translateY(0);}
+.reveal-stagger>*{opacity:0;transform:translateY(18px);transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1);}
+.reveal-stagger.in>*{opacity:1;transform:translateY(0);}
+.reveal-stagger.in>*:nth-child(1){transition-delay:.04s}
+.reveal-stagger.in>*:nth-child(2){transition-delay:.1s}
+.reveal-stagger.in>*:nth-child(3){transition-delay:.16s}
+.reveal-stagger.in>*:nth-child(4){transition-delay:.22s}
+.reveal-stagger.in>*:nth-child(5){transition-delay:.28s}
+.reveal-stagger.in>*:nth-child(6){transition-delay:.34s}
+
+/* ===== HERO ===== */
+#hero{min-height:92vh;display:flex;align-items:center;padding:110px 32px 60px;}
+.hero-grid{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;width:100%;}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;gap:36px;}}
+.hero-title{font-size:clamp(2.4rem,5.4vw,4rem);font-weight:800;letter-spacing:-.03em;line-height:1.04;}
+.hero-title .accent{color:var(--coral);}
+.hero-sub{margin-top:20px;color:var(--dim);font-size:1.08rem;max-width:440px;line-height:1.6;}
+.hero-badges{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap;}
+.chip{background:var(--card);border:1px solid var(--line);padding:9px 16px;border-radius:100px;font-size:13px;font-weight:600;box-shadow:var(--shadow);display:flex;align-items:center;gap:7px;}
+.chip .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);}
+.hero-visual{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-lg);aspect-ratio:4/5;}
+.hero-visual img{width:100%;height:100%;object-fit:cover;transform:scale(1.02);}
+.hero-float{position:absolute;bottom:18px;left:18px;right:18px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);
+  border-radius:16px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow);}
+.hero-float b{display:block;font-size:.95rem;}
+.hero-float span{font-size:12px;color:var(--dim);}
+.hero-float .score{font-size:1.5rem;font-weight:800;color:var(--teal);}
+
+/* ===== STAT BAR ===== */
+#stats{padding:0 32px 90px;}
+.stat-grid{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+@media (max-width:700px){.stat-grid{grid-template-columns:repeat(2,1fr);}}
+.stat-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:var(--shadow);}
+.stat-card b{display:block;font-size:1.7rem;font-weight:800;letter-spacing:-.02em;}
+.stat-card span{font-size:12.5px;color:var(--dim);}
+
+/* ===== ROUTE ===== */
+#route{padding:20px 32px 90px;}
+.route-scroll{display:flex;gap:14px;overflow-x:auto;padding:8px 4px 16px;max-width:1120px;margin:0 auto;scrollbar-width:thin;}
+.rstep{flex:0 0 auto;min-width:150px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;box-shadow:var(--shadow);}
+.rstep .num{font-size:11px;font-weight:700;color:var(--coral);}
+.rstep b{display:block;font-size:.95rem;margin-top:6px;}
+.rstep span{font-size:12px;color:var(--dim);}
+.rarrow{display:flex;align-items:center;color:var(--dim);flex:0 0 auto;}
+
+/* ===== SPOTLIGHT (image-forward, still light) ===== */
+.spot{padding:0 32px 100px;}
+.spot-grid{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+@media (max-width:900px){.spot-grid{grid-template-columns:1fr;gap:32px;}}
+.spot-grid.rev{direction:rtl;}
+.spot-grid.rev>*{direction:ltr;}
+.spot-photo{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-lg);aspect-ratio:5/4;}
+.spot-photo img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
+.spot-photo:hover img{transform:scale(1.04);}
+.spot-tag{font-size:13px;font-weight:700;color:var(--teal);margin-bottom:12px;}
+.spot-title{font-size:clamp(1.6rem,3.4vw,2.3rem);font-weight:700;letter-spacing:-.02em;}
+.spot-text{margin-top:14px;color:var(--dim);font-size:.98rem;line-height:1.65;max-width:440px;}
+.spot-meta{display:flex;gap:20px;margin-top:22px;}
+.spot-meta div{font-size:12px;color:var(--dim);}
+.spot-meta b{display:block;font-size:1rem;color:var(--ink);margin-top:2px;}
+
+/* ===== TIMELINE ===== */
+#timeline{padding:20px 32px 100px;}
+.tl-head{max-width:1120px;margin:0 auto 44px;}
+.tl-list{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:14px;}
+.tl-card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);
+  display:grid;grid-template-columns:90px 160px 1fr;gap:0;overflow:hidden;transition:box-shadow .3s ease,transform .3s ease;}
+.tl-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px);}
+@media (max-width:760px){.tl-card{grid-template-columns:70px 1fr;}.tl-card .tl-photo{display:none;}}
+.tl-time-col{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fbf3ec;font-weight:700;font-size:13px;color:var(--coral);gap:4px;}
+.tl-time-col span{font-size:9px;color:var(--dim);font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
+.tl-photo{overflow:hidden;}
+.tl-photo img{width:100%;height:100%;object-fit:cover;min-height:120px;}
+.tl-info{padding:18px 22px;}
+.tl-kicker{font-size:11.5px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.5px;}
+.tl-title{font-size:1.1rem;font-weight:700;margin:5px 0 6px;letter-spacing:-.01em;}
+.tl-text{font-size:.87rem;color:var(--dim);line-height:1.55;max-width:480px;}
+.tl-tags{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.tag-pill{font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;background:#f1f5f4;color:var(--teal);}
+.tag-pill.warm{background:#fbf3ec;color:var(--coral);}
+
+/* ===== FOOD ===== */
+#food{padding:20px 32px 100px;}
+.food-grid{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;}
+@media (max-width:760px){.food-grid{grid-template-columns:1fr;}}
+.food-card{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);transition:transform .3s ease,box-shadow .3s ease;}
+.food-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
+.food-card .img{height:160px;overflow:hidden;}
+.food-card .img img{width:100%;height:100%;object-fit:cover;}
+.food-card .body{padding:18px 20px 20px;}
+.food-rank{display:inline-block;font-size:11px;font-weight:700;color:var(--coral);background:#fbf3ec;padding:3px 9px;border-radius:100px;margin-bottom:10px;}
+.food-card h4{font-size:1.05rem;font-weight:700;margin-bottom:5px;}
+.food-card p{font-size:.85rem;color:var(--dim);line-height:1.5;}
+.food-price{margin-top:10px;font-size:.82rem;font-weight:700;color:var(--teal);}
+
+/* ===== BUDGET ===== */
+#budget{padding:20px 32px 100px;}
+.budget-grid{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center;}
+@media (max-width:860px){.budget-grid{grid-template-columns:1fr;gap:32px;}}
+.budget-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:var(--shadow);}
+.bbar-row{display:grid;grid-template-columns:100px 1fr 50px;align-items:center;gap:14px;padding:11px 0;}
+.bbar-label{font-size:.85rem;font-weight:600;color:var(--dim);}
+.bbar-track{height:8px;background:#f1ede7;border-radius:100px;overflow:hidden;}
+.bbar-fill{height:100%;width:0;background:var(--teal);border-radius:100px;transition:width 1.2s cubic-bezier(.22,1,.36,1);}
+.bbar-val{font-size:.85rem;font-weight:700;text-align:right;}
+.budget-total{margin-top:18px;padding-top:18px;border-top:1px dashed var(--line);display:flex;justify-content:space-between;align-items:center;}
+.budget-total span{font-size:12px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;font-weight:600;}
+.budget-total b{font-size:1.7rem;font-weight:800;color:var(--coral);}
+.score-card{background:linear-gradient(160deg,#2a9d8f,#1c7568);border-radius:20px;padding:36px 28px;box-shadow:var(--shadow-lg);color:#fff;text-align:center;}
+.score-card .num{font-size:3.4rem;font-weight:800;letter-spacing:-.03em;}
+.score-card p{font-size:.85rem;color:rgba(255,255,255,.75);margin-top:8px;}
+
+/* ===== PRACTICAL ===== */
+#practical{padding:20px 32px 100px;}
+.pgrid{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media (max-width:860px){.pgrid{grid-template-columns:1fr;}}
+.pcard{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:var(--shadow);}
+.pcard h3{font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--coral);margin-bottom:18px;}
+.check-item{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);cursor:pointer;}
+.check-item:last-child{border-bottom:none;}
+.check-box{width:19px;height:19px;border-radius:6px;border:2px solid #d8d2c8;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:.2s;}
+.check-item.checked .check-box{background:var(--teal);border-color:var(--teal);}
+.check-box svg{width:11px;height:11px;stroke:#fff;opacity:0;transform:scale(.5);transition:.2s;}
+.check-item.checked .check-box svg{opacity:1;transform:scale(1);}
+.check-item span{font-size:.9rem;}
+.check-item.checked span{color:var(--dim);text-decoration:line-through;}
+.tip-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);}
+.tip-item:last-child{border-bottom:none;}
+.tip-item .n{font-size:12px;font-weight:800;color:var(--teal);flex-shrink:0;}
+.tip-item p{font-size:.85rem;color:var(--dim);line-height:1.55;}
+
+/* ===== CLOSING ===== */
+#closing{padding:40px 32px 100px;}
+.closing-card{max-width:1120px;margin:0 auto;position:relative;border-radius:32px;overflow:hidden;box-shadow:var(--shadow-lg);}
+.closing-card img{width:100%;height:60vh;min-height:420px;object-fit:cover;}
+.closing-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,20,18,.05) 0%,rgba(20,20,18,.75) 100%);
+  display:flex;flex-direction:column;justify-content:flex-end;padding:48px;color:#fff;}
+.closing-score{font-size:.9rem;font-weight:700;color:var(--gold);}
+.closing-title{font-size:clamp(1.6rem,3.6vw,2.6rem);font-weight:800;letter-spacing:-.02em;margin:12px 0 12px;max-width:620px;}
+.closing-text{color:rgba(255,255,255,.82);font-size:.95rem;max-width:560px;line-height:1.6;}
+.badges{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:1120px;margin:24px auto 0;}
+@media (max-width:700px){.badges{grid-template-columns:repeat(2,1fr);}}
+.badge{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;box-shadow:var(--shadow);}
+.badge b{display:block;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--coral);margin-bottom:6px;}
+.badge span{font-size:.85rem;font-weight:600;}
+.next-card{max-width:1120px;margin:24px auto 0;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px 28px;box-shadow:var(--shadow);}
+.next-card b{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--teal);}
+.next-card p{margin-top:8px;font-size:.92rem;color:var(--dim);line-height:1.6;}
+footer{text-align:center;padding:32px;font-size:12px;color:var(--dim);}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<nav class="topnav" id="topnav">
+  <div class="brand">Dolomitas · 07.11</div>
+  <div class="pill">9.8 ★</div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid">
+    <div class="reveal in">
+      <div class="eyebrow">Sábado · 07 de novembro</div>
+      <h1 class="hero-title">Lagos alpinos & <span class="accent">Cortina d'Ampezzo</span></h1>
+      <p class="hero-sub">Um dia leve pelas águas mais fotografadas dos Alpes italianos, fechando com a cidade mais elegante da região.</p>
+      <div class="hero-badges">
+        <div class="chip"><span class="dot"></span>3 lagos alpinos</div>
+        <div class="chip"><span class="dot"></span>~9h de passeio</div>
+        <div class="chip"><span class="dot"></span>€82 casal</div>
+      </div>
+    </div>
+    <div class="reveal in" style="transition-delay:.15s">
+      <div class="hero-visual">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Pragser%20Wildsee.jpg?width=1200" alt="Lago di Braies">
+        <div class="hero-float">
+          <div><b>Lago di Braies</b><span>Primeira parada · 09:20</span></div>
+          <div class="score">9.8</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="stat-grid reveal-stagger">
+    <div class="stat-card"><b>3</b><span>Lagos alpinos</span></div>
+    <div class="stat-card"><b>~9h</b><span>De passeio</span></div>
+    <div class="stat-card"><b>€82</b><span>Orçamento casal</span></div>
+    <div class="stat-card"><b>9.8</b><span>Nota do dia</span></div>
+  </div>
+</section>
+
+<!-- ROUTE -->
+<section id="route">
+  <div class="wrap reveal">
+    <span class="eyebrow">Rota</span>
+    <h2 class="title">Valdaora → Braies → Cortina → Valdaora</h2>
+  </div>
+  <div class="route-scroll reveal-stagger" style="margin-top:28px;">
+    <div class="rstep"><span class="num">00</span><b>Valdaora</b><span>Início · 07:30</span></div>
+    <div class="rstep"><span class="num">01</span><b>Lago di Braies</b><span>09:20</span></div>
+    <div class="rstep"><span class="num">02</span><b>Lago di Landro</b><span>11:30</span></div>
+    <div class="rstep"><span class="num">03</span><b>Cortina d'Ampezzo</b><span>Almoço + centro</span></div>
+    <div class="rstep"><span class="num">04</span><b>Lago di Dobbiaco</b><span>16:30</span></div>
+    <div class="rstep"><span class="num">05</span><b>Valdaora</b><span>Retorno · 18:00</span></div>
+  </div>
+</section>
+
+<!-- SPOTLIGHT BRAIES -->
+<section class="spot">
+  <div class="spot-grid reveal">
+    <div class="spot-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Lago%20di%20Braies%20-%20Boats.jpg?width=1000" alt="Píer Lago di Braies"></div>
+    <div>
+      <div class="spot-tag">Primeira parada · 09:20</div>
+      <h3 class="spot-title">Lago di Braies</h3>
+      <p class="spot-text">O cenário mais fotografado dos Alpes italianos. Cheguem cedo: menos gente, água mais calma. O trecho principal já entrega a melhor vista — sem precisar da volta completa.</p>
+      <div class="spot-meta"><div>TEMPO<b>1h30</b></div><div>STATUS<b>Mais concorrido</b></div><div>DICA<b>Chocolate quente</b></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="tl-head reveal">
+    <span class="eyebrow">O dia</span>
+    <h2 class="title">Linha do tempo</h2>
+  </div>
+  <div class="tl-list reveal-stagger">
+
+    <div class="tl-card">
+      <div class="tl-time-col">07:30<span>Início</span></div>
+      <div class="tl-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Tre%20Cime%20at%20sunset.jpg?width=500" alt="Manhã nas Dolomitas"></div>
+      <div class="tl-info">
+        <div class="tl-kicker">Bom dia</div>
+        <div class="tl-title">Café da manhã no apartamento</div>
+        <div class="tl-text">Croissant, café, pão fresco, presunto, queijo e frutas — direto do Conad.</div>
+      </div>
+    </div>
+
+    <div class="tl-card">
+      <div class="tl-time-col">09:20<span>Parada 1</span></div>
+      <div class="tl-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Pragser%20Wildsee.jpg?width=500" alt="Lago di Braies"></div>
+      <div class="tl-info">
+        <div class="tl-kicker">Lago di Braies</div>
+        <div class="tl-title">Píer, reflexo e foto do casal</div>
+        <div class="tl-text">1h30 é suficiente. Não precisa fazer a volta completa ao redor do lago.</div>
+        <div class="tl-tags"><span class="tag-pill warm">Imperdível</span><span class="tag-pill">1h30</span></div>
+      </div>
+    </div>
+
+    <div class="tl-card">
+      <div class="tl-time-col">11:30<span>Parada 2</span></div>
+      <div class="tl-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Lago%20di%20Landro,%20Dolomites.jpg?width=500" alt="Lago di Landro"></div>
+      <div class="tl-info">
+        <div class="tl-kicker">Lago di Landro</div>
+        <div class="tl-title">Parada rápida, menos gente</div>
+        <div class="tl-text">Vista incrível das montanhas ao redor. 20 a 30 minutos bastam.</div>
+        <div class="tl-tags"><span class="tag-pill">20–30 min</span></div>
+      </div>
+    </div>
+
+    <div class="tl-card">
+      <div class="tl-time-col">13:00<span>Almoço</span></div>
+      <div class="tl-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Corso%20Italia,%20Cortina%20d'Ampezzo.jpg?width=500" alt="Cortina d'Ampezzo"></div>
+      <div class="tl-info">
+        <div class="tl-kicker">Cortina d'Ampezzo</div>
+        <div class="tl-title">Almoço + duas horas de centro</div>
+        <div class="tl-text">Ai Due Forni (€10–15) ou Il Ponte (€12–18). Depois, Corso Italia com calma.</div>
+        <div class="tl-tags"><span class="tag-pill warm">Casunziei ★★★★★</span></div>
+      </div>
+    </div>
+
+    <div class="tl-card">
+      <div class="tl-time-col">16:30<span>Parada 3</span></div>
+      <div class="tl-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Lago%20di%20Dobbiaco.jpg?width=500" alt="Lago di Dobbiaco"></div>
+      <div class="tl-info">
+        <div class="tl-kicker">Lago di Dobbiaco</div>
+        <div class="tl-title">Encerramento com sol baixo</div>
+        <div class="tl-text">Lago tranquilo, cores mais bonitas no fim da tarde. 30 minutos.</div>
+        <div class="tl-tags"><span class="tag-pill">30 min</span></div>
+      </div>
+    </div>
+
+    <div class="tl-card">
+      <div class="tl-time-col">18:00<span>Retorno</span></div>
+      <div class="tl-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/St.%20Magdalener%20Classico%20Bottle%20Glass%20Wine%20Tasting%20Maretsch.jpg?width=500" alt="Jantar em casa"></div>
+      <div class="tl-info">
+        <div class="tl-kicker">Apartamento</div>
+        <div class="tl-title">Jantar simples em casa</div>
+        <div class="tl-text">Massa com pesto, salada e uma taça de vinho italiano.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOD -->
+<section id="food">
+  <div class="wrap reveal">
+    <span class="eyebrow">Sabores</span>
+    <h2 class="title">Culinária das montanhas</h2>
+  </div>
+  <div class="food-grid reveal-stagger">
+    <div class="food-card">
+      <div class="img"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Pizza-napoletana.jpg?width=600" alt="Pizza"></div>
+      <div class="body"><span class="food-rank">N.01</span><h4>Ai Due Forni</h4><p>Excelente pizza, ótimo custo-benefício.</p><div class="food-price">€10–15 / pessoa</div></div>
+    </div>
+    <div class="food-card">
+      <div class="img"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Polenta%20con%20funghi.jpg?width=600" alt="Polenta"></div>
+      <div class="body"><span class="food-rank">N.02</span><h4>Polenta com cogumelos</h4><p>Prato tradicional das montanhas do Vêneto.</p><div class="food-price">€15–20 / pessoa</div></div>
+    </div>
+    <div class="food-card">
+      <div class="img"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/St.%20Magdalener%20Classico%20Bottle%20Glass%20Wine%20Tasting%20Maretsch.jpg?width=600" alt="Vinho"></div>
+      <div class="body"><span class="food-rank">N.03</span><h4>Vinho da região</h4><p>Bom par pro jantar em casa. Leve Loacker de souvenir.</p><div class="food-price">Souvenir</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BUDGET -->
+<section id="budget">
+  <div class="budget-grid">
+    <div class="budget-card reveal">
+      <span class="eyebrow">Orçamento</span>
+      <h2 class="title" style="margin-bottom:22px;">€82 no total</h2>
+      <div class="bbar-row"><span class="bbar-label">Combustível</span><div class="bbar-track"><div class="bbar-fill" data-w="18"></div></div><span class="bbar-val">€15</span></div>
+      <div class="bbar-row"><span class="bbar-label">Estacionamento</span><div class="bbar-track"><div class="bbar-fill" data-w="18"></div></div><span class="bbar-val">€15</span></div>
+      <div class="bbar-row"><span class="bbar-label">Almoço</span><div class="bbar-track"><div class="bbar-fill" data-w="37"></div></div><span class="bbar-val">€30</span></div>
+      <div class="bbar-row"><span class="bbar-label">Café/doce</span><div class="bbar-track"><div class="bbar-fill" data-w="15"></div></div><span class="bbar-val">€12</span></div>
+      <div class="bbar-row"><span class="bbar-label">Extras</span><div class="bbar-track"><div class="bbar-fill" data-w="12"></div></div><span class="bbar-val">€10</span></div>
+      <div class="budget-total"><span>Total estimado</span><b>€82</b></div>
+    </div>
+    <div class="score-card reveal">
+      <div class="num">9.8</div>
+      <p>Poucos km rodados, muita paisagem inesquecível.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRACTICAL -->
+<section id="practical">
+  <div class="wrap reveal">
+    <span class="eyebrow">Antes de sair</span>
+    <h2 class="title">Checklist & dicas</h2>
+  </div>
+  <div class="pgrid reveal-stagger" style="margin-top:28px;">
+    <div class="pcard">
+      <h3>Checklist</h3>
+      <div id="checklist">
+        <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>Casaco impermeável</span></div>
+        <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>Gorro e luvas</span></div>
+        <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>Power bank</span></div>
+        <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>Garrafa de água</span></div>
+        <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>Óculos de sol</span></div>
+        <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>Câmera / celular carregado</span></div>
+        <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>Mochila pequena</span></div>
+      </div>
+    </div>
+    <div class="pcard">
+      <h3>Dicas</h3>
+      <div class="tip-item"><span class="n">01</span><p>Levem dinheiro ou cartão — nem todo estacionamento aceita espécie.</p></div>
+      <div class="tip-item"><span class="n">02</span><p>Braies pela manhã é o ponto mais concorrido do dia.</p></div>
+      <div class="tip-item"><span class="n">03</span><p>Corso Italia vale caminhar mesmo sem intenção de compra.</p></div>
+      <div class="tip-item"><span class="n">04</span><p>Tempo fechado? Corte o Landro, ganhe tempo em Cortina.</p></div>
+      <div class="tip-item"><span class="n">05</span><p>Souvenir bom: biscoito Loacker, chocolate, vinho local.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section id="closing">
+  <div class="closing-card reveal">
+    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Tre%20Cime%20at%20sunset.jpg?width=1600" alt="Dolomitas ao entardecer">
+    <div class="closing-overlay">
+      <div class="closing-score">★ 9.8 / 10</div>
+      <h2 class="closing-title">Poucos quilômetros, paisagens inesquecíveis</h2>
+      <p class="closing-text">Lagos alpinos + Cortina d'Ampezzo: o roteiro mais equilibrado da viagem, feito pra aproveitar sem pressa.</p>
+    </div>
+  </div>
+
+  <div class="badges reveal-stagger">
+    <div class="badge"><b>Paisagem</b><span>Lago di Braies</span></div>
+    <div class="badge"><b>Refeição</b><span>Casunziei Ampezzani</span></div>
+    <div class="badge"><b>Foto</b><span>Píer + reflexo</span></div>
+    <div class="badge"><b>Compra</b><span>Biscoitos Loacker</span></div>
+  </div>
+
+  <div class="next-card reveal">
+    <b>Próxima etapa</b>
+    <p>Val di Funes, Santa Maddalena e Bolzano antes do retorno a Milão.</p>
+  </div>
+
+  <footer>Roteiro Dolomitas · White Window</footer>
+</section>
+
+<script>
+const progress = document.getElementById('progress');
+function onScroll(){
+  const h = document.documentElement;
+  progress.style.width = (h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+  document.getElementById('topnav').classList.toggle('scrolled', h.scrollTop>40);
+}
+document.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:0.12, rootMargin:'0px 0px -60px 0px'});
+document.querySelectorAll('.reveal,.reveal-stagger').forEach(el=>io.observe(el));
+
+const barIo = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.style.width = e.target.dataset.w+'%'; } });
+},{threshold:0.4});
+document.querySelectorAll('.bbar-fill').forEach(b=>barIo.observe(b));
+
+document.querySelectorAll('.check-item').forEach(item=>{
+  item.addEventListener('click', ()=>item.classList.toggle('checked'));
+});
+</script>
+</body>
+</html>
