@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RELATORIO META ADS — Futuremedia · Julho 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#ecf8f8;
+  --surface:#ffffff;
+  --border:#eae6df;
+  --text:#161311;
+  --muted:#7a746c;
+  --dim:#a8a196;
+  --orange:#f2620f;
+  --orange-dark:#c94e0a;
+  --yellow:#febe28;
+  --black:#000000;
+}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;min-height:100vh}
+.page{max-width:1000px;margin:0 auto;padding:0 32px 70px}
+
+/* HEADER */
+.dual-header{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;background:var(--surface);border-bottom:2px solid var(--black);margin:0 0 40px 0;overflow:hidden}
+html,body{overflow-x:hidden}
+.brand{display:flex;align-items:center;gap:12px}
+.mark{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;letter-spacing:-1px;flex-shrink:0}
+.mark-ww{background:var(--black);color:#fff}
+.mark-cli{background:var(--orange);color:#fff}
+.brand-info{line-height:1.25}
+.brand-name{font-size:13px;font-weight:700}
+.brand-role{font-size:11px;color:var(--muted)}
+.brand-right .brand-name,.brand-right .brand-role{text-align:right}
+.header-mid{text-align:center}
+.platform-badge{display:inline-flex;align-items:center;gap:9px;background:var(--orange);color:#fff;padding:10px 22px;border-radius:999px;font-size:14px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;box-shadow:0 3px 10px rgba(242,98,15,.28)}
+.platform-badge .icons{display:flex;align-items:center;gap:5px}
+.platform-badge svg{width:17px;height:17px;flex-shrink:0}
+.header-date{font-size:11px;color:var(--dim);margin-top:6px}
+
+/* TITLE */
+.report-hero{text-align:center;margin-bottom:36px}
+.report-hero h1{font-size:30px;font-weight:900;letter-spacing:-1px;margin-bottom:8px}
+.report-hero h1 em{font-style:normal;color:var(--orange)}
+
+/* KPI CARDS */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:30px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;border-top:3px solid var(--orange)}
+.kpi:nth-child(2){border-top-color:var(--black)}
+.kpi:nth-child(3){border-top-color:var(--yellow)}
+.kpi:nth-child(4){border-top-color:var(--orange-dark)}
+.kpi-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;font-weight:700;margin-bottom:6px}
+.kpi-val{font-size:24px;font-weight:900;letter-spacing:-.5px;line-height:1;color:var(--black)}
+.kpi-sub{font-size:11px;color:var(--muted);margin-top:5px}
+
+/* HIGHLIGHT */
+.highlight{display:flex;align-items:center;gap:20px;background:var(--yellow);border-radius:14px;padding:24px 28px;margin-bottom:30px;color:var(--black)}
+.hl-body h3{font-size:15px;font-weight:800;margin-bottom:6px;color:var(--black)}
+.hl-body p{font-size:12.5px;color:#3a2f00;line-height:1.65;max-width:540px}
+.hl-body p strong{color:#000}
+.hl-right{text-align:right;margin-left:auto;flex-shrink:0}
+.hl-val{font-size:32px;font-weight:900;color:var(--black);letter-spacing:-1px;line-height:1}
+.hl-sub{font-size:10px;color:#5c4e00;margin-top:4px;line-height:1.5}
+
+/* SECTION LABEL */
+.section-label{background:var(--black);border-radius:8px;padding:10px 16px;margin-bottom:16px;margin-top:8px}
+.section-label span{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:#fff;white-space:nowrap}
+
+/* CAMPAIGN CARDS (simplified) */
+.camp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.camp-grid.two{grid-template-columns:repeat(2,1fr)}
+.camp-grid.single{grid-template-columns:1fr}
+.camp-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.camp-card:hover{border-color:var(--orange)}
+.camp-card.best{border-color:var(--orange);box-shadow:0 0 0 1px var(--orange)}
+.camp-name{font-size:12.5px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.camp-card.best .camp-name::before{content:'★';color:var(--orange);font-size:11px}
+.camp-hint{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;margin:-14px 0 14px;text-align:center}
+.camp-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cm-val{font-size:16px;font-weight:900;color:var(--black);line-height:1}
+.cm-lbl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;margin-top:3px}
+.cm-val.accent{color:var(--orange)}
+
+/* CREATIVE CARD — anúncio campeão com miniatura */
+.creative-card{display:flex;gap:18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;align-items:stretch;margin-top:4px}
+.creative-thumb{width:100px;height:140px;object-fit:cover;border-radius:8px;flex-shrink:0;background:var(--border)}
+.creative-info{flex:1;display:flex;flex-direction:column;justify-content:center}
+.creative-tag{font-size:9px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--orange);margin-bottom:6px}
+.creative-name{font-size:14px;font-weight:800;color:var(--black);margin-bottom:2px}
+.creative-camp{font-size:11px;color:var(--muted);margin-bottom:12px}
+.creative-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+
+/* FUNNEL SECTION WRAP */
+.funnel-section{margin-bottom:30px}
+
+/* CHARTS */
+.charts-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:30px}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px}
+.panel-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:16px}
+.donut-wrap{position:relative;width:150px;height:150px;margin:0 auto 12px}
+.donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;background:var(--surface);width:92px;height:92px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
+.dc-val{font-size:15px;font-weight:900}
+.dc-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.dl-item{display:flex;align-items:center;gap:7px;font-size:11px;margin-bottom:6px}
+.dl-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.dl-name{flex:1;color:var(--muted)}
+.dl-val{font-weight:700;color:var(--black)}
+.dl-pct{font-size:10px;color:var(--dim)}
+.chart-canvas{height:185px;position:relative}
+.funnel-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:16px;padding-top:4px}
+.funnel-row{position:relative;height:58px;margin:0 auto}
+.fr-shape{position:absolute;inset:0;clip-path:polygon(7% 0,93% 0,100% 100%,0% 100%)}
+.fr-text{position:relative;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;line-height:1.3}
+.fr-label{font-size:10px;text-transform:uppercase;letter-spacing:.5px;opacity:.9}
+.fr-val{font-size:14px;font-weight:900;margin-top:2px}
+.funnel-caption{font-size:10px;color:var(--muted);line-height:1.5;padding-top:10px;border-top:1px solid var(--border)}
+
+/* CLOSING */
+.closing{background:var(--yellow);border-radius:14px;padding:24px 28px;margin-bottom:30px}
+.closing p{font-size:13px;color:#3a2f00;line-height:1.7}
+.closing p strong{color:#000}
+
+/* FOOTER */
+.report-footer{border-top:1px solid var(--border);padding-top:20px;display:flex;align-items:center;justify-content:space-between}
+.footer-left p{font-size:10px;color:var(--dim);line-height:1.6}
+.footer-right{text-align:right}
+.footer-ww{font-size:12px;font-weight:700;color:var(--black)}
+
+/* RESPONSIVO — CELULAR */
+@media (max-width: 680px){
+  .page{padding:0 16px 50px}
+
+  .dual-header{flex-wrap:wrap;row-gap:10px;padding:14px 16px;margin:0 0 28px 0}
+  .dual-header > *:nth-child(1){order:1}
+  .dual-header > *:nth-child(3){order:2}
+  .dual-header > *:nth-child(2){order:3;width:100%;margin-top:6px;display:flex;justify-content:center}
+  .dual-header .brand{gap:8px}
+  .dual-header .mark{width:32px;height:32px;font-size:11px;border-radius:8px}
+  .dual-header .brand-name{font-size:12px}
+  .dual-header .brand-role{font-size:9.5px}
+  .dual-header .brand-right .brand-name,.dual-header .brand-right .brand-role{text-align:right}
+  .platform-badge{flex-direction:column;gap:4px;padding:7px 16px;font-size:10.5px;border-radius:14px;max-width:100%}
+  .platform-badge .icons{gap:6px}
+  .platform-badge svg{width:14px;height:14px}
+  .header-date{margin-top:4px}
+
+  .report-hero h1{font-size:24px}
+
+  .kpi-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .kpi{padding:14px}
+  .kpi-val{font-size:20px}
+
+  .highlight{flex-direction:column;align-items:flex-start;gap:14px;padding:20px}
+  .hl-right{margin-left:0;text-align:left}
+  .hl-body p{max-width:100%}
+
+  .camp-grid{grid-template-columns:1fr !important}
+
+  .creative-card{padding:12px;gap:14px}
+  .creative-thumb{width:80px;height:112px}
+  .creative-metrics{grid-template-columns:repeat(2,1fr) !important;gap:10px 14px}
+
+  .camp-metrics{grid-template-columns:repeat(2,1fr) !important}
+
+  .charts-row{grid-template-columns:1fr}
+
+  .report-footer{flex-direction:column;align-items:flex-start;gap:14px}
+  .footer-right{text-align:left}
+}
+</style>
+</head>
+<body>
+
+<div class="dual-header">
+  <div class="brand">
+    <div class="mark mark-ww">WW</div>
+    <div class="brand-info">
+      <div class="brand-name">White Window</div>
+      <div class="brand-role">Agência de Marketing Digital</div>
+    </div>
+  </div>
+  <div class="header-mid">
+    <div class="platform-badge">
+      <span class="icons">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="#fff" stroke-width="1.6"/><path d="M13.6 8.4h1.4V6.2h-1.7c-1.9 0-2.8 1-2.8 2.7v1.5H8.8v2.3h1.7V18h2.2v-5.3h1.7l.3-2.3h-2v-1.3c0-.4.1-.7.9-.7z" fill="#fff"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="0.8" fill="#fff" stroke="none"/></svg>
+      </span>
+      Meta Ads
+    </div>
+    <div class="header-date">Período: 01/07 → 31/07/2026</div>
+  </div>
+  <div class="brand" style="flex-direction:row-reverse">
+    <div class="mark mark-cli">FM</div>
+    <div class="brand-info brand-right">
+      <div class="brand-name">Futuremedia</div>
+      <div class="brand-role">Robôs &amp; Totens Interativos</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+<div class="report-hero">
+  <h1>Resultados de <em>Julho 2026</em></h1>
+</div>
+
+<div class="kpi-grid">
+  <div class="kpi"><div class="kpi-lbl">Investimento</div><div class="kpi-val">R$ 2.207</div><div class="kpi-sub">verba aplicada no mês</div></div>
+  <div class="kpi"><div class="kpi-lbl">Conversas WhatsApp</div><div class="kpi-val">209</div><div class="kpi-sub">contatos iniciados</div></div>
+  <div class="kpi"><div class="kpi-lbl">Custo por conversa</div><div class="kpi-val">R$ 9,57</div><div class="kpi-sub">média geral do mês</div></div>
+  <div class="kpi"><div class="kpi-lbl">Pessoas alcançadas</div><div class="kpi-val">106 mil</div><div class="kpi-sub">impactadas no mês</div></div>
+</div>
+
+<div class="highlight">
+  <div class="hl-body">
+    <h3>209 conversas em julho, e uma transição de estrutura no fim do mês</h3>
+    <p>A campanha <strong>Leads (Eventos)</strong> seguiu como motor do mês: <strong>78% de todas as conversas</strong> vieram dela, a <strong>R$ 8,61 por conversa</strong> — dentro da faixa boa da conta. Nos últimos dias de julho a conta migrou pra nova estrutura (Perfil + Vendas, ABO), que já entrou entregando <strong>R$ 9,92 por conversa</strong>. No topo, o engajamento de perfil trouxe <strong>41,6 mil interações</strong> a um CPM de apenas <strong>R$ 2,71</strong>.</p>
+  </div>
+  <div class="hl-right">
+    <div class="hl-val">R$9,57</div>
+    <div class="hl-sub">custo médio<br>por conversa</div>
+  </div>
+</div>
+
+<!-- VISÃO GERAL — antes de subdividir o funil -->
+<div class="section-label"><span>Visão geral do mês</span></div>
+<div class="charts-row">
+  <div class="panel">
+    <div class="panel-title">Investimento por etapa do funil</div>
+    <!-- Só houve Topo e Fundo ativos em julho — sem campanha de Meio no mês. -->
+    <div class="funnel-wrap">
+      <div class="funnel-row" style="width:100%">
+        <div class="fr-shape" style="background:#000000"></div>
+        <div class="fr-text">
+          <span class="fr-label">Topo — Reconhecimento</span>
+          <span class="fr-val">R$ 207 · 9%</span>
+        </div>
+      </div>
+      <div class="funnel-row" style="width:56%">
+        <div class="fr-shape" style="background:#f2620f"></div>
+        <div class="fr-text">
+          <span class="fr-label">Fundo — Conversão</span>
+          <span class="fr-val">R$ 2.000 · 91%</span>
+        </div>
+      </div>
+    </div>
+    <div class="funnel-caption">Alcance &amp; branding (topo): R$207 · 9%<br>Vendas/conversão (fundo): R$2.000 · 91%</div>
+  </div>
+  <div class="panel">
+    <div class="panel-title">Investimento por campanha</div>
+    <div class="donut-wrap">
+      <canvas id="donut-camp"></canvas>
+      <div class="donut-center"><div class="dc-val">R$2.207</div><div class="dc-lbl">total</div></div>
+    </div>
+    <div id="legend-camp"></div>
+  </div>
+</div>
+
+<!-- FUNDO DE FUNIL -->
+<div class="funnel-section">
+<div class="section-label"><span>Fundo de funil — geração de conversas</span></div>
+<div class="camp-grid" id="fundo-cards">
+  <div class="camp-card best" onclick="selectCard('fundo', 0, this, fundoCreatives)">
+    <div class="camp-name">Leads (Eventos)</div>
+    <div class="camp-metrics">
+      <div><div class="cm-val">R$ 1.404</div><div class="cm-lbl">Investido</div></div>
+      <div><div class="cm-val accent">163</div><div class="cm-lbl">Conversas</div></div>
+      <div><div class="cm-val">R$ 8,61</div><div class="cm-lbl">Custo/conversa</div></div>
+      <div><div class="cm-val">1,78%</div><div class="cm-lbl">CTR</div></div>
+    </div>
+  </div>
+  <div class="camp-card" onclick="selectCard('fundo', 1, this, fundoCreatives)">
+    <div class="camp-name">Leads (Marketing)</div>
+    <div class="camp-metrics">
+      <div><div class="cm-val">R$ 279</div><div class="cm-lbl">Investido</div></div>
+      <div><div class="cm-val accent">23</div><div class="cm-lbl">Conversas</div></div>
+      <div><div class="cm-val">R$ 12,12</div><div class="cm-lbl">Custo/conversa</div></div>
+      <div><div class="cm-val">1,56%</div><div class="cm-lbl">CTR</div></div>
+    </div>
+  </div>
+  <div class="camp-card" onclick="selectCard('fundo', 2, this, fundoCreatives)">
+    <div class="camp-name">Leads (Remarketing)</div>
+    <div class="camp-metrics">
+      <div><div class="cm-val">R$ 168</div><div class="cm-lbl">Investido</div></div>
+      <div><div class="cm-val accent">9</div><div class="cm-lbl">Conversas</div></div>
+      <div><div class="cm-val">R$ 18,68</div><div class="cm-lbl">Custo/conversa</div></div>
+      <div><div class="cm-val">1,32%</div><div class="cm-lbl">CTR</div></div>
+    </div>
+  </div>
+  <div class="camp-card" onclick="selectCard('fundo', 3, this, fundoCreatives)">
+    <div class="camp-name">Vendas WhatsApp — estrutura nova</div>
+    <div class="camp-metrics">
+      <div><div class="cm-val">R$ 150</div><div class="cm-lbl">Investido</div></div>
+      <div><div class="cm-val accent">14</div><div class="cm-lbl">Conversas</div></div>
+      <div><div class="cm-val">R$ 10,71</div><div class="cm-lbl">Custo/conversa</div></div>
+      <div><div class="cm-val">1,99%</div><div class="cm-lbl">CTR</div></div>
+    </div>
+  </div>
+</div>
+<div class="camp-hint">clique num card acima pra ver o anúncio campeão daquele grupo</div>
+
+<div class="creative-card" id="creative-fundo">
+  <img class="creative-thumb" id="creative-fundo-thumb" src="https://scontent-lga3-1.xx.fbcdn.net/v/t15.5256-10/720647304_1024828793221405_7956600721438747454_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=103&ccb=1-7&_nc_sid=031d0d&_nc_ohc=5zWulNJR8isQ7kNvwEGh8k-&_nc_oc=AdowlFZ-r17WiO9dsabrBErjc0pl2XK-grECegO-7x-pPVxd1GT_2Q7SY5qVewgYh5U&_nc_zt=23&_nc_ht=scontent-lga3-1.xx&edm=AEZPnVgEAAAA&_nc_gid=6b3uvLYBl5Lp76MQwGVQuA&_nc_tpa=Q5bMBQEZ3Jd4hjBC-W2b0szoG4KYat-woPL8EQFg6eH8bwl_9v7ovoN72bTq8GssxRTo8FpCDeFV2S66wQ&oh=00_AQGuozDUDbnSS9ICGeT1t7DzuSrQaOenJb5RzrmNjz07pQ&oe=6A73A6CF" alt="Anúncio campeão — Maximus (robô)">
+  <div class="creative-info">
+    <div class="creative-tag">★ Anúncio com melhor desempenho</div>
+    <div class="creative-name" id="creative-fundo-name">Maximus — o robô simpático</div>
+    <div class="creative-camp" id="creative-fundo-camp">Leads (Eventos)</div>
+    <div class="creative-metrics" id="creative-fundo-metrics">
+      <div><div class="cm-val">R$ 4,88</div><div class="cm-lbl">Custo/conversa</div></div>
+      <div><div class="cm-val accent">38</div><div class="cm-lbl">Conversas</div></div>
+      <div><div class="cm-val">R$ 185</div><div class="cm-lbl">Investido</div></div>
+      <div><div class="cm-val">1,79%</div><div class="cm-lbl">CTR</div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- TOPO DE FUNIL -->
+<div class="funnel-section">
+<div class="section-label"><span>Topo de funil — alcance &amp; engajamento</span></div>
+<div class="camp-grid two" id="topo-cards">
+  <div class="camp-card best" onclick="selectCard('topo', 0, this, topoCreatives)">
+    <div class="camp-name">Engajamento (Perfil)</div>
+    <div class="camp-metrics" style="grid-template-columns:repeat(4,1fr)">
+      <div><div class="cm-val">R$ 172</div><div class="cm-lbl">Investido</div></div>
+      <div><div class="cm-val">61,1k</div><div class="cm-lbl">Alcance</div></div>
+      <div><div class="cm-val accent">41,6k</div><div class="cm-lbl">Engajamentos</div></div>
+      <div><div class="cm-val">R$ 2,71</div><div class="cm-lbl">CPM</div></div>
+    </div>
+  </div>
+  <div class="camp-card" onclick="selectCard('topo', 1, this, topoCreatives)">
+    <div class="camp-name">Perfil IG — estrutura nova</div>
+    <div class="camp-metrics" style="grid-template-columns:repeat(4,1fr)">
+      <div><div class="cm-val">R$ 34</div><div class="cm-lbl">Investido</div></div>
+      <div><div class="cm-val">1.682</div><div class="cm-lbl">Alcance</div></div>
+      <div><div class="cm-val accent">86</div><div class="cm-lbl">Visitas ao perfil</div></div>
+      <div><div class="cm-val">4,01%</div><div class="cm-lbl">CTR</div></div>
+    </div>
+  </div>
+</div>
+<div class="camp-hint">clique num card acima pra ver o anúncio campeão daquele grupo</div>
+
+<div class="creative-card" id="creative-topo">
+  <img class="creative-thumb" id="creative-topo-thumb" src="https://scontent-lga3-3.xx.fbcdn.net/v/t15.5256-10/747324706_2132592867639157_3176288125268463707_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=102&ccb=1-7&_nc_sid=031d0d&_nc_ohc=ztZVX60hf10Q7kNvwHBD2K6&_nc_oc=AdphTUXzv5Q34Kfa1BssQqxVmYgahT_JewpQkspitid-P_iYtOVroO5Vk9D_BS3O7Ms&_nc_zt=23&_nc_ht=scontent-lga3-3.xx&edm=AEZPnVgEAAAA&_nc_gid=6b3uvLYBl5Lp76MQwGVQuA&_nc_tpa=Q5bMBQEBiKWqg1LwzI50Bi7z0NBJdhvXQQBKuAjhCbO-dUd35wcqoM415lZkITkK_E3vnFMgeFCoNqczCw&oh=00_AQH1oaxQl0G5CIwZ1BG0iFFFHWsGW5xcYgm6gOQ3jcD0SA&oe=6A73D0EA" alt="Anúncio campeão — O comum passa despercebido (Troy)">
+  <div class="creative-info">
+    <div class="creative-tag">★ Anúncio com melhor desempenho</div>
+    <div class="creative-name" id="creative-topo-name">O comum passa despercebido (Troy)</div>
+    <div class="creative-camp" id="creative-topo-camp">Engajamento (Perfil)</div>
+    <div class="creative-metrics" id="creative-topo-metrics">
+      <div><div class="cm-val">R$ 0,003</div><div class="cm-lbl">Custo/engajamento</div></div>
+      <div><div class="cm-val accent">25,8k</div><div class="cm-lbl">Engajamentos</div></div>
+      <div><div class="cm-val">R$ 82</div><div class="cm-lbl">Investido</div></div>
+      <div><div class="cm-val">33,9k</div><div class="cm-lbl">Impressões</div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="section-label"><span>Julho em resumo</span></div>
+<div class="closing">
+  <p>Julho foi um mês de transição pra Futuremedia no Meta. A maior parte do investimento — <strong>R$ 2.207</strong> no total — ainda rodou na estrutura antiga, com <strong>Leads (Eventos)</strong> respondendo por <strong>78% das 209 conversas</strong> do mês a um custo saudável de R$8,61. Nos últimos dias de julho a conta migrou pra nova estrutura por público (Perfil + Vendas, em ABO), que já estreou entregando R$9,92 por conversa — dentro do esperado pra fase de aprendizado. No topo, o engajamento de perfil manteve a marca visível pra <strong>61 mil pessoas</strong> a um CPM de apenas R$2,71, e o total do mês alcançou <strong>106 mil pessoas</strong>.</p>
+</div>
+
+<div class="report-footer">
+  <div class="footer-left"><p>Dados extraídos da API do Meta Ads<br>Conta: act_1183087855907692 · Período: 01/07/2026 → 31/07/2026</p></div>
+  <div class="footer-right">
+    <div class="footer-ww">White Window — Gestão de Tráfego Pago</div>
+    <div style="font-size:10px;color:var(--dim);margin-top:3px">whitewindow.mkt360@gmail.com</div>
+  </div>
+</div>
+
+</div>
+
+<script>
+Chart.defaults.color = '#7a746c';
+Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
+const tip = {backgroundColor:'#000000',borderWidth:0,padding:10,titleFont:{size:12,weight:'700'},bodyFont:{size:11},bodyColor:'#d9d5cf',titleColor:'#fff'};
+
+// Donut "Investimento por campanha" — 1 fatia por campanha específica.
+// Cores agrupadas por etapa do funil: Fundo = tons de laranja (mais forte = maior valor), Topo = preto/cinza.
+const campData = [
+  {label:'Leads (Eventos)',              value:1403.55, color:'#f2620f'},
+  {label:'Leads (Marketing)',            value:278.71,  color:'#d9691a'},
+  {label:'Leads (Remarketing)',          value:168.16,  color:'#e8843d'},
+  {label:'Vendas WhatsApp (novo)',       value:149.98,  color:'#f2a679'},
+  {label:'Engajamento (Perfil)',         value:172.33,  color:'#000000'},
+  {label:'Perfil IG (novo)',             value:34.24,   color:'#4a4a4a'},
+];
+const total = campData.reduce((s,d)=>s+d.value,0);
+
+new Chart(document.getElementById('donut-camp'),{
+  type:'doughnut',
+  data:{labels:campData.map(d=>d.label),datasets:[{data:campData.map(d=>d.value),backgroundColor:campData.map(d=>d.color),borderColor:'#ffffff',borderWidth:3,hoverOffset:6}]},
+  options:{cutout:'66%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` R$${ctx.raw.toLocaleString('pt-BR',{minimumFractionDigits:0})} (${(ctx.raw/total*100).toFixed(0)}%)`},...tip}}}
+});
+document.getElementById('legend-camp').innerHTML = campData.map(d=>`
+  <div class="dl-item"><div class="dl-dot" style="background:${d.color}"></div><span class="dl-name">${d.label}</span><span class="dl-val">R$${Math.round(d.value).toLocaleString('pt-BR')}</span><span class="dl-pct">${(d.value/total*100).toFixed(0)}%</span></div>`).join('');
+
+// --- Cards clicáveis (Fundo e Topo) — funções genéricas reaproveitadas nas duas seções ---
+const fundoCreatives = [
+  {thumb:'https://scontent-lga3-1.xx.fbcdn.net/v/t15.5256-10/720647304_1024828793221405_7956600721438747454_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=103&ccb=1-7&_nc_sid=031d0d&_nc_ohc=5zWulNJR8isQ7kNvwEGh8k-&_nc_oc=AdowlFZ-r17WiO9dsabrBErjc0pl2XK-grECegO-7x-pPVxd1GT_2Q7SY5qVewgYh5U&_nc_zt=23&_nc_ht=scontent-lga3-1.xx&edm=AEZPnVgEAAAA&_nc_gid=6b3uvLYBl5Lp76MQwGVQuA&_nc_tpa=Q5bMBQEZ3Jd4hjBC-W2b0szoG4KYat-woPL8EQFg6eH8bwl_9v7ovoN72bTq8GssxRTo8FpCDeFV2S66wQ&oh=00_AQGuozDUDbnSS9ICGeT1t7DzuSrQaOenJb5RzrmNjz07pQ&oe=6A73A6CF', name:'Maximus — o robô simpático', camp:'Leads (Eventos)', metrics:[
+    {val:'R$ 4,88', lbl:'Custo/conversa'}, {val:'38', lbl:'Conversas', accent:true}, {val:'R$ 185', lbl:'Investido'}, {val:'1,79%', lbl:'CTR'}
+  ]},
+  {thumb:'https://scontent-lga3-1.xx.fbcdn.net/v/t15.5256-10/747587067_3351460248367131_7562512012550495233_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=103&ccb=1-7&_nc_sid=031d0d&_nc_ohc=H5EoTknCS38Q7kNvwEBfBxs&_nc_oc=AdqudyomtcNPercYp08fB_byD2uBoSk2hp3-wYT29vZMm5WseA9qAcRqA8Zns2qvI1A&_nc_zt=23&_nc_ht=scontent-lga3-1.xx&edm=AEZPnVgEAAAA&_nc_gid=6b3uvLYBl5Lp76MQwGVQuA&_nc_tpa=Q5bMBQH813GpZqhVpd7pnhCYnEpRjd7Q6r4bRbPwbFVL0MuDeN195yMP6LE4pZ-40zOvzrJVGRt5aQNmgg&oh=00_AQGB3KzWlIIPIzgIcAexVrnC94ijlUGCswBD27BlczW4vw&oe=6A73C557', name:'O comum passa despercebido (Troy)', camp:'Leads (Marketing)', metrics:[
+    {val:'R$ 9,14', lbl:'Custo/conversa'}, {val:'15', lbl:'Conversas', accent:true}, {val:'R$ 137', lbl:'Investido'}, {val:'1,68%', lbl:'CTR'}
+  ]},
+  {thumb:'https://scontent-lga3-2.xx.fbcdn.net/v/t15.5256-10/747191027_1003661095842385_1465592496420589588_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=107&ccb=1-7&_nc_sid=031d0d&_nc_ohc=bNiaxDipN_gQ7kNvwGGcZYC&_nc_oc=Adr9PweBA9hV6CFpPdD5SXv3vIVFQBHRarNSquJFd1Yp5TnJLm_H369iBW_P2NjQxX8&_nc_zt=23&_nc_ht=scontent-lga3-2.xx&edm=AEZPnVgEAAAA&_nc_gid=6b3uvLYBl5Lp76MQwGVQuA&_nc_tpa=Q5bMBQEsSCz9gpryVEzcelq1MdC8Nyl3SKVZmsShs-d0YXHlwyT6TAJQZeNqjUR0jEJn0qBPFH_6xny_VQ&oh=00_AQH1eAqQAGPN85w81STIz08993aM88NP0zhXy3EYAdXVyQ&oe=6A73BA08', name:'O comum passa despercebido (Troy)', camp:'Leads (Remarketing)', metrics:[
+    {val:'R$ 20,54', lbl:'Custo/conversa'}, {val:'4', lbl:'Conversas', accent:true}, {val:'R$ 82', lbl:'Investido'}, {val:'1,35%', lbl:'CTR'}
+  ]},
+  {thumb:'https://scontent-lga3-3.xx.fbcdn.net/v/t15.5256-10/759531221_1684288492872722_8512975160393915715_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=108&ccb=1-7&_nc_sid=031d0d&_nc_ohc=8MCgciCk5oYQ7kNvwHcfy-n&_nc_oc=Adp5ZpHJgN38yPFUA2oUwD-_1s53cKDjbkEWD--lpRoEBCj7mjmzeul4R2bMkJcfzac&_nc_zt=23&_nc_ht=scontent-lga3-3.xx&edm=AEZPnVgEAAAA&_nc_gid=6b3uvLYBl5Lp76MQwGVQuA&_nc_tpa=Q5bMBQGpCj5RgylOgdGfM3vGqpzGSd4ceRe83DNGLAjFXkB_s5sf7Mq_0sIdYIh4vJbuUeuTSdzkbChjpQ&oh=00_AQF9rgTwV9zEC5Cvz07eY3qSYVAXV_KJU9aCEER8dOCYYw&oe=6A73BA3D', name:'Vai expor numa feira e não sabe gerar lead?', camp:'Vendas WhatsApp — estrutura nova', metrics:[
+    {val:'R$ 9,92', lbl:'Custo/conversa'}, {val:'6', lbl:'Conversas', accent:true}, {val:'R$ 60', lbl:'Investido'}, {val:'2,24%', lbl:'CTR'}
+  ]},
+];
+const topoCreatives = [
+  {thumb:'https://scontent-lga3-3.xx.fbcdn.net/v/t15.5256-10/747324706_2132592867639157_3176288125268463707_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=102&ccb=1-7&_nc_sid=031d0d&_nc_ohc=ztZVX60hf10Q7kNvwHBD2K6&_nc_oc=AdphTUXzv5Q34Kfa1BssQqxVmYgahT_JewpQkspitid-P_iYtOVroO5Vk9D_BS3O7Ms&_nc_zt=23&_nc_ht=scontent-lga3-3.xx&edm=AEZPnVgEAAAA&_nc_gid=6b3uvLYBl5Lp76MQwGVQuA&_nc_tpa=Q5bMBQEBiKWqg1LwzI50Bi7z0NBJdhvXQQBKuAjhCbO-dUd35wcqoM415lZkITkK_E3vnFMgeFCoNqczCw&oh=00_AQH1oaxQl0G5CIwZ1BG0iFFFHWsGW5xcYgm6gOQ3jcD0SA&oe=6A73D0EA', name:'O comum passa despercebido (Troy)', camp:'Engajamento (Perfil)', metrics:[
+    {val:'R$ 0,003', lbl:'Custo/engajamento'}, {val:'25,8k', lbl:'Engajamentos', accent:true}, {val:'R$ 82', lbl:'Investido'}, {val:'33,9k', lbl:'Impressões'}
+  ]},
+  {thumb:'https://scontent-lga3-3.xx.fbcdn.net/v/t15.5256-10/760320498_2374872436249731_6352384984531652149_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=102&ccb=1-7&_nc_sid=031d0d&_nc_ohc=RLJgMEXOOh4Q7kNvwFajRiL&_nc_oc=AdonKies_91c9-JkM-P-XShoLREl_VZUdsatmWjLAwubmTBumRMUwuyTO7Q-IxgEIfY&_nc_zt=23&_nc_ht=scontent-lga3-3.xx&edm=AEZPnVgEAAAA&_nc_gid=6b3uvLYBl5Lp76MQwGVQuA&_nc_tpa=Q5bMBQFRlcog-W69BMF7WHHqTd54KtUytYf08qkOmpPeegk6G7ilh6Wo8yJDzedpmumCvCROeawprHBSng&oh=00_AQHv_3S912l3rCMDQH9GB3v3AoSyMbnjkKsIFhLQmAZL3g&oe=6A73A36D', name:'Enquanto a concorrência distribui panfleto...', camp:'Perfil IG — estrutura nova', metrics:[
+    {val:'R$ 0,38', lbl:'Custo/visita'}, {val:'50', lbl:'Visitas ao perfil', accent:true}, {val:'R$ 19', lbl:'Investido'}, {val:'4,16%', lbl:'CTR'}
+  ]},
+];
+
+function renderCreative(prefix, data){
+  document.getElementById(`creative-${prefix}-thumb`).src = data.thumb;
+  document.getElementById(`creative-${prefix}-name`).textContent = data.name;
+  document.getElementById(`creative-${prefix}-camp`).textContent = data.camp;
+  document.getElementById(`creative-${prefix}-metrics`).innerHTML = data.metrics.map(m=>
+    `<div><div class="cm-val${m.accent?' accent':''}">${m.val}</div><div class="cm-lbl">${m.lbl}</div></div>`).join('');
+}
+
+function selectCard(prefix, i, el, dataset){
+  document.querySelectorAll(`#${prefix}-cards .camp-card`).forEach(c=>c.classList.remove('best'));
+  el.classList.add('best');
+  renderCreative(prefix, dataset[i]);
+}
+</script>
+</body>
+</html>
