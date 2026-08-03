@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel do Funil — Semana ZEISS · QualiÓtica</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#eef3fb;
+  --surface:#ffffff;
+  --border:#e3e6ec;
+  --text:#141821;
+  --muted:#6f7787;
+  --dim:#a3aab8;
+  --zeiss:#0050ff;
+  --zeiss-dark:#0039b3;
+  --quali:#9a003c;
+  --gold:#febe28;
+  --black:#000000;
+  --green:#0f9d58;
+}
+html,body{overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;min-height:100vh}
+.page{max-width:1000px;margin:0 auto;padding:0 32px 70px}
+
+/* HEADER */
+.dual-header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 32px;background:var(--surface);border-bottom:2px solid var(--black);margin:0 0 40px 0;overflow:hidden}
+.brand{display:flex;align-items:center;gap:12px}
+.mark{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;letter-spacing:-1px;flex-shrink:0}
+.mark-ww{background:var(--black);color:#fff}
+.mark-cli{background:var(--zeiss);color:#fff;font-size:11px}
+.brand-info{line-height:1.25}
+.brand-name{font-size:13px;font-weight:700}
+.brand-role{font-size:11px;color:var(--muted)}
+.brand-right{flex-direction:row-reverse}
+.brand-right .brand-name,.brand-right .brand-role{text-align:right}
+.header-mid{text-align:center}
+.platform-badge{display:inline-flex;align-items:center;gap:9px;background:var(--zeiss);color:#fff;padding:10px 22px;border-radius:999px;font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;box-shadow:0 3px 10px rgba(0,80,255,.28)}
+.header-date{font-size:11px;color:var(--dim);margin-top:6px}
+
+/* HERO */
+.report-hero{text-align:center;margin-bottom:34px}
+.report-hero h1{font-size:30px;font-weight:900;letter-spacing:-1px;margin-bottom:8px}
+.report-hero h1 em{font-style:normal;color:var(--zeiss)}
+.report-hero p{font-size:14px;color:var(--muted)}
+
+/* KPI */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 18px;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--zeiss)}
+.kpi.k2::before{background:var(--green)}
+.kpi.k3::before{background:var(--gold)}
+.kpi.k4::before{background:var(--quali)}
+.kpi-label{font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);font-weight:700;margin-bottom:8px}
+.kpi-value{font-size:31px;font-weight:900;letter-spacing:-1.2px;line-height:1}
+.kpi-sub{font-size:11.5px;color:var(--dim);margin-top:7px}
+
+/* DESTAQUE */
+.highlight{background:linear-gradient(135deg,var(--zeiss),var(--zeiss-dark));color:#fff;border-radius:14px;padding:24px 26px;margin:22px 0 34px;display:flex;align-items:center;gap:22px}
+.highlight-icon{font-size:34px;line-height:1;flex-shrink:0}
+.highlight h3{font-size:16px;font-weight:800;margin-bottom:5px}
+.highlight p{font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.92)}
+
+/* SEÇÃO */
+.section{margin-bottom:36px}
+.section-title{font-size:12px;text-transform:uppercase;letter-spacing:1.1px;color:var(--muted);font-weight:800;margin-bottom:14px;padding-bottom:9px;border-bottom:2px solid var(--border)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px}
+.chart-wrap{position:relative;height:290px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* MARCAS */
+.brand-split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.brand-card{border-radius:14px;padding:22px;color:#fff}
+.bc-zeiss{background:var(--zeiss)}
+.bc-quali{background:var(--quali)}
+.bc-name{font-size:12px;text-transform:uppercase;letter-spacing:1px;font-weight:800;opacity:.85;margin-bottom:9px}
+.bc-value{font-size:38px;font-weight:900;letter-spacing:-1.5px;line-height:1}
+.bc-sub{font-size:12.5px;opacity:.9;margin-top:8px}
+
+/* TABELA */
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);font-weight:800;padding:0 10px 10px;border-bottom:1px solid var(--border)}
+th.num,td.num{text-align:right}
+td{padding:11px 10px;border-bottom:1px solid #f2f4f7}
+tr:last-child td{border-bottom:none}
+.store{font-weight:600}
+.bar-cell{width:38%}
+.bar{height:8px;border-radius:99px;background:var(--zeiss);min-width:3px}
+.bar.q{background:var(--quali)}
+.pill{display:inline-block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:3px 9px;border-radius:99px}
+.pill-z{background:rgba(0,80,255,.1);color:var(--zeiss)}
+.pill-q{background:rgba(154,0,60,.1);color:var(--quali)}
+.big{font-weight:900;font-size:15px}
+
+/* FECHAMENTO */
+.closing{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:14px;padding:24px 26px}
+.closing h3{font-size:15px;font-weight:800;margin-bottom:12px}
+.closing ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.closing li{font-size:13.5px;line-height:1.6;color:#3c4351;padding-left:20px;position:relative}
+.closing li::before{content:'';position:absolute;left:0;top:8px;width:7px;height:7px;border-radius:99px;background:var(--zeiss)}
+.footer{text-align:center;margin-top:44px;font-size:11.5px;color:var(--dim);line-height:1.7}
+
+@media(max-width:820px){
+  .page{padding:0 18px 50px}
+  .dual-header{flex-direction:column;gap:14px;padding:18px}
+  .brand-right{flex-direction:row}
+  .brand-right .brand-name,.brand-right .brand-role{text-align:left}
+  .kpi-grid{grid-template-columns:1fr 1fr}
+  .grid-2,.brand-split{grid-template-columns:1fr}
+  .report-hero h1{font-size:23px}
+  .highlight{flex-direction:column;text-align:center;gap:14px}
+  .bar-cell{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="dual-header">
+  <div class="brand">
+    <div class="mark mark-ww">WW</div>
+    <div class="brand-info">
+      <div class="brand-name">White Window</div>
+      <div class="brand-role">Marketing &amp; Performance</div>
+    </div>
+  </div>
+  <div class="header-mid">
+    <div class="platform-badge">Painel do Funil · Meta Ads</div>
+    <div class="header-date" id="atualizado">Atualizado em 03/08/2026</div>
+  </div>
+  <div class="brand brand-right">
+    <div class="mark mark-cli">Z·Q</div>
+    <div class="brand-info">
+      <div class="brand-name">ZEISS · QualiÓtica</div>
+      <div class="brand-role">Semana ZEISS Rio</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="report-hero">
+    <h1>Semana ZEISS — <em>cadastros para o cupom</em></h1>
+    <p>Período de captação: 17 de julho a 03 de agosto de 2026 · Campanha acontece de 08 a 16 de agosto</p>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-label">Cadastros</div>
+      <div class="kpi-value">275</div>
+      <div class="kpi-sub">pessoas com cupom garantido</div>
+    </div>
+    <div class="kpi k2">
+      <div class="kpi-label">Custo por cadastro</div>
+      <div class="kpi-value">R$ 3,92</div>
+      <div class="kpi-sub">média de toda a captação</div>
+    </div>
+    <div class="kpi k3">
+      <div class="kpi-label">Investimento</div>
+      <div class="kpi-value">R$ 1.079</div>
+      <div class="kpi-sub">mídia nos últimos 30 dias</div>
+    </div>
+    <div class="kpi k4">
+      <div class="kpi-label">Pessoas alcançadas</div>
+      <div class="kpi-value">76,5 mil</div>
+      <div class="kpi-sub">alcance somado das campanhas</div>
+    </div>
+  </div>
+
+  <div class="highlight">
+    <div class="highlight-icon">📉</div>
+    <div>
+      <h3>O custo por cadastro caiu de R$ 10,31 para R$ 2,35</h3>
+      <p>A primeira fase levava as pessoas para a página e esperava o cadastro acontecer. Na virada de 30/07 passamos a otimizar as campanhas diretamente para o cadastro — e o custo caiu quase 4 vezes. É por isso que 02/08 sozinho trouxe 96 cadastros, mais do que todo o mês de julho somado.</p>
+    </div>
+  </div>
+
+  <!-- EVOLUÇÃO -->
+  <div class="section">
+    <div class="section-title">Cadastros por dia</div>
+    <div class="card">
+      <div class="chart-wrap"><canvas id="chartDia"></canvas></div>
+    </div>
+  </div>
+
+  <!-- MARCAS -->
+  <div class="section">
+    <div class="section-title">Divisão entre as marcas</div>
+    <div class="brand-split">
+      <div class="brand-card bc-zeiss">
+        <div class="bc-name">ZEISS Vision Center</div>
+        <div class="bc-value">171</div>
+        <div class="bc-sub">62% dos cadastros · custo de R$ 2,47</div>
+      </div>
+      <div class="brand-card bc-quali">
+        <div class="bc-name">QualiÓtica</div>
+        <div class="bc-value">103</div>
+        <div class="bc-sub">38% dos cadastros · custo de R$ 2,13</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOJAS -->
+  <div class="section">
+    <div class="section-title">Cadastros por unidade</div>
+    <div class="grid-2">
+      <div class="card">
+        <table>
+          <thead><tr><th colspan="2">ZEISS Vision Center</th><th class="num">Cadastros</th></tr></thead>
+          <tbody id="tbZeiss"></tbody>
+        </table>
+      </div>
+      <div class="card">
+        <table>
+          <thead><tr><th colspan="2">QualiÓtica</th><th class="num">Cadastros</th></tr></thead>
+          <tbody id="tbQuali"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- FECHAMENTO -->
+  <div class="section">
+    <div class="section-title">Leitura do momento</div>
+    <div class="closing">
+      <h3>Onde estamos, a 5 dias da campanha</h3>
+      <ul>
+        <li><strong>275 pessoas já têm o cupom na mão</strong> e escolheram a loja onde querem usar — cada cadastro chega com nome, WhatsApp, e-mail e unidade escolhida.</li>
+        <li><strong>Rio Sul, Icaraí e Recreio concentram 68% da demanda ZEISS.</strong> São as três unidades que devem receber o maior movimento na semana do evento.</li>
+        <li><strong>Tiffany e Nilo Peçanha puxam a QualiÓtica</strong>, com 43% dos cadastros da bandeira.</li>
+        <li><strong>O ritmo está acelerando.</strong> A média de julho era 10 cadastros por dia; nos últimos três dias foi de 49.</li>
+        <li><strong>A campanha ainda não começou.</strong> Toda essa base foi construída antes da semana promocional — é público aquecido esperando a data abrir.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    White Window · Marketing &amp; Performance<br>
+    Dados extraídos do Meta Ads e da base de cadastros em 03/08/2026
+  </div>
+</div>
+
+<script>
+const LABELS = ['17/07','21/07','24/07','25/07','26/07','27/07','28/07','29/07','30/07','31/07','01/08','02/08','03/08'];
+const VALORES = [1,2,20,11,4,12,7,21,30,21,33,96,17];
+
+const ZEISS_LOJAS = [
+  ['Rio Sul (Botafogo)',49],
+  ['Icaraí (Niterói)',42],
+  ['Recreio (Shopping Américas)',35],
+  ['Largo do Machado',29],
+  ['Gávea (Shopping Gávea)',16]
+];
+const QUALI_LOJAS = [
+  ['Tiffany (Icaraí)',25],
+  ['Nilo Peçanha',19],
+  ['Centro (Conceição)',15],
+  ['Salvatori',11],
+  ['Av. Sete (Jardim Icaraí)',9],
+  ['Itaipu (Multicenter)',6],
+  ['Piratininga',5],
+  ['Mariz e Barros',5],
+  ['Crystal Platinum',3],
+  ['Fonseca',2],
+  ['Santa Beatriz',2],
+  ['Coronel Rodrigues',1]
+];
+
+function preencher(id, dados, classe){
+  const max = Math.max(...dados.map(d=>d[1]));
+  document.getElementById(id).innerHTML = dados.map(([nome,qtd])=>`
+    <tr>
+      <td class="store">${nome}</td>
+      <td class="bar-cell"><div class="bar ${classe}" style="width:${Math.round(qtd/max*100)}%"></div></td>
+      <td class="num big">${qtd}</td>
+    </tr>`).join('');
+}
+preencher('tbZeiss', ZEISS_LOJAS, '');
+preencher('tbQuali', QUALI_LOJAS, 'q');
+
+new Chart(document.getElementById('chartDia'), {
+  type:'bar',
+  data:{
+    labels:LABELS,
+    datasets:[{
+      label:'Cadastros',
+      data:VALORES,
+      backgroundColor:VALORES.map((_,i)=> i>=8 ? '#0050ff' : '#b9caf5'),
+      borderRadius:6,
+      maxBarThickness:52
+    }]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:c=>c.parsed.y+' cadastros'}}
+    },
+    scales:{
+      y:{beginAtZero:true, grid:{color:'#eef0f4'}, ticks:{color:'#6f7787',font:{size:11}}},
+      x:{grid:{display:false}, ticks:{color:'#6f7787',font:{size:11}}}
+    }
+  }
+});
+</script>
+</body>
+</html>
