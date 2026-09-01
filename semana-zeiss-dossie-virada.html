@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossiê da Virada — Semana ZEISS · 07/08/2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --amarelo:#FEBE28; --preto:#000; --branco:#FFF; --azure:#ECF8F8;
+  --cinza-1:#f4f4f5; --cinza-2:#c9c7c0; --cinza-3:#707070; --tinta:#131313;
+  --erro:#c0272d; --erro-fundo:#ffc9c9; --ok:#b6f0c2; --ok-forte:#1c6b2c;
+  --atencao:#ffe9a8; --info:#cfe2ff;
+  --borda:3px solid var(--preto);
+  --sombra:6px 6px 0 var(--preto);
+  --sombra-p:4px 4px 0 var(--preto);
+}
+*{margin:0;padding:0;box-sizing:border-box;border-radius:0!important}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--azure);color:var(--tinta);font-size:16px;line-height:1.5;padding:32px 24px 80px}
+.wrap{max-width:1240px;margin:0 auto}
+h1,h2,h3,h4,.num{font-family:'Big Shoulders Display',sans-serif;text-transform:uppercase;line-height:.95}
+h1{font-size:3.5rem;font-weight:800}
+h2{font-size:1.75rem;font-weight:800}
+h3{font-size:1.25rem;font-weight:800}
+h4{font-size:1rem;font-weight:800;margin-bottom:8px}
+ul{list-style:none}
+ul li{position:relative;padding-left:20px;margin-bottom:8px}
+ul li::before{content:"";position:absolute;left:0;top:8px;width:9px;height:9px;background:var(--preto)}
+.mini{font-size:.8rem;color:var(--cinza-3)}
+strong{font-weight:800}
+a{color:var(--tinta)}
+
+.topo{background:var(--branco);border:var(--borda);box-shadow:var(--sombra);padding:28px 32px;margin-bottom:36px}
+.tarja{display:inline-block;background:var(--preto);color:var(--branco);font-family:'Big Shoulders Display';font-weight:800;text-transform:uppercase;padding:6px 14px;font-size:1rem;box-shadow:4px 4px 0 var(--amarelo);margin-bottom:14px}
+.topo .sub{margin-top:12px;max-width:860px;font-size:1.05rem}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:20px;margin-bottom:44px}
+.kpi{background:var(--preto);color:var(--branco);border:var(--borda);box-shadow:6px 6px 0 var(--amarelo);padding:18px}
+.kpi .num{font-size:2.4rem;font-weight:800;display:block}
+.kpi .rot{display:inline-block;background:var(--amarelo);color:var(--preto);font-weight:800;font-size:.7rem;text-transform:uppercase;padding:3px 8px;margin-top:8px}
+.kpi.vermelho{box-shadow:6px 6px 0 var(--erro)}
+.kpi.vermelho .rot{background:var(--erro);color:#fff}
+
+.secao{background:var(--amarelo);border:var(--borda);box-shadow:var(--sombra);padding:56px 28px 28px;margin-bottom:52px;position:relative}
+.secao>h2{position:absolute;top:-20px;left:24px;background:var(--preto);color:var(--branco);padding:8px 18px;box-shadow:4px 4px 0 var(--branco)}
+.card{background:var(--branco);border:var(--borda);box-shadow:var(--sombra-p);padding:22px;margin-bottom:22px}
+.card:last-child{margin-bottom:0}
+.card.alerta{background:var(--erro-fundo)}
+.card.bom{background:var(--ok)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media(max-width:900px){.grid2{grid-template-columns:1fr}}
+
+.pill{display:inline-block;font-weight:800;font-size:.7rem;text-transform:uppercase;padding:3px 8px;border:2px solid var(--preto);white-space:nowrap}
+.p-ok{background:var(--ok)}
+.p-at{background:var(--atencao)}
+.p-erro{background:var(--erro-fundo)}
+.p-info{background:var(--info)}
+.p-preto{background:var(--preto);color:var(--branco)}
+
+.tabela-scroll{overflow-x:auto;margin-bottom:8px}
+table{width:100%;border-collapse:collapse;font-size:.88rem;background:var(--branco);min-width:560px}
+th{background:var(--preto);color:var(--branco);font-family:'Big Shoulders Display';font-weight:800;text-transform:uppercase;font-size:.95rem;padding:9px 10px;text-align:left;white-space:nowrap}
+td{padding:9px 10px;border-bottom:2px solid var(--cinza-2);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.morre td{background:#ffeaea}
+tr.fica td{background:#f0fff3}
+tbody tr.total td{background:var(--preto);color:var(--branco);font-weight:800}
+
+.copy{background:var(--cinza-1);border-left:6px solid var(--preto);padding:12px 14px;font-size:.9rem;white-space:pre-line;margin-top:8px}
+.copy.novo{border-left-color:var(--ok-forte);background:#f0fff3}
+.copy.velho{border-left-color:var(--erro);background:#fff2f2;text-decoration:none}
+
+.passo{background:var(--branco);border:var(--borda);box-shadow:var(--sombra-p);padding:18px 20px 18px 68px;margin-bottom:16px;position:relative}
+.passo .n{position:absolute;left:-14px;top:18px;width:52px;height:52px;background:var(--preto);color:var(--branco);font-family:'Big Shoulders Display';font-weight:800;font-size:1.9rem;display:flex;align-items:center;justify-content:center;box-shadow:4px 4px 0 var(--amarelo)}
+.passo h3{margin-bottom:6px}
+
+.aviso{background:var(--preto);color:var(--branco);border:var(--borda);box-shadow:6px 6px 0 var(--amarelo);padding:22px 26px;margin-bottom:32px}
+.aviso h3{color:var(--amarelo);margin-bottom:8px}
+.rodape{margin-top:48px;padding-top:20px;border-top:3px solid var(--preto);font-size:.82rem;color:var(--cinza-3)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="topo">
+  <div class="tarja">Dossiê da virada · antes de mexer</div>
+  <h1>Semana ZEISS<br>vira hoje</h1>
+  <p class="sub">A campanha inteira está escrita no futuro — <strong>“está chegando”, “vem aí”, “prepare-se”, “você será avisado quando começar”</strong>. Amanhã ela começa. Este documento é o inventário do que muda, item por item, com o preço de cada corte. <strong>Nada foi alterado na conta.</strong></p>
+  <p class="mini" style="margin-top:10px">07/08/2026 · conta <code>act_1301873374785401</code> · números dos últimos 7 dias · Grupo Emerson (ZEISS Vision Center + QualiÓtica)</p>
+</div>
+
+<div class="kpis">
+  <div class="kpi"><span class="num">R$1.551</span><span class="rot">investido · 7 dias</span></div>
+  <div class="kpi"><span class="num">496</span><span class="rot">cadastros</span></div>
+  <div class="kpi"><span class="num">R$3,13</span><span class="rot">custo por cadastro</span></div>
+  <div class="kpi"><span class="num">R$350</span><span class="rot">verba por dia</span></div>
+  <div class="kpi"><span class="num">79</span><span class="rot">anúncios no ar</span></div>
+  <div class="kpi vermelho"><span class="num">36%</span><span class="rot">da verba morre hoje</span></div>
+</div>
+
+<div class="aviso">
+  <h3>O achado que muda o plano</h3>
+  <p>Os criativos que dizem “está chegando” <strong>não são as sobras — são o maior bloco de entrega da conta</strong>. Sozinhos levaram <strong>R$552 dos R$1.551</strong> dos últimos 7 dias, com CPL bom em quase todas as praças.</p>
+  <p style="margin-top:10px">Ou seja: <strong>pausar em bloco não é limpeza, é abrir um buraco de 36% na largada da Semana</strong> — e ainda joga os 7 conjuntos de volta pro aprendizado. A regra desta virada é <strong>substituir, nunca só pausar</strong>: peça nova entra no mesmo dia em que a velha sai.</p>
+</div>
+
+<!-- 1 ============================================================ -->
+<div class="secao">
+  <h2>1 · O que está no ar hoje</h2>
+
+  <div class="card">
+    <p>Duas campanhas ativas, ambas <strong>objetivo Cadastros</strong> otimizando por Lead no pixel. Toda a estrutura antiga (Reconhecimento, Conversão, Remarketing, Engajamento, e as 7 de Tráfego LP) segue pausada e não vai ser tocada.</p>
+    <div class="tabela-scroll" style="margin-top:14px">
+    <table>
+      <thead><tr><th>Conjunto (1 por praça)</th><th class="n">Verba/dia</th><th class="n">Gasto 7d</th><th class="n">Cadastros</th><th class="n">CPL</th><th class="n">CTR</th><th class="n">Freq.</th></tr></thead>
+      <tbody>
+        <tr><td>QualiÓtica Niterói · cidade toda</td><td class="n">R$50</td><td class="n">R$225,88</td><td class="n">91</td><td class="n"><span class="pill p-ok">R$2,48</span></td><td class="n">2,23%</td><td class="n">1,82</td></tr>
+        <tr><td>Largo do Machado · 7 km</td><td class="n">R$50</td><td class="n">R$241,18</td><td class="n">86</td><td class="n"><span class="pill p-ok">R$2,80</span></td><td class="n">3,17%</td><td class="n">1,40</td></tr>
+        <tr><td>Icaraí · 7 km</td><td class="n">R$50</td><td class="n">R$218,09</td><td class="n">78</td><td class="n"><span class="pill p-ok">R$2,80</span></td><td class="n">3,04%</td><td class="n">1,44</td></tr>
+        <tr><td>QualiÓtica São Gonçalo · cidade toda</td><td class="n">R$50</td><td class="n">R$236,81</td><td class="n">68</td><td class="n">R$3,48</td><td class="n">2,18%</td><td class="n">1,87</td></tr>
+        <tr><td>Rio Sul · 7 km</td><td class="n">R$50</td><td class="n">R$218,48</td><td class="n">63</td><td class="n">R$3,47</td><td class="n">3,34%</td><td class="n">1,36</td></tr>
+        <tr><td>Recreio · 12 km</td><td class="n">R$50</td><td class="n">R$223,08</td><td class="n">63</td><td class="n">R$3,54</td><td class="n">3,15%</td><td class="n">1,37</td></tr>
+        <tr><td>Gávea · 7 km</td><td class="n">R$50</td><td class="n">R$187,30</td><td class="n">47</td><td class="n"><span class="pill p-at">R$3,99</span></td><td class="n">3,34%</td><td class="n">1,30</td></tr>
+        <tr class="total"><td>TOTAL</td><td class="n">R$350</td><td class="n">R$1.550,82</td><td class="n">496</td><td class="n">R$3,13</td><td class="n">—</td><td class="n">—</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="mini" style="margin-top:10px">Frequência entre 1,30 e 1,87 — nenhum sinal de desgaste. O motivo pra trocar criativo aqui é <strong>a mensagem estar errada</strong>, não a peça estar cansada.</p>
+  </div>
+</div>
+
+<!-- 2 ============================================================ -->
+<div class="secao">
+  <h2>2 · Criativos — quem morre, quem fica</h2>
+
+  <div class="card alerta">
+    <h4>Morrem por texto NA ARTE (legenda não salva)</h4>
+    <p>Três conceitos têm “está chegando” cravado na imagem. Nenhum tem salvação por copy — ou entra arte nova, ou saem do ar.</p>
+    <div class="tabela-scroll" style="margin-top:14px">
+    <table>
+      <thead><tr><th>Conceito</th><th>O que a arte diz</th><th class="n">Gasto 7d</th><th class="n">Praças</th><th>Veredito</th></tr></thead>
+      <tbody>
+        <tr class="morre"><td><strong>Topo Story “Está chegando”</strong><br><span class="mini">IMG_9608 / 9609</span></td><td>“A MAIOR CAMPANHA DO ANO <strong>ESTÁ CHEGANDO!</strong>” como linha de chamada. O resto da peça (Semana ZEISS · 8 a 16 de agosto · 50% OFF · APROVEITE) está perfeito.</td><td class="n">R$453,64</td><td class="n">7 de 7</td><td><span class="pill p-at">CIRURGIA</span><br><span class="mini">trocar 1 linha: “ESTÁ CHEGANDO” → “COMEÇOU”</span></td></tr>
+        <tr class="morre"><td><strong>Meio Story Checklist</strong><br><span class="mini">IMG_9617 / 9618</span></td><td>“<strong>Está chegando.</strong>” em corpo gigante + checklist de 4 passos. <span class="pill p-erro">e o botão está escrito “Pré <em>casdastro</em>”</span></td><td class="n">R$98,66</td><td class="n">7 de 7</td><td><span class="pill p-at">CIRURGIA</span><br><span class="mini">“Está chegando.” → “Começou.” e corrigir o erro de digitação</span></td></tr>
+        <tr class="morre"><td><strong>Meio Story “Não espere”</strong><br><span class="mini">IMG_9605 / 9606</span></td><td>“NÃO ESPERE A CAMPANHA COMEÇAR” + “quem deixa o exame pra última hora perde tempo quando a campanha iniciar”. A peça inteira é sobre a espera.</td><td class="n">R$0,73</td><td class="n">7 de 7</td><td><span class="pill p-erro">PAUSA SECA</span><br><span class="mini">não tem o que salvar, e não custa nada — R$0,73 em 7 dias</span></td></tr>
+        <tr class="total"><td colspan="2">36% da entrega da conta</td><td class="n">R$552,03</td><td class="n">21 anúncios</td><td>—</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="margin-top:12px"><strong>Recomendação:</strong> eu faço a cirurgia nas duas primeiras artes (fundo chapado, texto sobreposto — é troca de linha, não redesenho) e te mostro <em>antes</em> de subir. Se a tipografia não fechar idêntica, aí sim vai pro designer e a gente pausa até chegar. A terceira sai hoje sem substituto — custa R$0,10 por dia.</p>
+  </div>
+
+  <div class="card bom">
+    <h4>Ficam — a arte já está certa, só a legenda muda</h4>
+    <div class="tabela-scroll">
+    <table>
+      <thead><tr><th>Conceito</th><th class="n">Gasto 7d</th><th class="n">CPL</th><th>Por que sobrevive</th></tr></thead>
+      <tbody>
+        <tr class="fica"><td><strong>Topo Feed “50% OFF”</strong><br><span class="mini">IMG_9597 / 9598 · 4:5</span></td><td class="n">R$415,83</td><td class="n">R$2,61–4,51</td><td>“50% OFF em todas as lentes / SEMANA ZEISS / garanta seu desconto no link abaixo”. Zero referência a tempo. <strong>Serve igual na semana.</strong></td></tr>
+        <tr class="fica"><td><strong>Geo Story por bairro</strong><br><span class="mini">IMG_9610–9616 · 7 peças</span></td><td class="n">R$396,15</td><td class="n">R$1,69–7,85</td><td>“Se você é de {bairro} · PARABÉNS, você ganhou 50%”. <span class="pill p-at">letra miúda</span> o cupom desenhado diz “você será avisado assim que a Semana ZEISS começar” — em corpo 6. Não vale matar as 2 peças de maior entrega da conta por isso; entra na fila do designer.</td></tr>
+        <tr class="fica"><td><strong>Fundo Feed / Story “Você ganhou 50%”</strong><br><span class="mini">IMG_9603 / 9604 / 9607</span></td><td class="n">R$10,90</td><td class="n">—</td><td>“Atualize sua receita e faça seu pré-cadastro”. Continua verdade — o cupom ainda nasce do cadastro. Só a legenda vira presente.</td></tr>
+        <tr class="fica"><td><strong>Meio — Exame de vista / Oftalmologista</strong><br><span class="mini">IMG_9599–9602 / 9619</span></td><td class="n">R$56,60</td><td class="n">R$1,06–5,76</td><td>Perene. Receita vencida trava o desconto — isso vale mais <em>durante</em> a semana do que antes dela.</td></tr>
+        <tr class="fica"><td><strong>Vídeo Emerson — Cupom 50%</strong><br><span class="mini">IMG_0052 · 5 praças ZEISS</span></td><td class="n">R$103,63</td><td class="n">R$3,33–4,96</td><td>Legenda vira presente. <span class="pill p-at">a conferir</span> a fala dele menciona “cadastro antecipado” — se o áudio disser “vai começar”, o vídeo cai junto. <strong>Preciso do teu ouvido nisso.</strong></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h4>Repescagem — quem nunca disputou</h4>
+    <ul>
+      <li><strong>Vídeo Emerson “Troca de celular”</strong> (IMG_0053) — R$2,10 somados nas 5 praças em 7 dias, quase zero impressão. Não perdeu: <strong>nunca entrou no leilão</strong>. E o gancho (“você troca de celular todo ano, e suas lentes?”) é perfeito pra semana. Merece conjunto de repescagem ou entrada limpa com legenda nova.</li>
+      <li><strong>3 Reels novos da QualiÓtica Niterói</strong> — subiram hoje, 0 impressões. <span class="pill p-erro">2 dos 3 já nascem errados</span>: “A Semana ZEISS <em>está chegando</em> na QualiÓtica” e “A maior campanha do ano <em>está chegando</em>”. Só o Fundo Reel (“a semana mais esperada do ano <strong>chegou</strong>”) está no tempo certo. Corrigir antes de gastarem o primeiro real.</li>
+      <li><strong>Reel só existe em 1 praça de 7.</strong> As 5 ZEISS e a QualiÓtica São Gonçalo não têm nenhum. Se o formato provar, é replicação óbvia.</li>
+      <li><span class="pill p-info">novo</span> Tem um vídeo de hoje 16h40 parado na pasta de criativos (<code>WhatsApp Video 2026-08-07</code>, 4 MB) que ninguém classificou. Me diz o que é que eu coloco no lugar certo.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h4>Enterrar por desempenho, não por mensagem</h4>
+    <p>Aproveitando a virada, três instâncias reprovaram com palco e amostra — CPL ruim <em>e</em> CTR ruim dentro do próprio conjunto:</p>
+    <ul>
+      <li><strong>QualiÓtica SG · Meio Feed Exame de vista</strong> — R$28,80, CPL R$5,76 contra R$3,48 do conjunto, CTR 1,53%. Enterra.</li>
+      <li><strong>Gávea · Vídeo Emerson Cupom</strong> — CPL R$4,96 contra R$3,99 do conjunto. Fica em observação: o CTR é 4,28%, então o problema pode ser o destino, não a peça.</li>
+      <li><strong>Gávea inteira</strong> é o pior conjunto da conta (CPL R$3,99, maior CPM implícito, menor volume). Não é criativo — é praça cara com raio de 7 km em cima de mata. Fica como está nesta virada; assunto pra depois da Semana.</li>
+    </ul>
+    <p class="mini" style="margin-top:8px">Veredito é sempre por <strong>conjunto</strong>, nunca por criativo solto: o mesmo Vídeo Emerson é razoável em Rio Sul (R$3,33) e ruim na Gávea (R$4,96).</p>
+  </div>
+</div>
+
+<!-- 3 ============================================================ -->
+<div class="secao">
+  <h2>3 · Legendas — o antes e o depois</h2>
+
+  <div class="card">
+    <p><strong>Todas as legendas ativas estão no futuro.</strong> Levantei uma a uma: “está chegando”, “vem aí”, “prepare-se”, “seja um dos primeiros”, “você será avisado assim que a campanha começar”, “garanta o cupom antes de começar”. Não existe uma única peça no ar falando no presente.</p>
+    <p class="mini" style="margin-top:8px">Criativo no Meta é imutável: “trocar a legenda” significa criativo novo + anúncio novo, e o velho pausa. É o mesmo caminho que já usamos em 29/07 e 04/08.</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h4>Topo — 50% OFF</h4>
+      <div class="copy velho">A maior campanha do ano está chegando.
+
+SEMANA ZEISS — de 8 a 16 de agosto.
+50% OFF em todas as lentes ZEISS.
+
+Faça seu pré-cadastro e garanta seu desconto.</div>
+      <div class="copy novo">A SEMANA ZEISS começou.
+
+50% OFF em todas as lentes ZEISS — só até 16 de agosto.
+
+Garanta seu cupom em 1 minuto e retire na loja.
+
+📍 {loja} — {endereço}</div>
+    </div>
+
+    <div class="card">
+      <h4>Geo Story — por bairro</h4>
+      <div class="copy velho">Se você é do Largo do Machado e região: a SEMANA ZEISS vem aí.
+
+Faça seu pré-cadastro agora e garanta seu cupom exclusivo — você será avisado assim que a campanha começar.</div>
+      <div class="copy novo">Largo do Machado e região: a SEMANA ZEISS começou.
+
+50% de desconto em todas as lentes ZEISS, até 16 de agosto.
+
+Pegue seu cupom agora e passe na loja com a receita atualizada.
+
+📍 {loja} — {endereço}</div>
+    </div>
+
+    <div class="card">
+      <h4>Fundo — Cupom 50%</h4>
+      <div class="copy velho">Você ganhou 50% OFF em todas as lentes ZEISS.
+
+Atualize sua receita e faça seu pré-cadastro para garantir o cupom. Você será avisado assim que a campanha começar.</div>
+      <div class="copy novo">Seu cupom de 50% OFF já pode ser usado.
+
+SEMANA ZEISS: 50% em todas as lentes ZEISS, até 16 de agosto.
+
+Garanta o seu e retire na loja — leve sua receita atualizada. Tem brinde pra quem retirar.
+
+📍 {loja} — {endereço}</div>
+    </div>
+
+    <div class="card">
+      <h4>Meio — Exame / Oftalmologista</h4>
+      <div class="copy velho">Atualize seu exame de vista e prepare-se para a SEMANA ZEISS.
+
+Faça seu pré-cadastro agora e seja um dos primeiros a receber as orientações da campanha.</div>
+      <div class="copy novo">Receita vencida trava o desconto.
+
+A SEMANA ZEISS está rodando: 50% OFF em todas as lentes ZEISS até 16 de agosto. Atualize seu exame e garanta o cupom.
+
+📍 {loja} — {endereço}</div>
+    </div>
+
+    <div class="card">
+      <h4>Vídeo Emerson — Cupom</h4>
+      <div class="copy velho">Você ganhou 50% OFF (…) Você será avisado assim que a campanha começar.</div>
+      <div class="copy novo">É esta semana.
+
+50% OFF em todas as lentes ZEISS, até 16 de agosto. Garanta seu cupom e passe na loja — tem brinde pra quem retirar.
+
+📍 {loja} — {endereço}</div>
+    </div>
+
+    <div class="card">
+      <h4>Vídeo Emerson — Troca de celular</h4>
+      <div class="copy velho">Faça seu pré-cadastro e garanta o cupom antes de começar.</div>
+      <div class="copy novo">Você troca de celular todo ano. E as suas lentes, são de quando?
+
+SEMANA ZEISS até 16 de agosto: 50% OFF em todas as lentes ZEISS.
+
+📍 {loja} — {endereço}</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h4>O que o aprendizado das últimas 3 semanas manda manter</h4>
+    <ul>
+      <li><strong>Endereço da loja na legenda, sempre.</strong> Os conjuntos com geo apertado + endereço na copy entregam CPL R$2,48–2,80. Não mexer nisso.</li>
+      <li><strong>“50%” e “todas as lentes” nas duas primeiras linhas.</strong> Todo campeão da conta tem os dois lá em cima.</li>
+      <li><strong>Escassez agora é data-limite, não expectativa.</strong> Antes o gancho era “ainda não abriu”; a partir de amanhã é “termina em 16/08”. É a mesma força de urgência trocando de perna.</li>
+      <li><strong>“Receita atualizada” fica em toda peça de meio e fundo.</strong> É a objeção que trava a venda na loja.</li>
+      <li><strong>Criativo novo entra direto no conjunto principal</strong>, sem berçário e sem verba reservada — o leilão decide de graça.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 4 ============================================================ -->
+<div class="secao">
+  <h2>4 · Público — o que sai e o que fica</h2>
+
+  <div class="card alerta">
+    <h4>Primeiro, a contrariada</h4>
+    <p><strong>“Abrir mais” e “deixar só interesses de óculos” puxam pra lados opostos.</strong> Os 15 interesses de hoje moram num único grupo em <em>OU</em> — quem bate em qualquer um entra. Tirar 11 deles <strong>encolhe</strong> o público, não amplia.</p>
+    <p style="margin-top:10px">Isso não invalida o pedido: os 11 realmente não têm nada com óculos e sujam o sinal do Meta. Mas se a gente só apaga, a conta acorda amanhã <strong>mais estreita</strong> justo no dia de maior verba. Pra fazer as duas coisas ao mesmo tempo, a limpeza tem que vir junto com os três alargamentos abaixo.</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h4>Sai — nada a ver com óculos</h4>
+      <ul>
+        <li>Viagem em primeira classe</li>
+        <li>Viagem de negócios</li>
+        <li>Classe executiva</li>
+        <li>Resorts de luxo</li>
+        <li>Bens de luxo</li>
+        <li>Joias</li>
+        <li>Acessórios de moda</li>
+        <li>Compras na internet</li>
+        <li>Investimento · Investimento imobiliário · Investidor</li>
+        <li><em>Comportamento:</em> Frequent Travelers · Frequent international travelers</li>
+        <li><strong>Só no Recreio:</strong> “Household income: top 10–25% of <em>ZIP codes (US)</em>” — filtro americano numa conta brasileira. Não restringe nada, é ruído puro. <span class="pill p-erro">lixo</span></li>
+      </ul>
+      <p class="mini" style="margin-top:6px">Eram tentativa de proxy de renda. No Brasil o Meta não tem renda — quem faz esse trabalho é a geografia, e ela já está fazendo.</p>
+    </div>
+
+    <div class="card bom">
+      <h4>Fica — o núcleo</h4>
+      <ul>
+        <li><strong>Óculos</strong> <span class="mini">6004233997787</span> — o balde da categoria, é o piso de volume</li>
+        <li><strong>Lente</strong> <span class="mini">6003012046619</span></li>
+        <li><strong>Óculos de sol</strong> <span class="mini">6003255640088</span></li>
+        <li><strong>Ray-Ban</strong> <span class="mini">6002990547059</span></li>
+        <li><strong>Engaged Shoppers</strong> <span class="mini">6071631541183</span> — comportamento de compra, o item mais valioso da lista</li>
+      </ul>
+      <h4 style="margin-top:16px">Entra — mais óculos, pra compensar</h4>
+      <p class="mini">Candidatos a buscar no Meta: óculos de grau, lentes de contato, optometria, oftalmologia, miopia/astigmatismo, saúde ocular, Essilor, Chilli Beans, Sunglass Hut, óticas.</p>
+      <p style="margin-top:6px"><span class="pill p-at">ressalva honesta</span> A limpeza de interesses que o Meta fez em 15/01/2026 pode ter matado quase todos esses. Só sei quais sobreviveram indo na busca de segmentação — e se sobrar pouco, <strong>o alargamento tem que vir de idade e raio, não de interesse</strong>.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h4>Os três alargamentos que abrem de verdade</h4>
+    <div class="tabela-scroll">
+    <table>
+      <thead><tr><th>Alavanca</th><th>Hoje</th><th>Proposta</th><th>Por quê</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Idade</strong></td><td>25 – 65</td><td><strong>25 – 65+</strong></td><td>Presbiopia começa aos 40 e a lente multifocal é o produto de maior ticket da ZEISS. Cortar em 65 joga fora exatamente quem mais compra lente. <span class="pill p-ok">maior ganho da lista</span></td></tr>
+        <tr><td><strong>Raio</strong></td><td>7 km (4 praças)</td><td><strong>10 km</strong> em Icaraí, Gávea, Rio Sul</td><td>Os três estão cercados de água e mata — o anel extra cai em Flamengo/Urca, Leblon/Jd. Botânico e Santa Rosa/Ingá. Terreno bom. <strong>Largo do Machado fica em 7 km</strong>: lá o anel extra vaza pra Tijuca e São Cristóvão.</td></tr>
+        <tr><td><strong>Posicionamento</strong></td><td>manual, sem Explore no IG</td><td>manter manual</td><td>Não mexer. É a única variável que hoje separa a leitura por formato.</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="mini" style="margin-top:10px">O resto continua idêntico: Advantage+ desligado, ambos os gêneros, Facebook + Instagram, casa e recente. <strong>Nenhuma lista de exclusão</strong> — quem já pegou cupom precisa ser lembrado de ir à loja, não escondido.</p>
+  </div>
+
+  <div class="card">
+    <h4>A oportunidade parada</h4>
+    <p>A conta tem <strong>~9.000 pessoas em 6 listas de remarketing</strong> (Largo do Machado 4.100, Icaraí 1.500, Gávea 1.300, Rio Sul 1.000, Quali Niterói 1.200, Quali SG 1.000) + <strong>551 leads captados</strong> nesta campanha — e <strong>nenhum conjunto está usando isso</strong>. Na semana da promoção, esse é o público mais barato e mais quente que existe: gente que já demonstrou interesse e mora do lado da loja.</p>
+    <p style="margin-top:8px"><strong>Proposta:</strong> 1 conjunto de remarketing por bandeira (2 no total), R$25/dia cada, com a peça de fundo “seu cupom já pode ser usado”. Sai de verba nova ou de R$25/dia de cada conjunto — <strong>é decisão tua</strong>, porque mexer em orçamento reseta o aprendizado dos conjuntos tocados.</p>
+  </div>
+</div>
+
+<!-- 5 ============================================================ -->
+<div class="secao">
+  <h2>5 · O funil inteiro — peça por peça</h2>
+
+  <div class="card">
+    <div class="tabela-scroll">
+    <table>
+      <thead><tr><th>Etapa</th><th>O que diz hoje</th><th>Veredito</th><th>O que fazer</th></tr></thead>
+      <tbody>
+        <tr class="morre"><td><strong>Landing / quiz</strong><br><span class="mini">zeiss-quiz · qualiotica-quiz<br>(v1 e v2, teste A/B)</span></td><td>“<strong>PREPARE-SE</strong> · A maior campanha do ano para trocar seus óculos · DE 08 A 16 DE AGOSTO”</td><td><span class="pill p-erro">Errado</span></td><td>“<strong>COMEÇOU</strong> · 50% OFF em todas as lentes ZEISS · <strong>termina em 16 de agosto</strong>” + contador de dias restantes. Trocar nas 4 páginas (2 marcas × 2 variantes). <strong>Bumpar o <code>?v=</code></strong> senão quem já visitou continua vendo a versão velha do cache.</td></tr>
+        <tr class="morre"><td><strong>Página do cupom</strong><br><span class="mini">zeiss-cupom · qualiotica-cupom</span></td><td>“<strong>SEMANA ZEISS VEM AÍ!</strong> · DE 08 A 16 DE AGOSTO · Cupom garantido”</td><td><span class="pill p-erro">Errado</span></td><td>“SEMANA ZEISS <strong>COMEÇOU</strong> — seu cupom já vale hoje”. E é aqui que falta o empurrão: um botão grande <strong>“Falar com a loja no WhatsApp”</strong> e o endereço + rota da unidade escolhida, logo abaixo do cupom.</td></tr>
+        <tr class="fica"><td><strong>E-mail de confirmação</strong><br><span class="mini">Cloudflare Worker + Resend</span></td><td>“Prontinho, {nome}! Seu cupom de 50% está garantido… válido de 08 a 16 de agosto… apresente este e-mail na loja”</td><td><span class="pill p-ok">Serve</span></td><td>Não quebra nada. Ajuste de 2 linhas pra ganhar urgência: assunto vira “<strong>A Semana ZEISS começou — seu cupom já vale</strong>” e o título “Seu cupom está valendo, {nome}”. Baixa prioridade.</td></tr>
+        <tr class="fica"><td><strong>Boas-vindas no WhatsApp</strong><br><span class="mini">template <code>confirmacao_cupom_zeiss</code> · UTILIDADE · aprovado</span></td><td>“Seu cadastro foi confirmado e seu cupom da Semana ZEISS já está registrado! Unidade / Endereço / Período: 08 a 16 de agosto”</td><td><span class="pill p-ok">Serve</span> <span class="pill p-at">dá pra melhorar</span></td><td><strong>Não trocar hoje.</strong> Ele é UTILIDADE (barato e entregável) e não fala no futuro — sobrevive à virada. O que falta é o “<em>já pode usar hoje</em>” e o convite pra loja. Caminho certo: <strong>subir um template novo em paralelo</strong> (<code>cupom_ativo_zeiss</code>) e só trocar quando a Meta aprovar — nunca apagar o que está funcionando na véspera do disparo.</td></tr>
+        <tr class="fica"><td><strong>Agente de IA (WhatsApp)</strong><br><span class="mini">prompt v7</span></td><td>“De 08 a 16 de agosto é a Semana Zeiss… seu cupom já está registrado no sistema”</td><td><span class="pill p-ok">Serve</span></td><td>Já está no presente. Faltam 2 frases: o senso de “é agora, termina dia 16” e o fechamento ativo (“quer que eu já reserve teu horário na {loja}?”). Ajuste de prompt, sem risco.</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- 6 ============================================================ -->
+<div class="secao">
+  <h2>6 · O disparo de amanhã</h2>
+
+  <div class="card bom">
+    <h4>O template certo já existe e está aprovado</h4>
+    <div class="copy novo">inicio_semana_zeiss · APROVADO · marketing
+
+Olá, {{1}}! 👋
+A Semana ZEISS *começou* e seu cupom já está válido.
+
+📍 Unidade: {{2}}
+🗺️ Endereço: {{3}}
+
+🗓️ Período de uso: até 16 de agosto
+
+Se precisar alterar a unidade ou tiver dúvida, é só responder esta mensagem.</div>
+    <p style="margin-top:12px">É exatamente a mensagem da virada, com as 3 variáveis que a gente já popula (nome, unidade, endereço). <strong>Nada a criar.</strong></p>
+  </div>
+
+  <div class="card alerta">
+    <h4>A base não é uma só — e isso muda o template</h4>
+    <p>Ontem saíram 544 mensagens pros cadastrados. Amanhã entram também <strong>as 7 planilhas de base do cliente (2020–2026)</strong>, que ainda não foram processadas. <strong>Os dois grupos não podem receber a mesma coisa.</strong></p>
+    <div class="tabela-scroll" style="margin-top:12px">
+    <table>
+      <thead><tr><th>Quem</th><th class="n">Tamanho</th><th>Template</th><th>Por quê</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Cadastrados na campanha</strong><br><span class="mini">pediram o cupom, opt-in explícito</span></td><td class="n">~551</td><td><code>inicio_semana_zeiss</code><br><span class="pill p-at">marketing</span></td><td>Pediram pra ser avisados quando começasse. Marketing aqui é o certo e é o que converte.</td></tr>
+        <tr><td><strong>Base histórica do cliente</strong><br><span class="mini">7 planilhas, clientes de loja, sem opt-in nesta campanha</span></td><td class="n">a apurar</td><td><code>cliente_base_prazo</code> ou <code>cliente_base_cadastro</code><br><span class="pill p-ok">utilidade</span></td><td>Marketing em massa pra quem não pediu é o caminho mais rápido pra denúncia e queda de qualidade do número. Os templates de utilidade falam de <em>registro e prazo</em> — passam, custam menos e não queimam a conta.</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="mini" style="margin-top:10px">Cuidados já mapeados nas planilhas: coluna de telefone às vezes traz a palavra “REPETIDO”; o nome da coluna muda entre arquivos (<code>nome</code> × <code>RAZAO</code>); cada planilha é de uma loja — dá pra ancorar a mensagem na unidade certa.</p>
+  </div>
+</div>
+
+<!-- 7 ============================================================ -->
+<div class="secao">
+  <h2>7 · Plano de execução</h2>
+
+  <div class="passo"><div class="n">1</div>
+    <h3>Legendas — as 28 que carregam a verba</h3>
+    <p>Criativo novo + anúncio novo com a copy de presente, o velho pausa. Não são os 79: 28 anúncios respondem por 95% da entrega; o resto entra depois sem pressa.</p>
+    <p class="mini">Preciso de: <strong>aval explícito pra criar e pausar na conta.</strong></p>
+  </div>
+
+  <div class="passo"><div class="n">2</div>
+    <h3>Cirurgia nas 2 artes com “está chegando”</h3>
+    <p>Troco a linha nas duas peças, te mostro lado a lado e só subo com teu ok. A terceira (“Não espere”) sai hoje sem substituto — custa R$0,10/dia.</p>
+    <p class="mini">Preciso de: <strong>tua aprovação visual das artes.</strong></p>
+  </div>
+
+  <div class="passo"><div class="n">3</div>
+    <h3>Páginas — quiz e cupom, nas 2 marcas</h3>
+    <p>“PREPARE-SE” → “COMEÇOU”, “VEM AÍ” → “já vale hoje”, contador até 16/08, botão de WhatsApp da loja na página do cupom. Bump do <code>?v=</code> em tudo.</p>
+    <p class="mini">Faço sozinho — é nosso repositório, sem risco de conta de anúncio.</p>
+  </div>
+
+  <div class="passo"><div class="n">4</div>
+    <h3>Público — limpar e alargar no mesmo movimento</h3>
+    <p>Tirar os 11 interesses + 2 comportamentos + o filtro de renda americano do Recreio; abrir idade pra 65+; raio pra 10 km em Icaraí, Gávea e Rio Sul. Antes disso, buscar quais interesses de óculos ainda existem depois da limpeza de janeiro.</p>
+    <p class="mini">Preciso de: <strong>aval explícito por conjunto</strong> — são 7 edições de <code>targeting</code>.</p>
+  </div>
+
+  <div class="passo"><div class="n">5</div>
+    <h3>Agente de IA e e-mail — os 2 ajustes pequenos</h3>
+    <p>Prompt do agente ganha urgência + fechamento ativo. E-mail troca assunto e título. Ambos sem risco.</p>
+  </div>
+
+  <div class="passo"><div class="n">6</div>
+    <h3>Amanhã cedo — o disparo</h3>
+    <p><code>inicio_semana_zeiss</code> pros 551 cadastrados; templates de utilidade pras 7 listas do cliente depois da faxina. Em paralelo, subir o template novo de boas-vindas pra aprovação.</p>
+  </div>
+
+  <div class="card" style="background:var(--preto);color:var(--branco);margin-top:26px">
+    <h4 style="color:var(--amarelo)">O que fica de fora desta virada — de propósito</h4>
+    <ul style="margin-top:6px">
+      <li>Conjunto de remarketing com as ~9.000 pessoas paradas — <strong>é a maior oportunidade da conta</strong>, mas mexe em verba e reseta aprendizado. Merece decisão tua, separado.</li>
+      <li>A letra miúda dos 7 Geo Story (“você será avisado quando começar”) — vai pro designer, não vale matar as peças de maior entrega por corpo 6.</li>
+      <li>Gávea como praça cara — assunto pra depois da Semana.</li>
+      <li>Replicar Reels pras outras 6 praças — só depois que os 3 primeiros mostrarem alguma coisa.</li>
+    </ul>
+    <ul style="margin-top:14px">
+      <li style="color:var(--amarelo)"><strong>E o que eu preciso de ti antes de começar:</strong></li>
+      <li>O áudio do vídeo do Emerson (IMG_0052) menciona que a campanha “vai começar”? Se sim, o vídeo cai com os outros.</li>
+      <li>O que é o vídeo novo de hoje 16h40 na pasta de criativos?</li>
+      <li>Aval pra mexer na conta — item por item, como está acima.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="rodape">
+  White Window · Dossiê da virada da Semana ZEISS · 07/08/2026 · conta <code>act_1301873374785401</code><br>
+  Fontes: leitura ao vivo da API do Meta (campanhas, conjuntos, 79 anúncios, legendas e segmentações), arquivos das 23 artes, código das páginas de captura e cupom, Worker de e-mail, prompt v7 do agente e os 11 templates de WhatsApp da WABA <code>1745774253125097</code>.<br>
+  <strong>Nenhuma alteração foi feita em nenhuma plataforma.</strong>
+</div>
+
+</div>
+</body>
+</html>

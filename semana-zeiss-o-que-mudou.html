@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semana ZEISS — o que mudou na virada · 08/08/2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --amarelo:#FEBE28; --preto:#000; --branco:#FFF; --azure:#ECF8F8;
+  --cinza:#707070; --tinta:#131313; --ok:#b6f0c2; --erro-fundo:#ffd9d9;
+  --borda:3px solid var(--preto); --sombra:6px 6px 0 var(--preto); --sombra-p:4px 4px 0 var(--preto);
+}
+*{margin:0;padding:0;box-sizing:border-box;border-radius:0!important}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--azure);color:var(--tinta);font-size:17px;line-height:1.5;padding:32px 20px 80px}
+.wrap{max-width:900px;margin:0 auto}
+h1,h2,h3,.num{font-family:'Big Shoulders Display',sans-serif;text-transform:uppercase;line-height:.95}
+h1{font-size:3.2rem;font-weight:800}
+h2{font-size:1.6rem;font-weight:800}
+strong{font-weight:800}
+.mini{font-size:.82rem;color:var(--cinza)}
+
+.topo{background:var(--branco);border:var(--borda);box-shadow:var(--sombra);padding:26px 28px;margin-bottom:22px}
+.marcas{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-bottom:3px solid var(--preto);padding-bottom:12px;margin-bottom:16px;font-family:'Big Shoulders Display';font-weight:800;text-transform:uppercase;font-size:1.05rem}
+.tarja{display:inline-block;background:var(--preto);color:var(--branco);font-family:'Big Shoulders Display';font-weight:800;text-transform:uppercase;padding:5px 12px;font-size:.95rem;box-shadow:4px 4px 0 var(--amarelo);margin-bottom:12px}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-bottom:34px}
+.kpi{background:var(--preto);color:var(--branco);border:var(--borda);box-shadow:6px 6px 0 var(--amarelo);padding:16px}
+.kpi .num{font-size:2.5rem;font-weight:800;display:block;line-height:1}
+.kpi .rot{display:block;font-size:.74rem;text-transform:uppercase;font-weight:800;color:var(--amarelo);margin-top:8px;line-height:1.25}
+
+.bloco{background:var(--amarelo);border:var(--borda);box-shadow:var(--sombra);padding:44px 22px 22px;margin-bottom:38px;position:relative}
+.bloco>h2{position:absolute;top:-18px;left:20px;background:var(--preto);color:var(--branco);padding:7px 16px;box-shadow:4px 4px 0 var(--branco)}
+.card{background:var(--branco);border:var(--borda);box-shadow:var(--sombra-p);padding:20px}
+
+.antes-depois{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;background:var(--branco);border:var(--borda);box-shadow:var(--sombra-p);margin-bottom:16px}
+.ad-lado{padding:16px 18px}
+.ad-lado.antes{background:var(--erro-fundo)}
+.ad-lado.depois{background:var(--ok)}
+.ad-rot{font-family:'Big Shoulders Display';font-weight:800;text-transform:uppercase;font-size:.9rem;margin-bottom:6px}
+.ad-seta{display:flex;align-items:center;justify-content:center;padding:0 10px;background:var(--preto);color:var(--branco);font-family:'Big Shoulders Display';font-weight:800;font-size:1.6rem}
+@media(max-width:640px){.antes-depois{grid-template-columns:1fr}.ad-seta{padding:6px;font-size:1.2rem}}
+
+table{width:100%;border-collapse:collapse;background:var(--branco);font-size:.94rem}
+th{background:var(--preto);color:var(--branco);font-family:'Big Shoulders Display';font-weight:800;text-transform:uppercase;font-size:.95rem;padding:9px 12px;text-align:left}
+td{padding:10px 12px;border-bottom:2px solid #d8d6cf;vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700}
+.tabela-scroll{overflow-x:auto}
+
+ul{list-style:none;margin-top:8px}
+ul li{position:relative;padding-left:22px;margin-bottom:9px}
+ul li::before{content:"";position:absolute;left:0;top:9px;width:9px;height:9px;background:var(--preto)}
+
+.frase{background:var(--preto);color:var(--branco);border:var(--borda);box-shadow:6px 6px 0 var(--amarelo);padding:22px 26px;margin-bottom:38px;font-size:1.15rem;line-height:1.45}
+.frase b{color:var(--amarelo)}
+.rodape{margin-top:40px;padding-top:16px;border-top:3px solid var(--preto);font-size:.8rem;color:var(--cinza)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="topo">
+  <div class="marcas"><span>White Window</span><span>ZEISS Vision Center · QualiÓtica</span></div>
+  <div class="tarja">08 de agosto de 2026 · dia 1 da campanha</div>
+  <h1>O que mudou<br>na virada</h1>
+  <p style="margin-top:12px;max-width:640px">Até ontem a campanha inteira anunciava que a Semana <strong>ia começar</strong>. Hoje ela começou. Trocamos a comunicação toda e mudamos a mira do investimento.</p>
+</div>
+
+<div class="kpis">
+  <div class="kpi"><span class="num">22</span><span class="rot">anúncios no ar<br>(eram 79)</span></div>
+  <div class="kpi"><span class="num">18</span><span class="rot">peças refeitas<br>com texto novo</span></div>
+  <div class="kpi"><span class="num">8</span><span class="rot">páginas<br>atualizadas</span></div>
+  <div class="kpi"><span class="num">599</span><span class="rot">cadastros viraram<br>público de mira</span></div>
+</div>
+
+<div class="frase">
+  A primeira fase foi de <b>alcance</b>: falar com muita gente pra encher a lista de cadastros. Deu <b>496 cadastros em 7 dias, a R$ 3,13 cada</b>.<br><br>
+  A partir de hoje o dinheiro muda de alvo: sai de <b>quem talvez tenha interesse</b> e vai pra <b>quem já demonstrou</b> — nossos cadastrados, os clientes das lojas e as pessoas parecidas com eles.
+</div>
+
+<!-- 1 -->
+<div class="bloco">
+  <h2>1 · A comunicação</h2>
+  <div class="antes-depois">
+    <div class="ad-lado antes">
+      <div class="ad-rot">Ontem</div>
+      “A maior campanha do ano <strong>está chegando</strong>.”<br>
+      “A Semana ZEISS <strong>vem aí</strong>.”<br>
+      “<strong>Prepare-se</strong>.”<br>
+      “Você <strong>será avisado</strong> quando a campanha começar.”
+    </div>
+    <div class="ad-seta">→</div>
+    <div class="ad-lado depois">
+      <div class="ad-rot">Hoje</div>
+      “A SEMANA ZEISS <strong>começou</strong>.”<br>
+      “Seu cupom <strong>já pode ser usado</strong>.”<br>
+      “<strong>É esta semana</strong> — só até 16 de agosto.”<br>
+      “Passe na loja com a receita atualizada.”
+    </div>
+  </div>
+  <div class="card">
+    <p>No Meta o texto de um anúncio <strong>não pode ser editado</strong>: para mudar uma frase é preciso recriar a peça inteira. Por isso foram <strong>18 peças refeitas do zero</strong>, cada uma com o endereço da loja daquela região no texto.</p>
+    <p style="margin-top:10px">Três conceitos saíram de vez porque o “está chegando” estava <strong>escrito dentro da arte</strong> — não havia como corrigir por texto.</p>
+  </div>
+</div>
+
+<!-- 2 -->
+<div class="bloco">
+  <h2>2 · Os anúncios: 79 → 22</h2>
+  <div class="card">
+    <p>Com 10 anúncios disputando o mesmo espaço, o Facebook concentra a entrega em 2 ou 3 e o resto quase não aparece. <strong>Agora são 2 por grupo: o que mais performou + a peça nova.</strong> Menos peça, mais entrega em cada uma, leitura mais clara do que funciona.</p>
+    <div class="tabela-scroll" style="margin-top:14px">
+    <table>
+      <thead><tr><th>Região</th><th>Peça campeã que ficou</th><th>Peça nova que entrou</th></tr></thead>
+      <tbody>
+        <tr><td>Largo do Machado · Rio Sul · Gávea · Recreio</td><td>“50% OFF em todas as lentes”</td><td>Vídeo do Emerson na loja</td></tr>
+        <tr><td>Icaraí</td><td>Peça do bairro (custo por cadastro R$ 2,23)</td><td>Vídeo do Emerson na loja</td></tr>
+        <tr><td>QualiÓtica Niterói</td><td>Peça do bairro (custo por cadastro R$ 1,69)</td><td>Reel novo da QualiÓtica</td></tr>
+        <tr><td>QualiÓtica São Gonçalo</td><td>Peça da cidade</td><td>Reel novo da QualiÓtica</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="mini" style="margin-top:10px">O vídeo do Emerson foi gravado dentro do ZEISS Vision Center, então roda só nas lojas ZEISS. Os Reels são da QualiÓtica e rodam só nas lojas QualiÓtica. As marcas não se misturam.</p>
+  </div>
+</div>
+
+<!-- 3 -->
+<div class="bloco">
+  <h2>3 · Para quem estamos falando agora</h2>
+  <div class="card">
+    <p>Foram criados <strong>4 grupos novos</strong> de investimento, com R$ 25 por dia cada, mirando <strong>quem já tem relação com as lojas</strong>:</p>
+    <div class="tabela-scroll" style="margin-top:14px">
+    <table>
+      <thead><tr><th>Grupo novo</th><th>Quem recebe o anúncio</th><th class="n">Tamanho</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Remarketing ZEISS</strong></td><td>Quem já interagiu com as lojas ZEISS e quem entrou na página e não terminou o cadastro</td><td class="n">+7.700</td></tr>
+        <tr><td><strong>Remarketing QualiÓtica</strong></td><td>Mesma lógica, nas lojas de Niterói e São Gonçalo</td><td class="n">+2.200</td></tr>
+        <tr><td><strong>Semelhantes ZEISS</strong></td><td>Pessoas com perfil parecido com os cadastrados e com o público das lojas</td><td class="n">1%<br>mais parecido</td></tr>
+        <tr><td><strong>Semelhantes QualiÓtica</strong></td><td>Idem, na região de Niterói e São Gonçalo</td><td class="n">1%<br>mais parecido</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <ul style="margin-top:16px">
+      <li><strong>Os 599 cadastrados da campanha viraram base de mira.</strong> O Facebook procura pessoas com o mesmo perfil de quem já quis o cupom — é o público mais qualificado que a conta tem hoje.</li>
+      <li><strong>Quem já pegou o cupom foi excluído dos anúncios.</strong> Essa pessoa já está sendo atendida por WhatsApp e e-mail; não faz sentido pagar de novo para alcançá-la.</li>
+      <li><strong>A segmentação por interesse foi enxugada para o que é óculos.</strong> Ficaram óculos, lentes, óculos de sol, Ray-Ban e quem compra por anúncio. Saíram 13 filtros que não tinham relação com o produto (viagem, joias, investimento, itens de luxo).</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 4 -->
+<div class="bloco">
+  <h2>4 · As páginas</h2>
+  <div class="card">
+    <p>As <strong>8 páginas</strong> das duas marcas foram atualizadas:</p>
+    <ul>
+      <li>Abertura passou de <strong>“prepare-se”</strong> para <strong>“começou”</strong></li>
+      <li><strong>Contador de prazo</strong> — a página mostra sozinha quantos dias faltam e vira “último dia” no dia 16</li>
+      <li>Na página do cupom, um <strong>botão grande de WhatsApp</strong> que leva direto ao atendimento da marca certa — o cliente sai do cadastro já conversando</li>
+      <li>Página de cupom agora diz que o desconto <strong>já vale hoje</strong>, é só passar na loja escolhida</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 5 -->
+<div class="bloco">
+  <h2>5 · O que acontece agora</h2>
+  <div class="card">
+    <ul>
+      <li><strong>Disparo para toda a base cadastrada</strong> avisando que a Semana começou e o cupom já está válido, com a unidade e o endereço de cada pessoa.</li>
+      <li><strong>Investimento de R$ 450 por dia</strong> nas duas marcas, distribuído entre as 7 regiões e os 4 grupos novos.</li>
+      <li><strong>Acompanhamento diário</strong> de cadastros e custo por cadastro, por região, até o dia 16.</li>
+      <li>Espaço reservado nos grupos para as <strong>peças novas que chegarem esta semana</strong>.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="rodape">
+  White Window · Semana ZEISS 2026 · documento gerado em 08/08/2026.<br>
+  Números de desempenho referentes aos 7 dias anteriores à virada, lidos direto da conta de anúncios.
+</div>
+
+</div>
+</body>
+</html>

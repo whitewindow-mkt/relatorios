@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Semana ZEISS — Painel da Campanha · White Window</title>
+<style>
+  :root{
+    --bg:#ecf8f8; --surface:#ffffff; --border:#eae6df;
+    --text:#161311; --muted:#7a746c; --dim:#a8a196;
+    --orange:#f2620f; --orange-dark:#c94e0a; --yellow:#febe28; --black:#000;
+    --zeiss:#0050ff; --quali:#9a003c; --ok:#1a9e60;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.5}
+  .dual-header{display:flex;justify-content:space-between;align-items:center;background:var(--surface);border-bottom:1px solid var(--border);padding:16px 32px;gap:16px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:12px}
+  .mark{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px}
+  .mark-ww{background:var(--yellow);color:var(--black)}
+  .mark-cli{background:var(--zeiss);color:#fff}
+  .brand-name{color:var(--text);font-weight:700;font-size:14px}
+  .brand-role{color:var(--muted);font-size:10.5px}
+  .brand-right{text-align:right}
+  .header-mid{text-align:center}
+  .platform-badge{display:inline-block;background:#fff4d6;color:#7a5d00;border:1px solid #f3dfa0;font-size:11px;font-weight:700;padding:7px 16px;border-radius:999px;letter-spacing:.4px}
+  .header-date{color:var(--muted);font-size:10.5px;margin-top:6px}
+  .page{max-width:1080px;margin:0 auto;padding:34px 24px 56px}
+  .report-hero{text-align:center;margin-bottom:30px}
+  .report-hero h1{font-size:28px;font-weight:800;letter-spacing:-.4px;margin-bottom:6px}
+  .report-hero h1 em{font-style:normal;color:var(--orange)}
+  .hero-sub{font-size:12.5px;color:var(--muted)}
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:26px}
+  .kpi{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;border-top:3px solid var(--orange)}
+  .kpi:nth-child(2){border-top-color:var(--black)}
+  .kpi:nth-child(3){border-top-color:var(--yellow)}
+  .kpi:nth-child(4){border-top-color:var(--orange-dark)}
+  .kpi:nth-child(5){border-top-color:var(--ok)}
+  .kpi-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;font-weight:700;margin-bottom:6px}
+  .kpi-val{font-size:25px;font-weight:800;letter-spacing:-.3px;line-height:1;color:var(--text)}
+  .kpi-val.ok{color:var(--ok)}
+  .kpi-sub{font-size:11px;color:var(--muted);margin-top:5px}
+  .highlight{display:flex;align-items:center;gap:20px;background:#fffaeb;border:1px solid #f3dfa0;border-left:5px solid var(--yellow);border-radius:14px;padding:22px 28px;margin-bottom:28px;color:var(--text);flex-wrap:wrap}
+  .hl-body h3{font-size:15px;font-weight:700;margin-bottom:5px}
+  .hl-body p{font-size:12.5px;color:#6b6455;line-height:1.6;max-width:560px}
+  .hl-body p strong{color:var(--text)}
+  .hl-right{text-align:right;margin-left:auto;flex-shrink:0}
+  .hl-val{font-size:34px;font-weight:800;letter-spacing:-.5px;line-height:1;color:var(--orange-dark)}
+  .hl-sub{font-size:10px;color:var(--muted);margin-top:4px}
+  .section-label{padding:0 0 8px 0;margin:26px 0 14px;color:var(--text);font-size:13px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;border-bottom:2px solid var(--yellow);display:inline-block}
+  .grid{display:grid;grid-template-columns:1.35fr 1fr;gap:14px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  @media(max-width:860px){.grid,.grid2{grid-template-columns:1fr}}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 22px}
+  .card h2{font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:16px}
+  .bars{display:flex;align-items:flex-end;gap:10px;height:170px}
+  .bcol{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:6px}
+  .bcol .bar{width:100%;max-width:54px;background:var(--orange);border-radius:4px 4px 0 0}
+  .bcol .bar.dim{background:#f8c9a8}
+  .bcol .num{font-size:13px;font-weight:700}
+  .bcol .lab{font-size:11px;color:var(--dim)}
+  .hrow{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+  .hrow .hl{width:150px;font-size:12px;color:var(--muted);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hrow .htrack{flex:1;background:#f4f1ec;border-radius:4px;height:18px}
+  .hrow .hfill{height:100%;border-radius:4px;background:var(--zeiss)}
+  .hrow .hfill.q{background:var(--quali)}
+  .hrow .hfill.o{background:var(--orange)}
+  .hrow .hv{font-size:12px;font-weight:700;width:76px}
+  .split{display:flex;height:28px;border-radius:6px;overflow:hidden;gap:2px;margin:4px 0 10px}
+  .split div{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff}
+  .leg{display:flex;gap:18px;font-size:12px;color:var(--muted)}
+  .leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+  .status{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:14px}
+  .st{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;gap:12px;align-items:flex-start}
+  .st .dot{width:10px;height:10px;border-radius:50%;margin-top:5px;flex-shrink:0;background:var(--ok)}
+  .st b{display:block;font-size:13px}
+  .st span{color:var(--muted);font-size:12px}
+  .note{color:var(--dim);font-size:11px;margin-top:12px}
+  .report-footer{display:flex;justify-content:space-between;align-items:center;margin-top:36px;padding-top:18px;border-top:1px solid var(--border);color:var(--muted);font-size:11px;flex-wrap:wrap;gap:10px}
+</style>
+</head>
+<body>
+
+<div class="dual-header">
+  <div class="brand">
+    <div class="mark mark-ww">WW</div>
+    <div class="brand-info">
+      <div class="brand-name">White Window</div>
+      <div class="brand-role">Agência de Marketing Digital</div>
+    </div>
+  </div>
+  <div class="header-mid">
+    <div class="platform-badge">SEMANA ZEISS · Painel da Campanha</div>
+    <div class="header-date">Pré-lançamento · dados de 04/08/2026</div>
+  </div>
+  <div class="brand" style="flex-direction:row-reverse">
+    <div class="mark mark-cli">QZ</div>
+    <div class="brand-info brand-right">
+      <div class="brand-name">QualiÓtica &amp; ZEISS</div>
+      <div class="brand-role">Rede de Óticas · Vision Center</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+<div class="report-hero">
+  <h1>A campanha abre em <em>4 dias</em> — e a base já está pronta</h1>
+  <div class="hero-sub">Semana ZEISS · 08 a 16 de agosto · 50% OFF em lentes ZEISS</div>
+</div>
+
+<div class="kpi-grid">
+  <div class="kpi"><div class="kpi-lbl">Leads captados</div><div class="kpi-val">409</div><div class="kpi-sub">cadastros únicos no pré-lançamento</div></div>
+  <div class="kpi"><div class="kpi-lbl">Leads hoje</div><div class="kpi-val">106</div><div class="kpi-sub">2º melhor dia · ritmo crescente</div></div>
+  <div class="kpi"><div class="kpi-lbl">Custo por lead hoje</div><div class="kpi-val">R$ 2,86</div><div class="kpi-sub">mercado local: ~R$ 7</div></div>
+  <div class="kpi"><div class="kpi-lbl">Investido hoje</div><div class="kpi-val">R$ 238</div><div class="kpi-sub">2 campanhas · 7 regiões</div></div>
+  <div class="kpi"><div class="kpi-lbl">Resposta automática</div><div class="kpi-val ok">Ativa</div><div class="kpi-sub">e-mail + WhatsApp nas 2 marcas</div></div>
+</div>
+
+<div class="highlight">
+  <div class="hl-body">
+    <h3>Volume quase 5x maior com a otimização da estratégia</h3>
+    <p>Na virada de 01→03/08, concentramos todo o investimento nas campanhas de <strong>cadastro</strong> e liberamos a divulgação da data. Resultado: de ~30 leads/dia para <strong>mais de 100 leads/dia</strong>, com custo por lead <strong>60% abaixo do mercado</strong>. Cada lead recebe confirmação automática por e-mail e WhatsApp, com a unidade que escolheu.</p>
+  </div>
+  <div class="hl-right">
+    <div class="hl-val">106</div>
+    <div class="hl-sub">leads só hoje</div>
+  </div>
+</div>
+
+<div class="section-label">Evolução diária</div>
+<div class="grid">
+  <div class="card">
+    <h2>Leads por dia</h2>
+    <div class="bars">
+      <div class="bcol"><span class="num">22</span><div class="bar dim" style="height:19%"></div><span class="lab">30/07</span></div>
+      <div class="bcol"><span class="num">26</span><div class="bar dim" style="height:23%"></div><span class="lab">31/07</span></div>
+      <div class="bcol"><span class="num">33</span><div class="bar dim" style="height:29%"></div><span class="lab">01/08</span></div>
+      <div class="bcol"><span class="num">72</span><div class="bar" style="height:63%"></div><span class="lab">02/08</span></div>
+      <div class="bcol"><span class="num">115</span><div class="bar" style="height:100%"></div><span class="lab">03/08</span></div>
+      <div class="bcol"><span class="num">106</span><div class="bar" style="height:92%"></div><span class="lab">04/08</span></div>
+    </div>
+    <div class="note">Barras claras: fase de teste · Barras cheias: estratégia otimizada de cadastro</div>
+  </div>
+  <div class="card">
+    <h2>Leads de hoje por marca</h2>
+    <div class="split">
+      <div style="width:72%;background:var(--zeiss)">ZEISS · 76</div>
+      <div style="width:28%;background:var(--quali)">30</div>
+    </div>
+    <div class="leg"><span><i style="background:var(--zeiss)"></i>ZEISS Vision Center (72%)</span><span><i style="background:var(--quali)"></i>QualiÓtica (28%)</span></div>
+    <h2 style="margin-top:22px">Investimento × retorno (hoje)</h2>
+    <div class="hrow"><span class="hl">ZEISS — investido</span><div class="htrack"><div class="hfill" style="width:100%"></div></div><span class="hv">R$ 179</span></div>
+    <div class="hrow"><span class="hl">ZEISS — custo/lead</span><div class="htrack"><div class="hfill" style="width:46%"></div></div><span class="hv">R$ 3,20</span></div>
+    <div class="hrow"><span class="hl">Quali — investido</span><div class="htrack"><div class="hfill q" style="width:33%"></div></div><span class="hv">R$ 58</span></div>
+    <div class="hrow"><span class="hl">Quali — custo/lead</span><div class="htrack"><div class="hfill q" style="width:31%"></div></div><span class="hv">R$ 2,17</span></div>
+  </div>
+</div>
+
+<div class="section-label">Por região e por loja</div>
+<div class="grid2" style="margin-top:0">
+  <div class="card">
+    <h2>Custo por lead por região (hoje)</h2>
+    <div class="hrow"><span class="hl">QualiÓtica Niterói</span><div class="htrack"><div class="hfill q" style="width:38%"></div></div><span class="hv">R$ 1,60</span></div>
+    <div class="hrow"><span class="hl">Icaraí</span><div class="htrack"><div class="hfill" style="width:61%"></div></div><span class="hv">R$ 2,56</span></div>
+    <div class="hrow"><span class="hl">Recreio</span><div class="htrack"><div class="hfill" style="width:63%"></div></div><span class="hv">R$ 2,66</span></div>
+    <div class="hrow"><span class="hl">Gávea</span><div class="htrack"><div class="hfill" style="width:78%"></div></div><span class="hv">R$ 3,26</span></div>
+    <div class="hrow"><span class="hl">Largo do Machado</span><div class="htrack"><div class="hfill" style="width:86%"></div></div><span class="hv">R$ 3,61</span></div>
+    <div class="hrow"><span class="hl">QualiÓtica S. Gonçalo</span><div class="htrack"><div class="hfill q" style="width:92%"></div></div><span class="hv">R$ 3,85</span></div>
+    <div class="hrow"><span class="hl">Rio Sul</span><div class="htrack"><div class="hfill" style="width:100%"></div></div><span class="hv">R$ 4,20</span></div>
+    <div class="note">Todas as regiões operando bem abaixo da referência de mercado (~R$ 7)</div>
+  </div>
+  <div class="card">
+    <h2>Leads de hoje por loja escolhida</h2>
+    <div class="hrow"><span class="hl">ZEISS Rio Sul</span><div class="htrack"><div class="hfill" style="width:100%"></div></div><span class="hv">21</span></div>
+    <div class="hrow"><span class="hl">ZEISS Recreio</span><div class="htrack"><div class="hfill" style="width:100%"></div></div><span class="hv">21</span></div>
+    <div class="hrow"><span class="hl">ZEISS Icaraí</span><div class="htrack"><div class="hfill" style="width:81%"></div></div><span class="hv">17</span></div>
+    <div class="hrow"><span class="hl">ZEISS Largo do Machado</span><div class="htrack"><div class="hfill" style="width:57%"></div></div><span class="hv">12</span></div>
+    <div class="hrow"><span class="hl">Quali Tiffany</span><div class="htrack"><div class="hfill q" style="width:43%"></div></div><span class="hv">9</span></div>
+    <div class="hrow"><span class="hl">ZEISS Gávea</span><div class="htrack"><div class="hfill" style="width:24%"></div></div><span class="hv">5</span></div>
+    <div class="hrow"><span class="hl">Quali Mariz e Barros</span><div class="htrack"><div class="hfill q" style="width:19%"></div></div><span class="hv">4</span></div>
+    <div class="hrow"><span class="hl">Quali Av. Sete</span><div class="htrack"><div class="hfill q" style="width:19%"></div></div><span class="hv">4</span></div>
+  </div>
+</div>
+
+<div class="section-label">Estrutura no ar</div>
+<div class="status">
+  <div class="st"><div class="dot"></div><div><b>66 anúncios ativos</b><span>Todos os criativos aprovados, separados por região, já com a data 08–16/08</span></div></div>
+  <div class="st"><div class="dot"></div><div><b>Confirmação automática</b><span>Cada lead recebe e-mail + WhatsApp com a unidade escolhida, na hora</span></div></div>
+  <div class="st"><div class="dot"></div><div><b>7 regiões segmentadas</b><span>Verba dedicada por praça: 5 lojas ZEISS + Niterói e São Gonçalo</span></div></div>
+</div>
+
+<div class="report-footer">
+  <div><b style="color:var(--text)">White Window</b> · Semana ZEISS · Painel de pré-lançamento</div>
+  <div>Fontes: Meta Ads + banco de leads próprio · 04/08/2026</div>
+</div>
+
+</div>
+</body>
+</html>
